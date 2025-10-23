@@ -164,10 +164,10 @@ namespace LMS.GUI.OrderCustomer
             lblOrderStatus.Text = $"Đơn #{order.Id} – Trạng thái: {order.Status}";
 
             var rows = (order.Shipment?.RouteStops ?? new System.Collections.Generic.List<RouteStop>())
-                        .OrderBy(rs => rs.Sequence)
+                        .OrderBy(rs => rs.Seq)
                         .Select(rs => new
                         {
-                            Seq = rs.Sequence,
+                            Seq = rs.Seq,
                             Warehouse = rs.Warehouse?.Name ?? $"#{rs.WarehouseId}",
                             Status = rs.Status.ToString(),
                             ArrivedAt = rs.ArrivedAt,

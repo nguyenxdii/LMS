@@ -1,7 +1,8 @@
 ﻿// LMS.DAL/LogisticsDbContext.cs
+using LMS.DAL.Models;
+using LogisticsApp.DAL.Models;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using LMS.DAL.Models;
 
 namespace LMS.DAL
 {
@@ -16,6 +17,7 @@ namespace LMS.DAL
         public DbSet<Order> Orders { get; set; }
         public DbSet<Shipment> Shipments { get; set; }
         public DbSet<RouteStop> RouteStops { get; set; }
+        public DbSet<RouteTemplate> RouteTemplates { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder mb)
         {

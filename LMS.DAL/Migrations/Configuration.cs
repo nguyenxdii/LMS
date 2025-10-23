@@ -1,4 +1,5 @@
 ﻿using LMS.DAL.Models;
+using LogisticsApp.DAL.Models;
 using System.Data.Entity.Migrations;
 using System.Linq;
 
@@ -84,6 +85,30 @@ namespace LMS.DAL.Migrations
                 new UserAccount { Username = "tai", PasswordHash = "123123", Role = UserRole.Driver, IsActive = true, DriverId = d1?.Id }
             );
             // NOTE: PasswordHash đang để plain cho demo; khi rảnh hãy chuyển sang hash+salt.
+
+            // ======== ROUTE TEMPLATE SEED ========
+            var whs = db.Warehouses.ToList();
+            Warehouse W(string name) => whs.First(x => x.Name == name);
+
+            db.RouteTemplates.AddOrUpdate(x => x.Name, new[]
+            {
+                // ==== CORRIDOR NAM ↔ TRUNG ====
+                new RouteTemplate { Name = "Nam-Trung 1 (TP.HCM → Đà Nẵng)",  FromWarehouseId = W("Kho TP. Hồ Chí Minh").Id, ToWarehouseId = W("Kho Đà Nẵng").Id, DistanceKm = 930 },
+                new RouteTemplate { Name = "Nam-Trung 2 (TP.HCM → Huế)",      FromWarehouseId = W("Kho TP. Hồ Chí Minh").Id, ToWarehouseId = W("Kho Huế").Id, DistanceKm = 940 },
+                new RouteTemplate { Name = "Nam-Trung 3 (Cần Thơ → Đà Nẵng)",  FromWarehouseId = W("Kho Cần Thơ").Id, ToWarehouseId = W("Kho Đà Nẵng").Id, DistanceKm = 1020 },
+
+                // ==== CORRIDOR TRUNG ↔ BẮC ====
+                new RouteTemplate { Name = "Trung-Bắc 1 (Đà Nẵng → Hà Nội)",   FromWarehouseId = W("Kho Đà Nẵng").Id, ToWarehouseId = W("Kho Hà Nội").Id, DistanceKm = 770 },
+                new RouteTemplate { Name = "Trung-Bắc 2 (Huế → Hà Nội)",       FromWarehouseId = W("Kho Huế").Id, ToWarehouseId = W("Kho Hà Nội").Id, DistanceKm = 670 },
+                new RouteTemplate { Name = "Trung-Bắc 3 (Đà Nẵng → Hải Phòng)",FromWarehouseId = W("Kho Đà Nẵng").Id, ToWarehouseId = W("Kho Hải Phòng").Id, DistanceKm = 860 },
+
+                // ==== CORRIDOR NAM ↔ BẮC (XUYÊN VIỆT) ====
+                new RouteTemplate { Name = "Nam-Bắc 1 (TP.HCM → Hà Nội)",      FromWarehouseId = W("Kho TP. Hồ Chí Minh").Id, ToWarehouseId = W("Kho Hà Nội").Id, DistanceKm = 1700 },
+                new RouteTemplate { Name = "Nam-Bắc 2 (TP.HCM → Hải Phòng)",   FromWarehouseId = W("Kho TP. Hồ Chí Minh").Id, ToWarehouseId = W("Kho Hải Phòng").Id, DistanceKm = 1760 },
+                new RouteTemplate { Name = "Nam-Bắc 3 (Cần Thơ → Hà Nội)",     FromWarehouseId = W("Kho Cần Thơ").Id, ToWarehouseId = W("Kho Hà Nội").Id, DistanceKm = 1800 },
+                new RouteTemplate { Name = "Nam-Bắc 4 (Cần Thơ → Hải Phòng)",  FromWarehouseId = W("Kho Cần Thơ").Id, ToWarehouseId = W("Kho Hải Phòng").Id, DistanceKm = 1850 },
+            });
+
         }
     }
 }

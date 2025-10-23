@@ -42,13 +42,13 @@
             this.btnDriver = new Guna.UI2.WinForms.Guna2Button();
             this.lblWelcome = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.tableLayoutPanel1.SuspendLayout();
+            this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).BeginInit();
-            this.guna2Panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlContent
@@ -68,6 +68,7 @@
             this.btnHome.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(13)))), ((int)(((byte)(113)))), ((int)(((byte)(185)))));
             this.btnHome.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.btnHome.ForeColor = System.Drawing.Color.White;
+            this.btnHome.Image = global::LMS.GUI.Properties.Resources.home;
             this.btnHome.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnHome.ImageSize = new System.Drawing.Size(40, 40);
             this.btnHome.Location = new System.Drawing.Point(3, 3);
@@ -75,6 +76,7 @@
             this.btnHome.Size = new System.Drawing.Size(266, 65);
             this.btnHome.TabIndex = 0;
             this.btnHome.Text = "Trang Chủ";
+            this.btnHome.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             // 
             // btnVehicle
             // 
@@ -93,6 +95,7 @@
             this.btnVehicle.Size = new System.Drawing.Size(266, 65);
             this.btnVehicle.TabIndex = 0;
             this.btnVehicle.Text = "Phương Tiện";
+            this.btnVehicle.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             // 
             // tableLayoutPanel1
             // 
@@ -149,6 +152,7 @@
             this.btnAccount.Size = new System.Drawing.Size(266, 65);
             this.btnAccount.TabIndex = 0;
             this.btnAccount.Text = "Tài Khoản";
+            this.btnAccount.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnAccount.Click += new System.EventHandler(this.btnAccount_Click);
             // 
             // btnShipment
@@ -168,6 +172,7 @@
             this.btnShipment.Size = new System.Drawing.Size(266, 66);
             this.btnShipment.TabIndex = 0;
             this.btnShipment.Text = "Chuyến Hàng";
+            this.btnShipment.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             // 
             // btnReport
             // 
@@ -185,6 +190,7 @@
             this.btnReport.Size = new System.Drawing.Size(266, 65);
             this.btnReport.TabIndex = 0;
             this.btnReport.Text = "Báo Cáo";
+            this.btnReport.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             // 
             // btnWarehouse
             // 
@@ -203,6 +209,7 @@
             this.btnWarehouse.Size = new System.Drawing.Size(266, 65);
             this.btnWarehouse.TabIndex = 0;
             this.btnWarehouse.Text = "Kho Hàng";
+            this.btnWarehouse.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             // 
             // btnCustomer
             // 
@@ -214,6 +221,7 @@
             this.btnCustomer.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(13)))), ((int)(((byte)(113)))), ((int)(((byte)(185)))));
             this.btnCustomer.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.btnCustomer.ForeColor = System.Drawing.Color.White;
+            this.btnCustomer.Image = global::LMS.GUI.Properties.Resources.customer;
             this.btnCustomer.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnCustomer.ImageSize = new System.Drawing.Size(40, 40);
             this.btnCustomer.Location = new System.Drawing.Point(3, 74);
@@ -221,6 +229,7 @@
             this.btnCustomer.Size = new System.Drawing.Size(266, 65);
             this.btnCustomer.TabIndex = 0;
             this.btnCustomer.Text = "Khách Hàng";
+            this.btnCustomer.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             // 
             // btnTracking
             // 
@@ -239,7 +248,7 @@
             this.btnTracking.Size = new System.Drawing.Size(266, 65);
             this.btnTracking.TabIndex = 0;
             this.btnTracking.Text = "Theo Dõi Đơn Hàng";
-            this.btnTracking.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.btnTracking.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             // 
             // btnOrder
             // 
@@ -258,6 +267,7 @@
             this.btnOrder.Size = new System.Drawing.Size(266, 65);
             this.btnOrder.TabIndex = 0;
             this.btnOrder.Text = "Đơn Hàng";
+            this.btnOrder.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             // 
             // btnDriver
             // 
@@ -276,6 +286,7 @@
             this.btnDriver.Size = new System.Drawing.Size(266, 65);
             this.btnDriver.TabIndex = 0;
             this.btnDriver.Text = "Tài xế";
+            this.btnDriver.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             // 
             // lblWelcome
             // 
@@ -296,6 +307,19 @@
             this.label1.Size = new System.Drawing.Size(295, 29);
             this.label1.TabIndex = 3;
             this.label1.Text = "LMS - Admin Dashboard";
+            // 
+            // guna2Panel1
+            // 
+            this.guna2Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(113)))), ((int)(((byte)(185)))));
+            this.guna2Panel1.Controls.Add(this.lblWelcome);
+            this.guna2Panel1.Controls.Add(this.label1);
+            this.guna2Panel1.Controls.Add(this.guna2PictureBox1);
+            this.guna2Panel1.Controls.Add(this.guna2PictureBox2);
+            this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.guna2Panel1.Location = new System.Drawing.Point(0, 0);
+            this.guna2Panel1.Name = "guna2Panel1";
+            this.guna2Panel1.Size = new System.Drawing.Size(1293, 100);
+            this.guna2Panel1.TabIndex = 3;
             // 
             // guna2PictureBox1
             // 
@@ -319,19 +343,6 @@
             this.guna2PictureBox2.TabStop = false;
             this.guna2PictureBox2.Tag = "";
             // 
-            // guna2Panel1
-            // 
-            this.guna2Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(113)))), ((int)(((byte)(185)))));
-            this.guna2Panel1.Controls.Add(this.lblWelcome);
-            this.guna2Panel1.Controls.Add(this.label1);
-            this.guna2Panel1.Controls.Add(this.guna2PictureBox1);
-            this.guna2Panel1.Controls.Add(this.guna2PictureBox2);
-            this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.guna2Panel1.Location = new System.Drawing.Point(0, 0);
-            this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(1293, 100);
-            this.guna2Panel1.TabIndex = 3;
-            // 
             // frmMain_Admin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -343,10 +354,10 @@
             this.Name = "frmMain_Admin";
             this.Text = "frmMain_Admin";
             this.tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).EndInit();
             this.guna2Panel1.ResumeLayout(false);
             this.guna2Panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

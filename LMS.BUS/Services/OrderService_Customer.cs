@@ -1,5 +1,5 @@
-﻿// LMS.BUS/Services/OrderService.cs
-using LMS.BUS.Dtos;
+﻿using LMS.BUS.Dtos;
+using LMS.BUS.Helpers;            // <-- thêm để dùng OrderCode
 using LMS.DAL;
 using LMS.DAL.Models;
 using System;
@@ -39,7 +39,12 @@ namespace LMS.BUS.Services
                 order.DepositAmount = Math.Round(order.TotalFee * order.DepositPercent, 0);
 
                 db.Orders.Add(order);
+                db.SaveChanges(); // cần Id để sinh mã
+
+                // GÁN MÃ ĐƠN CHÍNH THỨC rồi lưu lại (để nơi nào đọc OrderNo cũng có)
+                order.OrderNo = OrderCode.ToCode(order.Id);
                 db.SaveChanges();
+
                 return order;
             }
         }

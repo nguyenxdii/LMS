@@ -173,6 +173,42 @@ namespace LMS.BUS.Services
             }
         }
 
+        //public int CreateShipmentFromOrder(int id)
+        //{
+        //    using (var db = new LogisticsDbContext())
+        //    {
+        //        var o = db.Orders.Find(id);
+        //        if (o == null) throw new Exception("Không tìm thấy đơn.");
+        //        if (o.Status != OrderStatus.Approved) throw new Exception("Chỉ tạo Shipment cho đơn Approved.");
+        //        if (o.ShipmentId != null) throw new Exception("Đơn đã có Shipment.");
+
+        //        var ship = new Shipment { Status = ShipmentStatus.Planned, CreatedAt = DateTime.Now };
+        //        db.Shipments.Add(ship);
+        //        db.SaveChanges();
+
+        //        db.RouteStops.Add(new RouteStop
+        //        {
+        //            ShipmentId = ship.Id,
+        //            WarehouseId = o.OriginWarehouseId,
+        //            Sequence = 1,
+        //            Status = StopStatus.Waiting,
+        //            IsFinal = false
+        //        });
+        //        db.RouteStops.Add(new RouteStop
+        //        {
+        //            ShipmentId = ship.Id,
+        //            WarehouseId = o.DestWarehouseId,
+        //            Sequence = 2,
+        //            Status = StopStatus.Waiting,
+        //            IsFinal = true
+        //        });
+
+        //        o.ShipmentId = ship.Id;
+        //        db.SaveChanges();
+        //        return ship.Id;
+        //    }
+        //}
+
         public int CreateShipmentFromOrder(int id)
         {
             using (var db = new LogisticsDbContext())
@@ -182,32 +218,43 @@ namespace LMS.BUS.Services
                 if (o.Status != OrderStatus.Approved) throw new Exception("Chỉ tạo Shipment cho đơn Approved.");
                 if (o.ShipmentId != null) throw new Exception("Đơn đã có Shipment.");
 
-                var ship = new Shipment { Status = ShipmentStatus.Planned, CreatedAt = DateTime.Now };
+                // LƯU Ý: nếu Shipment.DriverId hiện đang NOT NULL trong DB,
+                // bạn cần gán driver ở đây. Khuyên: đổi DriverId -> int? trong model.
+                var ship = new Shipment
+                {
+                    OrderId = o.Id,
+                    // DriverId = null, // nếu bạn đã cho phép nullable
+                    FromWarehouseId = o.OriginWarehouseId,
+                    ToWarehouseId = o.DestWarehouseId,
+                    Status = ShipmentStatus.Pending,
+                    UpdatedAt = DateTime.Now
+                };
                 db.Shipments.Add(ship);
                 db.SaveChanges();
 
+                // Tạo 2 stop A -> B, dùng đúng thuộc tính & enum của model:
                 db.RouteStops.Add(new RouteStop
                 {
                     ShipmentId = ship.Id,
                     WarehouseId = o.OriginWarehouseId,
-                    Sequence = 1,
-                    Status = StopStatus.Waiting,
-                    IsFinal = false
+                    Seq = 1,
+                    Status = RouteStopStatus.Waiting
                 });
                 db.RouteStops.Add(new RouteStop
                 {
                     ShipmentId = ship.Id,
                     WarehouseId = o.DestWarehouseId,
-                    Sequence = 2,
-                    Status = StopStatus.Waiting,
-                    IsFinal = true
+                    Seq = 2,
+                    Status = RouteStopStatus.Waiting
                 });
+                db.SaveChanges();
 
                 o.ShipmentId = ship.Id;
                 db.SaveChanges();
                 return ship.Id;
             }
         }
+
 
         //public static class OrderCode
         //{

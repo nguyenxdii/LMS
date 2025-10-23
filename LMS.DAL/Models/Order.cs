@@ -1,5 +1,4 @@
-﻿// LMS.DAL/Models/Order.cs
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -54,11 +53,15 @@ namespace LMS.DAL.Models
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
+        // Trạng thái ĐƠN HÀNG — [Required] phải đặt ĐÚNG CHỖ NÀY
         [Required]
         public OrderStatus Status { get; set; } = OrderStatus.Pending;
 
-        // (gắn Shipment sau)
+        // (gắn Shipment sau) — cho phép NULL khi mới tạo đơn
         public int? ShipmentId { get; set; }
         public virtual Shipment Shipment { get; set; }
+
+        [StringLength(50)]
+        public string OrderNo { get; set; }
     }
 }

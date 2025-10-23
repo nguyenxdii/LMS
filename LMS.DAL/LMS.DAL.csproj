@@ -61,6 +61,18 @@
     <Compile Include="Migrations\202510230435500_InitialCreate.Designer.cs">
       <DependentUpon>202510230435500_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202510230646220_AddRouteTemplateSeed.cs" />
+    <Compile Include="Migrations\202510230646220_AddRouteTemplateSeed.Designer.cs">
+      <DependentUpon>202510230646220_AddRouteTemplateSeed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202510230813208_Sync_DriverFlow_Models.cs" />
+    <Compile Include="Migrations\202510230813208_Sync_DriverFlow_Models.Designer.cs">
+      <DependentUpon>202510230813208_Sync_DriverFlow_Models.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202510230905520_Fix_OrderShipmentNullable.cs" />
+    <Compile Include="Migrations\202510230905520_Fix_OrderShipmentNullable.Designer.cs">
+      <DependentUpon>202510230905520_Fix_OrderShipmentNullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Driver.cs" />
@@ -68,6 +80,7 @@
     <Compile Include="LogisticsDbContext.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\RouteStop.cs" />
+    <Compile Include="Models\RouteTemplate.cs" />
     <Compile Include="Models\Shipment.cs" />
     <Compile Include="Models\UserAccount.cs" />
     <Compile Include="Models\Vehicle.cs" />
@@ -81,6 +94,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202510230435500_InitialCreate.resx">
       <DependentUpon>202510230435500_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202510230646220_AddRouteTemplateSeed.resx">
+      <DependentUpon>202510230646220_AddRouteTemplateSeed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202510230813208_Sync_DriverFlow_Models.resx">
+      <DependentUpon>202510230813208_Sync_DriverFlow_Models.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202510230905520_Fix_OrderShipmentNullable.resx">
+      <DependentUpon>202510230905520_Fix_OrderShipmentNullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

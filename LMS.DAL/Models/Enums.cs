@@ -14,12 +14,13 @@ namespace LMS.DAL.Models
 
     public enum ShipmentStatus
     {
-        Planned = 0,    // Admin lập kế hoạch, chưa start
-        Assigned = 1,   // Đã gán Driver
-        PickingUp = 2,  // (tuỳ chọn)
-        OnRoute = 3,    // Đang di chuyển qua các kho
-        Delivered = 4,  // Đã giao
-        Failed = 5
+        Pending = 0,        // Admin gán, driver chưa nhận
+        Assigned = 1,       // Driver đã nhận
+        OnRoute = 2,        // Đang di chuyển giữa 2 kho
+        AtWarehouse = 3,    // Đang đứng tại 1 kho (đã Arrive)
+        ArrivedDestination = 4, // Đã tới kho cuối
+        Delivered = 5,      // Hoàn thành
+        Failed = 6          // Sự cố/hủy
     }
 
     public enum StopStatus
@@ -43,5 +44,11 @@ namespace LMS.DAL.Models
         Main = 0,   // Kho chính (trung tâm vùng hoặc tỉnh)
         Hub = 1,    // Kho trung chuyển giữa các vùng
         Local = 2   // Kho cấp huyện / xã (sau này mở rộng)
+    }
+    public enum RouteStopStatus
+    {
+        Waiting = 0,
+        Arrived = 1,
+        Departed = 2
     }
 }

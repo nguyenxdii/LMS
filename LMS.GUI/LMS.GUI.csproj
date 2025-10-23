@@ -67,6 +67,7 @@
     <Reference Include="System.Design" />
     <Reference Include="System.Management" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -120,6 +121,12 @@
     <Compile Include="Main\frmMain_Driver.Designer.cs">
       <DependentUpon>frmMain_Driver.cs</DependentUpon>
     </Compile>
+    <Compile Include="Main\frmTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main\frmTest.Designer.cs">
+      <DependentUpon>frmTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="OrderAdmin\ucOrderDetail_Admin.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -162,6 +169,24 @@
     <Compile Include="OrderCustomer\ucTracking_Cus.Designer.cs">
       <DependentUpon>ucTracking_Cus.cs</DependentUpon>
     </Compile>
+    <Compile Include="OrderDriver\ucMyShipments_Drv.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OrderDriver\ucMyShipments_Drv.Designer.cs">
+      <DependentUpon>ucMyShipments_Drv.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OrderDriver\ucShipmentDetail_Drv.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OrderDriver\ucShipmentDetail_Drv.Designer.cs">
+      <DependentUpon>ucShipmentDetail_Drv.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OrderDriver\ucShipmentRun_Drv.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OrderDriver\ucShipmentRun_Drv.Designer.cs">
+      <DependentUpon>ucShipmentRun_Drv.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AccountAdmin\ucAccountSearch_Admin.resx">
@@ -185,6 +210,9 @@
     <EmbeddedResource Include="Main\frmMain_Driver.resx">
       <DependentUpon>frmMain_Driver.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Main\frmTest.resx">
+      <DependentUpon>frmTest.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="OrderAdmin\ucOrderDetail_Admin.resx">
       <DependentUpon>ucOrderDetail_Admin.cs</DependentUpon>
     </EmbeddedResource>
@@ -206,6 +234,15 @@
     <EmbeddedResource Include="OrderCustomer\ucTracking_Cus.resx">
       <DependentUpon>ucTracking_Cus.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="OrderDriver\ucMyShipments_Drv.resx">
+      <DependentUpon>ucMyShipments_Drv.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OrderDriver\ucShipmentDetail_Drv.resx">
+      <DependentUpon>ucShipmentDetail_Drv.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OrderDriver\ucShipmentRun_Drv.resx">
+      <DependentUpon>ucShipmentRun_Drv.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -214,6 +251,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.manifest" />
     <None Include="packages.config" />
@@ -242,6 +280,22 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MetroFramework.txt" />
+    <None Include="Resources\logout.png" />
+    <None Include="Resources\driver-50.png" />
+    <None Include="Resources\truck.png" />
+    <None Include="Resources\warehouse.png" />
+    <None Include="Resources\shipment.png" />
+    <None Include="Resources\order.png" />
+    <None Include="Resources\tracking.png" />
+    <None Include="Resources\report.png" />
+    <None Include="Resources\account.png" />
+    <None Include="Resources\customer.png" />
+    <None Include="Resources\home-50.png" />
+    <None Include="Resources\home.png" />
+    <None Include="Resources\avatar2.png" />
+    <None Include="Resources\avatar.png" />
+    <None Include="Resources\menu-50.png" />
+    <None Include="Resources\menu.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
