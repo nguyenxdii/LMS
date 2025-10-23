@@ -1,5 +1,6 @@
 ﻿using LMS.DAL.Models;
 using LogisticsApp.DAL.Models;
+using System;
 using System.Data.Entity.Migrations;
 using System.Linq;
 
@@ -109,6 +110,113 @@ namespace LMS.DAL.Migrations
                 new RouteTemplate { Name = "Nam-Bắc 4 (Cần Thơ → Hải Phòng)",  FromWarehouseId = W("Kho Cần Thơ").Id, ToWarehouseId = W("Kho Hải Phòng").Id, DistanceKm = 1850 },
             });
 
+            // ===== Helpers tra cứu 1 lần dùng suốt Seed (đặt 1 lần duy nhất) =====
+            var whByName = db.Warehouses.ToList().ToDictionary(x => x.Name);       // Kho theo tên
+            var tplByName = db.RouteTemplates.ToList().ToDictionary(x => x.Name);   // Template theo tên
+
+            Func<string, Warehouse> Wh = name => whByName[name];
+            Func<string, RouteTemplate> Tpl = name => tplByName[name];
+
+            // ===== Xóa stops cũ (idempotent) rồi seed lại =====
+            var allStops = db.RouteTemplateStops.ToList();
+            if (allStops.Any())
+            {
+                db.RouteTemplateStops.RemoveRange(allStops);
+                db.SaveChanges();
+            }
+
+            // ==== NAM–TRUNG 1 (TP.HCM → Đà Nẵng) ====
+            var t1 = Tpl("Nam-Trung 1 (TP.HCM → Đà Nẵng)");
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t1.Id, Seq = 1, WarehouseId = Wh("Kho TP. Hồ Chí Minh").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t1.Id, Seq = 2, WarehouseId = Wh("Kho Đồng Nai").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t1.Id, Seq = 3, WarehouseId = Wh("Kho Khánh Hòa").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t1.Id, Seq = 4, WarehouseId = Wh("Kho Đà Nẵng").Id });
+
+            // ==== NAM–TRUNG 2 (TP.HCM → Huế) ====
+            var t2 = Tpl("Nam-Trung 2 (TP.HCM → Huế)");
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t2.Id, Seq = 1, WarehouseId = Wh("Kho TP. Hồ Chí Minh").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t2.Id, Seq = 2, WarehouseId = Wh("Kho Đồng Nai").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t2.Id, Seq = 3, WarehouseId = Wh("Kho Khánh Hòa").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t2.Id, Seq = 4, WarehouseId = Wh("Kho Huế").Id });
+
+            // ==== NAM–TRUNG 3 (Cần Thơ → Đà Nẵng) ====
+            var t3 = Tpl("Nam-Trung 3 (Cần Thơ → Đà Nẵng)");
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t3.Id, Seq = 1, WarehouseId = Wh("Kho Cần Thơ").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t3.Id, Seq = 2, WarehouseId = Wh("Kho TP. Hồ Chí Minh").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t3.Id, Seq = 3, WarehouseId = Wh("Kho Đồng Nai").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t3.Id, Seq = 4, WarehouseId = Wh("Kho Khánh Hòa").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t3.Id, Seq = 5, WarehouseId = Wh("Kho Đà Nẵng").Id });
+
+            // ==== TRUNG–BẮC 1 (Đà Nẵng → Hà Nội) ====
+            var t4 = Tpl("Trung-Bắc 1 (Đà Nẵng → Hà Nội)");
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t4.Id, Seq = 1, WarehouseId = Wh("Kho Đà Nẵng").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t4.Id, Seq = 2, WarehouseId = Wh("Kho Huế").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t4.Id, Seq = 3, WarehouseId = Wh("Kho Nghệ An").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t4.Id, Seq = 4, WarehouseId = Wh("Kho Thanh Hóa").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t4.Id, Seq = 5, WarehouseId = Wh("Kho Hà Nội").Id });
+
+            // ==== TRUNG–BẮC 2 (Huế → Hà Nội) ====
+            var t5 = Tpl("Trung-Bắc 2 (Huế → Hà Nội)");
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t5.Id, Seq = 1, WarehouseId = Wh("Kho Huế").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t5.Id, Seq = 2, WarehouseId = Wh("Kho Nghệ An").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t5.Id, Seq = 3, WarehouseId = Wh("Kho Thanh Hóa").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t5.Id, Seq = 4, WarehouseId = Wh("Kho Hà Nội").Id });
+
+            // ==== TRUNG–BẮC 3 (Đà Nẵng → Hải Phòng) ====
+            var t6 = Tpl("Trung-Bắc 3 (Đà Nẵng → Hải Phòng)");
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t6.Id, Seq = 1, WarehouseId = Wh("Kho Đà Nẵng").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t6.Id, Seq = 2, WarehouseId = Wh("Kho Huế").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t6.Id, Seq = 3, WarehouseId = Wh("Kho Nghệ An").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t6.Id, Seq = 4, WarehouseId = Wh("Kho Thanh Hóa").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t6.Id, Seq = 5, WarehouseId = Wh("Kho Hải Phòng").Id });
+
+            // ==== NAM–BẮC 1 (TP.HCM → Hà Nội) ====
+            var t7 = Tpl("Nam-Bắc 1 (TP.HCM → Hà Nội)");
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t7.Id, Seq = 1, WarehouseId = Wh("Kho TP. Hồ Chí Minh").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t7.Id, Seq = 2, WarehouseId = Wh("Kho Đồng Nai").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t7.Id, Seq = 3, WarehouseId = Wh("Kho Khánh Hòa").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t7.Id, Seq = 4, WarehouseId = Wh("Kho Đà Nẵng").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t7.Id, Seq = 5, WarehouseId = Wh("Kho Huế").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t7.Id, Seq = 6, WarehouseId = Wh("Kho Nghệ An").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t7.Id, Seq = 7, WarehouseId = Wh("Kho Thanh Hóa").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t7.Id, Seq = 8, WarehouseId = Wh("Kho Hà Nội").Id });
+
+            // ==== NAM–BẮC 2 (TP.HCM → Hải Phòng) ====
+            var t8 = Tpl("Nam-Bắc 2 (TP.HCM → Hải Phòng)");
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t8.Id, Seq = 1, WarehouseId = Wh("Kho TP. Hồ Chí Minh").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t8.Id, Seq = 2, WarehouseId = Wh("Kho Đồng Nai").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t8.Id, Seq = 3, WarehouseId = Wh("Kho Khánh Hòa").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t8.Id, Seq = 4, WarehouseId = Wh("Kho Đà Nẵng").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t8.Id, Seq = 5, WarehouseId = Wh("Kho Huế").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t8.Id, Seq = 6, WarehouseId = Wh("Kho Nghệ An").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t8.Id, Seq = 7, WarehouseId = Wh("Kho Thanh Hóa").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t8.Id, Seq = 8, WarehouseId = Wh("Kho Hải Phòng").Id });
+
+            // ==== NAM–BẮC 3 (Cần Thơ → Hà Nội) ====
+            var t9 = Tpl("Nam-Bắc 3 (Cần Thơ → Hà Nội)");
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t9.Id, Seq = 1, WarehouseId = Wh("Kho Cần Thơ").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t9.Id, Seq = 2, WarehouseId = Wh("Kho TP. Hồ Chí Minh").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t9.Id, Seq = 3, WarehouseId = Wh("Kho Đồng Nai").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t9.Id, Seq = 4, WarehouseId = Wh("Kho Khánh Hòa").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t9.Id, Seq = 5, WarehouseId = Wh("Kho Đà Nẵng").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t9.Id, Seq = 6, WarehouseId = Wh("Kho Huế").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t9.Id, Seq = 7, WarehouseId = Wh("Kho Nghệ An").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t9.Id, Seq = 8, WarehouseId = Wh("Kho Thanh Hóa").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t9.Id, Seq = 9, WarehouseId = Wh("Kho Hà Nội").Id });
+
+            // ==== NAM–BẮC 4 (Cần Thơ → Hải Phòng) ====
+            var t10 = Tpl("Nam-Bắc 4 (Cần Thơ → Hải Phòng)");
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t10.Id, Seq = 1, WarehouseId = Wh("Kho Cần Thơ").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t10.Id, Seq = 2, WarehouseId = Wh("Kho TP. Hồ Chí Minh").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t10.Id, Seq = 3, WarehouseId = Wh("Kho Đồng Nai").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t10.Id, Seq = 4, WarehouseId = Wh("Kho Khánh Hòa").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t10.Id, Seq = 5, WarehouseId = Wh("Kho Đà Nẵng").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t10.Id, Seq = 6, WarehouseId = Wh("Kho Huế").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t10.Id, Seq = 7, WarehouseId = Wh("Kho Nghệ An").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t10.Id, Seq = 8, WarehouseId = Wh("Kho Thanh Hóa").Id });
+            db.RouteTemplateStops.Add(new RouteTemplateStop { TemplateId = t10.Id, Seq = 9, WarehouseId = Wh("Kho Hải Phòng").Id });
+
+            db.SaveChanges();
         }
     }
 }

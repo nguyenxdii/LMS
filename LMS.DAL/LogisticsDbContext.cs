@@ -18,6 +18,7 @@ namespace LMS.DAL
         public DbSet<Shipment> Shipments { get; set; }
         public DbSet<RouteStop> RouteStops { get; set; }
         public DbSet<RouteTemplate> RouteTemplates { get; set; }
+        public DbSet<RouteTemplateStop> RouteTemplateStops { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder mb)
         {
@@ -37,6 +38,12 @@ namespace LMS.DAL
               .WithMany(s => s.RouteStops)
               .HasForeignKey(rs => rs.ShipmentId)
               .WillCascadeOnDelete(true);
+
+            // Khóa duy nhất TemplateId + Seq cho RouteTemplateStop
+            mb.Entity<RouteTemplateStop>()
+              .HasRequired(rts => rts.Template)
+              .WithMany()
+              .HasForeignKey(rts => rts.TemplateId);
 
             base.OnModelCreating(mb);
         }

@@ -60,6 +60,7 @@
     <Compile Include="Dtos\OrderDraft.cs" />
     <Compile Include="Dtos\OrderListItemDto.cs" />
     <Compile Include="Dtos\ShipmentDtos.cs" />
+    <Compile Include="Dtos\ShipmentRowDto.cs" />
     <Compile Include="Helpers\AppSession.cs" />
     <Compile Include="Helpers\OrderCode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

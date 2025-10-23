@@ -73,6 +73,14 @@
     <Compile Include="Migrations\202510230905520_Fix_OrderShipmentNullable.Designer.cs">
       <DependentUpon>202510230905520_Fix_OrderShipmentNullable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202510230957555_AddRouteTemplateStop.cs" />
+    <Compile Include="Migrations\202510230957555_AddRouteTemplateStop.Designer.cs">
+      <DependentUpon>202510230957555_AddRouteTemplateStop.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202510231336532_Fix_OrderStatus_RemoveInTransit.cs" />
+    <Compile Include="Migrations\202510231336532_Fix_OrderStatus_RemoveInTransit.Designer.cs">
+      <DependentUpon>202510231336532_Fix_OrderStatus_RemoveInTransit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Driver.cs" />
@@ -81,6 +89,7 @@
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\RouteStop.cs" />
     <Compile Include="Models\RouteTemplate.cs" />
+    <Compile Include="Models\RouteTemplateStop.cs" />
     <Compile Include="Models\Shipment.cs" />
     <Compile Include="Models\UserAccount.cs" />
     <Compile Include="Models\Vehicle.cs" />
@@ -103,6 +112,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202510230905520_Fix_OrderShipmentNullable.resx">
       <DependentUpon>202510230905520_Fix_OrderShipmentNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202510230957555_AddRouteTemplateStop.resx">
+      <DependentUpon>202510230957555_AddRouteTemplateStop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202510231336532_Fix_OrderStatus_RemoveInTransit.resx">
+      <DependentUpon>202510231336532_Fix_OrderStatus_RemoveInTransit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

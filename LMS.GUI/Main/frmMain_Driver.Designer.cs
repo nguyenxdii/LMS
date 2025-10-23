@@ -335,7 +335,6 @@
             this.btnMyShipments.TabIndex = 6;
             this.btnMyShipments.Text = "Việc Được Giao";
             this.btnMyShipments.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnMyShipments.Click += new System.EventHandler(this.btnMyShipments_Click);
             // 
             // panel1
             // 

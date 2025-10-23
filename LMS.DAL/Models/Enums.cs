@@ -3,16 +3,16 @@ namespace LMS.DAL.Models
 {
     public enum UserRole { Admin = 0, Customer = 1, Driver = 2 }
 
-    public enum OrderStatus
+    public enum OrderStatus // (đơn hàng – cho Customer/Admin)
     {
         Pending = 0,    // Customer vừa tạo
         Approved = 1,   // Admin duyệt (có thể kèm create Shipment)
-        InTransit = 2,  // Đang vận chuyển
+        //InTransit = 2,  // Đang vận chuyển
         Completed = 3,  // Giao xong
         Cancelled = 4
     }
 
-    public enum ShipmentStatus
+    public enum ShipmentStatus  // (chuyến – cho Driver)
     {
         Pending = 0,        // Admin gán, driver chưa nhận
         Assigned = 1,       // Driver đã nhận
@@ -45,7 +45,7 @@ namespace LMS.DAL.Models
         Hub = 1,    // Kho trung chuyển giữa các vùng
         Local = 2   // Kho cấp huyện / xã (sau này mở rộng)
     }
-    public enum RouteStopStatus
+    public enum RouteStopStatus     // (điểm dừng – chi tiết A→B→C…)
     {
         Waiting = 0,
         Arrived = 1,

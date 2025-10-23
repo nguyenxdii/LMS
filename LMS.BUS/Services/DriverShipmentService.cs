@@ -13,31 +13,105 @@ namespace LMS.BUS.Services
         private readonly LogisticsDbContext _db = new LogisticsDbContext();
 
         // ====== LISTS ======
-        public List<object> GetAssignedAndRunning(int driverId)
+        private static readonly ShipmentStatus[] ActiveStatuses =
         {
-            var active = new[] { ShipmentStatus.Pending, ShipmentStatus.Assigned, ShipmentStatus.OnRoute, ShipmentStatus.AtWarehouse, ShipmentStatus.ArrivedDestination };
+            ShipmentStatus.Pending, ShipmentStatus.Assigned, ShipmentStatus.OnRoute,
+            ShipmentStatus.AtWarehouse, ShipmentStatus.ArrivedDestination
+        };
 
+        //public List<object> GetAssignedAndRunning(int driverId)
+        //{
+        //    var q = _db.Shipments
+        //        .Include(s => s.Order.Customer)
+        //        .Include(s => s.FromWarehouse)
+        //        .Include(s => s.ToWarehouse)
+        //        .Where(s => s.DriverId == driverId && ActiveStatuses.Contains(s.Status))
+        //        .OrderBy(s => s.Status).ThenByDescending(s => s.UpdatedAt)
+        //        .Select(s => new
+        //        {
+        //            Id = s.Id,
+        //            ShipmentNo = "SHP" + s.Id,
+        //            OrderNo = s.Order.OrderNo ?? ("ORD" + s.OrderId),
+        //            Route = s.FromWarehouse.Name + " → " + s.ToWarehouse.Name,
+        //            Status = s.Status.ToString(),
+        //            UpdatedAt = s.UpdatedAt
+        //        });
+
+        //    return q.ToList<object>();
+        //}
+        public List<ShipmentRowDto> GetAssignedAndRunning(int driverId)
+        {
             var q = _db.Shipments
                 .Include(s => s.Order.Customer)
                 .Include(s => s.FromWarehouse)
                 .Include(s => s.ToWarehouse)
-                .Include(s => s.RouteStops)
-                .Where(s => s.DriverId == driverId && active.Contains(s.Status))
+                .Where(s => s.DriverId == driverId && ActiveStatuses.Contains(s.Status))
                 .OrderBy(s => s.Status).ThenByDescending(s => s.UpdatedAt)
-                .Select(s => new
+                .Select(s => new ShipmentRowDto
                 {
                     Id = s.Id,
                     ShipmentNo = "SHP" + s.Id,
-                    OrderNo = s.Order.OrderNo,
+                    OrderNo = s.Order.OrderNo ?? ("ORD" + s.OrderId),
                     Route = s.FromWarehouse.Name + " → " + s.ToWarehouse.Name,
                     Status = s.Status.ToString(),
                     UpdatedAt = s.UpdatedAt
                 });
 
-            return q.ToList<object>();
+            return q.ToList();
         }
 
-        public List<object> GetAllMine(int driverId, DateTime? from = null, DateTime? to = null, ShipmentStatus? status = null)
+
+        //public List<object> GetAllMine(int driverId, DateTime? from = null, DateTime? to = null, ShipmentStatus? status = null)
+        //{
+        //    var q = _db.Shipments
+        //        .Include(s => s.Order.Customer)
+        //        .Include(s => s.FromWarehouse)
+        //        .Include(s => s.ToWarehouse)
+        //        .Include(s => s.RouteStops)
+        //        .Where(s => s.DriverId == driverId);
+
+        //    if (from.HasValue) q = q.Where(s => s.UpdatedAt >= from.Value);
+        //    if (to.HasValue) q = q.Where(s => s.UpdatedAt < to.Value);
+        //    if (status.HasValue) q = q.Where(s => s.Status == status.Value);
+
+        //    var list = q.OrderByDescending(s => s.UpdatedAt)
+        //        // B1: project các field + DurationSeconds để SQL có thể tính
+        //        .Select(s => new
+        //        {
+        //            Id = s.Id,
+        //            ShipmentNo = "SHP" + s.Id,
+        //            OrderNo = s.Order.OrderNo ?? ("ORD" + s.OrderId),
+        //            Route = s.FromWarehouse.Name + " → " + s.ToWarehouse.Name,
+        //            Status = s.Status.ToString(),
+        //            Stops = s.RouteStops.Count(),
+        //            StartedAt = s.StartedAt,
+        //            DeliveredAt = s.DeliveredAt,
+        //            DurationSeconds = DbFunctions.DiffSeconds(s.StartedAt, s.DeliveredAt),
+        //            UpdatedAt = s.UpdatedAt
+        //        })
+        //        // B2: qua LINQ to Objects để map về TimeSpan?
+        //        .AsEnumerable()
+        //        .Select(s => new
+        //        {
+        //            s.Id,
+        //            s.ShipmentNo,
+        //            s.OrderNo,
+        //            s.Route,
+        //            s.Status,
+        //            s.Stops,
+        //            s.StartedAt,
+        //            s.DeliveredAt,
+        //            Duration = s.DurationSeconds.HasValue
+        //                ? (TimeSpan?)TimeSpan.FromSeconds(s.DurationSeconds.Value)
+        //                : null,
+        //            s.UpdatedAt
+        //        })
+        //        .Cast<object>()
+        //        .ToList();
+
+        //    return list;
+        //}
+        public List<ShipmentRowDto> GetAllMine(int driverId, DateTime? from = null, DateTime? to = null, ShipmentStatus? status = null)
         {
             var q = _db.Shipments
                 .Include(s => s.Order.Customer)
@@ -51,22 +125,40 @@ namespace LMS.BUS.Services
             if (status.HasValue) q = q.Where(s => s.Status == status.Value);
 
             var list = q.OrderByDescending(s => s.UpdatedAt)
+                // B1: SQL tính DurationSeconds
                 .Select(s => new
                 {
-                    Id = s.Id,
+                    s.Id,
                     ShipmentNo = "SHP" + s.Id,
-                    OrderNo = s.Order.OrderNo,
+                    OrderNo = s.Order.OrderNo ?? ("ORD" + s.OrderId),
                     Route = s.FromWarehouse.Name + " → " + s.ToWarehouse.Name,
                     Status = s.Status.ToString(),
                     Stops = s.RouteStops.Count(),
+                    s.StartedAt,
+                    s.DeliveredAt,
+                    DurationSeconds = DbFunctions.DiffSeconds(s.StartedAt, s.DeliveredAt),
+                    s.UpdatedAt
+                })
+                // B2: qua LINQ-to-Objects, map về DTO mạnh kiểu
+                .AsEnumerable()
+                .Select(s => new ShipmentRowDto
+                {
+                    Id = s.Id,
+                    ShipmentNo = s.ShipmentNo,
+                    OrderNo = s.OrderNo,
+                    Route = s.Route,
+                    Status = s.Status,
+                    Stops = s.Stops,
                     StartedAt = s.StartedAt,
                     DeliveredAt = s.DeliveredAt,
-                    Duration = (TimeSpan?)((s.StartedAt.HasValue && s.DeliveredAt.HasValue) ? s.DeliveredAt.Value - s.StartedAt.Value : (TimeSpan?)null),
+                    Duration = s.DurationSeconds.HasValue ? (TimeSpan?)TimeSpan.FromSeconds(s.DurationSeconds.Value) : null,
                     UpdatedAt = s.UpdatedAt
-                }).ToList<object>();
+                })
+                .ToList();
 
             return list;
         }
+
 
         // ====== DETAIL ======
         public ShipmentDetailDto GetDetail(int shipmentId, int driverId)
@@ -98,7 +190,7 @@ namespace LMS.BUS.Services
                     DeliveredAt = s.DeliveredAt
                 },
                 DriverName = s.Driver?.FullName,
-                //VehicleNo = s.Vehicle?.PlateNumber,
+                VehicleNo = s.Vehicle?.PlateNo,
                 Notes = s.Note,
                 Duration = (s.StartedAt.HasValue && s.DeliveredAt.HasValue) ? s.DeliveredAt.Value - s.StartedAt.Value : (TimeSpan?)null
             };
@@ -126,15 +218,21 @@ namespace LMS.BUS.Services
             var s = _db.Shipments.Include(x => x.RouteStops).FirstOrDefault(x => x.Id == shipmentId);
             if (s == null) throw new Exception("Shipment không tồn tại.");
             if (s.DriverId != driverId) throw new Exception("Không phải shipment của bạn.");
-            if (s.Status != ShipmentStatus.Pending) throw new Exception("Chuyến đã được nhận hoặc đang chạy.");
+            if (s.Status != ShipmentStatus.Pending) throw new Exception("Chỉ nhận shipment trạng thái Pending.");
+
+            // Set current stop = stop đầu tiên theo Seq
+            var minSeq = s.RouteStops.Any() ? s.RouteStops.Min(x => x.Seq) : (int?)null;
+            if (!minSeq.HasValue) throw new Exception("Shipment chưa có RouteStops.");
+            s.CurrentStopSeq = minSeq.Value;
 
             s.Status = ShipmentStatus.Assigned;
-            s.CurrentStopSeq = s.RouteStops.OrderBy(x => x.Seq).Select(x => (int?)x.Seq).FirstOrDefault();
             s.UpdatedAt = DateTime.Now;
+            s.StartedAt = s.StartedAt ?? DateTime.Now;
+
             _db.SaveChanges();
         }
 
-        // 2) Rời kho hiện tại (Assigned/AtWarehouse -> OnRoute), đánh dấu Depart
+        // 2) Rời kho hiện tại (Assigned/AtWarehouse -> OnRoute)
         public void DepartCurrentStop(int shipmentId, int driverId)
         {
             var s = _db.Shipments.Include(x => x.RouteStops).FirstOrDefault(x => x.Id == shipmentId);
@@ -147,9 +245,13 @@ namespace LMS.BUS.Services
             var cur = s.RouteStops.FirstOrDefault(x => x.Seq == s.CurrentStopSeq.Value);
             if (cur == null) throw new Exception("Stop hiện tại không tồn tại.");
 
-            // Không được depart nếu chưa arrive (trừ stop đầu tiên)
-            if (cur.Seq > s.RouteStops.Min(x => x.Seq) && !cur.ArrivedAt.HasValue)
-                throw new Exception("Phải Arrive stop hiện tại trước khi Depart.");
+            var minSeq = s.RouteStops.Min(x => x.Seq);
+            // Stop đầu tiên có thể Depart không cần Arrived
+            if (cur.Seq > minSeq && !cur.ArrivedAt.HasValue)
+                throw new Exception("Phải 'Đến kho' (Arrive) stop hiện tại trước khi 'Rời kho'.");
+
+            if (cur.DepartedAt.HasValue)
+                throw new Exception("Stop hiện tại đã 'Rời kho' trước đó.");
 
             cur.Status = RouteStopStatus.Departed;
             cur.DepartedAt = DateTime.Now;
@@ -166,7 +268,7 @@ namespace LMS.BUS.Services
             var s = _db.Shipments.Include(x => x.RouteStops).FirstOrDefault(x => x.Id == shipmentId);
             if (s == null) throw new Exception("Shipment không tồn tại.");
             if (s.DriverId != driverId) throw new Exception("Không phải shipment của bạn.");
-            if (s.Status != ShipmentStatus.OnRoute) throw new Exception("Chỉ có thể Arrive khi đang di chuyển (OnRoute).");
+            if (s.Status != ShipmentStatus.OnRoute) throw new Exception("Chỉ có thể 'Đến kho' khi đang di chuyển (OnRoute).");
 
             if (!s.CurrentStopSeq.HasValue) throw new Exception("Chưa xác định stop hiện tại.");
 
@@ -174,14 +276,17 @@ namespace LMS.BUS.Services
             var next = s.RouteStops.FirstOrDefault(x => x.Seq == nextSeq);
             if (next == null) throw new Exception("Không còn stop kế tiếp.");
 
+            if (next.ArrivedAt.HasValue)
+                throw new Exception("Stop kế tiếp đã được 'Đến' trước đó.");
+
             next.Status = RouteStopStatus.Arrived;
             next.ArrivedAt = DateTime.Now;
 
             s.CurrentStopSeq = nextSeq;
             s.UpdatedAt = DateTime.Now;
 
-            var isLast = (nextSeq == s.RouteStops.Max(x => x.Seq));
-            s.Status = isLast ? ShipmentStatus.ArrivedDestination : ShipmentStatus.AtWarehouse;
+            var maxSeq = s.RouteStops.Max(x => x.Seq);
+            s.Status = (nextSeq == maxSeq) ? ShipmentStatus.ArrivedDestination : ShipmentStatus.AtWarehouse;
 
             _db.SaveChanges();
         }
