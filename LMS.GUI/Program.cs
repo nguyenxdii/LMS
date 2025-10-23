@@ -19,7 +19,7 @@ namespace LMS.GUI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmMain_Admin());
+            Application.Run(new frmLogin());
         }
     }
 }

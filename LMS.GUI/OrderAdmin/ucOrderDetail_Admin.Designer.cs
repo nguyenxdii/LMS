@@ -30,6 +30,16 @@
         {
             this.btnBack = new Guna.UI2.WinForms.Guna2Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.lblStatus = new System.Windows.Forms.Label();
             this.lblDepositAmount = new System.Windows.Forms.Label();
             this.lblTotalFee = new System.Windows.Forms.Label();
@@ -40,16 +50,6 @@
             this.lblCustomer = new System.Windows.Forms.Label();
             this.lblOrderId = new System.Windows.Forms.Label();
             this.dtpCreatedAt = new Guna.UI2.WinForms.Guna2DateTimePicker();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,7 +61,7 @@
             this.btnBack.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnBack.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnBack.ForeColor = System.Drawing.Color.Black;
-            this.btnBack.Location = new System.Drawing.Point(143, 344);
+            this.btnBack.Location = new System.Drawing.Point(141, 350);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(180, 45);
             this.btnBack.TabIndex = 5;
@@ -109,8 +109,128 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(310, 292);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(310, 326);
             this.tableLayoutPanel1.TabIndex = 4;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label10.ForeColor = System.Drawing.Color.Black;
+            this.label10.Location = new System.Drawing.Point(5, 290);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(132, 34);
+            this.label10.TabIndex = 44;
+            this.label10.Text = "Ngày tạo";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label9.ForeColor = System.Drawing.Color.Black;
+            this.label9.Location = new System.Drawing.Point(5, 258);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(132, 30);
+            this.label9.TabIndex = 43;
+            this.label9.Text = "Trạng thái";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label8.ForeColor = System.Drawing.Color.Black;
+            this.label8.Location = new System.Drawing.Point(5, 226);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(132, 30);
+            this.label8.TabIndex = 42;
+            this.label8.Text = "Đặt cọc";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label7.ForeColor = System.Drawing.Color.Black;
+            this.label7.Location = new System.Drawing.Point(5, 194);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(132, 30);
+            this.label7.TabIndex = 41;
+            this.label7.Text = "Tổng phí";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label6.ForeColor = System.Drawing.Color.Black;
+            this.label6.Location = new System.Drawing.Point(5, 162);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(132, 30);
+            this.label6.TabIndex = 40;
+            this.label6.Text = "Mô tả";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label5.ForeColor = System.Drawing.Color.Black;
+            this.label5.Location = new System.Drawing.Point(5, 130);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(132, 30);
+            this.label5.TabIndex = 39;
+            this.label5.Text = "Địa chỉ lấy";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label4.ForeColor = System.Drawing.Color.Black;
+            this.label4.Location = new System.Drawing.Point(5, 98);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(132, 30);
+            this.label4.TabIndex = 38;
+            this.label4.Text = "Kho nhận";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.Location = new System.Drawing.Point(5, 66);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(132, 30);
+            this.label3.TabIndex = 37;
+            this.label3.Text = "Kho gửi";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(5, 34);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(132, 30);
+            this.label2.TabIndex = 36;
+            this.label2.Text = "Tên khách";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(5, 2);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(132, 30);
+            this.label1.TabIndex = 35;
+            this.label1.Text = "Mã đơn";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblStatus
             // 
@@ -234,126 +354,6 @@
             this.dtpCreatedAt.Size = new System.Drawing.Size(150, 27);
             this.dtpCreatedAt.TabIndex = 7;
             this.dtpCreatedAt.Value = new System.DateTime(2025, 10, 22, 15, 28, 3, 545);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(5, 2);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(132, 30);
-            this.label1.TabIndex = 35;
-            this.label1.Text = "Mã đơn";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(5, 34);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(132, 30);
-            this.label2.TabIndex = 36;
-            this.label2.Text = "Tên khách";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(5, 66);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(132, 30);
-            this.label3.TabIndex = 37;
-            this.label3.Text = "Kho gửi";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(5, 98);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(132, 30);
-            this.label4.TabIndex = 38;
-            this.label4.Text = "Kho nhận";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(5, 130);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(132, 30);
-            this.label5.TabIndex = 39;
-            this.label5.Text = "Địa chỉ lấy";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(5, 162);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(132, 30);
-            this.label6.TabIndex = 40;
-            this.label6.Text = "Mô tả";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(5, 194);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(132, 30);
-            this.label7.TabIndex = 41;
-            this.label7.Text = "Tổng phí";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label8.ForeColor = System.Drawing.Color.Black;
-            this.label8.Location = new System.Drawing.Point(5, 226);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(132, 30);
-            this.label8.TabIndex = 42;
-            this.label8.Text = "Đặt cọc";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label9.ForeColor = System.Drawing.Color.Black;
-            this.label9.Location = new System.Drawing.Point(5, 258);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(132, 30);
-            this.label9.TabIndex = 43;
-            this.label9.Text = "Trạng thái";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label10.ForeColor = System.Drawing.Color.Black;
-            this.label10.Location = new System.Drawing.Point(5, 290);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(132, 33);
-            this.label10.TabIndex = 44;
-            this.label10.Text = "Ngày tạo";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // ucOrderDetail_Admin
             // 

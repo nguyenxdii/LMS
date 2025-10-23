@@ -13,7 +13,7 @@ namespace LMS.DAL.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202510221222012_InitialCreate"; }
+            get { return "202510230435500_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source

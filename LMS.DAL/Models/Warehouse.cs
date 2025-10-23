@@ -19,5 +19,8 @@ namespace LMS.DAL.Models
         // NEW: gán kho vào vùng Bắc/Trung/Nam
         [Required]
         public Zone ZoneId { get; set; }
+
+        [Required]
+        public WarehouseType Type { get; set; }
     }
 }

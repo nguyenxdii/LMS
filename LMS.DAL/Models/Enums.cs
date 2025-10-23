@@ -24,11 +24,24 @@ namespace LMS.DAL.Models
 
     public enum StopStatus
     {
-        Waiting = 0, Reached = 1, Departed = 2, Skipped = 3, FinalDelivered = 4
+        Waiting = 0,
+        Reached = 1,
+        Departed = 2,
+        Skipped = 3,
+        FinalDelivered = 4
     }
 
     public enum Zone
     {
-        North = 0, Central = 1, South = 2
+        North = 0,
+        Central = 1,
+        South = 2
+    }
+
+    public enum WarehouseType
+    {
+        Main = 0,   // Kho chính (trung tâm vùng hoặc tỉnh)
+        Hub = 1,    // Kho trung chuyển giữa các vùng
+        Local = 2   // Kho cấp huyện / xã (sau này mở rộng)
     }
 }

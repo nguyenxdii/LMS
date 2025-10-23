@@ -15,46 +15,49 @@ namespace LMS.DAL.Migrations
         {
             db.Warehouses.AddOrUpdate(x => x.Name, new[]
             {
-                // ===== Miền Bắc (12 tỉnh) =====
-                new Warehouse { Name = "Kho Hà Nội",             Address = "Trung tâm khai thác Hà Nội",              ZoneId = Zone.North },
-                new Warehouse { Name = "Kho Hải Phòng",          Address = "Trung tâm khai thác Hải Phòng",           ZoneId = Zone.North },
-                new Warehouse { Name = "Kho Quảng Ninh",         Address = "Trung tâm khai thác Quảng Ninh",          ZoneId = Zone.North },
-                new Warehouse { Name = "Kho Thái Nguyên",        Address = "Trung tâm khai thác Thái Nguyên",         ZoneId = Zone.North },
-                new Warehouse { Name = "Kho Bắc Giang",          Address = "Trung tâm khai thác Bắc Giang",           ZoneId = Zone.North },
-                new Warehouse { Name = "Kho Phú Thọ",            Address = "Trung tâm khai thác Phú Thọ",             ZoneId = Zone.North },
-                new Warehouse { Name = "Kho Vĩnh Phúc",          Address = "Trung tâm khai thác Vĩnh Phúc",           ZoneId = Zone.North },
-                new Warehouse { Name = "Kho Bắc Ninh",           Address = "Trung tâm khai thác Bắc Ninh",            ZoneId = Zone.North },
-                new Warehouse { Name = "Kho Nam Định",           Address = "Trung tâm khai thác Nam Định",            ZoneId = Zone.North },
-                new Warehouse { Name = "Kho Ninh Bình",          Address = "Trung tâm khai thác Ninh Bình",           ZoneId = Zone.North },
-                new Warehouse { Name = "Kho Thái Bình",          Address = "Trung tâm khai thác Thái Bình",           ZoneId = Zone.North },
-                new Warehouse { Name = "Kho Hưng Yên",           Address = "Trung tâm khai thác Hưng Yên",            ZoneId = Zone.North },
+                // ===== THÀNH PHỐ TRỰC THUỘC TRUNG ƯƠNG =====
+                new Warehouse { Name = "Kho Hà Nội", ZoneId = Zone.North, Type = WarehouseType.Main, Address = "Hà Nội" },
+                new Warehouse { Name = "Kho Hải Phòng", ZoneId = Zone.North, Type = WarehouseType.Main, Address = "Hải Phòng" },
+                new Warehouse { Name = "Kho Huế", ZoneId = Zone.Central, Type = WarehouseType.Main, Address = "Thừa Thiên Huế" },
+                new Warehouse { Name = "Kho Đà Nẵng", ZoneId = Zone.Central, Type = WarehouseType.Main, Address = "Đà Nẵng" },
+                new Warehouse { Name = "Kho TP. Hồ Chí Minh", ZoneId = Zone.South, Type = WarehouseType.Main, Address = "TP.HCM" },
+                new Warehouse { Name = "Kho Cần Thơ", ZoneId = Zone.South, Type = WarehouseType.Main, Address = "Cần Thơ" },
 
-                // ===== Miền Trung (11 tỉnh) =====
-                new Warehouse { Name = "Kho Thanh Hóa",          Address = "Trung tâm khai thác Thanh Hóa",           ZoneId = Zone.Central },
-                new Warehouse { Name = "Kho Nghệ An",            Address = "Trung tâm khai thác Nghệ An",             ZoneId = Zone.Central },
-                new Warehouse { Name = "Kho Hà Tĩnh",            Address = "Trung tâm khai thác Hà Tĩnh",             ZoneId = Zone.Central },
-                new Warehouse { Name = "Kho Quảng Bình",         Address = "Trung tâm khai thác Quảng Bình",          ZoneId = Zone.Central },
-                new Warehouse { Name = "Kho Thừa Thiên Huế",     Address = "Trung tâm khai thác Thừa Thiên Huế",      ZoneId = Zone.Central },
-                new Warehouse { Name = "Kho Đà Nẵng",            Address = "Trung tâm khai thác Đà Nẵng",             ZoneId = Zone.Central },
-                new Warehouse { Name = "Kho Quảng Nam",          Address = "Trung tâm khai thác Quảng Nam",           ZoneId = Zone.Central },
-                new Warehouse { Name = "Kho Quảng Ngãi",         Address = "Trung tâm khai thác Quảng Ngãi",          ZoneId = Zone.Central },
-                new Warehouse { Name = "Kho Bình Định",          Address = "Trung tâm khai thác Bình Định",           ZoneId = Zone.Central },
-                new Warehouse { Name = "Kho Khánh Hòa",          Address = "Trung tâm khai thác Khánh Hòa",           ZoneId = Zone.Central },
-                new Warehouse { Name = "Kho Lâm Đồng",           Address = "Trung tâm khai thác Lâm Đồng",            ZoneId = Zone.Central },
+                // ===== MIỀN BẮC =====
+                new Warehouse { Name = "Kho Bắc Ninh", ZoneId = Zone.North, Type = WarehouseType.Main, Address = "Bắc Ninh" },
+                new Warehouse { Name = "Kho Cao Bằng", ZoneId = Zone.North, Type = WarehouseType.Local, Address = "Cao Bằng" },
+                new Warehouse { Name = "Kho Điện Biên", ZoneId = Zone.North, Type = WarehouseType.Local, Address = "Điện Biên" },
+                new Warehouse { Name = "Kho Lai Châu", ZoneId = Zone.North, Type = WarehouseType.Local, Address = "Lai Châu" },
+                new Warehouse { Name = "Kho Lạng Sơn", ZoneId = Zone.North, Type = WarehouseType.Local, Address = "Lạng Sơn" },
+                new Warehouse { Name = "Kho Lào Cai", ZoneId = Zone.North, Type = WarehouseType.Local, Address = "Lào Cai" },
+                new Warehouse { Name = "Kho Hưng Yên", ZoneId = Zone.North, Type = WarehouseType.Local, Address = "Hưng Yên" },
+                new Warehouse { Name = "Kho Ninh Bình", ZoneId = Zone.North, Type = WarehouseType.Local, Address = "Ninh Bình" },
+                new Warehouse { Name = "Kho Phú Thọ", ZoneId = Zone.North, Type = WarehouseType.Local, Address = "Phú Thọ" },
+                new Warehouse { Name = "Kho Quảng Ninh", ZoneId = Zone.North, Type = WarehouseType.Local, Address = "Quảng Ninh" },
+                new Warehouse { Name = "Kho Sơn La", ZoneId = Zone.North, Type = WarehouseType.Local, Address = "Sơn La" },
+                new Warehouse { Name = "Kho Thái Nguyên", ZoneId = Zone.North, Type = WarehouseType.Local, Address = "Thái Nguyên" },
+                new Warehouse { Name = "Kho Tuyên Quang", ZoneId = Zone.North, Type = WarehouseType.Local, Address = "Tuyên Quang" },
 
-                // ===== Miền Nam (11 tỉnh) =====
-                new Warehouse { Name = "Kho Bình Phước",         Address = "Trung tâm khai thác Bình Phước",          ZoneId = Zone.South },
-                new Warehouse { Name = "Kho Tây Ninh",           Address = "Trung tâm khai thác Tây Ninh",            ZoneId = Zone.South },
-                new Warehouse { Name = "Kho Bình Dương",         Address = "Trung tâm khai thác Bình Dương",          ZoneId = Zone.South },
-                new Warehouse { Name = "Kho Đồng Nai",           Address = "Trung tâm khai thác Đồng Nai",            ZoneId = Zone.South },
-                new Warehouse { Name = "Kho Bà Rịa - Vũng Tàu",  Address = "Trung tâm khai thác BR-VT",               ZoneId = Zone.South },
-                new Warehouse { Name = "Kho TP. Hồ Chí Minh",    Address = "Trung tâm khai thác TP.HCM",              ZoneId = Zone.South },
-                new Warehouse { Name = "Kho Long An",            Address = "Trung tâm khai thác Long An",             ZoneId = Zone.South },
-                new Warehouse { Name = "Kho Tiền Giang",         Address = "Trung tâm khai thác Tiền Giang",          ZoneId = Zone.South },
-                new Warehouse { Name = "Kho Cần Thơ",            Address = "Trung tâm khai thác Cần Thơ",             ZoneId = Zone.South },
-                new Warehouse { Name = "Kho An Giang",           Address = "Trung tâm khai thác An Giang",            ZoneId = Zone.South },
-                new Warehouse { Name = "Kho Cà Mau",             Address = "Trung tâm khai thác Cà Mau",              ZoneId = Zone.South }
+                // ===== MIỀN TRUNG =====
+                new Warehouse { Name = "Kho Thanh Hóa", ZoneId = Zone.Central, Type = WarehouseType.Hub, Address = "Thanh Hóa" },
+                new Warehouse { Name = "Kho Hà Tĩnh", ZoneId = Zone.Central, Type = WarehouseType.Local, Address = "Hà Tĩnh" },
+                new Warehouse { Name = "Kho Nghệ An", ZoneId = Zone.Central, Type = WarehouseType.Main, Address = "Nghệ An" },
+                new Warehouse { Name = "Kho Quảng Ngãi", ZoneId = Zone.Central, Type = WarehouseType.Local, Address = "Quảng Ngãi" },
+                new Warehouse { Name = "Kho Quảng Trị", ZoneId = Zone.Central, Type = WarehouseType.Local, Address = "Quảng Trị" },
+                new Warehouse { Name = "Kho Khánh Hòa", ZoneId = Zone.Central, Type = WarehouseType.Hub, Address = "Khánh Hòa" },
+                new Warehouse { Name = "Kho Lâm Đồng", ZoneId = Zone.Central, Type = WarehouseType.Local, Address = "Lâm Đồng" },
+                new Warehouse { Name = "Kho Gia Lai", ZoneId = Zone.Central, Type = WarehouseType.Local, Address = "Gia Lai" },
+
+                // ===== MIỀN NAM =====
+                new Warehouse { Name = "Kho An Giang", ZoneId = Zone.South, Type = WarehouseType.Local, Address = "An Giang" },
+                new Warehouse { Name = "Kho Đồng Nai", ZoneId = Zone.South, Type = WarehouseType.Main, Address = "Đồng Nai" },
+                new Warehouse { Name = "Kho Đồng Tháp", ZoneId = Zone.South, Type = WarehouseType.Local, Address = "Đồng Tháp" },
+                new Warehouse { Name = "Kho Tây Ninh", ZoneId = Zone.South, Type = WarehouseType.Local, Address = "Tây Ninh" },
+                new Warehouse { Name = "Kho Vĩnh Long", ZoneId = Zone.South, Type = WarehouseType.Local, Address = "Vĩnh Long" },
+                new Warehouse { Name = "Kho Cà Mau", ZoneId = Zone.South, Type = WarehouseType.Local, Address = "Cà Mau" }
             });
+
+
 
             db.SaveChanges();
 
@@ -76,9 +79,9 @@ namespace LMS.DAL.Migrations
 
             // ===== UserAccounts (khóa theo Username) =====
             db.UserAccounts.AddOrUpdate(x => x.Username,
-                new UserAccount { Username = "admin", PasswordHash = "123456", Role = UserRole.Admin, IsActive = true },
-                new UserAccount { Username = "alpha", PasswordHash = "123456", Role = UserRole.Customer, IsActive = true, CustomerId = c1?.Id },
-                new UserAccount { Username = "tai", PasswordHash = "123456", Role = UserRole.Driver, IsActive = true, DriverId = d1?.Id }
+                new UserAccount { Username = "admin", PasswordHash = "123123", Role = UserRole.Admin, IsActive = true },
+                new UserAccount { Username = "alpha", PasswordHash = "123123", Role = UserRole.Customer, IsActive = true, CustomerId = c1?.Id },
+                new UserAccount { Username = "tai", PasswordHash = "123123", Role = UserRole.Driver, IsActive = true, DriverId = d1?.Id }
             );
             // NOTE: PasswordHash đang để plain cho demo; khi rảnh hãy chuyển sang hash+salt.
         }

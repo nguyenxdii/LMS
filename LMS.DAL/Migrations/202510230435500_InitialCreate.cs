@@ -103,6 +103,7 @@
                         Lat = c.Double(),
                         Lng = c.Double(),
                         ZoneId = c.Int(nullable: false),
+                        Type = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
