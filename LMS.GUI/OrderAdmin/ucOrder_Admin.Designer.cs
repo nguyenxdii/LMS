@@ -44,99 +44,113 @@
             // 
             // btnSearch
             // 
+            this.btnSearch.BorderRadius = 15;
             this.btnSearch.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnSearch.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnSearch.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnSearch.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnSearch.FillColor = System.Drawing.Color.Black;
             this.btnSearch.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnSearch.ForeColor = System.Drawing.Color.White;
-            this.btnSearch.Location = new System.Drawing.Point(21, 9);
+            this.btnSearch.Location = new System.Drawing.Point(21, 24);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(119, 45);
+            this.btnSearch.Size = new System.Drawing.Size(234, 45);
             this.btnSearch.TabIndex = 0;
-            this.btnSearch.Text = "T. Kiếm";
+            this.btnSearch.Text = "Tìm Kiếm";
             // 
             // btnApprove
             // 
+            this.btnApprove.BorderRadius = 15;
             this.btnApprove.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnApprove.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnApprove.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnApprove.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnApprove.FillColor = System.Drawing.Color.Black;
             this.btnApprove.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnApprove.ForeColor = System.Drawing.Color.White;
-            this.btnApprove.Location = new System.Drawing.Point(146, 9);
+            this.btnApprove.Location = new System.Drawing.Point(285, 24);
             this.btnApprove.Name = "btnApprove";
-            this.btnApprove.Size = new System.Drawing.Size(119, 45);
+            this.btnApprove.Size = new System.Drawing.Size(234, 45);
             this.btnApprove.TabIndex = 0;
-            this.btnApprove.Text = "Duyệt ĐH";
+            this.btnApprove.Text = "Duyệt Đơn Hàng";
             // 
             // btnReject
             // 
+            this.btnReject.BorderRadius = 15;
             this.btnReject.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnReject.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnReject.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnReject.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnReject.FillColor = System.Drawing.Color.Black;
             this.btnReject.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnReject.ForeColor = System.Drawing.Color.White;
-            this.btnReject.Location = new System.Drawing.Point(271, 9);
+            this.btnReject.Location = new System.Drawing.Point(568, 24);
             this.btnReject.Name = "btnReject";
-            this.btnReject.Size = new System.Drawing.Size(119, 45);
+            this.btnReject.Size = new System.Drawing.Size(234, 45);
             this.btnReject.TabIndex = 0;
-            this.btnReject.Text = "T. Chối ĐH";
+            this.btnReject.Text = "T. Chối Đ. Hàng";
             // 
             // btnViewDetail
             // 
+            this.btnViewDetail.BorderRadius = 15;
             this.btnViewDetail.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnViewDetail.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnViewDetail.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnViewDetail.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnViewDetail.FillColor = System.Drawing.Color.Black;
             this.btnViewDetail.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnViewDetail.ForeColor = System.Drawing.Color.White;
-            this.btnViewDetail.Location = new System.Drawing.Point(396, 9);
+            this.btnViewDetail.Location = new System.Drawing.Point(285, 75);
             this.btnViewDetail.Name = "btnViewDetail";
-            this.btnViewDetail.Size = new System.Drawing.Size(119, 45);
+            this.btnViewDetail.Size = new System.Drawing.Size(234, 45);
             this.btnViewDetail.TabIndex = 0;
             this.btnViewDetail.Text = "C. Tiết";
             // 
             // btnShipment
             // 
+            this.btnShipment.BorderRadius = 15;
             this.btnShipment.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnShipment.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnShipment.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnShipment.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnShipment.FillColor = System.Drawing.Color.Black;
             this.btnShipment.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnShipment.ForeColor = System.Drawing.Color.White;
-            this.btnShipment.Location = new System.Drawing.Point(521, 9);
+            this.btnShipment.Location = new System.Drawing.Point(21, 75);
             this.btnShipment.Name = "btnShipment";
-            this.btnShipment.Size = new System.Drawing.Size(119, 45);
+            this.btnShipment.Size = new System.Drawing.Size(234, 45);
             this.btnShipment.TabIndex = 0;
-            this.btnShipment.Text = "Tạo Ship";
+            this.btnShipment.Text = "Tạo Chuyến";
             // 
             // btnDelete
             // 
+            this.btnDelete.BorderRadius = 15;
             this.btnDelete.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnDelete.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnDelete.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnDelete.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnDelete.FillColor = System.Drawing.Color.Black;
             this.btnDelete.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnDelete.ForeColor = System.Drawing.Color.White;
-            this.btnDelete.Location = new System.Drawing.Point(646, 9);
+            this.btnDelete.Location = new System.Drawing.Point(843, 24);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(119, 45);
+            this.btnDelete.Size = new System.Drawing.Size(234, 45);
             this.btnDelete.TabIndex = 0;
-            this.btnDelete.Text = "Xóa ĐH";
+            this.btnDelete.Text = "Xóa Đ. Hàng";
             // 
             // btnReload
             // 
+            this.btnReload.BorderRadius = 15;
             this.btnReload.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnReload.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnReload.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnReload.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnReload.FillColor = System.Drawing.Color.Black;
             this.btnReload.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnReload.ForeColor = System.Drawing.Color.White;
-            this.btnReload.Location = new System.Drawing.Point(771, 9);
+            this.btnReload.Location = new System.Drawing.Point(568, 75);
             this.btnReload.Name = "btnReload";
-            this.btnReload.Size = new System.Drawing.Size(119, 45);
+            this.btnReload.Size = new System.Drawing.Size(234, 45);
             this.btnReload.TabIndex = 0;
             this.btnReload.Text = "Tải Lại";
             // 
@@ -144,6 +158,7 @@
             // 
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
             this.dgvOrders.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvOrders.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
@@ -152,7 +167,8 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvOrders.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvOrders.ColumnHeadersHeight = 4;
+            this.dgvOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
@@ -162,12 +178,12 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvOrders.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvOrders.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dgvOrders.Location = new System.Drawing.Point(21, 60);
+            this.dgvOrders.Location = new System.Drawing.Point(21, 135);
             this.dgvOrders.Name = "dgvOrders";
             this.dgvOrders.RowHeadersVisible = false;
             this.dgvOrders.RowHeadersWidth = 62;
             this.dgvOrders.RowTemplate.Height = 28;
-            this.dgvOrders.Size = new System.Drawing.Size(869, 448);
+            this.dgvOrders.Size = new System.Drawing.Size(1158, 446);
             this.dgvOrders.TabIndex = 2;
             this.dgvOrders.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
             this.dgvOrders.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -180,7 +196,7 @@
             this.dgvOrders.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.dgvOrders.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.dgvOrders.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
-            this.dgvOrders.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvOrders.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.dgvOrders.ThemeStyle.HeaderStyle.Height = 4;
             this.dgvOrders.ThemeStyle.ReadOnly = false;
             this.dgvOrders.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
@@ -204,7 +220,7 @@
             this.Controls.Add(this.btnApprove);
             this.Controls.Add(this.btnSearch);
             this.Name = "ucOrder_Admin";
-            this.Size = new System.Drawing.Size(948, 553);
+            this.Size = new System.Drawing.Size(1199, 689);
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrders)).EndInit();
             this.ResumeLayout(false);
 

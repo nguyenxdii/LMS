@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace LMS.GUI.Main
+namespace LMS.GUI.AccountAdmin
 {
-    public partial class frmTest : Form
+    public partial class test : UserControl
     {
-        public frmTest()
+        public test()
         {
             InitializeComponent();
         }

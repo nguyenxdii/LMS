@@ -28,386 +28,309 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnBack = new Guna.UI2.WinForms.Guna2Button();
-            this.btnConfirmCreate = new Guna.UI2.WinForms.Guna2Button();
+            this.panel1 = new CSharp.Winform.UI.Panel();
             this.btnCancel = new Guna.UI2.WinForms.Guna2Button();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnConfirmCreate = new Guna.UI2.WinForms.Guna2Button();
+            this.btnBack = new Guna.UI2.WinForms.Guna2Button();
+            this.panel2 = new CSharp.Winform.UI.Panel();
+            this.guna2ControlBox1 = new Guna.UI2.WinForms.Guna2ControlBox();
+            this.guna2ControlBox3 = new Guna.UI2.WinForms.Guna2ControlBox();
+            this.grpConfirm = new Guna.UI2.WinForms.Guna2GroupBox();
             this.lblRemainingAmount = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.lblDepositAmount = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.lblDepositPercent = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.lblTotalFee = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.lblPickupFee = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
             this.lblRouteFee = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
+            this.lblDepositAmount = new System.Windows.Forms.Label();
             this.lblPackageDesc = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
             this.lblDesiredTime = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
+            this.lblPickupFee = new System.Windows.Forms.Label();
+            this.lblDepositPercent = new System.Windows.Forms.Label();
             this.lblPickup = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.lblDest = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.lblOrigin = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel2.SuspendLayout();
+            this.lblTotalFee = new System.Windows.Forms.Label();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.grpConfirm.SuspendLayout();
             this.SuspendLayout();
             // 
-            // btnBack
+            // panel1
             // 
-            this.btnBack.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnBack.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnBack.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnBack.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnBack.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnBack.ForeColor = System.Drawing.Color.White;
-            this.btnBack.Location = new System.Drawing.Point(24, 314);
-            this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(168, 45);
-            this.btnBack.TabIndex = 2;
-            this.btnBack.Text = "Quay lại tạo đơn";
-            // 
-            // btnConfirmCreate
-            // 
-            this.btnConfirmCreate.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnConfirmCreate.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnConfirmCreate.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnConfirmCreate.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnConfirmCreate.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnConfirmCreate.ForeColor = System.Drawing.Color.White;
-            this.btnConfirmCreate.Location = new System.Drawing.Point(221, 314);
-            this.btnConfirmCreate.Name = "btnConfirmCreate";
-            this.btnConfirmCreate.Size = new System.Drawing.Size(159, 45);
-            this.btnConfirmCreate.TabIndex = 2;
-            this.btnConfirmCreate.Text = "Xác nhận";
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.btnCancel);
+            this.panel1.Controls.Add(this.btnConfirmCreate);
+            this.panel1.Controls.Add(this.btnBack);
+            this.panel1.Controls.Add(this.panel2);
+            this.panel1.Controls.Add(this.grpConfirm);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Font = new System.Drawing.Font("Tahoma", 8.25F);
+            this.panel1.Location = new System.Drawing.Point(2, 2);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(480, 518);
+            this.panel1.TabIndex = 0;
             // 
             // btnCancel
             // 
+            this.btnCancel.BorderRadius = 15;
             this.btnCancel.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnCancel.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnCancel.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnCancel.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnCancel.FillColor = System.Drawing.Color.Black;
             this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnCancel.ForeColor = System.Drawing.Color.White;
-            this.btnCancel.Location = new System.Drawing.Point(422, 314);
+            this.btnCancel.Location = new System.Drawing.Point(299, 437);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(159, 45);
-            this.btnCancel.TabIndex = 2;
+            this.btnCancel.Size = new System.Drawing.Size(106, 45);
+            this.btnCancel.TabIndex = 58;
             this.btnCancel.Text = "Hủy";
             // 
-            // tableLayoutPanel2
+            // btnConfirmCreate
             // 
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.lblRemainingAmount, 1, 13);
-            this.tableLayoutPanel2.Controls.Add(this.label25, 0, 13);
-            this.tableLayoutPanel2.Controls.Add(this.lblDepositAmount, 1, 12);
-            this.tableLayoutPanel2.Controls.Add(this.label23, 0, 12);
-            this.tableLayoutPanel2.Controls.Add(this.lblDepositPercent, 1, 11);
-            this.tableLayoutPanel2.Controls.Add(this.label21, 0, 11);
-            this.tableLayoutPanel2.Controls.Add(this.lblTotalFee, 1, 10);
-            this.tableLayoutPanel2.Controls.Add(this.label19, 0, 10);
-            this.tableLayoutPanel2.Controls.Add(this.lblPickupFee, 1, 9);
-            this.tableLayoutPanel2.Controls.Add(this.label17, 0, 9);
-            this.tableLayoutPanel2.Controls.Add(this.lblRouteFee, 1, 8);
-            this.tableLayoutPanel2.Controls.Add(this.label15, 0, 8);
-            this.tableLayoutPanel2.Controls.Add(this.lblPackageDesc, 1, 7);
-            this.tableLayoutPanel2.Controls.Add(this.label13, 0, 7);
-            this.tableLayoutPanel2.Controls.Add(this.lblDesiredTime, 1, 6);
-            this.tableLayoutPanel2.Controls.Add(this.label11, 0, 6);
-            this.tableLayoutPanel2.Controls.Add(this.lblPickup, 1, 5);
-            this.tableLayoutPanel2.Controls.Add(this.label9, 0, 5);
-            this.tableLayoutPanel2.Controls.Add(this.lblDest, 1, 4);
-            this.tableLayoutPanel2.Controls.Add(this.label7, 0, 4);
-            this.tableLayoutPanel2.Controls.Add(this.lblOrigin, 1, 2);
-            this.tableLayoutPanel2.Controls.Add(this.label3, 0, 2);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(66, 64);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 14;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(421, 225);
-            this.tableLayoutPanel2.TabIndex = 5;
+            this.btnConfirmCreate.BorderRadius = 15;
+            this.btnConfirmCreate.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnConfirmCreate.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnConfirmCreate.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnConfirmCreate.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnConfirmCreate.FillColor = System.Drawing.Color.Black;
+            this.btnConfirmCreate.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnConfirmCreate.ForeColor = System.Drawing.Color.White;
+            this.btnConfirmCreate.Location = new System.Drawing.Point(187, 437);
+            this.btnConfirmCreate.Name = "btnConfirmCreate";
+            this.btnConfirmCreate.Size = new System.Drawing.Size(106, 45);
+            this.btnConfirmCreate.TabIndex = 59;
+            this.btnConfirmCreate.Text = "Xác nhận";
+            // 
+            // btnBack
+            // 
+            this.btnBack.BorderRadius = 15;
+            this.btnBack.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnBack.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnBack.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnBack.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnBack.FillColor = System.Drawing.Color.Black;
+            this.btnBack.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnBack.ForeColor = System.Drawing.Color.White;
+            this.btnBack.Location = new System.Drawing.Point(75, 437);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(106, 45);
+            this.btnBack.TabIndex = 60;
+            this.btnBack.Text = "Quay lại";
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.Controls.Add(this.guna2ControlBox1);
+            this.panel2.Controls.Add(this.guna2ControlBox3);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Font = new System.Drawing.Font("Tahoma", 8.25F);
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(480, 41);
+            this.panel2.TabIndex = 62;
+            // 
+            // guna2ControlBox1
+            // 
+            this.guna2ControlBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.guna2ControlBox1.BorderRadius = 5;
+            this.guna2ControlBox1.ControlBoxType = Guna.UI2.WinForms.Enums.ControlBoxType.MinimizeBox;
+            this.guna2ControlBox1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(24)))), ((int)(((byte)(29)))));
+            this.guna2ControlBox1.IconColor = System.Drawing.Color.White;
+            this.guna2ControlBox1.Location = new System.Drawing.Point(361, 3);
+            this.guna2ControlBox1.Name = "guna2ControlBox1";
+            this.guna2ControlBox1.Size = new System.Drawing.Size(55, 33);
+            this.guna2ControlBox1.TabIndex = 4;
+            // 
+            // guna2ControlBox3
+            // 
+            this.guna2ControlBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.guna2ControlBox3.BorderRadius = 5;
+            this.guna2ControlBox3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(24)))), ((int)(((byte)(29)))));
+            this.guna2ControlBox3.IconColor = System.Drawing.Color.White;
+            this.guna2ControlBox3.Location = new System.Drawing.Point(422, 3);
+            this.guna2ControlBox3.Name = "guna2ControlBox3";
+            this.guna2ControlBox3.Size = new System.Drawing.Size(55, 33);
+            this.guna2ControlBox3.TabIndex = 4;
+            // 
+            // grpConfirm
+            // 
+            this.grpConfirm.BorderRadius = 15;
+            this.grpConfirm.Controls.Add(this.lblRemainingAmount);
+            this.grpConfirm.Controls.Add(this.lblRouteFee);
+            this.grpConfirm.Controls.Add(this.lblDepositAmount);
+            this.grpConfirm.Controls.Add(this.lblPackageDesc);
+            this.grpConfirm.Controls.Add(this.lblDesiredTime);
+            this.grpConfirm.Controls.Add(this.lblPickupFee);
+            this.grpConfirm.Controls.Add(this.lblDepositPercent);
+            this.grpConfirm.Controls.Add(this.lblPickup);
+            this.grpConfirm.Controls.Add(this.lblDest);
+            this.grpConfirm.Controls.Add(this.lblOrigin);
+            this.grpConfirm.Controls.Add(this.lblTotalFee);
+            this.grpConfirm.CustomBorderColor = System.Drawing.Color.Black;
+            this.grpConfirm.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.grpConfirm.ForeColor = System.Drawing.Color.White;
+            this.grpConfirm.Location = new System.Drawing.Point(15, 47);
+            this.grpConfirm.Name = "grpConfirm";
+            this.grpConfirm.Size = new System.Drawing.Size(448, 382);
+            this.grpConfirm.TabIndex = 61;
+            this.grpConfirm.Text = "guna2GroupBox1";
             // 
             // lblRemainingAmount
             // 
             this.lblRemainingAmount.AutoSize = true;
-            this.lblRemainingAmount.Location = new System.Drawing.Point(213, 200);
+            this.lblRemainingAmount.BackColor = System.Drawing.Color.Transparent;
+            this.lblRemainingAmount.ForeColor = System.Drawing.Color.Black;
+            this.lblRemainingAmount.Location = new System.Drawing.Point(20, 325);
             this.lblRemainingAmount.Name = "lblRemainingAmount";
-            this.lblRemainingAmount.Size = new System.Drawing.Size(60, 20);
+            this.lblRemainingAmount.Size = new System.Drawing.Size(69, 25);
             this.lblRemainingAmount.TabIndex = 29;
             this.lblRemainingAmount.Text = "label26";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label25.Location = new System.Drawing.Point(3, 200);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(204, 25);
-            this.label25.TabIndex = 28;
-            this.label25.Text = "Thanh toán khi nhận hàng";
-            this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblDepositAmount
-            // 
-            this.lblDepositAmount.AutoSize = true;
-            this.lblDepositAmount.Location = new System.Drawing.Point(213, 180);
-            this.lblDepositAmount.Name = "lblDepositAmount";
-            this.lblDepositAmount.Size = new System.Drawing.Size(60, 20);
-            this.lblDepositAmount.TabIndex = 27;
-            this.lblDepositAmount.Text = "label24";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label23.Location = new System.Drawing.Point(3, 180);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(204, 20);
-            this.label23.TabIndex = 26;
-            this.label23.Text = "Số tiền COD";
-            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblDepositPercent
-            // 
-            this.lblDepositPercent.AutoSize = true;
-            this.lblDepositPercent.Location = new System.Drawing.Point(213, 160);
-            this.lblDepositPercent.Name = "lblDepositPercent";
-            this.lblDepositPercent.Size = new System.Drawing.Size(60, 20);
-            this.lblDepositPercent.TabIndex = 25;
-            this.lblDepositPercent.Text = "label22";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label21.Location = new System.Drawing.Point(3, 160);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(204, 20);
-            this.label21.TabIndex = 24;
-            this.label21.Text = "COD";
-            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblTotalFee
-            // 
-            this.lblTotalFee.AutoSize = true;
-            this.lblTotalFee.Location = new System.Drawing.Point(213, 140);
-            this.lblTotalFee.Name = "lblTotalFee";
-            this.lblTotalFee.Size = new System.Drawing.Size(60, 20);
-            this.lblTotalFee.TabIndex = 23;
-            this.lblTotalFee.Text = "label20";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label19.Location = new System.Drawing.Point(3, 140);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(204, 20);
-            this.label19.TabIndex = 22;
-            this.label19.Text = "Tổng phí";
-            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblPickupFee
-            // 
-            this.lblPickupFee.AutoSize = true;
-            this.lblPickupFee.Location = new System.Drawing.Point(213, 120);
-            this.lblPickupFee.Name = "lblPickupFee";
-            this.lblPickupFee.Size = new System.Drawing.Size(60, 20);
-            this.lblPickupFee.TabIndex = 21;
-            this.lblPickupFee.Text = "label18";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label17.Location = new System.Drawing.Point(3, 120);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(204, 20);
-            this.label17.TabIndex = 20;
-            this.label17.Text = "Phí giao hàng";
-            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblRouteFee
             // 
             this.lblRouteFee.AutoSize = true;
-            this.lblRouteFee.Location = new System.Drawing.Point(213, 100);
+            this.lblRouteFee.BackColor = System.Drawing.Color.Transparent;
+            this.lblRouteFee.ForeColor = System.Drawing.Color.Black;
+            this.lblRouteFee.Location = new System.Drawing.Point(20, 185);
             this.lblRouteFee.Name = "lblRouteFee";
-            this.lblRouteFee.Size = new System.Drawing.Size(60, 20);
+            this.lblRouteFee.Size = new System.Drawing.Size(69, 25);
             this.lblRouteFee.TabIndex = 19;
             this.lblRouteFee.Text = "label16";
             // 
-            // label15
+            // lblDepositAmount
             // 
-            this.label15.AutoSize = true;
-            this.label15.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label15.Location = new System.Drawing.Point(3, 100);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(204, 20);
-            this.label15.TabIndex = 18;
-            this.label15.Text = "Phí tuyến đường";
-            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblDepositAmount.AutoSize = true;
+            this.lblDepositAmount.BackColor = System.Drawing.Color.Transparent;
+            this.lblDepositAmount.ForeColor = System.Drawing.Color.Black;
+            this.lblDepositAmount.Location = new System.Drawing.Point(20, 297);
+            this.lblDepositAmount.Name = "lblDepositAmount";
+            this.lblDepositAmount.Size = new System.Drawing.Size(69, 25);
+            this.lblDepositAmount.TabIndex = 27;
+            this.lblDepositAmount.Text = "label24";
             // 
             // lblPackageDesc
             // 
             this.lblPackageDesc.AutoSize = true;
-            this.lblPackageDesc.Location = new System.Drawing.Point(213, 80);
+            this.lblPackageDesc.BackColor = System.Drawing.Color.Transparent;
+            this.lblPackageDesc.ForeColor = System.Drawing.Color.Black;
+            this.lblPackageDesc.Location = new System.Drawing.Point(20, 157);
             this.lblPackageDesc.Name = "lblPackageDesc";
-            this.lblPackageDesc.Size = new System.Drawing.Size(60, 20);
+            this.lblPackageDesc.Size = new System.Drawing.Size(69, 25);
             this.lblPackageDesc.TabIndex = 17;
             this.lblPackageDesc.Text = "label14";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label13.Location = new System.Drawing.Point(3, 80);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(204, 20);
-            this.label13.TabIndex = 16;
-            this.label13.Text = "Ghi chú";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblDesiredTime
             // 
             this.lblDesiredTime.AutoSize = true;
-            this.lblDesiredTime.Location = new System.Drawing.Point(213, 60);
+            this.lblDesiredTime.BackColor = System.Drawing.Color.Transparent;
+            this.lblDesiredTime.ForeColor = System.Drawing.Color.Black;
+            this.lblDesiredTime.Location = new System.Drawing.Point(20, 129);
             this.lblDesiredTime.Name = "lblDesiredTime";
-            this.lblDesiredTime.Size = new System.Drawing.Size(60, 20);
+            this.lblDesiredTime.Size = new System.Drawing.Size(69, 25);
             this.lblDesiredTime.TabIndex = 15;
             this.lblDesiredTime.Text = "label12";
             // 
-            // label11
+            // lblPickupFee
             // 
-            this.label11.AutoSize = true;
-            this.label11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label11.Location = new System.Drawing.Point(3, 60);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(204, 20);
-            this.label11.TabIndex = 14;
-            this.label11.Text = "Thời gian lấy hàng";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblPickupFee.AutoSize = true;
+            this.lblPickupFee.BackColor = System.Drawing.Color.Transparent;
+            this.lblPickupFee.ForeColor = System.Drawing.Color.Black;
+            this.lblPickupFee.Location = new System.Drawing.Point(20, 213);
+            this.lblPickupFee.Name = "lblPickupFee";
+            this.lblPickupFee.Size = new System.Drawing.Size(69, 25);
+            this.lblPickupFee.TabIndex = 21;
+            this.lblPickupFee.Text = "label18";
+            // 
+            // lblDepositPercent
+            // 
+            this.lblDepositPercent.AutoSize = true;
+            this.lblDepositPercent.BackColor = System.Drawing.Color.Transparent;
+            this.lblDepositPercent.ForeColor = System.Drawing.Color.Black;
+            this.lblDepositPercent.Location = new System.Drawing.Point(20, 269);
+            this.lblDepositPercent.Name = "lblDepositPercent";
+            this.lblDepositPercent.Size = new System.Drawing.Size(69, 25);
+            this.lblDepositPercent.TabIndex = 25;
+            this.lblDepositPercent.Text = "label22";
             // 
             // lblPickup
             // 
             this.lblPickup.AutoSize = true;
-            this.lblPickup.Location = new System.Drawing.Point(213, 40);
+            this.lblPickup.BackColor = System.Drawing.Color.Transparent;
+            this.lblPickup.ForeColor = System.Drawing.Color.Black;
+            this.lblPickup.Location = new System.Drawing.Point(20, 101);
             this.lblPickup.Name = "lblPickup";
-            this.lblPickup.Size = new System.Drawing.Size(60, 20);
+            this.lblPickup.Size = new System.Drawing.Size(69, 25);
             this.lblPickup.TabIndex = 13;
             this.lblPickup.Text = "label10";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label9.Location = new System.Drawing.Point(3, 40);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(204, 20);
-            this.label9.TabIndex = 12;
-            this.label9.Text = "Địa chỉ đến lấy hàng";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblDest
             // 
             this.lblDest.AutoSize = true;
-            this.lblDest.Location = new System.Drawing.Point(213, 20);
+            this.lblDest.BackColor = System.Drawing.Color.Transparent;
+            this.lblDest.ForeColor = System.Drawing.Color.Black;
+            this.lblDest.Location = new System.Drawing.Point(20, 73);
             this.lblDest.Name = "lblDest";
-            this.lblDest.Size = new System.Drawing.Size(51, 20);
+            this.lblDest.Size = new System.Drawing.Size(59, 25);
             this.lblDest.TabIndex = 11;
             this.lblDest.Text = "label8";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label7.Location = new System.Drawing.Point(3, 20);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(204, 20);
-            this.label7.TabIndex = 10;
-            this.label7.Text = "Kho nhận";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblOrigin
             // 
             this.lblOrigin.AutoSize = true;
-            this.lblOrigin.Location = new System.Drawing.Point(213, 0);
+            this.lblOrigin.BackColor = System.Drawing.Color.Transparent;
+            this.lblOrigin.ForeColor = System.Drawing.Color.Black;
+            this.lblOrigin.Location = new System.Drawing.Point(20, 45);
             this.lblOrigin.Name = "lblOrigin";
-            this.lblOrigin.Size = new System.Drawing.Size(51, 20);
+            this.lblOrigin.Size = new System.Drawing.Size(59, 25);
             this.lblOrigin.TabIndex = 7;
             this.lblOrigin.Text = "label4";
             // 
-            // label3
+            // lblTotalFee
             // 
-            this.label3.AutoSize = true;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Location = new System.Drawing.Point(3, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(204, 20);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Kho gửi";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblTotalFee.AutoSize = true;
+            this.lblTotalFee.BackColor = System.Drawing.Color.Transparent;
+            this.lblTotalFee.ForeColor = System.Drawing.Color.Black;
+            this.lblTotalFee.Location = new System.Drawing.Point(20, 241);
+            this.lblTotalFee.Name = "lblTotalFee";
+            this.lblTotalFee.Size = new System.Drawing.Size(69, 25);
+            this.lblTotalFee.TabIndex = 23;
+            this.lblTotalFee.Text = "label20";
             // 
             // ucOrderConfirm_Cus
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tableLayoutPanel2);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnConfirmCreate);
-            this.Controls.Add(this.btnBack);
+            this.BackColor = System.Drawing.Color.Black;
+            this.Controls.Add(this.panel1);
             this.Name = "ucOrderConfirm_Cus";
-            this.Size = new System.Drawing.Size(1058, 825);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
+            this.Padding = new System.Windows.Forms.Padding(2);
+            this.Size = new System.Drawing.Size(484, 522);
+            this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.grpConfirm.ResumeLayout(false);
+            this.grpConfirm.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private Guna.UI2.WinForms.Guna2Button btnBack;
-        private Guna.UI2.WinForms.Guna2Button btnConfirmCreate;
+
+        private CSharp.Winform.UI.Panel panel1;
         private Guna.UI2.WinForms.Guna2Button btnCancel;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private Guna.UI2.WinForms.Guna2Button btnConfirmCreate;
+        private Guna.UI2.WinForms.Guna2Button btnBack;
+        private CSharp.Winform.UI.Panel panel2;
+        private Guna.UI2.WinForms.Guna2ControlBox guna2ControlBox1;
+        private Guna.UI2.WinForms.Guna2ControlBox guna2ControlBox3;
+        private Guna.UI2.WinForms.Guna2GroupBox grpConfirm;
         private System.Windows.Forms.Label lblRemainingAmount;
-        private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.Label lblDepositAmount;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label lblDepositPercent;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label lblTotalFee;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label lblPickupFee;
-        private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label lblRouteFee;
-        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label lblDepositAmount;
         private System.Windows.Forms.Label lblPackageDesc;
-        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label lblDesiredTime;
-        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label lblPickupFee;
+        private System.Windows.Forms.Label lblDepositPercent;
         private System.Windows.Forms.Label lblPickup;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label lblDest;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lblOrigin;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblTotalFee;
     }
 }

@@ -31,33 +31,31 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.dgvStops = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.btnComplete = new Guna.UI2.WinForms.Guna2Button();
+            this.dgvShipments = new Guna.UI2.WinForms.Guna2DataGridView();
+            this.cmbStatus = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.dtTo = new Guna.UI2.WinForms.Guna2DateTimePicker();
+            this.dtFrom = new Guna.UI2.WinForms.Guna2DateTimePicker();
+            this.btnSearchHistory = new Guna.UI2.WinForms.Guna2Button();
             this.btnReload = new Guna.UI2.WinForms.Guna2Button();
-            this.btnArrive = new Guna.UI2.WinForms.Guna2Button();
-            this.btnDepart = new Guna.UI2.WinForms.Guna2Button();
-            this.btnReceive = new Guna.UI2.WinForms.Guna2Button();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.lblCurrentSeq = new System.Windows.Forms.Label();
-            this.lblStatus = new System.Windows.Forms.Label();
-            this.lblRoute = new System.Windows.Forms.Label();
-            this.lblCustomer = new System.Windows.Forms.Label();
-            this.lblOrderNo = new System.Windows.Forms.Label();
+            this.btnManageShipment = new Guna.UI2.WinForms.Guna2Button();
+            this.tlpContent = new CSharp.Winform.UI.TableLayoutPanel();
+            this.lblStartedAt = new System.Windows.Forms.Label();
             this.lblShipmentNo = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvStops)).BeginInit();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.lblTotalStops = new System.Windows.Forms.Label();
+            this.lblOrderNo = new System.Windows.Forms.Label();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.lblCustomerName = new System.Windows.Forms.Label();
+            this.lblRoute = new System.Windows.Forms.Label();
+            this.lblOriginWarehouse = new System.Windows.Forms.Label();
+            this.lblDestinationWarehouse = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvShipments)).BeginInit();
+            this.tlpContent.SuspendLayout();
             this.SuspendLayout();
             // 
-            // dgvStops
+            // dgvShipments
             // 
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            this.dgvStops.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvShipments.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
@@ -65,9 +63,9 @@
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvStops.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvStops.ColumnHeadersHeight = 4;
-            this.dgvStops.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            this.dgvShipments.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvShipments.ColumnHeadersHeight = 4;
+            this.dgvShipments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
@@ -75,324 +73,299 @@
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvStops.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dgvStops.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dgvStops.Location = new System.Drawing.Point(24, 248);
-            this.dgvStops.Name = "dgvStops";
-            this.dgvStops.RowHeadersVisible = false;
-            this.dgvStops.RowHeadersWidth = 62;
-            this.dgvStops.RowTemplate.Height = 28;
-            this.dgvStops.Size = new System.Drawing.Size(806, 381);
-            this.dgvStops.TabIndex = 15;
-            this.dgvStops.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
-            this.dgvStops.ThemeStyle.AlternatingRowsStyle.Font = null;
-            this.dgvStops.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
-            this.dgvStops.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
-            this.dgvStops.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
-            this.dgvStops.ThemeStyle.BackColor = System.Drawing.Color.White;
-            this.dgvStops.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dgvStops.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
-            this.dgvStops.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dgvStops.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.dgvStops.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
-            this.dgvStops.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            this.dgvStops.ThemeStyle.HeaderStyle.Height = 4;
-            this.dgvStops.ThemeStyle.ReadOnly = false;
-            this.dgvStops.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
-            this.dgvStops.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dgvStops.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.dgvStops.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            this.dgvStops.ThemeStyle.RowsStyle.Height = 28;
-            this.dgvStops.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dgvStops.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            this.dgvShipments.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvShipments.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dgvShipments.Location = new System.Drawing.Point(3, 356);
+            this.dgvShipments.Name = "dgvShipments";
+            this.dgvShipments.RowHeadersVisible = false;
+            this.dgvShipments.RowHeadersWidth = 62;
+            this.dgvShipments.RowTemplate.Height = 28;
+            this.dgvShipments.Size = new System.Drawing.Size(1193, 330);
+            this.dgvShipments.TabIndex = 22;
+            this.dgvShipments.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
+            this.dgvShipments.ThemeStyle.AlternatingRowsStyle.Font = null;
+            this.dgvShipments.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
+            this.dgvShipments.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
+            this.dgvShipments.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
+            this.dgvShipments.ThemeStyle.BackColor = System.Drawing.Color.White;
+            this.dgvShipments.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dgvShipments.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            this.dgvShipments.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dgvShipments.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.dgvShipments.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
+            this.dgvShipments.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            this.dgvShipments.ThemeStyle.HeaderStyle.Height = 4;
+            this.dgvShipments.ThemeStyle.ReadOnly = false;
+            this.dgvShipments.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
+            this.dgvShipments.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dgvShipments.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.dgvShipments.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            this.dgvShipments.ThemeStyle.RowsStyle.Height = 28;
+            this.dgvShipments.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dgvShipments.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             // 
-            // btnComplete
+            // cmbStatus
             // 
-            this.btnComplete.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnComplete.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnComplete.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnComplete.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnComplete.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnComplete.ForeColor = System.Drawing.Color.Black;
-            this.btnComplete.Location = new System.Drawing.Point(788, 58);
-            this.btnComplete.Name = "btnComplete";
-            this.btnComplete.Size = new System.Drawing.Size(180, 45);
-            this.btnComplete.TabIndex = 10;
-            this.btnComplete.Text = "btnComplete";
+            this.cmbStatus.BackColor = System.Drawing.Color.Transparent;
+            this.cmbStatus.BorderRadius = 15;
+            this.cmbStatus.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbStatus.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbStatus.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbStatus.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cmbStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+            this.cmbStatus.ItemHeight = 30;
+            this.cmbStatus.Location = new System.Drawing.Point(494, 268);
+            this.cmbStatus.Name = "cmbStatus";
+            this.cmbStatus.Size = new System.Drawing.Size(200, 36);
+            this.cmbStatus.TabIndex = 21;
+            // 
+            // dtTo
+            // 
+            this.dtTo.BorderRadius = 15;
+            this.dtTo.Checked = true;
+            this.dtTo.FillColor = System.Drawing.Color.Black;
+            this.dtTo.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.dtTo.ForeColor = System.Drawing.Color.White;
+            this.dtTo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtTo.Location = new System.Drawing.Point(288, 268);
+            this.dtTo.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
+            this.dtTo.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
+            this.dtTo.Name = "dtTo";
+            this.dtTo.Size = new System.Drawing.Size(200, 36);
+            this.dtTo.TabIndex = 19;
+            this.dtTo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.dtTo.Value = new System.DateTime(2025, 10, 23, 17, 28, 37, 210);
+            // 
+            // dtFrom
+            // 
+            this.dtFrom.BorderRadius = 15;
+            this.dtFrom.Checked = true;
+            this.dtFrom.FillColor = System.Drawing.Color.Black;
+            this.dtFrom.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.dtFrom.ForeColor = System.Drawing.Color.White;
+            this.dtFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtFrom.Location = new System.Drawing.Point(82, 268);
+            this.dtFrom.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
+            this.dtFrom.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
+            this.dtFrom.Name = "dtFrom";
+            this.dtFrom.Size = new System.Drawing.Size(200, 36);
+            this.dtFrom.TabIndex = 20;
+            this.dtFrom.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.dtFrom.Value = new System.DateTime(2025, 10, 23, 17, 28, 37, 210);
+            // 
+            // btnSearchHistory
+            // 
+            this.btnSearchHistory.BorderRadius = 15;
+            this.btnSearchHistory.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnSearchHistory.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnSearchHistory.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnSearchHistory.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnSearchHistory.FillColor = System.Drawing.Color.Black;
+            this.btnSearchHistory.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnSearchHistory.ForeColor = System.Drawing.Color.White;
+            this.btnSearchHistory.Location = new System.Drawing.Point(484, 211);
+            this.btnSearchHistory.Name = "btnSearchHistory";
+            this.btnSearchHistory.Size = new System.Drawing.Size(210, 45);
+            this.btnSearchHistory.TabIndex = 18;
+            this.btnSearchHistory.Text = "Tìm kiếm";
             // 
             // btnReload
             // 
+            this.btnReload.BorderRadius = 15;
             this.btnReload.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnReload.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnReload.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnReload.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnReload.FillColor = System.Drawing.Color.Black;
             this.btnReload.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnReload.ForeColor = System.Drawing.Color.Black;
-            this.btnReload.Location = new System.Drawing.Point(602, 109);
+            this.btnReload.ForeColor = System.Drawing.Color.White;
+            this.btnReload.Location = new System.Drawing.Point(288, 211);
             this.btnReload.Name = "btnReload";
-            this.btnReload.Size = new System.Drawing.Size(180, 45);
-            this.btnReload.TabIndex = 11;
-            this.btnReload.Text = "btnReload";
+            this.btnReload.Size = new System.Drawing.Size(190, 45);
+            this.btnReload.TabIndex = 18;
+            this.btnReload.Text = "Tải lại";
             // 
-            // btnArrive
+            // btnManageShipment
             // 
-            this.btnArrive.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnArrive.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnArrive.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnArrive.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnArrive.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnArrive.ForeColor = System.Drawing.Color.Black;
-            this.btnArrive.Location = new System.Drawing.Point(602, 58);
-            this.btnArrive.Name = "btnArrive";
-            this.btnArrive.Size = new System.Drawing.Size(180, 45);
-            this.btnArrive.TabIndex = 12;
-            this.btnArrive.Text = "btnArrive";
+            this.btnManageShipment.BorderRadius = 15;
+            this.btnManageShipment.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnManageShipment.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnManageShipment.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnManageShipment.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnManageShipment.FillColor = System.Drawing.Color.Black;
+            this.btnManageShipment.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnManageShipment.ForeColor = System.Drawing.Color.White;
+            this.btnManageShipment.Location = new System.Drawing.Point(82, 211);
+            this.btnManageShipment.Name = "btnManageShipment";
+            this.btnManageShipment.Size = new System.Drawing.Size(200, 45);
+            this.btnManageShipment.TabIndex = 18;
+            this.btnManageShipment.Text = "Quản lý chuyến";
             // 
-            // btnDepart
+            // tlpContent
             // 
-            this.btnDepart.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnDepart.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnDepart.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnDepart.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnDepart.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnDepart.ForeColor = System.Drawing.Color.Black;
-            this.btnDepart.Location = new System.Drawing.Point(788, 7);
-            this.btnDepart.Name = "btnDepart";
-            this.btnDepart.Size = new System.Drawing.Size(180, 45);
-            this.btnDepart.TabIndex = 13;
-            this.btnDepart.Text = "btnDepart";
+            this.tlpContent.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tlpContent.ColumnCount = 3;
+            this.tlpContent.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tlpContent.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tlpContent.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tlpContent.Controls.Add(this.lblStartedAt, 2, 2);
+            this.tlpContent.Controls.Add(this.lblShipmentNo, 0, 0);
+            this.tlpContent.Controls.Add(this.lblTotalStops, 2, 1);
+            this.tlpContent.Controls.Add(this.lblOrderNo, 0, 1);
+            this.tlpContent.Controls.Add(this.lblStatus, 2, 0);
+            this.tlpContent.Controls.Add(this.lblCustomerName, 0, 2);
+            this.tlpContent.Controls.Add(this.lblRoute, 1, 2);
+            this.tlpContent.Controls.Add(this.lblOriginWarehouse, 1, 0);
+            this.tlpContent.Controls.Add(this.lblDestinationWarehouse, 1, 1);
+            this.tlpContent.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.tlpContent.Location = new System.Drawing.Point(13, 22);
+            this.tlpContent.Name = "tlpContent";
+            this.tlpContent.RowCount = 3;
+            this.tlpContent.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tlpContent.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tlpContent.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 54F));
+            this.tlpContent.Size = new System.Drawing.Size(957, 147);
+            this.tlpContent.TabIndex = 26;
             // 
-            // btnReceive
+            // lblStartedAt
             // 
-            this.btnReceive.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnReceive.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnReceive.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnReceive.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnReceive.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnReceive.ForeColor = System.Drawing.Color.Black;
-            this.btnReceive.Location = new System.Drawing.Point(602, 9);
-            this.btnReceive.Name = "btnReceive";
-            this.btnReceive.Size = new System.Drawing.Size(180, 45);
-            this.btnReceive.TabIndex = 14;
-            this.btnReceive.Text = "btnReceive";
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Inset;
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.4403F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75.5597F));
-            this.tableLayoutPanel1.Controls.Add(this.label6, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.lblCurrentSeq, 1, 5);
-            this.tableLayoutPanel1.Controls.Add(this.lblStatus, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.lblRoute, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.lblCustomer, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.lblOrderNo, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.lblShipmentNo, 1, 0);
-            this.tableLayoutPanel1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.tableLayoutPanel1.ForeColor = System.Drawing.Color.Black;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(14, 20);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 6;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(538, 196);
-            this.tableLayoutPanel1.TabIndex = 9;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(5, 162);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(124, 32);
-            this.label6.TabIndex = 40;
-            this.label6.Text = "Mô tả";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(5, 130);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(124, 30);
-            this.label5.TabIndex = 39;
-            this.label5.Text = "Địa chỉ lấy";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(5, 98);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(124, 30);
-            this.label4.TabIndex = 38;
-            this.label4.Text = "Kho nhận";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(5, 66);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(124, 30);
-            this.label3.TabIndex = 37;
-            this.label3.Text = "Kho gửi";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(5, 34);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(124, 30);
-            this.label2.TabIndex = 36;
-            this.label2.Text = "Tên khách";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(5, 2);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(124, 30);
-            this.label1.TabIndex = 35;
-            this.label1.Text = "Mã đơn";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblCurrentSeq
-            // 
-            this.lblCurrentSeq.AutoSize = true;
-            this.lblCurrentSeq.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblCurrentSeq.ForeColor = System.Drawing.Color.Black;
-            this.lblCurrentSeq.Location = new System.Drawing.Point(137, 162);
-            this.lblCurrentSeq.Name = "lblCurrentSeq";
-            this.lblCurrentSeq.Size = new System.Drawing.Size(396, 32);
-            this.lblCurrentSeq.TabIndex = 30;
-            this.lblCurrentSeq.Text = "Id";
-            this.lblCurrentSeq.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblStatus
-            // 
-            this.lblStatus.AutoSize = true;
-            this.lblStatus.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblStatus.ForeColor = System.Drawing.Color.Black;
-            this.lblStatus.Location = new System.Drawing.Point(137, 130);
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(396, 30);
-            this.lblStatus.TabIndex = 29;
-            this.lblStatus.Text = "Id";
-            this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblRoute
-            // 
-            this.lblRoute.AutoSize = true;
-            this.lblRoute.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblRoute.ForeColor = System.Drawing.Color.Black;
-            this.lblRoute.Location = new System.Drawing.Point(137, 98);
-            this.lblRoute.Name = "lblRoute";
-            this.lblRoute.Size = new System.Drawing.Size(396, 30);
-            this.lblRoute.TabIndex = 28;
-            this.lblRoute.Text = "Id";
-            this.lblRoute.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblCustomer
-            // 
-            this.lblCustomer.AutoSize = true;
-            this.lblCustomer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblCustomer.ForeColor = System.Drawing.Color.Black;
-            this.lblCustomer.Location = new System.Drawing.Point(137, 66);
-            this.lblCustomer.Name = "lblCustomer";
-            this.lblCustomer.Size = new System.Drawing.Size(396, 30);
-            this.lblCustomer.TabIndex = 27;
-            this.lblCustomer.Text = "Id";
-            this.lblCustomer.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblOrderNo
-            // 
-            this.lblOrderNo.AutoSize = true;
-            this.lblOrderNo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblOrderNo.ForeColor = System.Drawing.Color.Black;
-            this.lblOrderNo.Location = new System.Drawing.Point(137, 34);
-            this.lblOrderNo.Name = "lblOrderNo";
-            this.lblOrderNo.Size = new System.Drawing.Size(396, 30);
-            this.lblOrderNo.TabIndex = 26;
-            this.lblOrderNo.Text = "Id";
-            this.lblOrderNo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblStartedAt.AutoSize = true;
+            this.lblStartedAt.ForeColor = System.Drawing.Color.Black;
+            this.lblStartedAt.Location = new System.Drawing.Point(207, 91);
+            this.lblStartedAt.Name = "lblStartedAt";
+            this.lblStartedAt.Size = new System.Drawing.Size(79, 28);
+            this.lblStartedAt.TabIndex = 43;
+            this.lblStartedAt.Text = "bắt đầu";
+            this.lblStartedAt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblShipmentNo
             // 
             this.lblShipmentNo.AutoSize = true;
-            this.lblShipmentNo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblShipmentNo.ForeColor = System.Drawing.Color.Black;
-            this.lblShipmentNo.Location = new System.Drawing.Point(137, 2);
+            this.lblShipmentNo.Location = new System.Drawing.Point(4, 1);
             this.lblShipmentNo.Name = "lblShipmentNo";
-            this.lblShipmentNo.Size = new System.Drawing.Size(396, 30);
-            this.lblShipmentNo.TabIndex = 25;
-            this.lblShipmentNo.Text = "Id";
+            this.lblShipmentNo.Size = new System.Drawing.Size(71, 28);
+            this.lblShipmentNo.TabIndex = 35;
+            this.lblShipmentNo.Text = "Mã CH";
             this.lblShipmentNo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // ucShipmentDetail_Drv1
+            // lblTotalStops
+            // 
+            this.lblTotalStops.AutoSize = true;
+            this.lblTotalStops.ForeColor = System.Drawing.Color.Black;
+            this.lblTotalStops.Location = new System.Drawing.Point(207, 46);
+            this.lblTotalStops.Name = "lblTotalStops";
+            this.lblTotalStops.Size = new System.Drawing.Size(90, 28);
+            this.lblTotalStops.TabIndex = 42;
+            this.lblTotalStops.Text = "số chặng";
+            this.lblTotalStops.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblOrderNo
+            // 
+            this.lblOrderNo.AutoSize = true;
+            this.lblOrderNo.ForeColor = System.Drawing.Color.Black;
+            this.lblOrderNo.Location = new System.Drawing.Point(4, 46);
+            this.lblOrderNo.Name = "lblOrderNo";
+            this.lblOrderNo.Size = new System.Drawing.Size(80, 28);
+            this.lblOrderNo.TabIndex = 36;
+            this.lblOrderNo.Text = "Mã đơn";
+            this.lblOrderNo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.ForeColor = System.Drawing.Color.Black;
+            this.lblStatus.Location = new System.Drawing.Point(207, 1);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(97, 28);
+            this.lblStatus.TabIndex = 41;
+            this.lblStatus.Text = "trạng thái";
+            this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblCustomerName
+            // 
+            this.lblCustomerName.AutoSize = true;
+            this.lblCustomerName.ForeColor = System.Drawing.Color.Black;
+            this.lblCustomerName.Location = new System.Drawing.Point(4, 91);
+            this.lblCustomerName.Name = "lblCustomerName";
+            this.lblCustomerName.Size = new System.Drawing.Size(96, 28);
+            this.lblCustomerName.TabIndex = 37;
+            this.lblCustomerName.Text = "tên khách";
+            this.lblCustomerName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblRoute
+            // 
+            this.lblRoute.AutoSize = true;
+            this.lblRoute.ForeColor = System.Drawing.Color.Black;
+            this.lblRoute.Location = new System.Drawing.Point(107, 91);
+            this.lblRoute.Name = "lblRoute";
+            this.lblRoute.Size = new System.Drawing.Size(61, 28);
+            this.lblRoute.TabIndex = 40;
+            this.lblRoute.Text = "tuyến";
+            this.lblRoute.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblOriginWarehouse
+            // 
+            this.lblOriginWarehouse.AutoSize = true;
+            this.lblOriginWarehouse.ForeColor = System.Drawing.Color.Black;
+            this.lblOriginWarehouse.Location = new System.Drawing.Point(107, 1);
+            this.lblOriginWarehouse.Name = "lblOriginWarehouse";
+            this.lblOriginWarehouse.Size = new System.Drawing.Size(79, 28);
+            this.lblOriginWarehouse.TabIndex = 38;
+            this.lblOriginWarehouse.Text = "kho gửi";
+            this.lblOriginWarehouse.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblDestinationWarehouse
+            // 
+            this.lblDestinationWarehouse.AutoSize = true;
+            this.lblDestinationWarehouse.ForeColor = System.Drawing.Color.Black;
+            this.lblDestinationWarehouse.Location = new System.Drawing.Point(107, 46);
+            this.lblDestinationWarehouse.Name = "lblDestinationWarehouse";
+            this.lblDestinationWarehouse.Size = new System.Drawing.Size(93, 28);
+            this.lblDestinationWarehouse.TabIndex = 39;
+            this.lblDestinationWarehouse.Text = "kho nhận";
+            this.lblDestinationWarehouse.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // ucShipmentDetail_Drv
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.dgvStops);
-            this.Controls.Add(this.btnComplete);
+            this.Controls.Add(this.tlpContent);
+            this.Controls.Add(this.dgvShipments);
+            this.Controls.Add(this.cmbStatus);
+            this.Controls.Add(this.dtTo);
+            this.Controls.Add(this.dtFrom);
+            this.Controls.Add(this.btnManageShipment);
             this.Controls.Add(this.btnReload);
-            this.Controls.Add(this.btnArrive);
-            this.Controls.Add(this.btnDepart);
-            this.Controls.Add(this.btnReceive);
-            this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "ucShipmentDetail_Drv1";
-            this.Size = new System.Drawing.Size(1008, 783);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvStops)).EndInit();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
+            this.Controls.Add(this.btnSearchHistory);
+            this.Name = "ucShipmentDetail_Drv";
+            this.Size = new System.Drawing.Size(1199, 689);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvShipments)).EndInit();
+            this.tlpContent.ResumeLayout(false);
+            this.tlpContent.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private Guna.UI2.WinForms.Guna2DataGridView dgvStops;
-        private Guna.UI2.WinForms.Guna2Button btnComplete;
+        private Guna.UI2.WinForms.Guna2DataGridView dgvShipments;
+        private Guna.UI2.WinForms.Guna2ComboBox cmbStatus;
+        private Guna.UI2.WinForms.Guna2DateTimePicker dtTo;
+        private Guna.UI2.WinForms.Guna2DateTimePicker dtFrom;
+        private Guna.UI2.WinForms.Guna2Button btnSearchHistory;
         private Guna.UI2.WinForms.Guna2Button btnReload;
-        private Guna.UI2.WinForms.Guna2Button btnArrive;
-        private Guna.UI2.WinForms.Guna2Button btnDepart;
-        private Guna.UI2.WinForms.Guna2Button btnReceive;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label lblCurrentSeq;
-        private System.Windows.Forms.Label lblStatus;
-        private System.Windows.Forms.Label lblRoute;
-        private System.Windows.Forms.Label lblCustomer;
-        private System.Windows.Forms.Label lblOrderNo;
+        private Guna.UI2.WinForms.Guna2Button btnManageShipment;
+        private CSharp.Winform.UI.TableLayoutPanel tlpContent;
+        private System.Windows.Forms.Label lblStartedAt;
         private System.Windows.Forms.Label lblShipmentNo;
+        private System.Windows.Forms.Label lblTotalStops;
+        private System.Windows.Forms.Label lblOrderNo;
+        private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.Label lblCustomerName;
+        private System.Windows.Forms.Label lblRoute;
+        private System.Windows.Forms.Label lblOriginWarehouse;
+        private System.Windows.Forms.Label lblDestinationWarehouse;
     }
 }
