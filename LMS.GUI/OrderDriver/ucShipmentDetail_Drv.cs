@@ -233,7 +233,8 @@ namespace LMS.GUI.OrderDriver
             {
                 //Text = $"Thao tác chuyến hàng SHP{id.Value}",
                 StartPosition = FormStartPosition.CenterScreen,
-                Size = new Size(900, 650)
+                FormBorderStyle = FormBorderStyle.None,
+                Size = new Size(1195, 685)
             })
             {
                 var uc = new ucShipmentRun_Drv();

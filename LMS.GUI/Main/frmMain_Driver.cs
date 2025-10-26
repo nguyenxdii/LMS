@@ -82,7 +82,7 @@ namespace LMS.GUI.Main
             {
                 btnMyShipments,
                 btnShipmentDetail,
-                btnShipmentRun,
+                //btnShipmentRun,
             };
 
             foreach (Button btn in navigationButtons)

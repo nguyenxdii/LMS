@@ -12,6 +12,8 @@ namespace LMS.DAL.Models
 
         [Required, StringLength(15)]
         public string Phone { get; set; }
+        [StringLength(12)] // CCCD có 12 số
+        public string CitizenId { get; set; }
 
         // Loại bằng lái (B2, C, D, E, FC, ...)
         [Required, StringLength(10)]

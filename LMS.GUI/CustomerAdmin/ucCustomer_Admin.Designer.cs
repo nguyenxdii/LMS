@@ -37,6 +37,7 @@
             this.btnDelete = new Guna.UI2.WinForms.Guna2Button();
             this.btnEdit = new Guna.UI2.WinForms.Guna2Button();
             this.btnAdd = new Guna.UI2.WinForms.Guna2Button();
+            this.btnSearch = new Guna.UI2.WinForms.Guna2Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCustomers)).BeginInit();
             this.SuspendLayout();
             // 
@@ -103,7 +104,7 @@
             this.btnReload.FillColor = System.Drawing.Color.Black;
             this.btnReload.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnReload.ForeColor = System.Drawing.Color.White;
-            this.btnReload.Location = new System.Drawing.Point(763, 105);
+            this.btnReload.Location = new System.Drawing.Point(934, 105);
             this.btnReload.Name = "btnReload";
             this.btnReload.Size = new System.Drawing.Size(169, 45);
             this.btnReload.TabIndex = 11;
@@ -173,18 +174,35 @@
             this.btnAdd.TabIndex = 15;
             this.btnAdd.Text = "Thêm";
             // 
+            // btnSearch
+            // 
+            this.btnSearch.BorderRadius = 15;
+            this.btnSearch.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnSearch.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnSearch.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnSearch.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnSearch.FillColor = System.Drawing.Color.Black;
+            this.btnSearch.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnSearch.ForeColor = System.Drawing.Color.White;
+            this.btnSearch.Location = new System.Drawing.Point(763, 105);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(169, 45);
+            this.btnSearch.TabIndex = 11;
+            this.btnSearch.Text = "Tìm Kiếm";
+            // 
             // ucCustomer_Admin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.dgvCustomers);
+            this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.btnReload);
             this.Controls.Add(this.btnViewDetail);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnAdd);
             this.Name = "ucCustomer_Admin";
-            this.Size = new System.Drawing.Size(1134, 689);
+            this.Size = new System.Drawing.Size(1199, 689);
             ((System.ComponentModel.ISupportInitialize)(this.dgvCustomers)).EndInit();
             this.ResumeLayout(false);
 
@@ -198,5 +216,6 @@
         private Guna.UI2.WinForms.Guna2Button btnDelete;
         private Guna.UI2.WinForms.Guna2Button btnEdit;
         private Guna.UI2.WinForms.Guna2Button btnAdd;
+        private Guna.UI2.WinForms.Guna2Button btnSearch;
     }
 }

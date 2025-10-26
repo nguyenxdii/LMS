@@ -80,7 +80,7 @@ namespace LMS.GUI.Main
             {
                 btnNewOrder,
                 btnOrderList,
-                btnViewTracking
+                //btnViewTracking
             };
 
             foreach (Button btn in navigationButtons)

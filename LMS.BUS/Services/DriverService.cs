@@ -1,0 +1,277 @@
+﻿// LMS.BUS/Services/DriverService.cs
+using LMS.BUS.Dtos;
+using LMS.DAL;
+using LMS.DAL.Models;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Text.RegularExpressions; // Cần cho Regex validation
+
+namespace LMS.BUS.Services
+{
+    public class DriverService
+    {
+        // === 1. Dùng cho ucDriver_Admin (Grid chính) ===
+        public List<Driver> GetDriversForAdmin()
+        {
+            using (var db = new LogisticsDbContext())
+            {
+                // Chỉ lấy tài xế, không cần kèm UserAccount ở grid chính
+                return db.Drivers.OrderBy(d => d.FullName).ToList();
+            }
+        }
+
+        // === 2. Dùng cho ucDriver_Admin (Nút Xóa) ===
+        public bool CheckDriverHasShipments(int driverId)
+        {
+            using (var db = new LogisticsDbContext())
+            {
+                // Kiểm tra xem có BẤT KỲ chuyến hàng nào (kể cả cũ/hủy)
+                return db.Shipments.Any(s => s.DriverId == driverId);
+            }
+        }
+
+        public void DeleteNewDriver(int driverId)
+        {
+            using (var db = new LogisticsDbContext())
+            {
+                using (var transaction = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        // 1. Xóa các UserAccount liên kết
+                        var accounts = db.UserAccounts.Where(a => a.DriverId == driverId).ToList();
+                        if (accounts.Any())
+                        {
+                            db.UserAccounts.RemoveRange(accounts);
+                        }
+
+                        // 2. Xóa Driver
+                        var driver = db.Drivers.Find(driverId);
+                        if (driver != null)
+                        {
+                            db.Drivers.Remove(driver);
+                        }
+
+                        db.SaveChanges();
+                        transaction.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                        throw; // Ném lỗi ra ngoài để UC bắt
+                    }
+                }
+            }
+        }
+
+        // === 3. Dùng cho ucDriverDetail_Admin (View Detail "A") ===
+        public DriverDetailDto GetDriverDetails(int driverId)
+        {
+            using (var db = new LogisticsDbContext())
+            {
+                var dto = new DriverDetailDto();
+
+                dto.Driver = db.Drivers.Find(driverId);
+                if (dto.Driver == null)
+                    throw new Exception($"Không tìm thấy tài xế ID={driverId}.");
+
+                dto.Account = db.UserAccounts
+                                .FirstOrDefault(a => a.DriverId == driverId);
+
+                // Lấy lịch sử chuyến hàng
+                dto.Shipments = db.Shipments
+                               .Where(s => s.DriverId == driverId)
+                               .Include(s => s.Order) // Load kèm đơn hàng
+                               .Include(s => s.FromWarehouse) // Load kèm kho đi
+                               .Include(s => s.ToWarehouse)  // Load kèm kho đến
+                               .OrderByDescending(s => s.UpdatedAt)
+                               .ToList();
+                return dto;
+            }
+        }
+
+        // === 4. Dùng cho ucDriverEditor_Admin (Edit Mode "B") ===
+        public DriverEditorDto GetDriverForEdit(int driverId)
+        {
+            using (var db = new LogisticsDbContext())
+            {
+                var driver = db.Drivers.Find(driverId);
+                if (driver == null)
+                    throw new Exception($"Không tìm thấy tài xế ID={driverId}.");
+
+                var account = db.UserAccounts.FirstOrDefault(a => a.DriverId == driverId);
+
+                return new DriverEditorDto
+                {
+                    Id = driver.Id,
+                    FullName = driver.FullName,
+                    Phone = driver.Phone,
+                    CitizenId = driver.CitizenId,
+                    LicenseType = driver.LicenseType,
+                    Username = account?.Username
+                };
+            }
+        }
+
+        // === 5. Dùng cho ucDriverEditor_Admin (Save "B") ===
+        public void CreateDriverAndAccount(DriverEditorDto dto)
+        {
+            using (var db = new LogisticsDbContext())
+            {
+                // Validation (Service-side)
+                if (string.IsNullOrWhiteSpace(dto.FullName))
+                    throw new InvalidOperationException("Vui lòng nhập họ tên.");
+                if (db.UserAccounts.Any(u => u.Username == dto.Username))
+                    throw new InvalidOperationException("Tên tài khoản đã tồn tại.");
+                if (db.Drivers.Any(d => d.CitizenId == dto.CitizenId))
+                    throw new InvalidOperationException("Số Citizen ID (CCCD) này đã tồn tại.");
+                if (string.IsNullOrWhiteSpace(dto.Password) || dto.Password.Length < 6)
+                    throw new InvalidOperationException("Mật khẩu phải từ 6 ký tự trở lên.");
+
+                using (var transaction = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var driver = new Driver
+                        {
+                            FullName = dto.FullName,
+                            Phone = dto.Phone,
+                            CitizenId = dto.CitizenId,
+                            LicenseType = dto.LicenseType,
+                            IsActive = true // Tài xế mới luôn Active
+                        };
+                        db.Drivers.Add(driver);
+                        db.SaveChanges(); // Lưu để lấy DriverId
+
+                        var account = new UserAccount
+                        {
+                            Username = dto.Username,
+                            PasswordHash = dto.Password, // TODO: Băm mật khẩu (hash + salt)
+                            Role = UserRole.Driver, // Vai trò là Driver
+                            DriverId = driver.Id,   // Liên kết với DriverId
+                            IsActive = true,
+                            CreatedAt = DateTime.Now
+                        };
+                        db.UserAccounts.Add(account);
+                        db.SaveChanges();
+
+                        transaction.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+        }
+
+        public void UpdateDriverAndAccount(DriverEditorDto dto)
+        {
+            using (var db = new LogisticsDbContext())
+            {
+                var driver = db.Drivers.Find(dto.Id);
+                if (driver == null)
+                    throw new Exception("Không tìm thấy tài xế.");
+
+                if (string.IsNullOrWhiteSpace(dto.FullName))
+                    throw new InvalidOperationException("Vui lòng nhập họ tên.");
+
+                // Kiểm tra CitizenId trùng (trừ chính mình)
+                if (db.Drivers.Any(d => d.CitizenId == dto.CitizenId && d.Id != dto.Id))
+                    throw new InvalidOperationException("Số Citizen ID (CCCD) này đã tồn tại.");
+
+                // Cập nhật thông tin Driver
+                driver.FullName = dto.FullName;
+                driver.Phone = dto.Phone;
+                driver.CitizenId = dto.CitizenId;
+                driver.LicenseType = dto.LicenseType;
+
+                // Tìm tài khoản chính
+                var account = db.UserAccounts.FirstOrDefault(a => a.DriverId == dto.Id);
+
+                if (account != null)
+                {
+                    // Cập nhật Username (nếu thay đổi)
+                    if (account.Username != dto.Username)
+                    {
+                        if (db.UserAccounts.Any(u => u.Username == dto.Username && u.Id != account.Id))
+                            throw new InvalidOperationException("Tên tài khoản đã tồn tại.");
+                        account.Username = dto.Username;
+                    }
+
+                    // Cập nhật mật khẩu (nếu được cung cấp)
+                    if (!string.IsNullOrWhiteSpace(dto.Password))
+                    {
+                        if (dto.Password.Length < 6)
+                            throw new InvalidOperationException("Mật khẩu mới phải từ 6 ký tự.");
+
+                        account.PasswordHash = dto.Password; // TODO: Băm mật khẩu
+                        account.LastPasswordChangeAt = DateTime.Now;
+                    }
+                }
+
+                db.SaveChanges();
+            }
+        }
+
+        public List<Driver> SearchDriversForAdmin(string nameLike, string phoneLike, string citizenIdLike, string licenseType)
+        {
+            using (var db = new LogisticsDbContext())
+            {
+                var query = db.Drivers.AsQueryable(); // Bắt đầu truy vấn từ bảng Drivers
+
+                // Áp dụng các bộ lọc nếu có giá trị
+                if (!string.IsNullOrWhiteSpace(nameLike))
+                {
+                    query = query.Where(d => d.FullName.Contains(nameLike));
+                }
+                if (!string.IsNullOrWhiteSpace(phoneLike))
+                {
+                    query = query.Where(d => d.Phone.Contains(phoneLike));
+                }
+                if (!string.IsNullOrWhiteSpace(citizenIdLike))
+                {
+                    query = query.Where(d => d.CitizenId.Contains(citizenIdLike));
+                }
+                if (!string.IsNullOrWhiteSpace(licenseType))
+                {
+                    // So sánh chính xác hạng bằng lái
+                    query = query.Where(d => d.LicenseType == licenseType);
+                }
+
+                // Sắp xếp kết quả và trả về List<Driver>
+                return query.OrderBy(d => d.FullName).ToList();
+            }
+        }
+
+        public List<Driver> GetAvailableDriversForAdmin()
+        {
+            using (var db = new LogisticsDbContext())
+            {
+                var activeShipmentStatuses = new[] {
+                     ShipmentStatus.Pending, ShipmentStatus.Assigned, ShipmentStatus.OnRoute,
+                     ShipmentStatus.AtWarehouse, ShipmentStatus.ArrivedDestination
+                 };
+
+                // Lấy danh sách ID của các tài xế đang bận
+                var busyDriverIds = db.Shipments
+                                      // *** BỎ CHECK != null Ở ĐÂY ***
+                                      .Where(s => activeShipmentStatuses.Contains(s.Status))
+                                      .Select(s => s.DriverId) // Chỉ cần lấy DriverId
+                                      .Distinct()
+                                      .ToList();
+
+                // Lấy tất cả tài xế đang hoạt động và không nằm trong danh sách bận
+                var availableDrivers = db.Drivers
+                                         .Where(d => d.IsActive && !busyDriverIds.Contains(d.Id))
+                                         .OrderBy(d => d.FullName)
+                                         .ToList();
+
+                return availableDrivers;
+            }
+        }
+    }
+}

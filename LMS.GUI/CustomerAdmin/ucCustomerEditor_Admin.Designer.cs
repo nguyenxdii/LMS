@@ -46,7 +46,7 @@
             this.label3 = new CSharp.Winform.UI.Label();
             this.txtPhone = new Guna.UI2.WinForms.Guna2TextBox();
             this.btnSave = new Guna.UI2.WinForms.Guna2Button();
-            this.label5 = new CSharp.Winform.UI.Label();
+            this.lblTitle = new CSharp.Winform.UI.Label();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.pnlTop = new CSharp.Winform.UI.Panel();
             this.grpInfo.SuspendLayout();
@@ -346,16 +346,16 @@
             this.btnSave.TabIndex = 2;
             this.btnSave.Text = "Lưu";
             // 
-            // label5
+            // lblTitle
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(127, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(398, 38);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "Thêm Thông Tin Khách Hàng";
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.lblTitle.ForeColor = System.Drawing.Color.Black;
+            this.lblTitle.Location = new System.Drawing.Point(127, 0);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(398, 38);
+            this.lblTitle.TabIndex = 0;
+            this.lblTitle.Text = "Thêm Thông Tin Khách Hàng";
             // 
             // guna2Panel1
             // 
@@ -374,7 +374,7 @@
             // pnlTop
             // 
             this.pnlTop.BackColor = System.Drawing.Color.White;
-            this.pnlTop.Controls.Add(this.label5);
+            this.pnlTop.Controls.Add(this.lblTitle);
             this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTop.Font = new System.Drawing.Font("Tahoma", 8.25F);
             this.pnlTop.Location = new System.Drawing.Point(0, 0);
@@ -422,7 +422,7 @@
         private CSharp.Winform.UI.Label label3;
         private Guna.UI2.WinForms.Guna2TextBox txtPhone;
         private Guna.UI2.WinForms.Guna2Button btnSave;
-        private CSharp.Winform.UI.Label label5;
+        private CSharp.Winform.UI.Label lblTitle;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
         private CSharp.Winform.UI.Panel pnlTop;
     }

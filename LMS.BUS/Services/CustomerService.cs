@@ -215,5 +215,35 @@ namespace LMS.BUS.Services
                 db.SaveChanges();
             }
         }
+
+        public List<Customer> SearchCustomersForAdmin(string nameLike, string phoneLike, string emailLike, string addressLike)
+        {
+            using (var db = new LogisticsDbContext())
+            {
+                var query = db.Customers.AsQueryable(); // Bắt đầu từ bảng Customers
+
+                // Áp dụng các bộ lọc nếu có giá trị
+                if (!string.IsNullOrWhiteSpace(nameLike))
+                {
+                    query = query.Where(c => c.Name.Contains(nameLike));
+                }
+                if (!string.IsNullOrWhiteSpace(phoneLike))
+                {
+                    query = query.Where(c => c.Phone.Contains(phoneLike));
+                }
+                if (!string.IsNullOrWhiteSpace(emailLike))
+                {
+                    // Có thể dùng StartsWith, EndsWith hoặc Contains tùy nhu cầu
+                    query = query.Where(c => c.Email.Contains(emailLike));
+                }
+                if (!string.IsNullOrWhiteSpace(addressLike))
+                {
+                    query = query.Where(c => c.Address.Contains(addressLike));
+                }
+
+                // Sắp xếp và trả về List<Customer>
+                return query.OrderBy(c => c.Name).ToList();
+            }
+        }
     }
 }

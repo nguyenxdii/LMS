@@ -215,7 +215,7 @@
             this.btnDriver.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.btnDriver.Size = new System.Drawing.Size(301, 58);
             this.btnDriver.TabIndex = 11;
-            this.btnDriver.Text = "            Trang Chủ";
+            this.btnDriver.Text = "            Tài Xế";
             this.btnDriver.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnDriver.UseVisualStyleBackColor = false;
             // 
@@ -272,7 +272,7 @@
             this.btnShipment.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.btnShipment.Size = new System.Drawing.Size(301, 58);
             this.btnShipment.TabIndex = 14;
-            this.btnShipment.Text = "            Trang Chủ";
+            this.btnShipment.Text = "            Quản Lý Chuyến Hàng";
             this.btnShipment.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnShipment.UseVisualStyleBackColor = false;
             // 

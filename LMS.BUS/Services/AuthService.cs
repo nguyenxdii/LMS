@@ -216,7 +216,7 @@ namespace LMS.BUS.Services
 
         // ============ REGISTER DRIVER ============
         public void RegisterDriver(string fullName, string username, string password,
-                                   string phone, string licenseType)
+                                   string phone, string licenseType, string citizenId)
         {
             using (var db = new LogisticsDbContext())
             {
@@ -228,6 +228,7 @@ namespace LMS.BUS.Services
                     FullName = fullName,
                     Phone = phone,
                     LicenseType = licenseType,
+                    CitizenId = citizenId,
                     IsActive = true // Driver mới mặc định Active
                 };
                 db.Drivers.Add(drv);

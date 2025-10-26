@@ -18,8 +18,17 @@ namespace LMS.GUI.CustomerAdmin
         {
             InitializeComponent();
             _customerId = customerId;
+            this.Load += UcCustomerDetail_Admin_Load;
             // Ensure necessary Labels (lblFullName, lblPhone, etc.) and
             // dgvCustomerOrders exist in your Designer.cs
+        }
+
+        private void UcCustomerDetail_Admin_Load(object sender, EventArgs e)
+        {
+            if (this.lblTitle != null)
+            {
+                this.lblTitle.Text = "Chi Tiết Khách Hàng";
+            }
         }
 
         protected override void OnLoad(EventArgs e)

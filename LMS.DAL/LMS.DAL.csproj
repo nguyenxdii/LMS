@@ -81,6 +81,10 @@
     <Compile Include="Migrations\202510231336532_Fix_OrderStatus_RemoveInTransit.Designer.cs">
       <DependentUpon>202510231336532_Fix_OrderStatus_RemoveInTransit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202510260056137_AddCitizenIdToDriver.cs" />
+    <Compile Include="Migrations\202510260056137_AddCitizenIdToDriver.Designer.cs">
+      <DependentUpon>202510260056137_AddCitizenIdToDriver.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Driver.cs" />
@@ -123,6 +127,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202510231336532_Fix_OrderStatus_RemoveInTransit.resx">
       <DependentUpon>202510231336532_Fix_OrderStatus_RemoveInTransit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202510260056137_AddCitizenIdToDriver.resx">
+      <DependentUpon>202510260056137_AddCitizenIdToDriver.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

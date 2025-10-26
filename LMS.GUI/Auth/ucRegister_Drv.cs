@@ -115,6 +115,7 @@ namespace LMS.GUI.Auth
                 var confirm = txtConfirmD.Text;
                 var phone = txtDriverPhone.Text.Trim();
                 var licenseType = cmbLicenseType.SelectedItem?.ToString();
+                var citizenId = txtCitizenId.Text.Trim();
                 if (string.IsNullOrWhiteSpace(fullName))
                 {
                     MessageBox.Show("Vui lòng nhập họ tên.");
@@ -151,7 +152,13 @@ namespace LMS.GUI.Auth
                     cmbLicenseType.Focus();
                     return;
                 }
-                _auth.RegisterDriver(fullName, username, pass, phone, licenseType);
+                if (!Regex.IsMatch(citizenId, @"^\d{12}$"))
+                {
+                    MessageBox.Show("Số Citizen ID (CCCD) phải gồm 12 chữ số.");
+                    txtCitizenId.Focus();
+                    return;
+                }
+                _auth.RegisterDriver(fullName, username, pass, phone, licenseType, citizenId);
                 MessageBox.Show("Đăng ký tài xế thành công!", "Thành công");
                 this.FindForm()?.Close();
             }

@@ -30,6 +30,11 @@ namespace LMS.GUI.OrderAdmin
 
         private void UcOrderSearch_Admin_Load(object sender, EventArgs e)
         {
+            if (this.lblTitle != null)
+            {
+                this.lblTitle.Text = "Tìm kiếm Đơn Hàng";
+            }
+
             BindFilters();
             ConfigureGrid();
             WireEvents();

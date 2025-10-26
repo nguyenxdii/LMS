@@ -51,14 +51,19 @@
             this.btnClose = new Guna.UI2.WinForms.Guna2Button();
             this.btnReset = new Guna.UI2.WinForms.Guna2Button();
             this.btnDoSearch = new Guna.UI2.WinForms.Guna2Button();
+            this.panel2 = new CSharp.Winform.UI.Panel();
+            this.lblTitle = new CSharp.Winform.UI.Label();
+            this.guna2ControlBox3 = new Guna.UI2.WinForms.Guna2ControlBox();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSearchResults)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.dgvSearchResults);
             this.panel1.Controls.Add(this.btnClose);
@@ -68,7 +73,7 @@
             this.panel1.Font = new System.Drawing.Font("Tahoma", 8.25F);
             this.panel1.Location = new System.Drawing.Point(2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1195, 685);
+            this.panel1.Size = new System.Drawing.Size(1195, 762);
             this.panel1.TabIndex = 0;
             // 
             // groupBox1
@@ -88,7 +93,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.cmbOrigin);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.groupBox1.Location = new System.Drawing.Point(279, 3);
+            this.groupBox1.Location = new System.Drawing.Point(282, 80);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(430, 351);
             this.groupBox1.TabIndex = 16;
@@ -307,7 +312,7 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvSearchResults.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvSearchResults.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dgvSearchResults.Location = new System.Drawing.Point(65, 374);
+            this.dgvSearchResults.Location = new System.Drawing.Point(65, 458);
             this.dgvSearchResults.Name = "dgvSearchResults";
             this.dgvSearchResults.RowHeadersVisible = false;
             this.dgvSearchResults.RowHeadersWidth = 62;
@@ -346,7 +351,7 @@
             this.btnClose.FillColor = System.Drawing.Color.Black;
             this.btnClose.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(729, 191);
+            this.btnClose.Location = new System.Drawing.Point(732, 268);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(180, 45);
             this.btnClose.TabIndex = 12;
@@ -362,7 +367,7 @@
             this.btnReset.FillColor = System.Drawing.Color.Black;
             this.btnReset.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnReset.ForeColor = System.Drawing.Color.White;
-            this.btnReset.Location = new System.Drawing.Point(729, 142);
+            this.btnReset.Location = new System.Drawing.Point(732, 219);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(180, 45);
             this.btnReset.TabIndex = 13;
@@ -378,11 +383,44 @@
             this.btnDoSearch.FillColor = System.Drawing.Color.Black;
             this.btnDoSearch.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnDoSearch.ForeColor = System.Drawing.Color.White;
-            this.btnDoSearch.Location = new System.Drawing.Point(729, 91);
+            this.btnDoSearch.Location = new System.Drawing.Point(732, 168);
             this.btnDoSearch.Name = "btnDoSearch";
             this.btnDoSearch.Size = new System.Drawing.Size(180, 45);
             this.btnDoSearch.TabIndex = 14;
             this.btnDoSearch.Text = "T. Kiếm";
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.Controls.Add(this.lblTitle);
+            this.panel2.Controls.Add(this.guna2ControlBox3);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Font = new System.Drawing.Font("Tahoma", 8.25F);
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1195, 58);
+            this.panel2.TabIndex = 17;
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("Tahoma", 8.25F);
+            this.lblTitle.Location = new System.Drawing.Point(13, 18);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(54, 21);
+            this.lblTitle.TabIndex = 85;
+            this.lblTitle.Text = "label4";
+            // 
+            // guna2ControlBox3
+            // 
+            this.guna2ControlBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.guna2ControlBox3.BorderRadius = 5;
+            this.guna2ControlBox3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(24)))), ((int)(((byte)(29)))));
+            this.guna2ControlBox3.IconColor = System.Drawing.Color.White;
+            this.guna2ControlBox3.Location = new System.Drawing.Point(1126, 8);
+            this.guna2ControlBox3.Name = "guna2ControlBox3";
+            this.guna2ControlBox3.Size = new System.Drawing.Size(61, 39);
+            this.guna2ControlBox3.TabIndex = 4;
             // 
             // ucOrderSearch_Admin
             // 
@@ -392,11 +430,13 @@
             this.Controls.Add(this.panel1);
             this.Name = "ucOrderSearch_Admin";
             this.Padding = new System.Windows.Forms.Padding(2);
-            this.Size = new System.Drawing.Size(1199, 689);
+            this.Size = new System.Drawing.Size(1199, 766);
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSearchResults)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -423,5 +463,8 @@
         private Guna.UI2.WinForms.Guna2Button btnClose;
         private Guna.UI2.WinForms.Guna2Button btnReset;
         private Guna.UI2.WinForms.Guna2Button btnDoSearch;
+        private CSharp.Winform.UI.Panel panel2;
+        private CSharp.Winform.UI.Label lblTitle;
+        private Guna.UI2.WinForms.Guna2ControlBox guna2ControlBox3;
     }
 }

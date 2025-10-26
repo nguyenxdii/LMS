@@ -32,9 +32,6 @@
             this.btnCancel = new Guna.UI2.WinForms.Guna2Button();
             this.btnConfirmCreate = new Guna.UI2.WinForms.Guna2Button();
             this.btnBack = new Guna.UI2.WinForms.Guna2Button();
-            this.panel2 = new CSharp.Winform.UI.Panel();
-            this.guna2ControlBox1 = new Guna.UI2.WinForms.Guna2ControlBox();
-            this.guna2ControlBox3 = new Guna.UI2.WinForms.Guna2ControlBox();
             this.grpConfirm = new Guna.UI2.WinForms.Guna2GroupBox();
             this.lblRemainingAmount = new System.Windows.Forms.Label();
             this.lblRouteFee = new System.Windows.Forms.Label();
@@ -48,7 +45,6 @@
             this.lblOrigin = new System.Windows.Forms.Label();
             this.lblTotalFee = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.grpConfirm.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,7 +54,6 @@
             this.panel1.Controls.Add(this.btnCancel);
             this.panel1.Controls.Add(this.btnConfirmCreate);
             this.panel1.Controls.Add(this.btnBack);
-            this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.grpConfirm);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Font = new System.Drawing.Font("Tahoma", 8.25F);
@@ -77,7 +72,7 @@
             this.btnCancel.FillColor = System.Drawing.Color.Black;
             this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnCancel.ForeColor = System.Drawing.Color.White;
-            this.btnCancel.Location = new System.Drawing.Point(299, 437);
+            this.btnCancel.Location = new System.Drawing.Point(299, 409);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(106, 45);
             this.btnCancel.TabIndex = 58;
@@ -93,7 +88,7 @@
             this.btnConfirmCreate.FillColor = System.Drawing.Color.Black;
             this.btnConfirmCreate.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnConfirmCreate.ForeColor = System.Drawing.Color.White;
-            this.btnConfirmCreate.Location = new System.Drawing.Point(187, 437);
+            this.btnConfirmCreate.Location = new System.Drawing.Point(187, 409);
             this.btnConfirmCreate.Name = "btnConfirmCreate";
             this.btnConfirmCreate.Size = new System.Drawing.Size(106, 45);
             this.btnConfirmCreate.TabIndex = 59;
@@ -109,46 +104,11 @@
             this.btnBack.FillColor = System.Drawing.Color.Black;
             this.btnBack.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnBack.ForeColor = System.Drawing.Color.White;
-            this.btnBack.Location = new System.Drawing.Point(75, 437);
+            this.btnBack.Location = new System.Drawing.Point(75, 409);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(106, 45);
             this.btnBack.TabIndex = 60;
             this.btnBack.Text = "Quay lại";
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.White;
-            this.panel2.Controls.Add(this.guna2ControlBox1);
-            this.panel2.Controls.Add(this.guna2ControlBox3);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Font = new System.Drawing.Font("Tahoma", 8.25F);
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(480, 41);
-            this.panel2.TabIndex = 62;
-            // 
-            // guna2ControlBox1
-            // 
-            this.guna2ControlBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.guna2ControlBox1.BorderRadius = 5;
-            this.guna2ControlBox1.ControlBoxType = Guna.UI2.WinForms.Enums.ControlBoxType.MinimizeBox;
-            this.guna2ControlBox1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(24)))), ((int)(((byte)(29)))));
-            this.guna2ControlBox1.IconColor = System.Drawing.Color.White;
-            this.guna2ControlBox1.Location = new System.Drawing.Point(361, 3);
-            this.guna2ControlBox1.Name = "guna2ControlBox1";
-            this.guna2ControlBox1.Size = new System.Drawing.Size(55, 33);
-            this.guna2ControlBox1.TabIndex = 4;
-            // 
-            // guna2ControlBox3
-            // 
-            this.guna2ControlBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.guna2ControlBox3.BorderRadius = 5;
-            this.guna2ControlBox3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(24)))), ((int)(((byte)(29)))));
-            this.guna2ControlBox3.IconColor = System.Drawing.Color.White;
-            this.guna2ControlBox3.Location = new System.Drawing.Point(422, 3);
-            this.guna2ControlBox3.Name = "guna2ControlBox3";
-            this.guna2ControlBox3.Size = new System.Drawing.Size(55, 33);
-            this.guna2ControlBox3.TabIndex = 4;
             // 
             // grpConfirm
             // 
@@ -167,9 +127,9 @@
             this.grpConfirm.CustomBorderColor = System.Drawing.Color.Black;
             this.grpConfirm.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.grpConfirm.ForeColor = System.Drawing.Color.White;
-            this.grpConfirm.Location = new System.Drawing.Point(15, 47);
+            this.grpConfirm.Location = new System.Drawing.Point(15, 21);
             this.grpConfirm.Name = "grpConfirm";
-            this.grpConfirm.Size = new System.Drawing.Size(448, 382);
+            this.grpConfirm.Size = new System.Drawing.Size(448, 373);
             this.grpConfirm.TabIndex = 61;
             this.grpConfirm.Text = "guna2GroupBox1";
             // 
@@ -304,7 +264,6 @@
             this.Padding = new System.Windows.Forms.Padding(2);
             this.Size = new System.Drawing.Size(484, 522);
             this.panel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
             this.grpConfirm.ResumeLayout(false);
             this.grpConfirm.PerformLayout();
             this.ResumeLayout(false);
@@ -317,9 +276,6 @@
         private Guna.UI2.WinForms.Guna2Button btnCancel;
         private Guna.UI2.WinForms.Guna2Button btnConfirmCreate;
         private Guna.UI2.WinForms.Guna2Button btnBack;
-        private CSharp.Winform.UI.Panel panel2;
-        private Guna.UI2.WinForms.Guna2ControlBox guna2ControlBox1;
-        private Guna.UI2.WinForms.Guna2ControlBox guna2ControlBox3;
         private Guna.UI2.WinForms.Guna2GroupBox grpConfirm;
         private System.Windows.Forms.Label lblRemainingAmount;
         private System.Windows.Forms.Label lblRouteFee;

@@ -32,9 +32,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new CSharp.Winform.UI.Panel();
-            this.panel2 = new CSharp.Winform.UI.Panel();
-            this.guna2ControlBox3 = new Guna.UI2.WinForms.Guna2ControlBox();
-            this.guna2ControlBox1 = new Guna.UI2.WinForms.Guna2ControlBox();
             this.label1 = new CSharp.Winform.UI.Label();
             this.txtNotes = new Guna.UI2.WinForms.Guna2TextBox();
             this.dgvStops = new Guna.UI2.WinForms.Guna2DataGridView();
@@ -44,9 +41,13 @@
             this.btnArrive = new Guna.UI2.WinForms.Guna2Button();
             this.btnDepart = new Guna.UI2.WinForms.Guna2Button();
             this.btnReceive = new Guna.UI2.WinForms.Guna2Button();
+            this.pnlTop = new CSharp.Winform.UI.Panel();
+            this.guna2ControlBox3 = new Guna.UI2.WinForms.Guna2ControlBox();
+            this.guna2ControlBox1 = new Guna.UI2.WinForms.Guna2ControlBox();
+            this.lblTitle = new CSharp.Winform.UI.Label();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStops)).BeginInit();
+            this.pnlTop.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -61,48 +62,13 @@
             this.panel1.Controls.Add(this.btnArrive);
             this.panel1.Controls.Add(this.btnDepart);
             this.panel1.Controls.Add(this.btnReceive);
-            this.panel1.Controls.Add(this.panel2);
+            this.panel1.Controls.Add(this.pnlTop);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Font = new System.Drawing.Font("Tahoma", 8.25F);
             this.panel1.Location = new System.Drawing.Point(2, 2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1195, 685);
             this.panel1.TabIndex = 0;
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.White;
-            this.panel2.Controls.Add(this.guna2ControlBox3);
-            this.panel2.Controls.Add(this.guna2ControlBox1);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Font = new System.Drawing.Font("Tahoma", 8.25F);
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1195, 67);
-            this.panel2.TabIndex = 7;
-            // 
-            // guna2ControlBox3
-            // 
-            this.guna2ControlBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.guna2ControlBox3.BorderRadius = 5;
-            this.guna2ControlBox3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(24)))), ((int)(((byte)(29)))));
-            this.guna2ControlBox3.IconColor = System.Drawing.Color.White;
-            this.guna2ControlBox3.Location = new System.Drawing.Point(1122, 12);
-            this.guna2ControlBox3.Name = "guna2ControlBox3";
-            this.guna2ControlBox3.Size = new System.Drawing.Size(61, 39);
-            this.guna2ControlBox3.TabIndex = 4;
-            // 
-            // guna2ControlBox1
-            // 
-            this.guna2ControlBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.guna2ControlBox1.BorderRadius = 5;
-            this.guna2ControlBox1.ControlBoxType = Guna.UI2.WinForms.Enums.ControlBoxType.MinimizeBox;
-            this.guna2ControlBox1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(24)))), ((int)(((byte)(29)))));
-            this.guna2ControlBox1.IconColor = System.Drawing.Color.White;
-            this.guna2ControlBox1.Location = new System.Drawing.Point(1055, 12);
-            this.guna2ControlBox1.Name = "guna2ControlBox1";
-            this.guna2ControlBox1.Size = new System.Drawing.Size(61, 39);
-            this.guna2ControlBox1.TabIndex = 2;
             // 
             // label1
             // 
@@ -289,6 +255,52 @@
             this.btnReceive.TabIndex = 46;
             this.btnReceive.Text = "Nhận chuyến";
             // 
+            // pnlTop
+            // 
+            this.pnlTop.BackColor = System.Drawing.Color.White;
+            this.pnlTop.Controls.Add(this.lblTitle);
+            this.pnlTop.Controls.Add(this.guna2ControlBox3);
+            this.pnlTop.Controls.Add(this.guna2ControlBox1);
+            this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlTop.Font = new System.Drawing.Font("Tahoma", 8.25F);
+            this.pnlTop.Location = new System.Drawing.Point(0, 0);
+            this.pnlTop.Name = "pnlTop";
+            this.pnlTop.Size = new System.Drawing.Size(1195, 67);
+            this.pnlTop.TabIndex = 7;
+            // 
+            // guna2ControlBox3
+            // 
+            this.guna2ControlBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.guna2ControlBox3.BorderRadius = 5;
+            this.guna2ControlBox3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(24)))), ((int)(((byte)(29)))));
+            this.guna2ControlBox3.IconColor = System.Drawing.Color.White;
+            this.guna2ControlBox3.Location = new System.Drawing.Point(1122, 12);
+            this.guna2ControlBox3.Name = "guna2ControlBox3";
+            this.guna2ControlBox3.Size = new System.Drawing.Size(61, 39);
+            this.guna2ControlBox3.TabIndex = 4;
+            // 
+            // guna2ControlBox1
+            // 
+            this.guna2ControlBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.guna2ControlBox1.BorderRadius = 5;
+            this.guna2ControlBox1.ControlBoxType = Guna.UI2.WinForms.Enums.ControlBoxType.MinimizeBox;
+            this.guna2ControlBox1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(24)))), ((int)(((byte)(29)))));
+            this.guna2ControlBox1.IconColor = System.Drawing.Color.White;
+            this.guna2ControlBox1.Location = new System.Drawing.Point(1055, 12);
+            this.guna2ControlBox1.Name = "guna2ControlBox1";
+            this.guna2ControlBox1.Size = new System.Drawing.Size(61, 39);
+            this.guna2ControlBox1.TabIndex = 2;
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.lblTitle.Location = new System.Drawing.Point(15, 20);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(59, 25);
+            this.lblTitle.TabIndex = 5;
+            this.lblTitle.Text = "label2";
+            // 
             // ucShipmentRun_Drv
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -300,8 +312,9 @@
             this.Size = new System.Drawing.Size(1199, 689);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvStops)).EndInit();
+            this.pnlTop.ResumeLayout(false);
+            this.pnlTop.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -309,7 +322,7 @@
         #endregion
 
         private CSharp.Winform.UI.Panel panel1;
-        private CSharp.Winform.UI.Panel panel2;
+        private CSharp.Winform.UI.Panel pnlTop;
         private Guna.UI2.WinForms.Guna2ControlBox guna2ControlBox3;
         private Guna.UI2.WinForms.Guna2ControlBox guna2ControlBox1;
         private CSharp.Winform.UI.Label label1;
@@ -321,5 +334,6 @@
         private Guna.UI2.WinForms.Guna2Button btnArrive;
         private Guna.UI2.WinForms.Guna2Button btnDepart;
         private Guna.UI2.WinForms.Guna2Button btnReceive;
+        private CSharp.Winform.UI.Label lblTitle;
     }
 }

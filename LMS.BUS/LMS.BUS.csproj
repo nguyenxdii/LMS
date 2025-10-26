@@ -60,9 +60,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dtos\CustomerDtos.cs" />
+    <Compile Include="Dtos\DriverDtos.cs" />
     <Compile Include="Dtos\OrderDraft.cs" />
     <Compile Include="Dtos\OrderListItemDto.cs" />
     <Compile Include="Dtos\ShipmentDtos.cs" />
+    <Compile Include="Dtos\ShipmentDtos_Admin.cs" />
     <Compile Include="Dtos\ShipmentRowDto.cs" />
     <Compile Include="Helpers\AppSession.cs" />
     <Compile Include="Helpers\GridHelper.cs" />
@@ -70,10 +72,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\CustomerService.cs" />
+    <Compile Include="Services\DriverService.cs" />
     <Compile Include="Services\DriverShipmentService.cs" />
     <Compile Include="Services\OrderService_Admin.cs" />
     <Compile Include="Services\OrderService_Customer.cs" />
     <Compile Include="Services\RoutePricingService.cs" />
+    <Compile Include="Services\ShipmentService_Admin.cs" />
     <Compile Include="Services\UserAccountService_Admin.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -46,6 +46,8 @@
             this.label11 = new System.Windows.Forms.Label();
             this.txtConfirmD = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtPasswordD = new Guna.UI2.WinForms.Guna2TextBox();
+            this.label1 = new CSharp.Winform.UI.Label();
+            this.txtCitizenId = new Guna.UI2.WinForms.Guna2TextBox();
             this.tableLayoutPanel3.SuspendLayout();
             this.tlpRegisterDrv.SuspendLayout();
             this.SuspendLayout();
@@ -58,7 +60,7 @@
             this.tableLayoutPanel3.Controls.Add(this.btnRegisterD, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.btnExitD, 1, 0);
             this.tableLayoutPanel3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(77, 341);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(77, 396);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.Padding = new System.Windows.Forms.Padding(10);
             this.tableLayoutPanel3.RowCount = 1;
@@ -109,6 +111,7 @@
             this.tlpRegisterDrv.ColumnCount = 2;
             this.tlpRegisterDrv.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tlpRegisterDrv.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tlpRegisterDrv.Controls.Add(this.txtCitizenId, 1, 14);
             this.tlpRegisterDrv.Controls.Add(this.cmbLicenseType, 1, 13);
             this.tlpRegisterDrv.Controls.Add(this.label3, 0, 0);
             this.tlpRegisterDrv.Controls.Add(this.label4, 0, 2);
@@ -123,10 +126,11 @@
             this.tlpRegisterDrv.Controls.Add(this.label11, 0, 11);
             this.tlpRegisterDrv.Controls.Add(this.txtConfirmD, 1, 8);
             this.tlpRegisterDrv.Controls.Add(this.txtPasswordD, 1, 4);
+            this.tlpRegisterDrv.Controls.Add(this.label1, 0, 14);
             this.tlpRegisterDrv.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.tlpRegisterDrv.Location = new System.Drawing.Point(19, 0);
             this.tlpRegisterDrv.Name = "tlpRegisterDrv";
-            this.tlpRegisterDrv.RowCount = 14;
+            this.tlpRegisterDrv.RowCount = 15;
             this.tlpRegisterDrv.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlpRegisterDrv.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlpRegisterDrv.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -141,7 +145,8 @@
             this.tlpRegisterDrv.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlpRegisterDrv.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlpRegisterDrv.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlpRegisterDrv.Size = new System.Drawing.Size(424, 342);
+            this.tlpRegisterDrv.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tlpRegisterDrv.Size = new System.Drawing.Size(424, 390);
             this.tlpRegisterDrv.TabIndex = 18;
             // 
             // cmbLicenseType
@@ -359,6 +364,39 @@
             this.txtPasswordD.Size = new System.Drawing.Size(249, 36);
             this.txtPasswordD.TabIndex = 3;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.label1.Location = new System.Drawing.Point(3, 342);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(161, 48);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "CCCD";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtCitizenId
+            // 
+            this.txtCitizenId.BorderRadius = 15;
+            this.txtCitizenId.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtCitizenId.DefaultText = "";
+            this.txtCitizenId.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtCitizenId.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtCitizenId.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtCitizenId.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtCitizenId.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtCitizenId.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.txtCitizenId.ForeColor = System.Drawing.Color.Black;
+            this.txtCitizenId.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtCitizenId.Location = new System.Drawing.Point(171, 347);
+            this.txtCitizenId.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtCitizenId.Name = "txtCitizenId";
+            this.txtCitizenId.PlaceholderText = "";
+            this.txtCitizenId.SelectedText = "";
+            this.txtCitizenId.Size = new System.Drawing.Size(249, 36);
+            this.txtCitizenId.TabIndex = 20;
+            // 
             // ucRegister_Drv
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -366,7 +404,7 @@
             this.Controls.Add(this.tableLayoutPanel3);
             this.Controls.Add(this.tlpRegisterDrv);
             this.Name = "ucRegister_Drv";
-            this.Size = new System.Drawing.Size(450, 500);
+            this.Size = new System.Drawing.Size(450, 666);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tlpRegisterDrv.ResumeLayout(false);
             this.tlpRegisterDrv.PerformLayout();
@@ -394,5 +432,7 @@
         private System.Windows.Forms.Label label11;
         private Guna.UI2.WinForms.Guna2TextBox txtConfirmD;
         private Guna.UI2.WinForms.Guna2TextBox txtPasswordD;
+        private CSharp.Winform.UI.Label label1;
+        private Guna.UI2.WinForms.Guna2TextBox txtCitizenId;
     }
 }

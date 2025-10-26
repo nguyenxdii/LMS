@@ -82,7 +82,9 @@ namespace LMS.GUI.Main
                 //btnMenu,
                 btnOrder,
                 //btnAccount,
-                btnCustomer // Đảm bảo nút này tồn tại trong Designer
+                btnCustomer, // Đảm bảo nút này tồn tại trong Designer
+                btnDriver,
+                btnShipment,
             };
 
             foreach (Button btn in navigationButtons)
@@ -128,6 +130,16 @@ namespace LMS.GUI.Main
             {
                 LoadUc(new LMS.GUI.CustomerAdmin.ucCustomer_Admin()); // Load UC Customer
                 lblPageTitle.Text = "Quản Lý / Khách Hàng";
+            }
+            else if (clickedButton == btnDriver)
+            {
+                LoadUc(new LMS.GUI.DriverAdmin.ucDriver_Admin());
+                lblPageTitle.Text = "Quản lý / Tài Xế";
+            }
+            else if (clickedButton == btnShipment)
+            {
+                LoadUc(new LMS.GUI.ShipmentAdmin.ucShipment_Admin()); // Load UC Shipment
+                lblPageTitle.Text = "Quản Lý / Chuyến Hàng";
             }
         }
         // Thêm lại các hàm sự kiện Home, Logout,... nếu bạn có
