@@ -44,9 +44,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dgvResults = new Guna.UI2.WinForms.Guna2DataGridView();
             this.btnReload = new Guna.UI2.WinForms.Guna2Button();
+            this.pnlTop = new CSharp.Winform.UI.Panel();
+            this.guna2ControlBox3 = new Guna.UI2.WinForms.Guna2ControlBox();
+            this.guna2ControlBox1 = new Guna.UI2.WinForms.Guna2ControlBox();
             this.guna2GroupBox1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).BeginInit();
+            this.pnlTop.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnSearch
@@ -59,7 +63,7 @@
             this.btnSearch.FillColor = System.Drawing.Color.Black;
             this.btnSearch.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnSearch.ForeColor = System.Drawing.Color.White;
-            this.btnSearch.Location = new System.Drawing.Point(821, 67);
+            this.btnSearch.Location = new System.Drawing.Point(821, 129);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(156, 45);
             this.btnSearch.TabIndex = 69;
@@ -123,7 +127,7 @@
             this.guna2GroupBox1.CustomBorderColor = System.Drawing.Color.Black;
             this.guna2GroupBox1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.guna2GroupBox1.ForeColor = System.Drawing.Color.White;
-            this.guna2GroupBox1.Location = new System.Drawing.Point(221, 3);
+            this.guna2GroupBox1.Location = new System.Drawing.Point(221, 65);
             this.guna2GroupBox1.Name = "guna2GroupBox1";
             this.guna2GroupBox1.Size = new System.Drawing.Size(594, 305);
             this.guna2GroupBox1.TabIndex = 71;
@@ -243,12 +247,12 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvResults.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvResults.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dgvResults.Location = new System.Drawing.Point(37, 328);
+            this.dgvResults.Location = new System.Drawing.Point(37, 390);
             this.dgvResults.Name = "dgvResults";
             this.dgvResults.RowHeadersVisible = false;
             this.dgvResults.RowHeadersWidth = 62;
             this.dgvResults.RowTemplate.Height = 28;
-            this.dgvResults.Size = new System.Drawing.Size(1125, 327);
+            this.dgvResults.Size = new System.Drawing.Size(1125, 324);
             this.dgvResults.TabIndex = 72;
             this.dgvResults.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
             this.dgvResults.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -282,26 +286,63 @@
             this.btnReload.FillColor = System.Drawing.Color.Black;
             this.btnReload.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnReload.ForeColor = System.Drawing.Color.White;
-            this.btnReload.Location = new System.Drawing.Point(821, 122);
+            this.btnReload.Location = new System.Drawing.Point(821, 184);
             this.btnReload.Name = "btnReload";
             this.btnReload.Size = new System.Drawing.Size(156, 45);
             this.btnReload.TabIndex = 70;
             this.btnReload.Text = "Tải Lại";
             // 
+            // pnlTop
+            // 
+            this.pnlTop.BackColor = System.Drawing.Color.White;
+            this.pnlTop.Controls.Add(this.guna2ControlBox3);
+            this.pnlTop.Controls.Add(this.guna2ControlBox1);
+            this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlTop.Font = new System.Drawing.Font("Tahoma", 8.25F);
+            this.pnlTop.Location = new System.Drawing.Point(0, 0);
+            this.pnlTop.Name = "pnlTop";
+            this.pnlTop.Size = new System.Drawing.Size(1199, 54);
+            this.pnlTop.TabIndex = 73;
+            // 
+            // guna2ControlBox3
+            // 
+            this.guna2ControlBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.guna2ControlBox3.BorderRadius = 5;
+            this.guna2ControlBox3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(24)))), ((int)(((byte)(29)))));
+            this.guna2ControlBox3.IconColor = System.Drawing.Color.White;
+            this.guna2ControlBox3.Location = new System.Drawing.Point(1135, 3);
+            this.guna2ControlBox3.Name = "guna2ControlBox3";
+            this.guna2ControlBox3.Size = new System.Drawing.Size(61, 39);
+            this.guna2ControlBox3.TabIndex = 4;
+            // 
+            // guna2ControlBox1
+            // 
+            this.guna2ControlBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.guna2ControlBox1.BorderRadius = 5;
+            this.guna2ControlBox1.ControlBoxType = Guna.UI2.WinForms.Enums.ControlBoxType.MinimizeBox;
+            this.guna2ControlBox1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(24)))), ((int)(((byte)(29)))));
+            this.guna2ControlBox1.IconColor = System.Drawing.Color.White;
+            this.guna2ControlBox1.Location = new System.Drawing.Point(1068, 3);
+            this.guna2ControlBox1.Name = "guna2ControlBox1";
+            this.guna2ControlBox1.Size = new System.Drawing.Size(61, 39);
+            this.guna2ControlBox1.TabIndex = 2;
+            // 
             // ucAccountSearch_Admin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.pnlTop);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.guna2GroupBox1);
             this.Controls.Add(this.dgvResults);
             this.Controls.Add(this.btnReload);
             this.Name = "ucAccountSearch_Admin";
-            this.Size = new System.Drawing.Size(1199, 689);
+            this.Size = new System.Drawing.Size(1199, 725);
             this.guna2GroupBox1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).EndInit();
+            this.pnlTop.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -321,5 +362,8 @@
         private Guna.UI2.WinForms.Guna2ComboBox cmbRole;
         private System.Windows.Forms.Label label5;
         private Guna.UI2.WinForms.Guna2ComboBox cmbStatus;
+        private CSharp.Winform.UI.Panel pnlTop;
+        private Guna.UI2.WinForms.Guna2ControlBox guna2ControlBox3;
+        private Guna.UI2.WinForms.Guna2ControlBox guna2ControlBox1;
     }
 }

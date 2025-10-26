@@ -50,10 +50,11 @@
             this.guna2ControlBox2 = new Guna.UI2.WinForms.Guna2ControlBox();
             this.guna2ControlBox1 = new Guna.UI2.WinForms.Guna2ControlBox();
             this.pnlContent = new Guna.UI2.WinForms.Guna2Panel();
+            this.statusStrip2 = new System.Windows.Forms.StatusStrip();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.tsllblWelcome = new System.Windows.Forms.ToolStripStatusLabel();
+            this.stsWelcome = new System.Windows.Forms.ToolStripStatusLabel();
             this.sidebar = new System.Windows.Forms.FlowLayoutPanel();
-            this.panel1 = new CSharp.Winform.UI.Panel();
+            this.pnlTop = new CSharp.Winform.UI.Panel();
             this.task = new CSharp.Winform.UI.Panel();
             this.lblPageTitle = new CSharp.Winform.UI.Label();
             ((System.ComponentModel.ISupportInitialize)(this.btnHam)).BeginInit();
@@ -61,7 +62,7 @@
             this.pnlContent.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.sidebar.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.pnlTop.SuspendLayout();
             this.task.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -76,7 +77,6 @@
             this.btnHam.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.btnHam.TabIndex = 2;
             this.btnHam.TabStop = false;
-            this.btnHam.Click += new System.EventHandler(this.btnHam_Click);
             // 
             // btnHome
             // 
@@ -180,7 +180,6 @@
             this.btnMenu.Text = "       Công Cụ";
             this.btnMenu.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnMenu.UseVisualStyleBackColor = false;
-            this.btnMenu.Click += new System.EventHandler(this.btnMenu_Click);
             // 
             // btnCustomer
             // 
@@ -197,7 +196,7 @@
             this.btnCustomer.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.btnCustomer.Size = new System.Drawing.Size(301, 58);
             this.btnCustomer.TabIndex = 10;
-            this.btnCustomer.Text = "            Trang Chủ";
+            this.btnCustomer.Text = "            Khách Hàng";
             this.btnCustomer.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnCustomer.UseVisualStyleBackColor = false;
             // 
@@ -355,7 +354,6 @@
             this.lblTitle.Size = new System.Drawing.Size(235, 36);
             this.lblTitle.TabIndex = 3;
             this.lblTitle.Text = "Admin Dashboard";
-            this.lblTitle.Click += new System.EventHandler(this.lblTitle_Click);
             // 
             // guna2ControlBox2
             // 
@@ -383,6 +381,7 @@
             // 
             // pnlContent
             // 
+            this.pnlContent.Controls.Add(this.statusStrip2);
             this.pnlContent.Controls.Add(this.statusStrip1);
             this.pnlContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlContent.Location = new System.Drawing.Point(301, 111);
@@ -390,22 +389,31 @@
             this.pnlContent.Size = new System.Drawing.Size(1199, 689);
             this.pnlContent.TabIndex = 8;
             // 
+            // statusStrip2
+            // 
+            this.statusStrip2.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.statusStrip2.Location = new System.Drawing.Point(0, 635);
+            this.statusStrip2.Name = "statusStrip2";
+            this.statusStrip2.Size = new System.Drawing.Size(1199, 22);
+            this.statusStrip2.TabIndex = 1;
+            this.statusStrip2.Text = "statusStrip2";
+            // 
             // statusStrip1
             // 
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsllblWelcome});
+            this.stsWelcome});
             this.statusStrip1.Location = new System.Drawing.Point(0, 657);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1199, 32);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // tsllblWelcome
+            // stsWelcome
             // 
-            this.tsllblWelcome.Name = "tsllblWelcome";
-            this.tsllblWelcome.Size = new System.Drawing.Size(179, 25);
-            this.tsllblWelcome.Text = "toolStripStatusLabel1";
+            this.stsWelcome.Name = "stsWelcome";
+            this.stsWelcome.Size = new System.Drawing.Size(179, 25);
+            this.stsWelcome.Text = "toolStripStatusLabel1";
             // 
             // sidebar
             // 
@@ -421,20 +429,20 @@
             this.sidebar.Size = new System.Drawing.Size(301, 733);
             this.sidebar.TabIndex = 7;
             // 
-            // panel1
+            // pnlTop
             // 
-            this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.Controls.Add(this.btnHam);
-            this.panel1.Controls.Add(this.guna2ControlBox3);
-            this.panel1.Controls.Add(this.lblTitle);
-            this.panel1.Controls.Add(this.guna2ControlBox2);
-            this.panel1.Controls.Add(this.guna2ControlBox1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Font = new System.Drawing.Font("Tahoma", 8.25F);
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1500, 67);
-            this.panel1.TabIndex = 6;
+            this.pnlTop.BackColor = System.Drawing.Color.White;
+            this.pnlTop.Controls.Add(this.btnHam);
+            this.pnlTop.Controls.Add(this.guna2ControlBox3);
+            this.pnlTop.Controls.Add(this.lblTitle);
+            this.pnlTop.Controls.Add(this.guna2ControlBox2);
+            this.pnlTop.Controls.Add(this.guna2ControlBox1);
+            this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlTop.Font = new System.Drawing.Font("Tahoma", 8.25F);
+            this.pnlTop.Location = new System.Drawing.Point(0, 0);
+            this.pnlTop.Name = "pnlTop";
+            this.pnlTop.Size = new System.Drawing.Size(1500, 67);
+            this.pnlTop.TabIndex = 6;
             // 
             // task
             // 
@@ -465,7 +473,7 @@
             this.Controls.Add(this.pnlContent);
             this.Controls.Add(this.task);
             this.Controls.Add(this.sidebar);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.pnlTop);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmMain_Admin";
             this.Text = "frmMain_Admin1";
@@ -476,8 +484,8 @@
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.sidebar.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.pnlTop.ResumeLayout(false);
+            this.pnlTop.PerformLayout();
             this.task.ResumeLayout(false);
             this.task.PerformLayout();
             this.ResumeLayout(false);
@@ -508,10 +516,11 @@
         private Guna.UI2.WinForms.Guna2ControlBox guna2ControlBox1;
         private Guna.UI2.WinForms.Guna2Panel pnlContent;
         private System.Windows.Forms.FlowLayoutPanel sidebar;
-        private CSharp.Winform.UI.Panel panel1;
+        private CSharp.Winform.UI.Panel pnlTop;
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel tsllblWelcome;
         private CSharp.Winform.UI.Panel task;
         private CSharp.Winform.UI.Label lblPageTitle;
+        private System.Windows.Forms.StatusStrip statusStrip2;
+        private System.Windows.Forms.ToolStripStatusLabel stsWelcome;
     }
 }

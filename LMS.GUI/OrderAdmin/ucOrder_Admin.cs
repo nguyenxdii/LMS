@@ -343,7 +343,7 @@ namespace LMS.GUI.OrderAdmin
                 FormBorderStyle = FormBorderStyle.None, // Hoặc .None
             })
             {
-                var ucPicker = new ucDriverPicker_Ad();
+                var ucPicker = new ucDriverPicker_Admin();
 
                 ucPicker.DriverSelected += (selectedId) =>
                 {

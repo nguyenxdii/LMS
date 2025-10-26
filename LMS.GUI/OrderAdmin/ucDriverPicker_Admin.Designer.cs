@@ -1,6 +1,6 @@
 ﻿namespace LMS.GUI.OrderAdmin
 {
-    partial class ucDriverPicker_Ad
+    partial class ucDriverPicker_Admin
     {
         /// <summary> 
         /// Required designer variable.

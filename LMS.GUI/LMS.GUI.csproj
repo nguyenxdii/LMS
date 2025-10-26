@@ -97,6 +97,30 @@
     <Compile Include="AccountAdmin\ucAccount_Admin.Designer.cs">
       <DependentUpon>ucAccount_Admin.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomerAdmin\test.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomerAdmin\test.Designer.cs">
+      <DependentUpon>test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerAdmin\ucCustomerDetail_Admin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomerAdmin\ucCustomerDetail_Admin.Designer.cs">
+      <DependentUpon>ucCustomerDetail_Admin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerAdmin\ucCustomerEditor_Admin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomerAdmin\ucCustomerEditor_Admin.Designer.cs">
+      <DependentUpon>ucCustomerEditor_Admin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerAdmin\ucCustomer_Admin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomerAdmin\ucCustomer_Admin.Designer.cs">
+      <DependentUpon>ucCustomer_Admin.cs</DependentUpon>
+    </Compile>
     <Compile Include="Auth\frmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -175,11 +199,11 @@
     <Compile Include="OrderAdmin\test.Designer.cs">
       <DependentUpon>test.cs</DependentUpon>
     </Compile>
-    <Compile Include="OrderAdmin\ucDriverPicker_Ad.cs">
+    <Compile Include="OrderAdmin\ucDriverPicker_Admin.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="OrderAdmin\ucDriverPicker_Ad.Designer.cs">
-      <DependentUpon>ucDriverPicker_Ad.cs</DependentUpon>
+    <Compile Include="OrderAdmin\ucDriverPicker_Admin.Designer.cs">
+      <DependentUpon>ucDriverPicker_Admin.cs</DependentUpon>
     </Compile>
     <Compile Include="OrderAdmin\ucOrderDetail_Admin.cs">
       <SubType>UserControl</SubType>
@@ -270,6 +294,18 @@
     <EmbeddedResource Include="AccountAdmin\ucAccount_Admin.resx">
       <DependentUpon>ucAccount_Admin.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CustomerAdmin\test.resx">
+      <DependentUpon>test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomerAdmin\ucCustomerDetail_Admin.resx">
+      <DependentUpon>ucCustomerDetail_Admin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomerAdmin\ucCustomerEditor_Admin.resx">
+      <DependentUpon>ucCustomerEditor_Admin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomerAdmin\ucCustomer_Admin.resx">
+      <DependentUpon>ucCustomer_Admin.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Auth\frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </EmbeddedResource>
@@ -309,8 +345,8 @@
     <EmbeddedResource Include="OrderAdmin\test.resx">
       <DependentUpon>test.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OrderAdmin\ucDriverPicker_Ad.resx">
-      <DependentUpon>ucDriverPicker_Ad.cs</DependentUpon>
+    <EmbeddedResource Include="OrderAdmin\ucDriverPicker_Admin.resx">
+      <DependentUpon>ucDriverPicker_Admin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OrderAdmin\ucOrderDetail_Admin.resx">
       <DependentUpon>ucOrderDetail_Admin.cs</DependentUpon>
