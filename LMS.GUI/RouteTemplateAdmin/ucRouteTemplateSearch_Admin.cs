@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace LMS.GUI.OrderDriver
+namespace LMS.GUI.RouteTemplateAdmin
 {
-    public partial class test : UserControl
+    public partial class ucRouteTemplateSearch_Admin : UserControl
     {
-        public test()
+        public ucRouteTemplateSearch_Admin()
         {
             InitializeComponent();
         }

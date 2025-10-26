@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace LMS.GUI.Auth
+namespace LMS.GUI.ShipmentAdmin
 {
     public partial class test : UserControl
     {

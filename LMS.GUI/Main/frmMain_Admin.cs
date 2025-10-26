@@ -73,6 +73,10 @@ namespace LMS.GUI.Main
             {
                 stsWelcome.Text = $"Xin chào, {AppSession.DisplayName}";
             }
+
+            sidebar.AutoScroll = true;
+            sidebar.WrapContents = false;
+            sidebar.FlowDirection = FlowDirection.TopDown;
         }
 
         private void InitializeNavigationButtons()
@@ -85,6 +89,8 @@ namespace LMS.GUI.Main
                 btnCustomer, // Đảm bảo nút này tồn tại trong Designer
                 btnDriver,
                 btnShipment,
+                btnWarehouse,
+                btnRouteTemplate,
             };
 
             foreach (Button btn in navigationButtons)
@@ -140,6 +146,16 @@ namespace LMS.GUI.Main
             {
                 LoadUc(new LMS.GUI.ShipmentAdmin.ucShipment_Admin()); // Load UC Shipment
                 lblPageTitle.Text = "Quản Lý / Chuyến Hàng";
+            }
+            else if (clickedButton == btnWarehouse)
+            {
+                LoadUc(new LMS.GUI.WarehouseAdmin.ucWarehouse_Admin()); // Load UC Shipment
+                lblPageTitle.Text = "Quản Lý / Kho";
+            }
+            else if (clickedButton == btnRouteTemplate)
+            {
+                LoadUc(new LMS.GUI.RouteTemplateAdmin.ucRouteTemplate_Admin()); // Load UC Shipment
+                lblPageTitle.Text = "Quản Lý / Kho";
             }
         }
         // Thêm lại các hàm sự kiện Home, Logout,... nếu bạn có
@@ -232,7 +248,7 @@ namespace LMS.GUI.Main
             {
                 menuContainer.Height += 10;
                 // Giữ nguyên giá trị Height gốc của bạn
-                if (menuContainer.Height >= 524)
+                if (menuContainer.Height >= 582)
                 {
                     menuTransition.Stop();
                     menuExpant = true;

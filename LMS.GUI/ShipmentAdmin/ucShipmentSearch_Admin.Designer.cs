@@ -84,12 +84,12 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvSearchResults.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvSearchResults.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dgvSearchResults.Location = new System.Drawing.Point(65, 458);
+            this.dgvSearchResults.Location = new System.Drawing.Point(67, 453);
             this.dgvSearchResults.Name = "dgvSearchResults";
             this.dgvSearchResults.RowHeadersVisible = false;
             this.dgvSearchResults.RowHeadersWidth = 62;
             this.dgvSearchResults.RowTemplate.Height = 28;
-            this.dgvSearchResults.Size = new System.Drawing.Size(1064, 290);
+            this.dgvSearchResults.Size = new System.Drawing.Size(1064, 299);
             this.dgvSearchResults.TabIndex = 15;
             this.dgvSearchResults.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
             this.dgvSearchResults.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -123,7 +123,7 @@
             this.btnClose.FillColor = System.Drawing.Color.Black;
             this.btnClose.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(732, 268);
+            this.btnClose.Location = new System.Drawing.Point(820, 268);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(180, 45);
             this.btnClose.TabIndex = 12;
@@ -139,7 +139,7 @@
             this.btnReset.FillColor = System.Drawing.Color.Black;
             this.btnReset.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnReset.ForeColor = System.Drawing.Color.White;
-            this.btnReset.Location = new System.Drawing.Point(732, 219);
+            this.btnReset.Location = new System.Drawing.Point(820, 219);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(180, 45);
             this.btnReset.TabIndex = 13;
@@ -155,7 +155,7 @@
             this.btnDoSearch.FillColor = System.Drawing.Color.Black;
             this.btnDoSearch.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnDoSearch.ForeColor = System.Drawing.Color.White;
-            this.btnDoSearch.Location = new System.Drawing.Point(732, 168);
+            this.btnDoSearch.Location = new System.Drawing.Point(820, 168);
             this.btnDoSearch.Name = "btnDoSearch";
             this.btnDoSearch.Size = new System.Drawing.Size(180, 45);
             this.btnDoSearch.TabIndex = 14;
@@ -399,7 +399,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.cmbOrigin);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.groupBox1.Location = new System.Drawing.Point(282, 80);
+            this.groupBox1.Location = new System.Drawing.Point(384, 80);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(430, 351);
             this.groupBox1.TabIndex = 16;

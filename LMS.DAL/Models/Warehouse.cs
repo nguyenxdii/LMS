@@ -22,5 +22,6 @@ namespace LMS.DAL.Models
 
         [Required]
         public WarehouseType Type { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 }

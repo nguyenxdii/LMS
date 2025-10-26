@@ -33,6 +33,10 @@ namespace LMS.GUI.ShipmentAdmin
 
         private void UcShipmentDetail_Admin_Load(object sender, EventArgs e)
         {
+            if (this.lblTitle != null)
+            {
+                this.lblTitle.Text = "Chi Tiết Chuyến Hàng";
+            }
             ConfigureRouteStopGrid();
             LoadDetails();
             WireEvents();
@@ -45,12 +49,58 @@ namespace LMS.GUI.ShipmentAdmin
             g.Columns.Clear();
             g.ApplyBaseStyle();
 
-            g.Columns.Add(new DataGridViewTextBoxColumn { Name = "Seq", DataPropertyName = "Seq", HeaderText = "#", AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells, SortMode = DataGridViewColumnSortMode.Programmatic });
-            g.Columns.Add(new DataGridViewTextBoxColumn { Name = "StopName", DataPropertyName = "StopName", HeaderText = "Điểm dừng", AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill, FillWeight = 40, SortMode = DataGridViewColumnSortMode.Programmatic });
-            g.Columns.Add(new DataGridViewTextBoxColumn { Name = "StopStatus", DataPropertyName = "StopStatus", HeaderText = "Trạng thái", AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells, SortMode = DataGridViewColumnSortMode.Programmatic });
-            g.Columns.Add(new DataGridViewTextBoxColumn { Name = "ArrivedAt", DataPropertyName = "ArrivedAt", HeaderText = "Đến lúc", AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells, DefaultCellStyle = { Format = "dd/MM HH:mm" }, SortMode = DataGridViewColumnSortMode.Programmatic });
-            g.Columns.Add(new DataGridViewTextBoxColumn { Name = "DepartedAt", DataPropertyName = "DepartedAt", HeaderText = "Rời lúc", AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells, DefaultCellStyle = { Format = "dd/MM HH:mm" }, SortMode = DataGridViewColumnSortMode.Programmatic });
-            g.Columns.Add(new DataGridViewTextBoxColumn { Name = "PlannedETA", DataPropertyName = "PlannedETA", HeaderText = "Dự kiến", AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells, DefaultCellStyle = { Format = "dd/MM HH:mm" }, SortMode = DataGridViewColumnSortMode.Programmatic });
+            g.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "Seq",
+                DataPropertyName = "Seq",
+                HeaderText = "#",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                SortMode = DataGridViewColumnSortMode.Programmatic
+            });
+            g.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "StopName",
+                DataPropertyName = "StopName",
+                HeaderText = "Điểm dừng",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                FillWeight = 40,
+                SortMode = DataGridViewColumnSortMode.Programmatic
+            });
+            g.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "StopStatus",
+                DataPropertyName = "StopStatus",
+                HeaderText = "Trạng thái",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                SortMode = DataGridViewColumnSortMode.Programmatic
+            });
+            g.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "ArrivedAt",
+                DataPropertyName = "ArrivedAt",
+                HeaderText = "Đến lúc",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                DefaultCellStyle = { Format = "dd/MM HH:mm" },
+                SortMode = DataGridViewColumnSortMode.Programmatic
+            });
+            g.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "DepartedAt",
+                DataPropertyName = "DepartedAt",
+                HeaderText = "Rời lúc",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                DefaultCellStyle = { Format = "dd/MM HH:mm" },
+                SortMode = DataGridViewColumnSortMode.Programmatic
+            });
+            //g.Columns.Add(new DataGridViewTextBoxColumn
+            //{
+            //    Name = "PlannedETA",
+            //    DataPropertyName = "PlannedETA",
+            //    HeaderText = "Dự kiến",
+            //    AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+            //    DefaultCellStyle = { Format = "dd/MM HH:mm" },
+            //    SortMode = DataGridViewColumnSortMode.Programmatic
+            //});
 
             g.CellFormatting += DgvRouteStops_CellFormatting; // Format Status chặng
         }

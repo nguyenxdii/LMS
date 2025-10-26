@@ -1,6 +1,6 @@
-﻿namespace LMS.GUI.Main
+﻿namespace LMS.GUI.RouteTemplateAdmin
 {
-    partial class frmtest1
+    partial class ucRouteTemplateSearch_Admin
     {
         /// <summary> 
         /// Required designer variable.
@@ -30,12 +30,12 @@
         {
             this.SuspendLayout();
             // 
-            // frmtest1
+            // ucRouteTemplateSearch_Admin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Name = "frmtest1";
-            this.Size = new System.Drawing.Size(1069, 800);
+            this.Name = "ucRouteTemplateSearch_Admin";
+            this.Size = new System.Drawing.Size(678, 549);
             this.ResumeLayout(false);
 
         }

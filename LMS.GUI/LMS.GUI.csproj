@@ -79,12 +79,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountAdmin\test.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="AccountAdmin\test.Designer.cs">
-      <DependentUpon>test.cs</DependentUpon>
-    </Compile>
     <Compile Include="AccountAdmin\ucAccountSearch_Admin.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -96,12 +90,6 @@
     </Compile>
     <Compile Include="AccountAdmin\ucAccount_Admin.Designer.cs">
       <DependentUpon>ucAccount_Admin.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CustomerAdmin\test.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="CustomerAdmin\test.Designer.cs">
-      <DependentUpon>test.cs</DependentUpon>
     </Compile>
     <Compile Include="CustomerAdmin\ucCustomerDetail_Admin.cs">
       <SubType>UserControl</SubType>
@@ -138,12 +126,6 @@
     </Compile>
     <Compile Include="Auth\frmRegister.Designer.cs">
       <DependentUpon>frmRegister.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Auth\test.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Auth\test.Designer.cs">
-      <DependentUpon>test.cs</DependentUpon>
     </Compile>
     <Compile Include="Auth\ucRegister_Drv.cs">
       <SubType>UserControl</SubType>
@@ -199,11 +181,17 @@
     <Compile Include="Main\frmMain_Driver.Designer.cs">
       <DependentUpon>frmMain_Driver.cs</DependentUpon>
     </Compile>
-    <Compile Include="Main\frmtest1.cs">
+    <Compile Include="Main\test.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Main\frmtest1.Designer.cs">
-      <DependentUpon>frmtest1.cs</DependentUpon>
+    <Compile Include="Main\test.Designer.cs">
+      <DependentUpon>test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Main\test2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Main\test2.Designer.cs">
+      <DependentUpon>test2.cs</DependentUpon>
     </Compile>
     <Compile Include="Main\ucDashboard_Ad.cs">
       <SubType>UserControl</SubType>
@@ -222,12 +210,6 @@
     </Compile>
     <Compile Include="Main\ucDashboard_Drv.Designer.cs">
       <DependentUpon>ucDashboard_Drv.cs</DependentUpon>
-    </Compile>
-    <Compile Include="OrderAdmin\test.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="OrderAdmin\test.Designer.cs">
-      <DependentUpon>test.cs</DependentUpon>
     </Compile>
     <Compile Include="OrderAdmin\ucDriverPicker_Admin.cs">
       <SubType>UserControl</SubType>
@@ -253,18 +235,6 @@
     <Compile Include="OrderAdmin\ucOrder_Admin.Designer.cs">
       <DependentUpon>ucOrder_Admin.cs</DependentUpon>
     </Compile>
-    <Compile Include="OrderCustomer\test.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="OrderCustomer\test.Designer.cs">
-      <DependentUpon>test.cs</DependentUpon>
-    </Compile>
-    <Compile Include="OrderCustomer\test2.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="OrderCustomer\test2.Designer.cs">
-      <DependentUpon>test2.cs</DependentUpon>
-    </Compile>
     <Compile Include="OrderCustomer\ucOrderConfirm_Cus.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -289,12 +259,6 @@
     <Compile Include="OrderCustomer\ucTracking_Cus.Designer.cs">
       <DependentUpon>ucTracking_Cus.cs</DependentUpon>
     </Compile>
-    <Compile Include="OrderDriver\test.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="OrderDriver\test.Designer.cs">
-      <DependentUpon>test.cs</DependentUpon>
-    </Compile>
     <Compile Include="OrderDriver\ucMyShipments_Drv.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -315,6 +279,30 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RouteTemplateAdmin\ucRouteTemplateEditor_Admin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RouteTemplateAdmin\ucRouteTemplateEditor_Admin.Designer.cs">
+      <DependentUpon>ucRouteTemplateEditor_Admin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RouteTemplateAdmin\ucRouteTemplateSearch_Admin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RouteTemplateAdmin\ucRouteTemplateSearch_Admin.Designer.cs">
+      <DependentUpon>ucRouteTemplateSearch_Admin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RouteTemplateAdmin\ucRouteTemplate_Admin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RouteTemplateAdmin\ucRouteTemplate_Admin.Designer.cs">
+      <DependentUpon>ucRouteTemplate_Admin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ShipmentAdmin\test.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ShipmentAdmin\test.Designer.cs">
+      <DependentUpon>test.cs</DependentUpon>
+    </Compile>
     <Compile Include="ShipmentAdmin\ucShipmentDetail_Admin.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -333,17 +321,29 @@
     <Compile Include="ShipmentAdmin\ucShipment_Admin.Designer.cs">
       <DependentUpon>ucShipment_Admin.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AccountAdmin\test.resx">
-      <DependentUpon>test.cs</DependentUpon>
-    </EmbeddedResource>
+    <Compile Include="WarehouseAdmin\ucWarehouseEditor_Admin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WarehouseAdmin\ucWarehouseEditor_Admin.Designer.cs">
+      <DependentUpon>ucWarehouseEditor_Admin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WarehouseAdmin\ucWarehouseSearch_Admin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WarehouseAdmin\ucWarehouseSearch_Admin.Designer.cs">
+      <DependentUpon>ucWarehouseSearch_Admin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WarehouseAdmin\ucWarehouse_Admin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WarehouseAdmin\ucWarehouse_Admin.Designer.cs">
+      <DependentUpon>ucWarehouse_Admin.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AccountAdmin\ucAccountSearch_Admin.resx">
       <DependentUpon>ucAccountSearch_Admin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AccountAdmin\ucAccount_Admin.resx">
       <DependentUpon>ucAccount_Admin.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CustomerAdmin\test.resx">
-      <DependentUpon>test.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CustomerAdmin\ucCustomerDetail_Admin.resx">
       <DependentUpon>ucCustomerDetail_Admin.cs</DependentUpon>
@@ -362,9 +362,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Auth\frmRegister.resx">
       <DependentUpon>frmRegister.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Auth\test.resx">
-      <DependentUpon>test.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Auth\ucRegister_Drv.resx">
       <DependentUpon>ucRegister_Drv.cs</DependentUpon>
@@ -393,8 +390,11 @@
     <EmbeddedResource Include="Main\frmMain_Driver.resx">
       <DependentUpon>frmMain_Driver.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Main\frmtest1.resx">
-      <DependentUpon>frmtest1.cs</DependentUpon>
+    <EmbeddedResource Include="Main\test.resx">
+      <DependentUpon>test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main\test2.resx">
+      <DependentUpon>test2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main\ucDashboard_Ad.resx">
       <DependentUpon>ucDashboard_Ad.cs</DependentUpon>
@@ -404,9 +404,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Main\ucDashboard_Drv.resx">
       <DependentUpon>ucDashboard_Drv.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="OrderAdmin\test.resx">
-      <DependentUpon>test.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OrderAdmin\ucDriverPicker_Admin.resx">
       <DependentUpon>ucDriverPicker_Admin.cs</DependentUpon>
@@ -420,12 +417,6 @@
     <EmbeddedResource Include="OrderAdmin\ucOrder_Admin.resx">
       <DependentUpon>ucOrder_Admin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OrderCustomer\test.resx">
-      <DependentUpon>test.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="OrderCustomer\test2.resx">
-      <DependentUpon>test2.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="OrderCustomer\ucOrderConfirm_Cus.resx">
       <DependentUpon>ucOrderConfirm_Cus.cs</DependentUpon>
     </EmbeddedResource>
@@ -437,9 +428,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="OrderCustomer\ucTracking_Cus.resx">
       <DependentUpon>ucTracking_Cus.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="OrderDriver\test.resx">
-      <DependentUpon>test.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OrderDriver\ucMyShipments_Drv.resx">
       <DependentUpon>ucMyShipments_Drv.cs</DependentUpon>
@@ -455,6 +443,18 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="RouteTemplateAdmin\ucRouteTemplateEditor_Admin.resx">
+      <DependentUpon>ucRouteTemplateEditor_Admin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RouteTemplateAdmin\ucRouteTemplateSearch_Admin.resx">
+      <DependentUpon>ucRouteTemplateSearch_Admin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RouteTemplateAdmin\ucRouteTemplate_Admin.resx">
+      <DependentUpon>ucRouteTemplate_Admin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShipmentAdmin\test.resx">
+      <DependentUpon>test.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ShipmentAdmin\ucShipmentDetail_Admin.resx">
       <DependentUpon>ucShipmentDetail_Admin.cs</DependentUpon>
     </EmbeddedResource>
@@ -463,6 +463,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ShipmentAdmin\ucShipment_Admin.resx">
       <DependentUpon>ucShipment_Admin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WarehouseAdmin\ucWarehouseEditor_Admin.resx">
+      <DependentUpon>ucWarehouseEditor_Admin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WarehouseAdmin\ucWarehouseSearch_Admin.resx">
+      <DependentUpon>ucWarehouseSearch_Admin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WarehouseAdmin\ucWarehouse_Admin.resx">
+      <DependentUpon>ucWarehouse_Admin.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.manifest" />
     <None Include="packages.config" />

@@ -151,7 +151,7 @@ namespace LMS.GUI.ShipmentAdmin
                 Text = "Tìm kiếm Chuyến hàng",
                 StartPosition = FormStartPosition.CenterScreen,
                 FormBorderStyle = FormBorderStyle.None,
-                Size = new Size(1186, 739) // Kích thước lớn hơn cho nhiều filter
+                Size = new Size(1199, 772) // Kích thước lớn hơn cho nhiều filter
             })
             {
                 var ucSearch = new ucShipmentSearch_Admin { Dock = DockStyle.Fill };
@@ -185,7 +185,7 @@ namespace LMS.GUI.ShipmentAdmin
                     StartPosition = FormStartPosition.CenterScreen,
                     FormBorderStyle = FormBorderStyle.None,
                     // Đặt kích thước phù hợp
-                    Size = new Size(950, 650)
+                    Size = new Size(1277, 801)
                 })
                 {
                     ucDetail.Dock = DockStyle.Fill;

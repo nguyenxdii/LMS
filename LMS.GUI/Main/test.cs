@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace LMS.GUI.OrderCustomer
+namespace LMS.GUI.Main
 {
     public partial class test : UserControl
     {

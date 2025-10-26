@@ -1,5 +1,6 @@
 ﻿// LogisticsApp.DAL.Models/RouteTemplate.cs
 using LMS.DAL.Models;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace LogisticsApp.DAL.Models
@@ -21,5 +22,6 @@ namespace LogisticsApp.DAL.Models
 
         public virtual Warehouse FromWarehouse { get; set; }
         public virtual Warehouse ToWarehouse { get; set; }
+        public virtual ICollection<RouteTemplateStop> Stops { get; set; } = new HashSet<RouteTemplateStop>();
     }
 }

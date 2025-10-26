@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using LMS.DAL.Models;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LogisticsApp.DAL.Models
@@ -30,5 +31,8 @@ namespace LogisticsApp.DAL.Models
         public string Note { get; set; }
 
         public virtual RouteTemplate Template { get; set; }
+
+        [ForeignKey(nameof(WarehouseId))] // Chỉ rõ khóa ngoại liên kết
+        public virtual Warehouse Warehouse { get; set; }
     }
 }

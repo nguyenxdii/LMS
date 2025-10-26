@@ -31,78 +31,48 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.dgvRouteStops = new Guna.UI2.WinForms.Guna2DataGridView();
+            this.panel1 = new CSharp.Winform.UI.Panel();
             this.tableLayoutPanel1 = new CSharp.Winform.UI.TableLayoutPanel();
             this.lblVehicleNo = new CSharp.Winform.UI.Label();
             this.lblDriverName = new CSharp.Winform.UI.Label();
             this.lblCustomerName = new CSharp.Winform.UI.Label();
             this.lblOrderNo = new CSharp.Winform.UI.Label();
             this.lblShipmentNo = new CSharp.Winform.UI.Label();
+            this.dgvRouteStops = new Guna.UI2.WinForms.Guna2DataGridView();
             this.tableLayoutPanel2 = new CSharp.Winform.UI.TableLayoutPanel();
             this.lblDuration = new CSharp.Winform.UI.Label();
             this.lblDeliveredAt = new CSharp.Winform.UI.Label();
             this.lblStartedAt = new CSharp.Winform.UI.Label();
             this.lblStatus = new CSharp.Winform.UI.Label();
             this.lblRoute = new CSharp.Winform.UI.Label();
-            this.txtNotes = new Guna.UI2.WinForms.Guna2TextBox();
-            this.label1 = new CSharp.Winform.UI.Label();
             this.btnClose = new Guna.UI2.WinForms.Guna2Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRouteStops)).BeginInit();
+            this.label1 = new CSharp.Winform.UI.Label();
+            this.txtNotes = new Guna.UI2.WinForms.Guna2TextBox();
+            this.pnlTop = new CSharp.Winform.UI.Panel();
+            this.guna2ControlBox3 = new Guna.UI2.WinForms.Guna2ControlBox();
+            this.lblTitle = new CSharp.Winform.UI.Label();
+            this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRouteStops)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
+            this.pnlTop.SuspendLayout();
             this.SuspendLayout();
             // 
-            // dgvRouteStops
+            // panel1
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            this.dgvRouteStops.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvRouteStops.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvRouteStops.ColumnHeadersHeight = 4;
-            this.dgvRouteStops.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvRouteStops.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dgvRouteStops.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dgvRouteStops.Location = new System.Drawing.Point(20, 390);
-            this.dgvRouteStops.Name = "dgvRouteStops";
-            this.dgvRouteStops.RowHeadersVisible = false;
-            this.dgvRouteStops.RowHeadersWidth = 62;
-            this.dgvRouteStops.RowTemplate.Height = 28;
-            this.dgvRouteStops.Size = new System.Drawing.Size(1152, 330);
-            this.dgvRouteStops.TabIndex = 33;
-            this.dgvRouteStops.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
-            this.dgvRouteStops.ThemeStyle.AlternatingRowsStyle.Font = null;
-            this.dgvRouteStops.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
-            this.dgvRouteStops.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
-            this.dgvRouteStops.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
-            this.dgvRouteStops.ThemeStyle.BackColor = System.Drawing.Color.White;
-            this.dgvRouteStops.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dgvRouteStops.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
-            this.dgvRouteStops.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dgvRouteStops.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.dgvRouteStops.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
-            this.dgvRouteStops.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            this.dgvRouteStops.ThemeStyle.HeaderStyle.Height = 4;
-            this.dgvRouteStops.ThemeStyle.ReadOnly = false;
-            this.dgvRouteStops.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
-            this.dgvRouteStops.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dgvRouteStops.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.dgvRouteStops.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            this.dgvRouteStops.ThemeStyle.RowsStyle.Height = 28;
-            this.dgvRouteStops.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dgvRouteStops.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.tableLayoutPanel1);
+            this.panel1.Controls.Add(this.dgvRouteStops);
+            this.panel1.Controls.Add(this.tableLayoutPanel2);
+            this.panel1.Controls.Add(this.btnClose);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.txtNotes);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Font = new System.Drawing.Font("Tahoma", 8.25F);
+            this.panel1.Location = new System.Drawing.Point(2, 2);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1277, 801);
+            this.panel1.TabIndex = 0;
             // 
             // tableLayoutPanel1
             // 
@@ -114,7 +84,7 @@
             this.tableLayoutPanel1.Controls.Add(this.lblOrderNo, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.lblShipmentNo, 0, 0);
             this.tableLayoutPanel1.Font = new System.Drawing.Font("Tahoma", 8.25F);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 12);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(23, 78);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 5;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
@@ -124,7 +94,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(447, 300);
-            this.tableLayoutPanel1.TabIndex = 34;
+            this.tableLayoutPanel1.TabIndex = 46;
             // 
             // lblVehicleNo
             // 
@@ -176,6 +146,58 @@
             this.lblShipmentNo.TabIndex = 0;
             this.lblShipmentNo.Text = "label1";
             // 
+            // dgvRouteStops
+            // 
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            this.dgvRouteStops.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 8.25F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvRouteStops.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvRouteStops.ColumnHeadersHeight = 4;
+            this.dgvRouteStops.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Tahoma", 8.25F);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvRouteStops.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvRouteStops.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dgvRouteStops.Location = new System.Drawing.Point(31, 456);
+            this.dgvRouteStops.Name = "dgvRouteStops";
+            this.dgvRouteStops.RowHeadersVisible = false;
+            this.dgvRouteStops.RowHeadersWidth = 62;
+            this.dgvRouteStops.RowTemplate.Height = 28;
+            this.dgvRouteStops.Size = new System.Drawing.Size(1152, 330);
+            this.dgvRouteStops.TabIndex = 45;
+            this.dgvRouteStops.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
+            this.dgvRouteStops.ThemeStyle.AlternatingRowsStyle.Font = null;
+            this.dgvRouteStops.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
+            this.dgvRouteStops.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
+            this.dgvRouteStops.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
+            this.dgvRouteStops.ThemeStyle.BackColor = System.Drawing.Color.White;
+            this.dgvRouteStops.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dgvRouteStops.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            this.dgvRouteStops.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dgvRouteStops.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.dgvRouteStops.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
+            this.dgvRouteStops.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            this.dgvRouteStops.ThemeStyle.HeaderStyle.Height = 4;
+            this.dgvRouteStops.ThemeStyle.ReadOnly = false;
+            this.dgvRouteStops.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
+            this.dgvRouteStops.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dgvRouteStops.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.dgvRouteStops.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            this.dgvRouteStops.ThemeStyle.RowsStyle.Height = 28;
+            this.dgvRouteStops.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dgvRouteStops.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 1;
@@ -186,7 +208,7 @@
             this.tableLayoutPanel2.Controls.Add(this.lblStatus, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.lblRoute, 0, 0);
             this.tableLayoutPanel2.Font = new System.Drawing.Font("Tahoma", 8.25F);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(465, 12);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(476, 78);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 5;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
@@ -195,7 +217,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(441, 300);
-            this.tableLayoutPanel2.TabIndex = 35;
+            this.tableLayoutPanel2.TabIndex = 47;
             // 
             // lblDuration
             // 
@@ -247,8 +269,33 @@
             this.lblRoute.TabIndex = 1;
             this.lblRoute.Text = "label6";
             // 
+            // btnClose
+            // 
+            this.btnClose.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnClose.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnClose.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnClose.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnClose.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnClose.ForeColor = System.Drawing.Color.White;
+            this.btnClose.Location = new System.Drawing.Point(1006, 200);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(180, 45);
+            this.btnClose.TabIndex = 50;
+            this.btnClose.Text = "Đóng";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.label1.Location = new System.Drawing.Point(33, 406);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(81, 28);
+            this.label1.TabIndex = 49;
+            this.label1.Text = "Ghi Chú";
+            // 
             // txtNotes
             // 
+            this.txtNotes.BorderRadius = 15;
             this.txtNotes.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.txtNotes.DefaultText = "";
             this.txtNotes.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
@@ -258,76 +305,91 @@
             this.txtNotes.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtNotes.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtNotes.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtNotes.Location = new System.Drawing.Point(107, 333);
+            this.txtNotes.Location = new System.Drawing.Point(118, 399);
             this.txtNotes.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtNotes.Name = "txtNotes";
             this.txtNotes.PlaceholderText = "";
             this.txtNotes.SelectedText = "";
             this.txtNotes.Size = new System.Drawing.Size(799, 42);
-            this.txtNotes.TabIndex = 36;
+            this.txtNotes.TabIndex = 48;
             // 
-            // label1
+            // pnlTop
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label1.Location = new System.Drawing.Point(22, 340);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(81, 28);
-            this.label1.TabIndex = 37;
-            this.label1.Text = "Ghi Chú";
+            this.pnlTop.BackColor = System.Drawing.Color.White;
+            this.pnlTop.Controls.Add(this.lblTitle);
+            this.pnlTop.Controls.Add(this.guna2ControlBox3);
+            this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlTop.Font = new System.Drawing.Font("Tahoma", 8.25F);
+            this.pnlTop.Location = new System.Drawing.Point(2, 2);
+            this.pnlTop.Name = "pnlTop";
+            this.pnlTop.Size = new System.Drawing.Size(1277, 49);
+            this.pnlTop.TabIndex = 10;
             // 
-            // btnClose
+            // guna2ControlBox3
             // 
-            this.btnClose.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnClose.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnClose.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnClose.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnClose.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(995, 134);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(180, 45);
-            this.btnClose.TabIndex = 38;
-            this.btnClose.Text = "guna2Button1";
+            this.guna2ControlBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.guna2ControlBox3.BorderRadius = 5;
+            this.guna2ControlBox3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(24)))), ((int)(((byte)(29)))));
+            this.guna2ControlBox3.IconColor = System.Drawing.Color.White;
+            this.guna2ControlBox3.Location = new System.Drawing.Point(1225, 5);
+            this.guna2ControlBox3.Name = "guna2ControlBox3";
+            this.guna2ControlBox3.Size = new System.Drawing.Size(46, 35);
+            this.guna2ControlBox3.TabIndex = 5;
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("Tahoma", 8.25F);
+            this.lblTitle.Location = new System.Drawing.Point(9, 12);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(54, 21);
+            this.lblTitle.TabIndex = 86;
+            this.lblTitle.Text = "label4";
             // 
             // ucShipmentDetail_Admin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.btnClose);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.txtNotes);
-            this.Controls.Add(this.tableLayoutPanel2);
-            this.Controls.Add(this.tableLayoutPanel1);
-            this.Controls.Add(this.dgvRouteStops);
+            this.BackColor = System.Drawing.Color.Black;
+            this.Controls.Add(this.pnlTop);
+            this.Controls.Add(this.panel1);
             this.Name = "ucShipmentDetail_Admin";
-            this.Size = new System.Drawing.Size(1199, 740);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRouteStops)).EndInit();
+            this.Padding = new System.Windows.Forms.Padding(2);
+            this.Size = new System.Drawing.Size(1281, 805);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRouteStops)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
+            this.pnlTop.ResumeLayout(false);
+            this.pnlTop.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-        private Guna.UI2.WinForms.Guna2DataGridView dgvRouteStops;
+
+        private CSharp.Winform.UI.Panel panel1;
         private CSharp.Winform.UI.TableLayoutPanel tableLayoutPanel1;
-        private CSharp.Winform.UI.TableLayoutPanel tableLayoutPanel2;
         private CSharp.Winform.UI.Label lblVehicleNo;
         private CSharp.Winform.UI.Label lblDriverName;
         private CSharp.Winform.UI.Label lblCustomerName;
         private CSharp.Winform.UI.Label lblOrderNo;
         private CSharp.Winform.UI.Label lblShipmentNo;
+        private Guna.UI2.WinForms.Guna2DataGridView dgvRouteStops;
+        private CSharp.Winform.UI.TableLayoutPanel tableLayoutPanel2;
         private CSharp.Winform.UI.Label lblDuration;
         private CSharp.Winform.UI.Label lblDeliveredAt;
         private CSharp.Winform.UI.Label lblStartedAt;
         private CSharp.Winform.UI.Label lblStatus;
         private CSharp.Winform.UI.Label lblRoute;
-        private Guna.UI2.WinForms.Guna2TextBox txtNotes;
-        private CSharp.Winform.UI.Label label1;
         private Guna.UI2.WinForms.Guna2Button btnClose;
+        private CSharp.Winform.UI.Label label1;
+        private Guna.UI2.WinForms.Guna2TextBox txtNotes;
+        private CSharp.Winform.UI.Panel pnlTop;
+        private Guna.UI2.WinForms.Guna2ControlBox guna2ControlBox3;
+        private CSharp.Winform.UI.Label lblTitle;
     }
 }

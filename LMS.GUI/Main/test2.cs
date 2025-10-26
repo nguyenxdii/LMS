@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace LMS.GUI.AccountAdmin
+namespace LMS.GUI.Main
 {
-    public partial class test : UserControl
+    public partial class test2 : UserControl
     {
-        public test()
+        public test2()
         {
             InitializeComponent();
         }
