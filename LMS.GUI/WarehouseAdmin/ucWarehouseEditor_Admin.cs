@@ -1,12 +1,9 @@
-﻿// LMS.GUI/WarehouseAdmin/ucWarehouseEditor_Admin.cs
-using Guna.UI2.WinForms;
-using LMS.BUS.Dtos; // May need DTO later
+﻿using Guna.UI2.WinForms;
 using LMS.BUS.Services;
 using LMS.DAL.Models;
 using System;
 using System.Drawing;
-using System.Linq; // For Linq operations if needed
-using System.Text.RegularExpressions; // If using Regex for validation
+using System.Linq;
 using System.Windows.Forms;
 
 namespace LMS.GUI.WarehouseAdmin
@@ -15,17 +12,13 @@ namespace LMS.GUI.WarehouseAdmin
     {
         public enum EditorMode { Add, Edit }
 
-        // State & Dependencies
         private EditorMode _mode = EditorMode.Add;
         private int _warehouseId = 0;
         private readonly WarehouseService_Admin _warehouseSvc = new WarehouseService_Admin(); // Ensure service exists
         private Warehouse _originalData; // To track changes
 
-        // UI Helpers
         private ErrorProvider errProvider;
-        // Tooltip can be added similarly to Customer/Driver editors if needed
 
-        // Dragging State
         private bool isDragging = false;
         private Point dragStartPoint = Point.Empty;
         private Point parentFormStartPoint = Point.Empty;
@@ -35,8 +28,8 @@ namespace LMS.GUI.WarehouseAdmin
             InitializeComponent();
             this.errProvider = new ErrorProvider { ContainerControl = this };
             WireEvents();
-            LoadComboBoxes(); // Load enum values into comboboxes
-            this.Load += (s, e) => { txtWarehouseName.Focus(); }; // Focus first field on load
+            LoadComboBoxes();
+            this.Load += (s, e) => { txtWarehouseName.Focus(); };
         }
 
         #region Data Loading & Mode Handling
@@ -44,10 +37,10 @@ namespace LMS.GUI.WarehouseAdmin
         public void LoadData(EditorMode mode, int? warehouseId)
         {
             _mode = mode;
-            errProvider.Clear(); // Clear previous errors
+            errProvider.Clear();
 
-            Font titleFont = new Font("Segoe UI", 14F, FontStyle.Bold); // Example font
-            lblTitle.Font = titleFont; // Set font
+            Font titleFont = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lblTitle.Font = titleFont;
 
             if (mode == EditorMode.Edit)
             {
@@ -57,11 +50,9 @@ namespace LMS.GUI.WarehouseAdmin
 
                 try
                 {
-                    // Fetch data from service - Assuming GetWarehouseForEdit returns Warehouse model
                     _originalData = _warehouseSvc.GetWarehouseForEdit(_warehouseId);
                     if (_originalData == null) throw new Exception($"Warehouse with ID {_warehouseId} not found.");
 
-                    // Populate controls
                     txtWarehouseName.Text = _originalData.Name;
                     txtAddress.Text = _originalData.Address;
                     cmbZone.SelectedValue = _originalData.ZoneId; // Assuming combobox ValueMember is set
@@ -70,8 +61,6 @@ namespace LMS.GUI.WarehouseAdmin
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Lỗi tải thông tin kho: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    // Optionally close the form if data load fails critically
-                    // this.FindForm()?.Close();
                 }
             }
             else // Add Mode
@@ -80,7 +69,6 @@ namespace LMS.GUI.WarehouseAdmin
                 _warehouseId = 0; // Ensure ID is 0 for new item
                 _originalData = new Warehouse(); // Create empty original data for change tracking
 
-                // Clear controls
                 txtWarehouseName.Clear();
                 txtAddress.Clear();
                 cmbZone.SelectedIndex = -1; // Deselect
@@ -92,7 +80,6 @@ namespace LMS.GUI.WarehouseAdmin
 
         private void LoadComboBoxes()
         {
-            // Load Zone ComboBox
             cmbZone.DataSource = Enum.GetValues(typeof(Zone))
                                      .Cast<Zone>()
                                      .Select(z => new { Value = z, Text = FormatZone(z) })
@@ -101,7 +88,6 @@ namespace LMS.GUI.WarehouseAdmin
             cmbZone.ValueMember = "Value";
             cmbZone.SelectedIndex = -1;
 
-            // Load Type ComboBox
             cmbType.DataSource = Enum.GetValues(typeof(WarehouseType))
                                      .Cast<WarehouseType>()
                                      .Select(t => new { Value = t, Text = FormatWarehouseType(t) })
@@ -111,7 +97,6 @@ namespace LMS.GUI.WarehouseAdmin
             cmbType.SelectedIndex = -1;
         }
 
-        // Helper methods for formatting enums (copied from ucWarehouse_Admin)
         private string FormatZone(Zone zone)
         {
             switch (zone) { case Zone.North: return "Bắc"; case Zone.Central: return "Trung"; case Zone.South: return "Nam"; default: return zone.ToString(); }
@@ -131,7 +116,6 @@ namespace LMS.GUI.WarehouseAdmin
             btnSave.Click += BtnSave_Click;
             btnCancel.Click += BtnCancel_Click;
 
-            // Drag and Drop for the parent Form
             Control dragHandle = pnlTop; // Use the top panel for dragging
             if (dragHandle != null)
             {
@@ -140,7 +124,6 @@ namespace LMS.GUI.WarehouseAdmin
                 dragHandle.MouseUp += DragHandle_MouseUp;
             }
 
-            // Close button on the form
             btnClose.Click += (s, e) => BtnCancel_Click(s, e); // Reuse Cancel logic for closing
         }
 
@@ -158,14 +141,12 @@ namespace LMS.GUI.WarehouseAdmin
                 return;
             }
 
-            // Create or update the Warehouse object
             Warehouse warehouseToSave = (_mode == EditorMode.Edit) ? _originalData : new Warehouse();
 
             warehouseToSave.Name = txtWarehouseName.Text.Trim();
             warehouseToSave.Address = txtAddress.Text.Trim();
             warehouseToSave.ZoneId = (Zone)cmbZone.SelectedValue;
             warehouseToSave.Type = (WarehouseType)cmbType.SelectedValue;
-            // IsActive is handled by Toggle in the main UC, default is true for new
 
             try
             {
@@ -180,7 +161,6 @@ namespace LMS.GUI.WarehouseAdmin
 
                 MessageBox.Show("Lưu thông tin kho thành công!", "Hoàn tất", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Close the form with OK result
                 var parentForm = this.FindForm();
                 if (parentForm != null)
                 {
@@ -191,7 +171,6 @@ namespace LMS.GUI.WarehouseAdmin
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi khi lưu kho: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                // Keep the editor open on error
             }
         }
 
@@ -204,7 +183,6 @@ namespace LMS.GUI.WarehouseAdmin
                 if (confirm != DialogResult.Yes) return; // Stay if user clicks No
             }
 
-            // Close the form with Cancel result
             var parentForm = this.FindForm();
             if (parentForm != null)
             {
@@ -248,9 +226,8 @@ namespace LMS.GUI.WarehouseAdmin
 
         private bool HasChanges()
         {
-            if (_originalData == null) return false; // Should not happen after LoadData
+            if (_originalData == null) return false;
 
-            // Compare current control values with original data
             return _originalData.Name != txtWarehouseName.Text.Trim() ||
                    _originalData.Address != txtAddress.Text.Trim() ||
                    _originalData.ZoneId != (Zone?)cmbZone.SelectedValue || // Use nullable comparison

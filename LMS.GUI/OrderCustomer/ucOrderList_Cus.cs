@@ -1,5 +1,4 @@
-﻿// LMS.GUI/OrderCustomer/ucOrderList_Cus.cs
-using LMS.BUS.Helpers;
+﻿using LMS.BUS.Helpers;
 using LMS.BUS.Services;
 using LMS.DAL.Models;
 using LMS.GUI.Main;
@@ -85,7 +84,6 @@ namespace LMS.GUI.OrderCustomer
             TryEnableDoubleBuffer(g); // Tăng tốc độ vẽ
         }
 
-        // Helper bật DoubleBuffer (giảm giật lag khi cuộn/resize)
         private static void TryEnableDoubleBuffer(DataGridView grid)
         {
             try
@@ -96,13 +94,10 @@ namespace LMS.GUI.OrderCustomer
             catch { /* Bỏ qua lỗi */ }
         }
 
-        // Tải/Tải lại dữ liệu vào DataGridView
         private void LoadData()
         {
-            // Lấy trạng thái lọc từ ComboBox
             OrderStatus? status = (cmbStatusFilter.SelectedItem as StatusFilterItem)?.Value;
 
-            // Lấy danh sách đơn hàng từ Service và chọn các cột cần hiển thị
             var list = _orderSvc.GetOrdersByCustomer(_customerId, status)
                                 .Select(o => new
                                 {
@@ -124,7 +119,6 @@ namespace LMS.GUI.OrderCustomer
             ResetSortGlyphs(); // Xóa mũi tên sort khi tải lại
         }
 
-        // Lấy ID của dòng đang được chọn
         private int? GetSelectedOrderId()
         {
             if (dgvOrders.CurrentRow?.Cells["Id"]?.Value != null &&
@@ -151,9 +145,6 @@ namespace LMS.GUI.OrderCustomer
             // host?.lblPageTitle.Text = "Theo dõi đơn hàng"; // Cập nhật tiêu đề nếu muốn
         }
 
-        // --- Các hàm xử lý sự kiện ---
-
-        // Xử lý sự kiện click nút Tải lại
         private void BtnReload_Click(object sender, EventArgs e)
         {
             if (cmbStatusFilter.Items.Count > 0)
@@ -166,7 +157,6 @@ namespace LMS.GUI.OrderCustomer
         }
 
 
-        // Xử lý sự kiện click vào Header cột (để sort)
         private void dgvOrders_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             var list = dgvOrders.DataSource as IEnumerable<object>;
@@ -182,7 +172,6 @@ namespace LMS.GUI.OrderCustomer
 
             _sortedColumn = newColumn;
 
-            // Sắp xếp bằng Reflection (vì DataSource là kiểu Anonymous)
             try
             {
                 string propertyName = newColumn.DataPropertyName;
@@ -206,7 +195,6 @@ namespace LMS.GUI.OrderCustomer
             }
         }
 
-        // Xóa mũi tên sort khỏi header
         private void ResetSortGlyphs()
         {
             if (_sortedColumn?.HeaderCell != null)
@@ -217,7 +205,6 @@ namespace LMS.GUI.OrderCustomer
             _sortOrder = SortOrder.None;
         }
 
-        // Xử lý sự kiện định dạng cell (để hiển thị Status tiếng Việt)
         private void dgvOrders_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (dgvOrders.Columns[e.ColumnIndex].Name == "Status" && e.Value is OrderStatus status)
@@ -234,7 +221,6 @@ namespace LMS.GUI.OrderCustomer
             }
         }
 
-        // --- Lớp nội bộ hỗ trợ cho ComboBox Filter ---
         public class StatusFilterItem
         {
             public OrderStatus? Value { get; set; } // Dùng kiểu nullable để đại diện cho "Tất cả"

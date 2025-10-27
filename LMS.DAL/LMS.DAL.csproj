@@ -57,45 +57,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\202510230435500_InitialCreate.cs" />
-    <Compile Include="Migrations\202510230435500_InitialCreate.Designer.cs">
-      <DependentUpon>202510230435500_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202510230646220_AddRouteTemplateSeed.cs" />
-    <Compile Include="Migrations\202510230646220_AddRouteTemplateSeed.Designer.cs">
-      <DependentUpon>202510230646220_AddRouteTemplateSeed.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202510230813208_Sync_DriverFlow_Models.cs" />
-    <Compile Include="Migrations\202510230813208_Sync_DriverFlow_Models.Designer.cs">
-      <DependentUpon>202510230813208_Sync_DriverFlow_Models.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202510230905520_Fix_OrderShipmentNullable.cs" />
-    <Compile Include="Migrations\202510230905520_Fix_OrderShipmentNullable.Designer.cs">
-      <DependentUpon>202510230905520_Fix_OrderShipmentNullable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202510230957555_AddRouteTemplateStop.cs" />
-    <Compile Include="Migrations\202510230957555_AddRouteTemplateStop.Designer.cs">
-      <DependentUpon>202510230957555_AddRouteTemplateStop.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202510231336532_Fix_OrderStatus_RemoveInTransit.cs" />
-    <Compile Include="Migrations\202510231336532_Fix_OrderStatus_RemoveInTransit.Designer.cs">
-      <DependentUpon>202510231336532_Fix_OrderStatus_RemoveInTransit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202510260056137_AddCitizenIdToDriver.cs" />
-    <Compile Include="Migrations\202510260056137_AddCitizenIdToDriver.Designer.cs">
-      <DependentUpon>202510260056137_AddCitizenIdToDriver.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202510260551422_AddIsActiveToWarehouse.cs" />
-    <Compile Include="Migrations\202510260551422_AddIsActiveToWarehouse.Designer.cs">
-      <DependentUpon>202510260551422_AddIsActiveToWarehouse.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202510260752156_AddStopsNavigationToRouteTemplate.cs" />
-    <Compile Include="Migrations\202510260752156_AddStopsNavigationToRouteTemplate.Designer.cs">
-      <DependentUpon>202510260752156_AddStopsNavigationToRouteTemplate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202510260947269_Fix.cs" />
-    <Compile Include="Migrations\202510260947269_Fix.Designer.cs">
-      <DependentUpon>202510260947269_Fix.cs</DependentUpon>
+    <Compile Include="Migrations\202510261316544_InitialCreate.cs" />
+    <Compile Include="Migrations\202510261316544_InitialCreate.Designer.cs">
+      <DependentUpon>202510261316544_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -107,6 +71,7 @@
     <Compile Include="Models\RouteTemplate.cs" />
     <Compile Include="Models\RouteTemplateStop.cs" />
     <Compile Include="Models\Shipment.cs" />
+    <Compile Include="Models\ShipmentDriverLog.cs" />
     <Compile Include="Models\UserAccount.cs" />
     <Compile Include="Models\Vehicle.cs" />
     <Compile Include="Models\Warehouse.cs" />
@@ -122,35 +87,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202510230435500_InitialCreate.resx">
-      <DependentUpon>202510230435500_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202510230646220_AddRouteTemplateSeed.resx">
-      <DependentUpon>202510230646220_AddRouteTemplateSeed.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202510230813208_Sync_DriverFlow_Models.resx">
-      <DependentUpon>202510230813208_Sync_DriverFlow_Models.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202510230905520_Fix_OrderShipmentNullable.resx">
-      <DependentUpon>202510230905520_Fix_OrderShipmentNullable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202510230957555_AddRouteTemplateStop.resx">
-      <DependentUpon>202510230957555_AddRouteTemplateStop.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202510231336532_Fix_OrderStatus_RemoveInTransit.resx">
-      <DependentUpon>202510231336532_Fix_OrderStatus_RemoveInTransit.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202510260056137_AddCitizenIdToDriver.resx">
-      <DependentUpon>202510260056137_AddCitizenIdToDriver.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202510260551422_AddIsActiveToWarehouse.resx">
-      <DependentUpon>202510260551422_AddIsActiveToWarehouse.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202510260752156_AddStopsNavigationToRouteTemplate.resx">
-      <DependentUpon>202510260752156_AddStopsNavigationToRouteTemplate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202510260947269_Fix.resx">
-      <DependentUpon>202510260947269_Fix.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202510261316544_InitialCreate.resx">
+      <DependentUpon>202510261316544_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

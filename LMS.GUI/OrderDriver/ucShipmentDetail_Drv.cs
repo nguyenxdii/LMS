@@ -1,5 +1,4 @@
-﻿// LMS.GUI/OrderDriver/ucShipmentDetail_Drv.cs
-using LMS.BUS.Dtos;
+﻿using LMS.BUS.Dtos;
 using LMS.BUS.Helpers;
 using LMS.BUS.Services;
 using LMS.DAL.Models;
@@ -20,7 +19,6 @@ namespace LMS.GUI.OrderDriver
         private int DriverId => AppSession.DriverId ?? 0;
 
         private string _sortProperty = string.Empty;
-        // ĐÃ SỬA LỖI CS0039: Gõ sai tên kiểu dữ liệu
         private ListSortDirection _sortDirection = ListSortDirection.Ascending;
 
         public ucShipmentDetail_Drv()
@@ -98,27 +96,20 @@ namespace LMS.GUI.OrderDriver
             cmbStatus.SelectedIndexChanged += (s, e) => LoadShipments();
         }
 
-        /// <summary>
-        /// Xử lý nút Tải lại: Reset filter về "Tất cả" và tải lại dữ liệu.
-        /// </summary>
         private void BtnReload_Click(object sender, EventArgs e)
         {
-            // 1. Reset Sort
             _sortProperty = string.Empty;
             _sortDirection = ListSortDirection.Ascending;
 
-            // 2. Reset Filter Ngày tháng về mặc định (7 ngày gần nhất)
             dtFrom.Value = DateTime.Today.AddDays(-7);
             dtTo.Value = DateTime.Today.AddDays(1).AddSeconds(-1);
 
-            // 3. Reset Filter Trạng thái về "Tất cả" (index 0)
             if (cmbStatus.SelectedIndex != 0)
             {
                 cmbStatus.SelectedIndex = 0;
             }
             else
             {
-                // Nếu Index không thay đổi, gọi LoadShipments() thủ công
                 LoadShipments();
             }
         }
@@ -133,7 +124,6 @@ namespace LMS.GUI.OrderDriver
 
                 List<ShipmentRowDto> data;
 
-                // Lấy tất cả chuyến (Sử dụng các filter đã chọn)
                 data = _svc.GetAllMine(DriverId, from, to, st);
 
                 var bindingList = new BindingList<ShipmentRowDto>(data);
@@ -277,7 +267,6 @@ namespace LMS.GUI.OrderDriver
             }
         }
 
-        // ===== CÁC HÀM HỖ TRỢ SORT (Giữ nguyên) =====
         private void DgvShipments_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             var grid = (DataGridView)sender;

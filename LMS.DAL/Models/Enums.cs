@@ -1,4 +1,6 @@
 ﻿// LMS.DAL/Models/Enums.cs
+using System.ComponentModel.DataAnnotations;
+
 namespace LMS.DAL.Models
 {
     public enum UserRole { Admin = 0, Customer = 1, Driver = 2 }
@@ -50,5 +52,14 @@ namespace LMS.DAL.Models
         Waiting = 0,
         Arrived = 1,
         Departed = 2
+    }
+    public enum VehicleStatus
+    {
+        [Display(Name = "Hoạt động")]
+        Active,
+        [Display(Name = "Đang bảo trì")]
+        Maintenance,
+        [Display(Name = "Ngừng hoạt động")]
+        Inactive
     }
 }

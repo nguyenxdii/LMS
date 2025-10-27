@@ -1,5 +1,4 @@
-﻿// LMS.BUS/Dtos/OrderDraft.cs
-using System;
+﻿using System;
 
 namespace LMS.BUS.Dtos
 {

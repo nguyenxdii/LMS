@@ -1,5 +1,4 @@
-﻿// LMS.BUS/Services/WarehouseService_Admin.cs
-using LMS.DAL;
+﻿using LMS.DAL;
 using LMS.DAL.Models;
 using System;
 using System.Collections.Generic;
@@ -10,9 +9,7 @@ namespace LMS.BUS.Services
 {
     public class WarehouseService_Admin
     {
-        /// <summary>
-        /// Lấy tất cả kho (kể cả bị khóa) cho grid chính.
-        /// </summary>
+
         public List<Warehouse> GetWarehouses()
         {
             using (var db = new LogisticsDbContext())
@@ -22,9 +19,7 @@ namespace LMS.BUS.Services
             }
         }
 
-        /// <summary>
-        /// Lấy thông tin chi tiết một kho để chỉnh sửa.
-        /// </summary>
+
         public Warehouse GetWarehouseForEdit(int warehouseId)
         {
             using (var db = new LogisticsDbContext())
@@ -38,9 +33,6 @@ namespace LMS.BUS.Services
             }
         }
 
-        /// <summary>
-        /// Tạo kho mới.
-        /// </summary>
         public void CreateWarehouse(Warehouse newWarehouse)
         {
             // Validation cơ bản (có thể thêm kiểm tra trùng tên nếu muốn)
@@ -57,9 +49,6 @@ namespace LMS.BUS.Services
             }
         }
 
-        /// <summary>
-        /// Cập nhật thông tin kho hiện có.
-        /// </summary>
         public void UpdateWarehouse(Warehouse updatedWarehouse)
         {
             if (string.IsNullOrWhiteSpace(updatedWarehouse.Name)) throw new ArgumentException("Tên kho không được để trống.");
@@ -85,9 +74,7 @@ namespace LMS.BUS.Services
             }
         }
 
-        /// <summary>
-        /// Đảo ngược trạng thái Active của kho (Khóa <-> Kích hoạt).
-        /// </summary>
+
         public void ToggleActive(int warehouseId)
         {
             using (var db = new LogisticsDbContext())
@@ -102,11 +89,7 @@ namespace LMS.BUS.Services
             }
         }
 
-        /// <summary>
-        /// Kiểm tra xem kho có thể bị khóa (deactivate) hay không.
-        /// Kho không thể khóa nếu đang dùng trong đơn hàng/chuyến hàng CHƯA HOÀN THÀNH/HỦY
-        /// Hoặc đang được dùng trong RouteTemplate.
-        /// </summary>
+
         public bool CheckIfWarehouseCanBeDeactivated(int warehouseId)
         {
             using (var db = new LogisticsDbContext())
@@ -153,10 +136,6 @@ namespace LMS.BUS.Services
             }
         }
 
-        /// <summary>
-        /// Lấy TẤT CẢ các kho đang hoạt động (IsActive = true).
-        /// Dùng khi cần hiển thị tất cả kho hoạt động không phân biệt vùng.
-        /// </summary>
         public List<Warehouse> GetAllActiveWarehouses()
         {
             using (var db = new LogisticsDbContext())
@@ -168,9 +147,6 @@ namespace LMS.BUS.Services
             }
         }
 
-        /// <summary>
-        /// Tìm kiếm kho theo tên, vùng, trạng thái cho popup search.
-        /// </summary>
         public List<Warehouse> SearchWarehouses(string nameLike, Zone? zone, bool? isActive)
         {
             using (var db = new LogisticsDbContext())

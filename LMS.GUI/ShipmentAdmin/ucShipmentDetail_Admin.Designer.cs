@@ -28,63 +28,125 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.panel1 = new CSharp.Winform.UI.Panel();
-            this.tableLayoutPanel1 = new CSharp.Winform.UI.TableLayoutPanel();
-            this.lblVehicleNo = new CSharp.Winform.UI.Label();
-            this.lblDriverName = new CSharp.Winform.UI.Label();
-            this.lblCustomerName = new CSharp.Winform.UI.Label();
-            this.lblOrderNo = new CSharp.Winform.UI.Label();
-            this.lblShipmentNo = new CSharp.Winform.UI.Label();
-            this.dgvRouteStops = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.tableLayoutPanel2 = new CSharp.Winform.UI.TableLayoutPanel();
-            this.lblDuration = new CSharp.Winform.UI.Label();
-            this.lblDeliveredAt = new CSharp.Winform.UI.Label();
-            this.lblStartedAt = new CSharp.Winform.UI.Label();
-            this.lblStatus = new CSharp.Winform.UI.Label();
-            this.lblRoute = new CSharp.Winform.UI.Label();
-            this.btnClose = new Guna.UI2.WinForms.Guna2Button();
-            this.label1 = new CSharp.Winform.UI.Label();
-            this.txtNotes = new Guna.UI2.WinForms.Guna2TextBox();
             this.pnlTop = new CSharp.Winform.UI.Panel();
             this.guna2ControlBox3 = new Guna.UI2.WinForms.Guna2ControlBox();
-            this.lblTitle = new CSharp.Winform.UI.Label();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.dgvDriverHistory = new CSharp.Winform.UI.DataGridView();
+            this.dgvRouteStops = new CSharp.Winform.UI.DataGridView();
+            this.panel1 = new CSharp.Winform.UI.Panel();
+            this.tableLayoutPanel1 = new CSharp.Winform.UI.TableLayoutPanel();
+            this.lblDuration = new System.Windows.Forms.Label();
+            this.lblVehicleNo = new System.Windows.Forms.Label();
+            this.lblDeliveredAt = new System.Windows.Forms.Label();
+            this.lblDriverName = new System.Windows.Forms.Label();
+            this.lblStartedAt = new System.Windows.Forms.Label();
+            this.lblCustomerName = new System.Windows.Forms.Label();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.lblOrderNo = new System.Windows.Forms.Label();
+            this.lblRoute = new System.Windows.Forms.Label();
+            this.lblShipmentNo = new System.Windows.Forms.Label();
+            this.txtNotes = new Guna.UI2.WinForms.Guna2TextBox();
+            this.btnClose = new Guna.UI2.WinForms.Guna2Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.pnlTop.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDriverHistory)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRouteStops)).BeginInit();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRouteStops)).BeginInit();
-            this.tableLayoutPanel2.SuspendLayout();
-            this.pnlTop.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // pnlTop
+            // 
+            this.pnlTop.BackColor = System.Drawing.Color.White;
+            this.pnlTop.Controls.Add(this.guna2ControlBox3);
+            this.pnlTop.Controls.Add(this.lblTitle);
+            this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlTop.Font = new System.Drawing.Font("Tahoma", 8.25F);
+            this.pnlTop.Location = new System.Drawing.Point(0, 0);
+            this.pnlTop.Name = "pnlTop";
+            this.pnlTop.Size = new System.Drawing.Size(1426, 49);
+            this.pnlTop.TabIndex = 9;
+            // 
+            // guna2ControlBox3
+            // 
+            this.guna2ControlBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.guna2ControlBox3.BorderRadius = 5;
+            this.guna2ControlBox3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(24)))), ((int)(((byte)(29)))));
+            this.guna2ControlBox3.IconColor = System.Drawing.Color.White;
+            this.guna2ControlBox3.Location = new System.Drawing.Point(1374, 5);
+            this.guna2ControlBox3.Name = "guna2ControlBox3";
+            this.guna2ControlBox3.Size = new System.Drawing.Size(46, 35);
+            this.guna2ControlBox3.TabIndex = 5;
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.lblTitle.Location = new System.Drawing.Point(16, 15);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(102, 25);
+            this.lblTitle.TabIndex = 13;
+            this.lblTitle.Text = "Tên Chuyến";
+            // 
+            // dgvDriverHistory
+            // 
+            this.dgvDriverHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDriverHistory.Location = new System.Drawing.Point(672, 296);
+            this.dgvDriverHistory.Name = "dgvDriverHistory";
+            this.dgvDriverHistory.RowHeadersWidth = 62;
+            this.dgvDriverHistory.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8.25F);
+            this.dgvDriverHistory.RowTemplate.Height = 28;
+            this.dgvDriverHistory.Size = new System.Drawing.Size(646, 396);
+            this.dgvDriverHistory.TabIndex = 12;
+            // 
+            // dgvRouteStops
+            // 
+            this.dgvRouteStops.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvRouteStops.Location = new System.Drawing.Point(20, 296);
+            this.dgvRouteStops.Name = "dgvRouteStops";
+            this.dgvRouteStops.RowHeadersWidth = 62;
+            this.dgvRouteStops.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8.25F);
+            this.dgvRouteStops.RowTemplate.Height = 28;
+            this.dgvRouteStops.Size = new System.Drawing.Size(646, 396);
+            this.dgvRouteStops.TabIndex = 12;
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.tableLayoutPanel1);
-            this.panel1.Controls.Add(this.dgvRouteStops);
-            this.panel1.Controls.Add(this.tableLayoutPanel2);
-            this.panel1.Controls.Add(this.btnClose);
-            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.txtNotes);
+            this.panel1.Controls.Add(this.btnClose);
+            this.panel1.Controls.Add(this.dgvDriverHistory);
+            this.panel1.Controls.Add(this.dgvRouteStops);
+            this.panel1.Controls.Add(this.label6);
+            this.panel1.Controls.Add(this.pnlTop);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Font = new System.Drawing.Font("Tahoma", 8.25F);
             this.panel1.Location = new System.Drawing.Point(2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1277, 801);
-            this.panel1.TabIndex = 0;
+            this.panel1.Size = new System.Drawing.Size(1426, 782);
+            this.panel1.TabIndex = 10;
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Controls.Add(this.lblDuration, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.lblVehicleNo, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.lblDeliveredAt, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.lblDriverName, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.lblStartedAt, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.lblCustomerName, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.lblStatus, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.lblOrderNo, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.lblRoute, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.lblShipmentNo, 0, 0);
             this.tableLayoutPanel1.Font = new System.Drawing.Font("Tahoma", 8.25F);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(23, 78);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(13, 55);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 5;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
@@ -92,206 +154,108 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(447, 300);
-            this.tableLayoutPanel1.TabIndex = 46;
-            // 
-            // lblVehicleNo
-            // 
-            this.lblVehicleNo.AutoSize = true;
-            this.lblVehicleNo.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.lblVehicleNo.Location = new System.Drawing.Point(3, 240);
-            this.lblVehicleNo.Name = "lblVehicleNo";
-            this.lblVehicleNo.Size = new System.Drawing.Size(65, 28);
-            this.lblVehicleNo.TabIndex = 4;
-            this.lblVehicleNo.Text = "label5";
-            // 
-            // lblDriverName
-            // 
-            this.lblDriverName.AutoSize = true;
-            this.lblDriverName.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.lblDriverName.Location = new System.Drawing.Point(3, 180);
-            this.lblDriverName.Name = "lblDriverName";
-            this.lblDriverName.Size = new System.Drawing.Size(65, 28);
-            this.lblDriverName.TabIndex = 3;
-            this.lblDriverName.Text = "label4";
-            // 
-            // lblCustomerName
-            // 
-            this.lblCustomerName.AutoSize = true;
-            this.lblCustomerName.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.lblCustomerName.Location = new System.Drawing.Point(3, 120);
-            this.lblCustomerName.Name = "lblCustomerName";
-            this.lblCustomerName.Size = new System.Drawing.Size(65, 28);
-            this.lblCustomerName.TabIndex = 2;
-            this.lblCustomerName.Text = "label3";
-            // 
-            // lblOrderNo
-            // 
-            this.lblOrderNo.AutoSize = true;
-            this.lblOrderNo.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.lblOrderNo.Location = new System.Drawing.Point(3, 60);
-            this.lblOrderNo.Name = "lblOrderNo";
-            this.lblOrderNo.Size = new System.Drawing.Size(65, 28);
-            this.lblOrderNo.TabIndex = 1;
-            this.lblOrderNo.Text = "label2";
-            // 
-            // lblShipmentNo
-            // 
-            this.lblShipmentNo.AutoSize = true;
-            this.lblShipmentNo.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.lblShipmentNo.Location = new System.Drawing.Point(3, 0);
-            this.lblShipmentNo.Name = "lblShipmentNo";
-            this.lblShipmentNo.Size = new System.Drawing.Size(65, 28);
-            this.lblShipmentNo.TabIndex = 0;
-            this.lblShipmentNo.Text = "label1";
-            // 
-            // dgvRouteStops
-            // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            this.dgvRouteStops.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 8.25F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvRouteStops.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvRouteStops.ColumnHeadersHeight = 4;
-            this.dgvRouteStops.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Tahoma", 8.25F);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvRouteStops.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dgvRouteStops.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dgvRouteStops.Location = new System.Drawing.Point(31, 456);
-            this.dgvRouteStops.Name = "dgvRouteStops";
-            this.dgvRouteStops.RowHeadersVisible = false;
-            this.dgvRouteStops.RowHeadersWidth = 62;
-            this.dgvRouteStops.RowTemplate.Height = 28;
-            this.dgvRouteStops.Size = new System.Drawing.Size(1152, 330);
-            this.dgvRouteStops.TabIndex = 45;
-            this.dgvRouteStops.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
-            this.dgvRouteStops.ThemeStyle.AlternatingRowsStyle.Font = null;
-            this.dgvRouteStops.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
-            this.dgvRouteStops.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
-            this.dgvRouteStops.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
-            this.dgvRouteStops.ThemeStyle.BackColor = System.Drawing.Color.White;
-            this.dgvRouteStops.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dgvRouteStops.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
-            this.dgvRouteStops.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dgvRouteStops.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.dgvRouteStops.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
-            this.dgvRouteStops.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            this.dgvRouteStops.ThemeStyle.HeaderStyle.Height = 4;
-            this.dgvRouteStops.ThemeStyle.ReadOnly = false;
-            this.dgvRouteStops.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
-            this.dgvRouteStops.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dgvRouteStops.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.dgvRouteStops.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            this.dgvRouteStops.ThemeStyle.RowsStyle.Height = 28;
-            this.dgvRouteStops.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dgvRouteStops.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.lblDuration, 0, 4);
-            this.tableLayoutPanel2.Controls.Add(this.lblDeliveredAt, 0, 3);
-            this.tableLayoutPanel2.Controls.Add(this.lblStartedAt, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.lblStatus, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.lblRoute, 0, 0);
-            this.tableLayoutPanel2.Font = new System.Drawing.Font("Tahoma", 8.25F);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(476, 78);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 5;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(441, 300);
-            this.tableLayoutPanel2.TabIndex = 47;
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(917, 224);
+            this.tableLayoutPanel1.TabIndex = 15;
             // 
             // lblDuration
             // 
             this.lblDuration.AutoSize = true;
-            this.lblDuration.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.lblDuration.Location = new System.Drawing.Point(3, 240);
+            this.lblDuration.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.lblDuration.Location = new System.Drawing.Point(461, 176);
             this.lblDuration.Name = "lblDuration";
-            this.lblDuration.Size = new System.Drawing.Size(76, 28);
-            this.lblDuration.TabIndex = 5;
-            this.lblDuration.Text = "label10";
+            this.lblDuration.Size = new System.Drawing.Size(102, 25);
+            this.lblDuration.TabIndex = 22;
+            this.lblDuration.Text = "Tên Chuyến";
+            // 
+            // lblVehicleNo
+            // 
+            this.lblVehicleNo.AutoSize = true;
+            this.lblVehicleNo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.lblVehicleNo.Location = new System.Drawing.Point(3, 176);
+            this.lblVehicleNo.Name = "lblVehicleNo";
+            this.lblVehicleNo.Size = new System.Drawing.Size(102, 25);
+            this.lblVehicleNo.TabIndex = 21;
+            this.lblVehicleNo.Text = "Tên Chuyến";
             // 
             // lblDeliveredAt
             // 
             this.lblDeliveredAt.AutoSize = true;
-            this.lblDeliveredAt.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.lblDeliveredAt.Location = new System.Drawing.Point(3, 180);
+            this.lblDeliveredAt.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.lblDeliveredAt.Location = new System.Drawing.Point(461, 132);
             this.lblDeliveredAt.Name = "lblDeliveredAt";
-            this.lblDeliveredAt.Size = new System.Drawing.Size(65, 28);
-            this.lblDeliveredAt.TabIndex = 4;
-            this.lblDeliveredAt.Text = "label9";
+            this.lblDeliveredAt.Size = new System.Drawing.Size(102, 25);
+            this.lblDeliveredAt.TabIndex = 20;
+            this.lblDeliveredAt.Text = "Tên Chuyến";
+            // 
+            // lblDriverName
+            // 
+            this.lblDriverName.AutoSize = true;
+            this.lblDriverName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.lblDriverName.Location = new System.Drawing.Point(3, 132);
+            this.lblDriverName.Name = "lblDriverName";
+            this.lblDriverName.Size = new System.Drawing.Size(102, 25);
+            this.lblDriverName.TabIndex = 19;
+            this.lblDriverName.Text = "Tên Chuyến";
             // 
             // lblStartedAt
             // 
             this.lblStartedAt.AutoSize = true;
-            this.lblStartedAt.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.lblStartedAt.Location = new System.Drawing.Point(3, 120);
+            this.lblStartedAt.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.lblStartedAt.Location = new System.Drawing.Point(461, 88);
             this.lblStartedAt.Name = "lblStartedAt";
-            this.lblStartedAt.Size = new System.Drawing.Size(65, 28);
-            this.lblStartedAt.TabIndex = 3;
-            this.lblStartedAt.Text = "label8";
+            this.lblStartedAt.Size = new System.Drawing.Size(102, 25);
+            this.lblStartedAt.TabIndex = 18;
+            this.lblStartedAt.Text = "Tên Chuyến";
+            // 
+            // lblCustomerName
+            // 
+            this.lblCustomerName.AutoSize = true;
+            this.lblCustomerName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.lblCustomerName.Location = new System.Drawing.Point(3, 88);
+            this.lblCustomerName.Name = "lblCustomerName";
+            this.lblCustomerName.Size = new System.Drawing.Size(102, 25);
+            this.lblCustomerName.TabIndex = 17;
+            this.lblCustomerName.Text = "Tên Chuyến";
             // 
             // lblStatus
             // 
             this.lblStatus.AutoSize = true;
-            this.lblStatus.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.lblStatus.Location = new System.Drawing.Point(3, 60);
+            this.lblStatus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.lblStatus.Location = new System.Drawing.Point(461, 44);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(65, 28);
-            this.lblStatus.TabIndex = 2;
-            this.lblStatus.Text = "label7";
+            this.lblStatus.Size = new System.Drawing.Size(102, 25);
+            this.lblStatus.TabIndex = 16;
+            this.lblStatus.Text = "Tên Chuyến";
+            // 
+            // lblOrderNo
+            // 
+            this.lblOrderNo.AutoSize = true;
+            this.lblOrderNo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.lblOrderNo.Location = new System.Drawing.Point(3, 44);
+            this.lblOrderNo.Name = "lblOrderNo";
+            this.lblOrderNo.Size = new System.Drawing.Size(102, 25);
+            this.lblOrderNo.TabIndex = 15;
+            this.lblOrderNo.Text = "Tên Chuyến";
             // 
             // lblRoute
             // 
             this.lblRoute.AutoSize = true;
-            this.lblRoute.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.lblRoute.Location = new System.Drawing.Point(3, 0);
+            this.lblRoute.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.lblRoute.Location = new System.Drawing.Point(461, 0);
             this.lblRoute.Name = "lblRoute";
-            this.lblRoute.Size = new System.Drawing.Size(65, 28);
-            this.lblRoute.TabIndex = 1;
-            this.lblRoute.Text = "label6";
+            this.lblRoute.Size = new System.Drawing.Size(102, 25);
+            this.lblRoute.TabIndex = 14;
+            this.lblRoute.Text = "Tên Chuyến";
             // 
-            // btnClose
+            // lblShipmentNo
             // 
-            this.btnClose.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnClose.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnClose.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnClose.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnClose.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(1006, 200);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(180, 45);
-            this.btnClose.TabIndex = 50;
-            this.btnClose.Text = "Đóng";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label1.Location = new System.Drawing.Point(33, 406);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(81, 28);
-            this.label1.TabIndex = 49;
-            this.label1.Text = "Ghi Chú";
+            this.lblShipmentNo.AutoSize = true;
+            this.lblShipmentNo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.lblShipmentNo.Location = new System.Drawing.Point(3, 0);
+            this.lblShipmentNo.Name = "lblShipmentNo";
+            this.lblShipmentNo.Size = new System.Drawing.Size(102, 25);
+            this.lblShipmentNo.TabIndex = 13;
+            this.lblShipmentNo.Text = "Tên Chuyến";
             // 
             // txtNotes
             // 
@@ -303,93 +267,84 @@
             this.txtNotes.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.txtNotes.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.txtNotes.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtNotes.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtNotes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.txtNotes.ForeColor = System.Drawing.Color.Black;
             this.txtNotes.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtNotes.Location = new System.Drawing.Point(118, 399);
+            this.txtNotes.Location = new System.Drawing.Point(1027, 108);
             this.txtNotes.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtNotes.Name = "txtNotes";
             this.txtNotes.PlaceholderText = "";
             this.txtNotes.SelectedText = "";
-            this.txtNotes.Size = new System.Drawing.Size(799, 42);
-            this.txtNotes.TabIndex = 48;
+            this.txtNotes.Size = new System.Drawing.Size(236, 36);
+            this.txtNotes.TabIndex = 12;
             // 
-            // pnlTop
+            // btnClose
             // 
-            this.pnlTop.BackColor = System.Drawing.Color.White;
-            this.pnlTop.Controls.Add(this.lblTitle);
-            this.pnlTop.Controls.Add(this.guna2ControlBox3);
-            this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlTop.Font = new System.Drawing.Font("Tahoma", 8.25F);
-            this.pnlTop.Location = new System.Drawing.Point(2, 2);
-            this.pnlTop.Name = "pnlTop";
-            this.pnlTop.Size = new System.Drawing.Size(1277, 49);
-            this.pnlTop.TabIndex = 10;
+            this.btnClose.BorderRadius = 15;
+            this.btnClose.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnClose.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnClose.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnClose.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnClose.FillColor = System.Drawing.Color.Black;
+            this.btnClose.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnClose.ForeColor = System.Drawing.Color.White;
+            this.btnClose.Location = new System.Drawing.Point(948, 55);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(180, 45);
+            this.btnClose.TabIndex = 14;
+            this.btnClose.Text = "Đóng";
             // 
-            // guna2ControlBox3
+            // label6
             // 
-            this.guna2ControlBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.guna2ControlBox3.BorderRadius = 5;
-            this.guna2ControlBox3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(24)))), ((int)(((byte)(29)))));
-            this.guna2ControlBox3.IconColor = System.Drawing.Color.White;
-            this.guna2ControlBox3.Location = new System.Drawing.Point(1225, 5);
-            this.guna2ControlBox3.Name = "guna2ControlBox3";
-            this.guna2ControlBox3.Size = new System.Drawing.Size(46, 35);
-            this.guna2ControlBox3.TabIndex = 5;
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Tahoma", 8.25F);
-            this.lblTitle.Location = new System.Drawing.Point(9, 12);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(54, 21);
-            this.lblTitle.TabIndex = 86;
-            this.lblTitle.Text = "label4";
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.label6.Location = new System.Drawing.Point(935, 119);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(85, 25);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "Tìm Kiếm";
             // 
             // ucShipmentDetail_Admin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.Controls.Add(this.pnlTop);
             this.Controls.Add(this.panel1);
             this.Name = "ucShipmentDetail_Admin";
             this.Padding = new System.Windows.Forms.Padding(2);
-            this.Size = new System.Drawing.Size(1281, 805);
+            this.Size = new System.Drawing.Size(1430, 786);
+            this.pnlTop.ResumeLayout(false);
+            this.pnlTop.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDriverHistory)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRouteStops)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRouteStops)).EndInit();
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
-            this.pnlTop.ResumeLayout(false);
-            this.pnlTop.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private CSharp.Winform.UI.Panel panel1;
-        private CSharp.Winform.UI.TableLayoutPanel tableLayoutPanel1;
-        private CSharp.Winform.UI.Label lblVehicleNo;
-        private CSharp.Winform.UI.Label lblDriverName;
-        private CSharp.Winform.UI.Label lblCustomerName;
-        private CSharp.Winform.UI.Label lblOrderNo;
-        private CSharp.Winform.UI.Label lblShipmentNo;
-        private Guna.UI2.WinForms.Guna2DataGridView dgvRouteStops;
-        private CSharp.Winform.UI.TableLayoutPanel tableLayoutPanel2;
-        private CSharp.Winform.UI.Label lblDuration;
-        private CSharp.Winform.UI.Label lblDeliveredAt;
-        private CSharp.Winform.UI.Label lblStartedAt;
-        private CSharp.Winform.UI.Label lblStatus;
-        private CSharp.Winform.UI.Label lblRoute;
-        private Guna.UI2.WinForms.Guna2Button btnClose;
-        private CSharp.Winform.UI.Label label1;
-        private Guna.UI2.WinForms.Guna2TextBox txtNotes;
         private CSharp.Winform.UI.Panel pnlTop;
         private Guna.UI2.WinForms.Guna2ControlBox guna2ControlBox3;
-        private CSharp.Winform.UI.Label lblTitle;
+        private CSharp.Winform.UI.DataGridView dgvDriverHistory;
+        private CSharp.Winform.UI.DataGridView dgvRouteStops;
+        private CSharp.Winform.UI.Panel panel1;
+        private Guna.UI2.WinForms.Guna2TextBox txtNotes;
+        private System.Windows.Forms.Label label6;
+        private CSharp.Winform.UI.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Label lblDuration;
+        private System.Windows.Forms.Label lblVehicleNo;
+        private System.Windows.Forms.Label lblDeliveredAt;
+        private System.Windows.Forms.Label lblDriverName;
+        private System.Windows.Forms.Label lblStartedAt;
+        private System.Windows.Forms.Label lblCustomerName;
+        private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.Label lblOrderNo;
+        private System.Windows.Forms.Label lblRoute;
+        private System.Windows.Forms.Label lblShipmentNo;
+        private Guna.UI2.WinForms.Guna2Button btnClose;
+        private System.Windows.Forms.Label lblTitle;
     }
 }

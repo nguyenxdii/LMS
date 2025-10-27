@@ -853,16 +853,13 @@ namespace LMS.GUI.RouteTemplateAdmin
         // --- UI Helpers ---
         private ErrorProvider errProvider;
 
-        // --- Dragging State ---
         private bool isDragging = false;
         private Point dragStartPoint = Point.Empty;
         private Point parentFormStartPoint = Point.Empty;
 
-        // --- Sorting State for Available Grid ---
         private DataGridViewColumn _availableSortedColumn = null;
         private SortOrder _availableSortOrder = SortOrder.None;
 
-        // --- ViewModel for Available Grid ---
         private class WarehouseSelectionItem
         {
             public int WarehouseId { get; set; }
@@ -870,7 +867,6 @@ namespace LMS.GUI.RouteTemplateAdmin
             public string ZoneText { get; set; }
         }
 
-        // --- ViewModel for Selected Stops Grid ---
         public class RouteTemplateStopViewModel
         {
             public int StopId { get; set; }
@@ -912,7 +908,6 @@ namespace LMS.GUI.RouteTemplateAdmin
 
                     _templateId = templateId.Value;
 
-                    // Quan trọng: Include đầy đủ From/To/Stops+Warehouse trong service
                     _originalTemplate = _templateSvc.GetTemplateWithStops(_templateId);
                     if (_originalTemplate == null)
                         throw new Exception($"Không tìm thấy tuyến đường ID {_templateId}.");
@@ -923,13 +918,11 @@ namespace LMS.GUI.RouteTemplateAdmin
 
                     // Bind header
                     txtTemplateName.Text = _originalTemplate.Name;
-                    SelectZoneAndWarehouse(cmbFromZone, cmbFromWarehouse, _originalTemplate.FromWarehouseId);
-                    SelectZoneAndWarehouse(cmbToZone, cmbToWarehouse, _originalTemplate.ToWarehouseId);
+                    SelectZoneAndWarehouse(cmbFromZone, cmbStopWarehouse, _originalTemplate.FromWarehouseId);
+                    SelectZoneAndWarehouse(cmbToZone, cmbStopZone, _originalTemplate.ToWarehouseId);
 
-                    // Cấu hình grid Selected trước khi đổ dữ liệu
                     ConfigureSelectedStopsGrid();
 
-                    // Đổ chặng theo Seq
                     _selectedStops.Clear();
                     foreach (var stop in _originalStops)
                     {
@@ -957,8 +950,8 @@ namespace LMS.GUI.RouteTemplateAdmin
                     _selectedStops.Clear();
 
                     txtTemplateName.Clear();
-                    cmbFromZone.SelectedIndex = -1; cmbFromWarehouse.DataSource = null; cmbFromWarehouse.Items.Clear();
-                    cmbToZone.SelectedIndex = -1; cmbToWarehouse.DataSource = null; cmbToWarehouse.Items.Clear();
+                    cmbFromZone.SelectedIndex = -1; cmbStopWarehouse.DataSource = null; cmbStopWarehouse.Items.Clear();
+                    cmbToZone.SelectedIndex = -1; cmbStopZone.DataSource = null; cmbStopZone.Items.Clear();
                     cmbStopZone.SelectedIndex = -1; cmbStopWarehouse.DataSource = null; cmbStopWarehouse.Items.Clear();
 
                     ConfigureSelectedStopsGrid();
@@ -1060,8 +1053,8 @@ namespace LMS.GUI.RouteTemplateAdmin
         {
             _availableWarehouses.Clear();
 
-            int fromWhId = (cmbFromWarehouse.SelectedValue is int v1) ? v1 : 0;
-            int toWhId = (cmbToWarehouse.SelectedValue is int v2) ? v2 : 0;
+            int fromWhId = (cmbStopWarehouse.SelectedValue is int v1) ? v1 : 0;
+            int toWhId = (cmbStopZone.SelectedValue is int v2) ? v2 : 0;
             Zone? filterZone = (cmbStopZone.SelectedValue is Zone z) ? z : (Zone?)null;
 
             try
@@ -1197,8 +1190,8 @@ namespace LMS.GUI.RouteTemplateAdmin
             cmbToZone.SelectedIndexChanged += ZoneCombo_SelectedIndexChanged_LoadWarehouse;
             cmbStopZone.SelectedIndexChanged += ZoneCombo_SelectedIndexChanged_LoadWarehouse;
 
-            cmbFromWarehouse.SelectedIndexChanged += WarehouseCombo_SelectedIndexChanged_LoadAvailable;
-            cmbToWarehouse.SelectedIndexChanged += WarehouseCombo_SelectedIndexChanged_LoadAvailable;
+            cmbStopWarehouse.SelectedIndexChanged += WarehouseCombo_SelectedIndexChanged_LoadAvailable;
+            cmbStopZone.SelectedIndexChanged += WarehouseCombo_SelectedIndexChanged_LoadAvailable;
 
             btnMoveUp.Click += BtnMoveUp_Click;
             btnMoveDown.Click += BtnMoveDown_Click;
@@ -1217,8 +1210,8 @@ namespace LMS.GUI.RouteTemplateAdmin
         private void ZoneCombo_SelectedIndexChanged_LoadWarehouse(object sender, EventArgs e)
         {
             var zoneCombo = sender as Guna2ComboBox;
-            if (zoneCombo == cmbFromZone) LoadWarehouseComboBox(cmbFromZone, cmbFromWarehouse);
-            else if (zoneCombo == cmbToZone) LoadWarehouseComboBox(cmbToZone, cmbToWarehouse);
+            if (zoneCombo == cmbFromZone) LoadWarehouseComboBox(cmbFromZone, cmbStopWarehouse);
+            else if (zoneCombo == cmbToZone) LoadWarehouseComboBox(cmbToZone, cmbStopZone);
             else if (zoneCombo == cmbStopZone)
             {
                 LoadWarehouseComboBox(cmbStopZone, cmbStopWarehouse);
@@ -1274,8 +1267,8 @@ namespace LMS.GUI.RouteTemplateAdmin
 
             if (dgvSelectedStops.Rows[e.RowIndex].DataBoundItem is RouteTemplateStopViewModel itemToRemove)
             {
-                int fromWhId = (cmbFromWarehouse.SelectedValue is int v1) ? v1 : 0;
-                int toWhId = (cmbToWarehouse.SelectedValue is int v2) ? v2 : 0;
+                int fromWhId = (cmbStopWarehouse.SelectedValue is int v1) ? v1 : 0;
+                int toWhId = (cmbStopZone.SelectedValue is int v2) ? v2 : 0;
                 Zone? filterZone = (cmbStopZone.SelectedValue is Zone z) ? z : (Zone?)null;
 
                 var removedWh = _warehouseSvc.GetWarehouseForEdit(itemToRemove.WarehouseId);
@@ -1366,8 +1359,8 @@ namespace LMS.GUI.RouteTemplateAdmin
 
             RouteTemplate template = (_mode == EditorMode.Edit && _originalTemplate != null) ? _originalTemplate : new RouteTemplate();
             template.Name = txtTemplateName.Text.Trim();
-            template.FromWarehouseId = (int)cmbFromWarehouse.SelectedValue;
-            template.ToWarehouseId = (int)cmbToWarehouse.SelectedValue;
+            template.FromWarehouseId = (int)cmbStopWarehouse.SelectedValue;
+            template.ToWarehouseId = (int)cmbStopZone.SelectedValue;
 
             var stopWarehouseIds = _selectedStops
                 .OrderBy(s => s.Seq)
@@ -1412,9 +1405,9 @@ namespace LMS.GUI.RouteTemplateAdmin
         {
             errProvider.Clear(); bool isValid = true;
             if (string.IsNullOrWhiteSpace(txtTemplateName.Text)) { errProvider.SetError(txtTemplateName, "Tên trống."); isValid = false; }
-            if (cmbFromWarehouse.SelectedValue == null || (int)cmbFromWarehouse.SelectedValue <= 0) { errProvider.SetError(cmbFromWarehouse, "Chọn kho đi."); isValid = false; }
-            if (cmbToWarehouse.SelectedValue == null || (int)cmbToWarehouse.SelectedValue <= 0) { errProvider.SetError(cmbToWarehouse, "Chọn kho đến."); isValid = false; }
-            if (isValid && (int)cmbFromWarehouse.SelectedValue == (int)cmbToWarehouse.SelectedValue) { errProvider.SetError(cmbToWarehouse, "Kho đến phải khác kho đi."); isValid = false; }
+            if (cmbStopWarehouse.SelectedValue == null || (int)cmbStopWarehouse.SelectedValue <= 0) { errProvider.SetError(cmbStopWarehouse, "Chọn kho đi."); isValid = false; }
+            if (cmbStopZone.SelectedValue == null || (int)cmbStopZone.SelectedValue <= 0) { errProvider.SetError(cmbStopZone, "Chọn kho đến."); isValid = false; }
+            if (isValid && (int)cmbStopWarehouse.SelectedValue == (int)cmbStopZone.SelectedValue) { errProvider.SetError(cmbStopZone, "Kho đến phải khác kho đi."); isValid = false; }
 
             if (isValid)
             {
@@ -1434,16 +1427,16 @@ namespace LMS.GUI.RouteTemplateAdmin
             if (_mode == EditorMode.Add)
             {
                 return !string.IsNullOrWhiteSpace(txtTemplateName.Text)
-                    || cmbFromWarehouse.SelectedIndex >= 0
-                    || cmbToWarehouse.SelectedIndex >= 0
+                    || cmbStopWarehouse.SelectedIndex >= 0
+                    || cmbStopZone.SelectedIndex >= 0
                     || _selectedStops.Any();
             }
             else
             {
                 if (_originalTemplate == null || _originalStops == null) return false;
 
-                int curFrom = (cmbFromWarehouse.SelectedValue is int f) ? f : 0;
-                int curTo = (cmbToWarehouse.SelectedValue is int t) ? t : 0;
+                int curFrom = (cmbStopWarehouse.SelectedValue is int f) ? f : 0;
+                int curTo = (cmbStopZone.SelectedValue is int t) ? t : 0;
 
                 bool infoChanged =
                     _originalTemplate.Name != txtTemplateName.Text.Trim()

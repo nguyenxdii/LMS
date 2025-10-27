@@ -11,7 +11,81 @@ namespace LMS.BUS.Services
 {
     public class OrderService_Admin
     {
-        // ===================== LẤY DANH SÁCH =====================
+
+        public void AssignDriver(int shipmentId, int newDriverId, string reason = null)
+        {
+            using (var db = new LogisticsDbContext())
+            {
+                // Lấy thông tin chuyến hàng, bao gồm cả tài xế hiện tại
+                var ship = db.Shipments.Include(s => s.Driver).FirstOrDefault(s => s.Id == shipmentId);
+                if (ship == null) throw new Exception("Không tìm thấy shipment.");
+
+                int? oldDriverId = ship.DriverId; // Lưu lại ID tài xế cũ
+
+                // Kiểm tra tài xế mới
+                var newDriver = db.Drivers.FirstOrDefault(d => d.Id == newDriverId && d.IsActive);
+                if (newDriver == null)
+                    throw new Exception("Tài xế mới không hợp lệ hoặc không hoạt động.");
+
+                // Kiểm tra tài xế mới có đang rảnh không (logic tương tự GetAvailableDriversForAdmin)
+                var activeShipmentStatuses = new[] {
+                    ShipmentStatus.Assigned, ShipmentStatus.OnRoute,
+                    ShipmentStatus.AtWarehouse, ShipmentStatus.ArrivedDestination
+                 };
+                bool isNewDriverBusy = db.Shipments.Any(s => s.DriverId == newDriverId
+                                                         && s.Id != shipmentId // Loại trừ chính shipment này
+                                                         && activeShipmentStatuses.Contains(s.Status));
+                if (isNewDriverBusy)
+                    throw new Exception($"Tài xế '{newDriver.FullName}' đang bận chạy chuyến khác.");
+
+
+                // Kiểm tra trạng thái chuyến hàng hiện tại (chỉ cho phép đổi khi đang chạy)
+                var allowedStatuses = new[] {
+                    ShipmentStatus.Assigned, ShipmentStatus.OnRoute,
+                    ShipmentStatus.AtWarehouse, ShipmentStatus.ArrivedDestination
+                    // Có thể thêm Pending nếu muốn đổi ngay cả khi chưa nhận
+                 };
+                if (!allowedStatuses.Contains(ship.Status))
+                    throw new Exception("Không thể đổi tài xế cho chuyến hàng ở trạng thái này (" + ship.Status.ToString() + ").");
+
+
+                // *** BẮT ĐẦU TRANSACTION ***
+                using (var transaction = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        // 1. Cập nhật Shipment
+                        ship.DriverId = newDriverId;
+                        ship.Status = ShipmentStatus.Pending; // *** Reset về chờ nhận cho tài xế mới ***
+                        ship.UpdatedAt = DateTime.Now;
+                        // Không reset StartedAt, DeliveredAt, CurrentStopSeq
+
+                        // 2. Ghi Log thay đổi
+                        var logEntry = new ShipmentDriverLog
+                        {
+                            ShipmentId = shipmentId,
+                            OldDriverId = oldDriverId, // Tài xế cũ
+                            NewDriverId = newDriverId, // Tài xế mới
+                            Timestamp = DateTime.Now,  // Thời điểm đổi
+                            StopSequenceNumber = ship.CurrentStopSeq, // Chặng hiện tại lúc đổi
+                            Reason = reason // Lý do (nếu có)
+                        };
+                        db.ShipmentDriverLogs.Add(logEntry);
+
+                        // 3. Lưu tất cả thay đổi
+                        db.SaveChanges();
+                        transaction.Commit(); // Hoàn tất transaction
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback(); // Hoàn tác nếu có lỗi
+                        // Ném lại lỗi hoặc xử lý thêm
+                        throw new Exception("Lỗi khi cập nhật và ghi log đổi tài xế.", ex);
+                    }
+                }
+                // *** KẾT THÚC TRANSACTION ***
+            }
+        }
         public List<OrderListItemDto> GetAllForAdmin()
         {
             using (var db = new LogisticsDbContext())
@@ -52,8 +126,6 @@ namespace LMS.BUS.Services
                 }).ToList();
             }
         }
-
-        // ===================== TÌM KIẾM =====================
         public List<OrderListItemDto> SearchForAdmin(
             int? customerId, OrderStatus? status, int? originId, int? destId,
             DateTime? from, DateTime? to, string codeOrId)
@@ -113,8 +185,6 @@ namespace LMS.BUS.Services
                 }).ToList();
             }
         }
-
-        // ===================== LẤY CHI TIẾT =====================
         public Order GetByIdWithAll(int id)
         {
             using (var db = new LogisticsDbContext())
@@ -127,8 +197,6 @@ namespace LMS.BUS.Services
                     .FirstOrDefault(o => o.Id == id);
             }
         }
-
-        // ===================== DUYỆT / TỪ CHỐI =====================
         public void Approve(int id)
         {
             using (var db = new LogisticsDbContext())
@@ -141,7 +209,6 @@ namespace LMS.BUS.Services
                 db.SaveChanges();
             }
         }
-
         public void Reject(int id)
         {
             using (var db = new LogisticsDbContext())
@@ -154,8 +221,6 @@ namespace LMS.BUS.Services
                 db.SaveChanges();
             }
         }
-
-        // ===================== XOÁ =====================
         public void Delete(int id)
         {
             using (var db = new LogisticsDbContext())
@@ -173,8 +238,6 @@ namespace LMS.BUS.Services
                 db.SaveChanges();
             }
         }
-
-        // ===================== TẠO SHIPMENT =====================
         public int CreateShipmentFromOrder(int orderId, int driverId)
         {
             using (var db = new LogisticsDbContext())
@@ -187,7 +250,6 @@ namespace LMS.BUS.Services
                 if (o == null) throw new Exception("Không tìm thấy đơn.");
                 if (o.Status != OrderStatus.Approved) throw new Exception("Chỉ tạo Shipment cho đơn Approved.");
 
-                // ---- Fix orphan: gán lại ShipmentId nếu shipment đã tồn tại ----
                 var existedShip = db.Shipments.FirstOrDefault(s => s.OrderId == o.Id);
                 if (existedShip != null)
                 {
@@ -198,12 +260,10 @@ namespace LMS.BUS.Services
                     }
                     throw new Exception("Đơn đã có Shipment.");
                 }
-                // ---------------------------------------------------------------
 
                 var drvOk = db.Drivers.Any(d => d.Id == driverId && d.IsActive);
                 if (!drvOk) throw new Exception("Driver không hợp lệ hoặc không hoạt động.");
 
-                // Tìm template tuyến
                 var tpl = db.RouteTemplates
                             .FirstOrDefault(t => t.FromWarehouseId == o.OriginWarehouseId
                                               && t.ToWarehouseId == o.DestWarehouseId);
@@ -253,7 +313,6 @@ namespace LMS.BUS.Services
                 }
                 db.SaveChanges();
 
-                // Gắn ShipmentId cho Order
                 o.ShipmentId = ship.Id;
                 db.SaveChanges();
 
@@ -261,51 +320,6 @@ namespace LMS.BUS.Services
             }
         }
 
-        // ===================== ĐỔI DRIVER =====================
-        //public void AssignDriver(int shipmentId, int driverId)
-        //{
-        //    using (var db = new LogisticsDbContext())
-        //    {
-        //        var ship = db.Shipments.Find(shipmentId);
-        //        if (ship == null) throw new Exception("Không tìm thấy shipment.");
-        //        if (!db.Drivers.Any(d => d.Id == driverId && d.IsActive))
-        //            throw new Exception("Driver không hợp lệ hoặc không hoạt động.");
 
-        //        if (ship.Status == ShipmentStatus.Delivered || ship.Status == ShipmentStatus.Failed)
-        //            throw new Exception("Không thể gán driver cho shipment đã kết thúc.");
-
-        //        ship.DriverId = driverId;
-        //        ship.UpdatedAt = DateTime.Now;
-        //        db.SaveChanges();
-        //    }
-        //}
-
-        public void AssignDriver(int shipmentId, int newDriverId)
-        {
-            using (var db = new LogisticsDbContext())
-            {
-                var ship = db.Shipments.Find(shipmentId);
-                if (ship == null) throw new Exception("Không tìm thấy shipment.");
-
-                // Kiểm tra tài xế mới có hợp lệ và đang hoạt động không
-                if (!db.Drivers.Any(d => d.Id == newDriverId && d.IsActive))
-                    throw new Exception("Tài xế mới không hợp lệ hoặc không hoạt động.");
-
-                // Kiểm tra trạng thái chuyến hàng hiện tại
-                if (ship.Status == ShipmentStatus.Delivered || ship.Status == ShipmentStatus.Failed)
-                    throw new Exception("Không thể gán driver cho shipment đã kết thúc hoặc thất bại.");
-
-                // Cập nhật tài xế mới
-                ship.DriverId = newDriverId;
-
-                // *** THÊM DÒNG NÀY ĐỂ ĐẶT LẠI TRẠNG THÁI ***
-                ship.Status = ShipmentStatus.Pending; // Reset về chờ nhận cho tài xế mới
-
-                // Cập nhật thời gian
-                ship.UpdatedAt = DateTime.Now;
-
-                db.SaveChanges(); // Lưu thay đổi vào CSDL
-            }
-        }
     }
 }

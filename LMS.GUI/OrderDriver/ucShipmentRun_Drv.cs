@@ -303,35 +303,27 @@ namespace LMS.GUI.OrderDriver
 
         private void Wire()
         {
-            // Gán sự kiện cho các nút thao tác
             btnReload.Click += (s, e) => ReloadData();
             btnReceive.Click += (s, e) => { TryDo(() => _svc.ReceiveShipment(_shipmentId, DriverId), "Đã nhận chuyến hàng."); };
             btnDepart.Click += (s, e) => { TryDo(() => _svc.DepartCurrentStop(_shipmentId, DriverId), "Đã rời khỏi điểm dừng."); };
             btnArrive.Click += (s, e) => { TryDo(() => _svc.ArriveNextStop(_shipmentId, DriverId), "Đã đến điểm dừng kế tiếp."); };
             btnComplete.Click += (s, e) => { TryDo(() => _svc.CompleteShipment(_shipmentId, DriverId), "Đã hoàn tất chuyến hàng và đơn hàng."); };
 
-            // THÊM: Gán sự kiện cho nút Lưu ghi chú
             btnSaveNote.Click += (s, e) => SaveNotes();
 
-            // ==========================================================
-            // === (2) GÁN SỰ KIỆN KÉO THẢ CHO pnlTop và các control con của nó ===
-            // Tìm pnlTop trong User Control
             Control pnlTop = this.Controls.Find("pnlTop", true).FirstOrDefault() as Control;
             if (pnlTop != null)
             {
                 EnableDrag(pnlTop);
             }
-            // ==========================================================
         }
 
-        // HÀM HỖ TRỢ ĐỆ QUY GÁN SỰ KIỆN KÉO THẢ CHO TẤT CẢ CONTROL CON
         private void EnableDrag(Control control)
         {
             control.MouseDown += DragHandle_MouseDown;
             control.MouseMove += DragHandle_MouseMove;
             control.MouseUp += DragHandle_MouseUp;
 
-            // Đệ quy gán cho tất cả các control con của control này
             foreach (Control child in control.Controls)
             {
                 EnableDrag(child);
@@ -360,17 +352,13 @@ namespace LMS.GUI.OrderDriver
             {
                 _dto = _svc.GetDetail(_shipmentId, DriverId);
 
-                // Cập nhật DGV
                 dgvStops.DataSource = new BindingList<RouteStopLiteDto>(_dto.Stops);
 
-                // Hiển thị ghi chú hiện tại
-                // Giả sử txtNotes tồn tại
                 if (txtNotes != null)
                 {
                     txtNotes.Text = _dto.Notes ?? "";
                 }
 
-                // Cập nhật trạng thái các nút
                 UpdateButtonsByState();
             }
             catch (Exception ex)
@@ -406,19 +394,15 @@ namespace LMS.GUI.OrderDriver
             }
         }
 
-        // ===== HÀM GHI CHÚ =====
         private void SaveNotes()
         {
             try
             {
-                // 1. Kiểm tra Shipment ID
                 if (_shipmentId <= 0)
                     throw new Exception("Không thể lưu ghi chú vì Shipment ID không hợp lệ.");
 
-                // LƯU Ý: Tôi giả định txtNotes là một trường (field) trong UserControl này
                 string noteContent = txtNotes?.Text?.Trim(); // Hoặc sử dụng Find nếu không khai báo
 
-                // 2. Gọi Service để lưu ghi chú
                 _svc.SaveShipmentNote(_shipmentId, DriverId, noteContent);
 
                 ReloadData();
@@ -430,7 +414,6 @@ namespace LMS.GUI.OrderDriver
             }
         }
 
-        // ===== CÁC HÀM HỖ TRỢ FORMAT =====
 
         private void DgvStops_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -443,7 +426,6 @@ namespace LMS.GUI.OrderDriver
                 }
             }
 
-            // Highlight dòng đang là CurrentStopSeq
             if (_dto?.Header?.CurrentStopSeq.HasValue == true && e.RowIndex >= 0)
             {
                 var rowData = dgvStops.Rows[e.RowIndex].DataBoundItem as RouteStopLiteDto;
@@ -465,8 +447,6 @@ namespace LMS.GUI.OrderDriver
             }
         }
 
-        // ==========================================================
-        // === (3) 3 HÀM XỬ LÝ KÉO THẢ CHO FORM CHỨA UC NÀY ===
         private void DragHandle_MouseDown(object sender, MouseEventArgs e)
         {
             Form parentForm = this.FindForm();
@@ -499,6 +479,5 @@ namespace LMS.GUI.OrderDriver
                 dragging = false;
             }
         }
-        // ==========================================================
     }
 }

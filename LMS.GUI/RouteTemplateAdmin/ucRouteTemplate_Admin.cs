@@ -88,9 +88,6 @@ namespace LMS.GUI.RouteTemplateAdmin
                 DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleCenter },
                 SortMode = DataGridViewColumnSortMode.Programmatic // Nên để Programmatic nếu bạn tự xử lý sort
             });
-            // *** KẾT THÚC KIỂM TRA ***
-
-            // Add Event Handlers
             dgvTemplates.ColumnHeaderMouseClick += DgvTemplates_ColumnHeaderMouseClick;
             dgvTemplates.SelectionChanged += DgvTemplates_SelectionChanged;
             dgvTemplates.CellDoubleClick += (s, ev) => { if (ev.RowIndex >= 0) OpenEditorPopup(GetSelectedTemplateId()); }; // Double-click to Edit
@@ -104,11 +101,9 @@ namespace LMS.GUI.RouteTemplateAdmin
         {
             try
             {
-                // Call service to get list DTOs
                 var templates = _templateSvc.GetRouteTemplateListItems(); // This method needs to exist in the service
                 _bindingList = new BindingList<RouteTemplateListItemDto>(templates);
 
-                // *** Gán DataSource ***
                 dgvTemplates.DataSource = _bindingList; // Đảm bảo DataSource được gán đúng
 
                 ApplySort(); // Re-apply sort if needed
@@ -122,7 +117,6 @@ namespace LMS.GUI.RouteTemplateAdmin
                 }
                 else
                 {
-                    // Handle empty grid case if needed (e.g., disable buttons)
                     UpdateButtonsState();
                 }
             }
@@ -153,10 +147,8 @@ namespace LMS.GUI.RouteTemplateAdmin
             bool hasSelection = GetSelectedTemplateId() != null;
             btnEdit.Enabled = hasSelection;
             btnDelete.Enabled = hasSelection;
-            // btnAdd, btnSearch, btnReload are usually always enabled
         }
 
-        // Select row after search or action
         private void SelectRowById(int templateId)
         {
             if (dgvTemplates.Rows.Count == 0 || _bindingList == null) return;
@@ -172,7 +164,6 @@ namespace LMS.GUI.RouteTemplateAdmin
                     if (dgvTemplates.Columns.Contains("Name")) // Focus Name column
                         dgvTemplates.CurrentCell = dgvTemplates.Rows[rowIndex].Cells["Name"];
 
-                    // Scroll to the row if it's not visible
                     if (!dgvTemplates.Rows[rowIndex].Displayed)
                     {
                         int firstDisplayed = Math.Max(0, rowIndex - dgvTemplates.DisplayedRowCount(false) / 2);
@@ -193,10 +184,8 @@ namespace LMS.GUI.RouteTemplateAdmin
             btnAdd.Click += (s, e) => OpenEditorPopup(null); // null ID means Add mode
             btnEdit.Click += (s, e) => OpenEditorPopup(GetSelectedTemplateId());
             btnDelete.Click += (s, e) => DeleteTemplate();
-            //btnSearch.Click += (s, e) => OpenSearchPopup();
 
             dgvTemplates.SelectionChanged += (s, e) => UpdateButtonsState();
-            // Double click is handled in ConfigureGrid
         }
 
         #endregion
@@ -205,7 +194,6 @@ namespace LMS.GUI.RouteTemplateAdmin
 
         private void OpenEditorPopup(int? templateId)
         {
-            // Prevent opening if buttons are disabled
             if (templateId == null && !btnAdd.Enabled) return;
             if (templateId.HasValue && !btnEdit.Enabled) return;
 
@@ -213,17 +201,13 @@ namespace LMS.GUI.RouteTemplateAdmin
 
             try
             {
-                // Assuming ucRouteTemplateEditor_Admin has a LoadData method
                 var ucEditor = new ucRouteTemplateEditor_Admin();
                 ucEditor.LoadData(mode, templateId); // Load data within the UC
 
-                // Create the popup form
                 using (var popupForm = new Form
                 {
-                    // Adjust Title based on mode maybe inside LoadData of editor UC
                     StartPosition = FormStartPosition.CenterScreen,
                     FormBorderStyle = FormBorderStyle.None,
-                    // Define appropriate Size for the editor UC
                     Size = new Size(1384, 763), // *** ADJUST SIZE AS NEEDED ***
                 })
                 {
@@ -235,9 +219,7 @@ namespace LMS.GUI.RouteTemplateAdmin
 
                     if (popupForm.ShowDialog(ownerForm) == DialogResult.OK)
                     {
-                        LoadData(); // Reload grid if save was successful
-                        // Optionally try to re-select the added/edited item
-                        // You might need the editor to return the saved ID
+                        LoadData();
                     }
                 }
             }
@@ -267,8 +249,6 @@ namespace LMS.GUI.RouteTemplateAdmin
 
             try
             {
-                // **Important Check before Deleting**
-                // You need a service method to check if this template is currently used by any *active* Shipments.
                 bool isInUse = _templateSvc.IsRouteTemplateInUse(templateId.Value); // Implement this in service
                 if (isInUse)
                 {
@@ -277,7 +257,6 @@ namespace LMS.GUI.RouteTemplateAdmin
                     return;
                 }
 
-                // Call the service to delete
                 _templateSvc.DeleteRouteTemplate(templateId.Value); // Implement this in service
 
                 LoadData(); // Reload data after deletion

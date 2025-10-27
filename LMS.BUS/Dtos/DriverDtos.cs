@@ -1,10 +1,8 @@
-﻿// LMS.BUS/Dtos/DriverDtos.cs
-using LMS.DAL.Models;
+﻿using LMS.DAL.Models;
 using System.Collections.Generic;
 
 namespace LMS.BUS.Dtos
 {
-    // DTO dùng cho UC "B" (ucDriverEditor_Admin)
     public class DriverEditorDto
     {
         public int Id { get; set; } // 0 nếu là Add
@@ -16,7 +14,6 @@ namespace LMS.BUS.Dtos
         public string Password { get; set; } // Chỉ set khi Add hoặc Reset
     }
 
-    // DTO dùng cho UC "A" (ucDriverDetail_Admin)
     public class DriverDetailDto
     {
         public Driver Driver { get; set; }

@@ -114,9 +114,6 @@ namespace LMS.BUS.Services
             }
         }
 
-        /// <summary>
-        /// Kiểm tra các ràng buộc sử dụng trước khi xoá tài khoản.
-        /// </summary>
         public AccountUsageReport InspectUsage(int userAccountId)
         {
             using (var db = new LogisticsDbContext())
@@ -185,9 +182,7 @@ namespace LMS.BUS.Services
             }
         }
 
-        /// <summary>
-        /// Xoá tài khoản (UI đã xác nhận & kiểm tra trước).
-        /// </summary>
+
         public void DeleteOnlyAccount(int id)
         {
             using (var db = new LogisticsDbContext())

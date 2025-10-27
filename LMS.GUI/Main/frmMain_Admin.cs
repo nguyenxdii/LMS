@@ -91,6 +91,7 @@ namespace LMS.GUI.Main
                 btnShipment,
                 btnWarehouse,
                 btnRouteTemplate,
+                btnVehicle,
             };
 
             foreach (Button btn in navigationButtons)
@@ -156,6 +157,11 @@ namespace LMS.GUI.Main
             {
                 LoadUc(new LMS.GUI.RouteTemplateAdmin.ucRouteTemplate_Admin()); // Load UC Shipment
                 lblPageTitle.Text = "Quản Lý / Kho";
+            }
+            else if (clickedButton == btnVehicle)
+            {
+                LoadUc(new LMS.GUI.VehicleAdmin.ucVehicle_Admin()); // Load UC Shipment
+                lblPageTitle.Text = "Quản Lý / Phương Tiện";
             }
         }
         // Thêm lại các hàm sự kiện Home, Logout,... nếu bạn có

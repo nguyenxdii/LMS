@@ -13,7 +13,7 @@ namespace LMS.DAL.Models
         public virtual Order Order { get; set; }
 
         // Tài xế & xe
-        public int DriverId { get; set; }
+        public int? DriverId { get; set; }
         public virtual Driver Driver { get; set; }
         public int? VehicleId { get; set; }
         public virtual Vehicle Vehicle { get; set; }

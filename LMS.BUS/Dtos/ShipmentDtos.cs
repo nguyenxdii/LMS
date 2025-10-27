@@ -35,5 +35,6 @@ namespace LMS.BUS.Dtos
         public string DriverName { get; set; }
         public string Notes { get; set; }
         public TimeSpan? Duration { get; set; }
+        public List<ShipmentDriverLogDto> DriverHistory { get; set; } = new List<ShipmentDriverLogDto>();
     }
 }

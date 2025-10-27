@@ -1,13 +1,10 @@
-﻿// LMS.BUS/Services/RoutePricingService.cs
-using LMS.DAL;
+﻿using LMS.DAL;
 using LMS.DAL.Models;
 
 namespace LMS.BUS.Services
 {
     public class RoutePricingService
     {
-        // 3 vùng: Bắc/Trung/Nam
-        // Cùng vùng: 100k, Kế vùng: 125k, Xa vùng: 150k
         public decimal GetRouteFee(int originWarehouseId, int destWarehouseId)
         {
             using (var db = new LogisticsDbContext())

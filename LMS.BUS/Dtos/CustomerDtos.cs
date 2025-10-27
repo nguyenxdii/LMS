@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace LMS.BUS.Dtos
 {
-    // DTO dùng cho UC "B" (ucCustomerEditor_Admin)
     public class CustomerEditorDto
     {
         public int Id { get; set; } // 0 nếu là Add
@@ -15,7 +14,6 @@ namespace LMS.BUS.Dtos
         public string Password { get; set; } // Chỉ set khi Add hoặc Reset
     }
 
-    // DTO dùng cho UC "A" (ucCustomerDetail_Admin)
     public class CustomerDetailDto
     {
         public Customer Customer { get; set; }

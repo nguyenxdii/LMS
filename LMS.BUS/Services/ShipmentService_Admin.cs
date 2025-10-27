@@ -1,5 +1,4 @@
-﻿// LMS.BUS/Services/ShipmentService_Admin.cs
-using LMS.BUS.Dtos;
+﻿using LMS.BUS.Dtos;
 using LMS.BUS.Helpers; // Cho OrderCode
 using LMS.DAL;
 using LMS.DAL.Models;
@@ -12,7 +11,6 @@ namespace LMS.BUS.Services
 {
     public class ShipmentService_Admin
     {
-        // === LẤY DANH SÁCH CHO GRID CHÍNH ===
         public List<ShipmentListItemAdminDto> GetAllShipmentsForAdmin()
         {
             using (var db = new LogisticsDbContext())
@@ -24,7 +22,6 @@ namespace LMS.BUS.Services
                               .Include(s => s.FromWarehouse) // Cần để lấy tên kho đi
                               .Include(s => s.ToWarehouse);  // Cần để lấy tên kho đến
 
-                // Gọi hàm helper đã sửa để project và xử lý ToCode
                 return ProjectToListDto(query);
             }
         }
@@ -88,74 +85,120 @@ namespace LMS.BUS.Services
         // === LẤY CHI TIẾT ===
         // Lưu ý: Tạm thời gọi lại DriverShipmentService.GetDetail
         // Cân nhắc tạo hàm GetDetail riêng cho Admin nếu cần logic khác hoặc GetDetail gốc kiểm tra driverId quá chặt
+        //public ShipmentDetailDto GetShipmentDetailForAdmin(int shipmentId)
+        //{
+        //    var driverSvc = new DriverShipmentService();
+        //    using (var db = new LogisticsDbContext())
+        //    {
+        //        var ship = db.Shipments.Include(s => s.Driver).FirstOrDefault(s => s.Id == shipmentId);
+        //        if (ship == null) throw new Exception("Không tìm thấy chuyến hàng.");
+
+        //        try
+        //        {
+        //            // Thử gọi GetDetail với driverId = 0 (hoặc ID của admin nếu có)
+        //            // Hoặc thay bằng hàm GetDetailForAdmin riêng nếu bạn tạo nó
+        //            return driverSvc.GetDetail(shipmentId, 0); // Giả sử GetDetail chấp nhận driverId = 0 cho Admin
+        //        }
+        //        // Bắt lỗi cụ thể nếu GetDetail gốc kiểm tra quyền Driver
+        //        catch (Exception ex) when (ex.Message.Contains("Bạn không có quyền") || ex.Message.Contains("Không phải shipment của bạn"))
+        //        {
+        //            // Nếu lỗi quyền xảy ra, cần có logic GetDetail riêng cho Admin ở đây
+        //            // Logic này sẽ tương tự GetDetail gốc nhưng không check DriverId
+        //            // Ví dụ (cần hoàn thiện dựa trên GetDetail gốc):
+        //            var s = db.Shipments
+        //                      .Include(x => x.Order.Customer)
+        //                      .Include(x => x.FromWarehouse)
+        //                      .Include(x => x.ToWarehouse)
+        //                      .Include(x => x.RouteStops.Select(rs => rs.Warehouse))
+        //                      .Include(x => x.Driver)
+        //                      .Include(x => x.Vehicle)
+        //                      .FirstOrDefault(x => x.Id == shipmentId);
+
+        //            if (s == null) throw new Exception("Không tìm thấy chuyến hàng (Admin)."); // Check lại
+
+        //            var dto = new ShipmentDetailDto { /* ... Ánh xạ dữ liệu từ s sang dto ... */ };
+        //            // ... (Code ánh xạ tương tự trong DriverShipmentService.GetDetail) ...
+        //            dto.Header = new ShipmentRunHeaderDto
+        //            {
+        //                ShipmentId = s.Id,
+        //                ShipmentNo = "SHP" + s.Id,
+        //                OrderNo = s.Order?.OrderNo ?? ("ORD" + s.OrderId),
+        //                CustomerName = s.Order?.Customer?.Name,
+        //                Route = $"{s.FromWarehouse?.Name} → {s.ToWarehouse?.Name}",
+        //                Status = s.Status.ToString(),
+        //                CurrentStopSeq = s.CurrentStopSeq,
+        //                StartedAt = s.StartedAt,
+        //                DeliveredAt = s.DeliveredAt
+        //            };
+        //            dto.DriverName = s.Driver?.FullName; dto.VehicleNo = s.Vehicle?.PlateNo; dto.Notes = s.Note;
+        //            dto.Duration = (s.StartedAt.HasValue && s.DeliveredAt.HasValue) ? s.DeliveredAt.Value - s.StartedAt.Value : (TimeSpan?)null;
+        //            dto.Stops = s.RouteStops.OrderBy(r => r.Seq).Select(r => new RouteStopLiteDto
+        //            {
+        //                RouteStopId = r.Id,
+        //                Seq = r.Seq,
+        //                StopName = r.StopName ?? r.Warehouse.Name,
+        //                PlannedETA = r.PlannedETA,
+        //                ArrivedAt = r.ArrivedAt,
+        //                DepartedAt = r.DepartedAt,
+        //                StopStatus = r.Status.ToString()
+        //            }).ToList();
+
+        //            return dto;
+        //            //throw new NotImplementedException("Cần triển khai GetShipmentDetail riêng cho Admin.", ex);
+        //        }
+        //    }
+        //}
+        // LMS.BUS/Services/ShipmentService_Admin.cs
         public ShipmentDetailDto GetShipmentDetailForAdmin(int shipmentId)
         {
-            var driverSvc = new DriverShipmentService();
+            // ... (Code cũ để lấy ShipmentDetailDto) ...
+            var driverSvc = new DriverShipmentService(); // Hoặc logic lấy detail trực tiếp
             using (var db = new LogisticsDbContext())
             {
-                var ship = db.Shipments.Include(s => s.Driver).FirstOrDefault(s => s.Id == shipmentId);
-                if (ship == null) throw new Exception("Không tìm thấy chuyến hàng.");
+                // ... (Try-catch hoặc logic lấy 's' như cũ) ...
+                var s = db.Shipments
+                            .Include(x => x.Order.Customer)
+                            .Include(x => x.FromWarehouse)
+                            .Include(x => x.ToWarehouse)
+                            .Include(x => x.RouteStops.Select(rs => rs.Warehouse))
+                            .Include(x => x.Driver) // Lấy tài xế hiện tại
+                            .Include(x => x.Vehicle)
+                            .FirstOrDefault(x => x.Id == shipmentId);
 
-                try
-                {
-                    // Thử gọi GetDetail với driverId = 0 (hoặc ID của admin nếu có)
-                    // Hoặc thay bằng hàm GetDetailForAdmin riêng nếu bạn tạo nó
-                    return driverSvc.GetDetail(shipmentId, 0); // Giả sử GetDetail chấp nhận driverId = 0 cho Admin
-                }
-                // Bắt lỗi cụ thể nếu GetDetail gốc kiểm tra quyền Driver
-                catch (Exception ex) when (ex.Message.Contains("Bạn không có quyền") || ex.Message.Contains("Không phải shipment của bạn"))
-                {
-                    // Nếu lỗi quyền xảy ra, cần có logic GetDetail riêng cho Admin ở đây
-                    // Logic này sẽ tương tự GetDetail gốc nhưng không check DriverId
-                    // Ví dụ (cần hoàn thiện dựa trên GetDetail gốc):
-                    var s = db.Shipments
-                              .Include(x => x.Order.Customer)
-                              .Include(x => x.FromWarehouse)
-                              .Include(x => x.ToWarehouse)
-                              .Include(x => x.RouteStops.Select(rs => rs.Warehouse))
-                              .Include(x => x.Driver)
-                              .Include(x => x.Vehicle)
-                              .FirstOrDefault(x => x.Id == shipmentId);
+                if (s == null) throw new Exception("Không tìm thấy chuyến hàng (Admin).");
 
-                    if (s == null) throw new Exception("Không tìm thấy chuyến hàng (Admin)."); // Check lại
+                var dto = new ShipmentDetailDto { /* ... Ánh xạ dữ liệu Header, Stops, Misc như cũ ... */ };
+                dto.Header = new ShipmentRunHeaderDto { /* ... */ };
+                dto.DriverName = s.Driver?.FullName; dto.VehicleNo = s.Vehicle?.PlateNo; dto.Notes = s.Note;
+                dto.Duration = (s.StartedAt.HasValue && s.DeliveredAt.HasValue) ? s.DeliveredAt.Value - s.StartedAt.Value : (TimeSpan?)null;
+                dto.Stops = s.RouteStops.OrderBy(r => r.Seq).Select(r => new RouteStopLiteDto { /* ... */ }).ToList();
 
-                    var dto = new ShipmentDetailDto { /* ... Ánh xạ dữ liệu từ s sang dto ... */ };
-                    // ... (Code ánh xạ tương tự trong DriverShipmentService.GetDetail) ...
-                    dto.Header = new ShipmentRunHeaderDto
-                    {
-                        ShipmentId = s.Id,
-                        ShipmentNo = "SHP" + s.Id,
-                        OrderNo = s.Order?.OrderNo ?? ("ORD" + s.OrderId),
-                        CustomerName = s.Order?.Customer?.Name,
-                        Route = $"{s.FromWarehouse?.Name} → {s.ToWarehouse?.Name}",
-                        Status = s.Status.ToString(),
-                        CurrentStopSeq = s.CurrentStopSeq,
-                        StartedAt = s.StartedAt,
-                        DeliveredAt = s.DeliveredAt
-                    };
-                    dto.DriverName = s.Driver?.FullName; dto.VehicleNo = s.Vehicle?.PlateNo; dto.Notes = s.Note;
-                    dto.Duration = (s.StartedAt.HasValue && s.DeliveredAt.HasValue) ? s.DeliveredAt.Value - s.StartedAt.Value : (TimeSpan?)null;
-                    dto.Stops = s.RouteStops.OrderBy(r => r.Seq).Select(r => new RouteStopLiteDto
-                    {
-                        RouteStopId = r.Id,
-                        Seq = r.Seq,
-                        StopName = r.StopName ?? r.Warehouse.Name,
-                        PlannedETA = r.PlannedETA,
-                        ArrivedAt = r.ArrivedAt,
-                        DepartedAt = r.DepartedAt,
-                        StopStatus = r.Status.ToString()
-                    }).ToList();
 
-                    return dto;
-                    //throw new NotImplementedException("Cần triển khai GetShipmentDetail riêng cho Admin.", ex);
-                }
+                // *** THÊM PHẦN LẤY LỊCH SỬ TÀI XẾ ***
+                dto.DriverHistory = db.ShipmentDriverLogs
+                                      .Where(log => log.ShipmentId == shipmentId)
+                                      .Include(log => log.OldDriver) // Lấy tên tài xế cũ
+                                      .Include(log => log.NewDriver) // Lấy tên tài xế mới
+                                      .OrderBy(log => log.Timestamp) // Sắp xếp theo thời gian
+                                      .Select(log => new ShipmentDriverLogDto // Tạo DTO mới cho lịch sử
+                                      {
+                                          Timestamp = log.Timestamp,
+                                          OldDriverName = log.OldDriver != null ? log.OldDriver.FullName : "(Bắt đầu)", // Hiển thị "(Bắt đầu)" nếu là lần gán đầu
+                                          NewDriverName = log.NewDriver.FullName,
+                                          StopSequenceNumber = log.StopSequenceNumber,
+                                          // Thêm thông tin kho nếu cần (phải join thêm)
+                                          // StopName = log.Shipment.RouteStops.FirstOrDefault(rs => rs.Seq == log.StopSequenceNumber).Warehouse.Name
+                                          Reason = log.Reason
+                                      })
+                                      .ToList();
+                // *** KẾT THÚC THÊM ***
+
+                return dto;
             }
         }
 
-        // === HELPER: Project IQueryable<Shipment> sang List<DTO> (ĐÃ SỬA LỖI TOCODE) ===
         private List<ShipmentListItemAdminDto> ProjectToListDto(IQueryable<Shipment> query)
         {
-            // Bước 1: Lấy dữ liệu thô từ DB (LINQ to Entities) vào kiểu dữ liệu tạm thời
             var intermediateResult = query
                 .OrderByDescending(s => s.UpdatedAt) // Sắp xếp trước khi lấy
                 .Select(s => new
@@ -174,9 +217,8 @@ namespace LMS.BUS.Services
                     s.FromWarehouseId,
                     s.ToWarehouseId
                 })
-                .ToList(); // Bước 2: Đưa dữ liệu vào bộ nhớ (.ToList())
+                .ToList();
 
-            // Bước 3: Xử lý logic ToCode và tạo DTO cuối cùng trên bộ nhớ (LINQ to Objects)
             return intermediateResult.Select(s => new ShipmentListItemAdminDto
             {
                 Id = s.Id,

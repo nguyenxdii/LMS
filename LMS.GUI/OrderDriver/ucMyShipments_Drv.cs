@@ -1,5 +1,4 @@
-﻿/// LMS.GUI/OrderDriver/ucMyShipments_Drv.cs
-using LMS.BUS.Helpers; // Cần cho GridHelper và AppSession
+﻿using LMS.BUS.Helpers; // Cần cho GridHelper và AppSession
 using LMS.BUS.Services;
 using LMS.DAL.Models;
 using System;
@@ -20,15 +19,12 @@ namespace LMS.GUI.OrderDriver
         private readonly DriverShipmentService _svc = new DriverShipmentService();
         private int DriverId => AppSession.DriverId ?? 0;
 
-        // THÊM: Biến để theo dõi sắp xếp
-        private string _sortProperty = string.Empty;
+        private string _sortProperty = string.Empty;
         private ListSortDirection _sortDirection = ListSortDirection.Ascending;
 
-        // Constructor mặc định (dùng AppSession)
-        public ucMyShipments_Drv() : this(AppSession.DriverId ?? 0) { }
+        public ucMyShipments_Drv() : this(AppSession.DriverId ?? 0) { }
 
-        // Constructor nhận driverId (nếu cần truyền từ form cha)
-        public ucMyShipments_Drv(int driverId)
+        public ucMyShipments_Drv(int driverId)
         {
             InitializeComponent();
             this.Load += UcMyShipments_Drv_Load;
@@ -153,8 +149,6 @@ namespace LMS.GUI.OrderDriver
                 MessageBox.Show("Lỗi điều hướng: Không tìm thấy Form chính.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            // 3. Tải lại grid này (để cập nhật nếu user quay lại)
-            // Bạn có thể bỏ dòng này nếu thấy không cần thiết
             LoadAll();
         }
 
@@ -198,12 +192,8 @@ namespace LMS.GUI.OrderDriver
             }
         }
 
-        // ===== THÊM: CÁC HÀM HỖ TRỢ SORT VÀ DOUBLE CLICK =====
 
-        /// <summary>
-        /// Xử lý sự kiện Double Click: Mở màn hình active
-        /// </summary>
-        private void DgvAll_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void DgvAll_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return; // Bỏ qua nếu click header
 
@@ -211,10 +201,8 @@ namespace LMS.GUI.OrderDriver
             OpenActiveShipmentsScreen();
         }
 
-        /// <summary>
-        /// Xử lý sự kiện click header để sắp xếp
-        /// </summary>
-        private void DgvAll_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+
+        private void DgvAll_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             var grid = (DataGridView)sender;
             string newSortProperty = grid.Columns[e.ColumnIndex].DataPropertyName;
@@ -245,10 +233,7 @@ namespace LMS.GUI.OrderDriver
             UpdateSortGlyphs(grid);
         }
 
-        /// <summary>
-        /// Sắp xếp một BindingList<ShipmentRowDto>
-        /// </summary>
-        private void ApplySort(BindingList<ShipmentRowDto> data, string property, ListSortDirection direction)
+        private void ApplySort(BindingList<ShipmentRowDto> data, string property, ListSortDirection direction)
         {
             var prop = TypeDescriptor.GetProperties(typeof(ShipmentRowDto)).Find(property, true);
             if (prop == null) return;
@@ -272,10 +257,7 @@ namespace LMS.GUI.OrderDriver
             data.ResetBindings(); // Báo cho DGV cập nhật
         }
 
-        /// <summary>
-        /// Cập nhật mũi tên sắp xếp trên header của DGV
-        /// </summary>
-        private void UpdateSortGlyphs(DataGridView grid)
+        private void UpdateSortGlyphs(DataGridView grid)
         {
             foreach (DataGridViewColumn col in grid.Columns)
             {

@@ -1,10 +1,8 @@
-﻿// LMS.BUS/Dtos/ShipmentDtos_Admin.cs
-using LMS.DAL.Models; // Cần cho ShipmentStatus
+﻿using LMS.DAL.Models;
 using System;
 
 namespace LMS.BUS.Dtos
 {
-    // DTO cho grid chính và grid kết quả tìm kiếm của Admin
     public class ShipmentListItemAdminDto
     {
         public int Id { get; set; }
@@ -17,7 +15,6 @@ namespace LMS.BUS.Dtos
         public DateTime? UpdatedAt { get; set; }
         public DateTime? StartedAt { get; set; }
         public DateTime? DeliveredAt { get; set; }
-        // Thêm các trường khác nếu cần hiển thị/lọc
         public int OriginWarehouseId { get; set; }
         public int DestWarehouseId { get; set; }
     }

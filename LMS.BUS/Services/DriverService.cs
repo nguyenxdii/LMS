@@ -1,12 +1,11 @@
-﻿// LMS.BUS/Services/DriverService.cs
-using LMS.BUS.Dtos;
+﻿using LMS.BUS.Dtos;
 using LMS.DAL;
 using LMS.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text.RegularExpressions; // Cần cho Regex validation
+using System.Text.RegularExpressions;
 
 namespace LMS.BUS.Services
 {
@@ -17,12 +16,13 @@ namespace LMS.BUS.Services
         {
             using (var db = new LogisticsDbContext())
             {
-                // Chỉ lấy tài xế, không cần kèm UserAccount ở grid chính
-                return db.Drivers.OrderBy(d => d.FullName).ToList();
+                return db.Drivers
+                         .Include(d => d.Vehicle)
+                         .OrderBy(d => d.FullName)
+                         .ToList();
             }
         }
 
-        // === 2. Dùng cho ucDriver_Admin (Nút Xóa) ===
         public bool CheckDriverHasShipments(int driverId)
         {
             using (var db = new LogisticsDbContext())
@@ -125,7 +125,8 @@ namespace LMS.BUS.Services
                     throw new InvalidOperationException("Vui lòng nhập họ tên.");
                 if (db.UserAccounts.Any(u => u.Username == dto.Username))
                     throw new InvalidOperationException("Tên tài khoản đã tồn tại.");
-                if (db.Drivers.Any(d => d.CitizenId == dto.CitizenId))
+                // Thêm kiểm tra CitizenId nếu nó là bắt buộc và duy nhất
+                if (!string.IsNullOrWhiteSpace(dto.CitizenId) && db.Drivers.Any(d => d.CitizenId == dto.CitizenId))
                     throw new InvalidOperationException("Số Citizen ID (CCCD) này đã tồn tại.");
                 if (string.IsNullOrWhiteSpace(dto.Password) || dto.Password.Length < 6)
                     throw new InvalidOperationException("Mật khẩu phải từ 6 ký tự trở lên.");
@@ -180,7 +181,7 @@ namespace LMS.BUS.Services
                     throw new InvalidOperationException("Vui lòng nhập họ tên.");
 
                 // Kiểm tra CitizenId trùng (trừ chính mình)
-                if (db.Drivers.Any(d => d.CitizenId == dto.CitizenId && d.Id != dto.Id))
+                if (!string.IsNullOrWhiteSpace(dto.CitizenId) && db.Drivers.Any(d => d.CitizenId == dto.CitizenId && d.Id != dto.Id))
                     throw new InvalidOperationException("Số Citizen ID (CCCD) này đã tồn tại.");
 
                 // Cập nhật thông tin Driver
@@ -217,6 +218,7 @@ namespace LMS.BUS.Services
             }
         }
 
+        // === Dùng cho ucDriverSearch_Admin ===
         public List<Driver> SearchDriversForAdmin(string nameLike, string phoneLike, string citizenIdLike, string licenseType)
         {
             using (var db = new LogisticsDbContext())
@@ -247,30 +249,53 @@ namespace LMS.BUS.Services
             }
         }
 
+        // === Dùng cho ucDriverPicker_Admin (Lấy tài xế rảnh) ===
+        //public List<Driver> GetAvailableDriversForAdmin()
+        //{
+        //    using (var db = new LogisticsDbContext())
+        //    {
+        //        var activeShipmentStatuses = new[] {
+        //            ShipmentStatus.Assigned, // Đã nhận
+        //            ShipmentStatus.OnRoute, // Đang đi đường
+        //            ShipmentStatus.AtWarehouse, // Đang ở kho
+        //            ShipmentStatus.ArrivedDestination // Đã tới đích (nhưng chưa Complete)
+        //        };
+
+        //        var busyDriverIds = db.Shipments
+        //                              .Where(s => s.DriverId.HasValue // Kiểm tra DriverId có giá trị không (là nullable int?)
+        //                                       && activeShipmentStatuses.Contains(s.Status))
+        //                              .Select(s => s.DriverId.Value) // Lấy giá trị int từ int?
+        //                              .Distinct()
+        //                              .ToList();
+
+        //        var availableDrivers = db.Drivers
+        //                                 .Where(d => d.IsActive && !busyDriverIds.Contains(d.Id))
+        //                                 .OrderBy(d => d.FullName)
+        //                                 .ToList();
+
+        //        return availableDrivers;
+        //    }
+        //}
+
+        //=================
+
         public List<Driver> GetAvailableDriversForAdmin()
         {
             using (var db = new LogisticsDbContext())
             {
-                var activeShipmentStatuses = new[] {
-                     ShipmentStatus.Pending, ShipmentStatus.Assigned, ShipmentStatus.OnRoute,
-                     ShipmentStatus.AtWarehouse, ShipmentStatus.ArrivedDestination
-                 };
+                var active = new[] { ShipmentStatus.Assigned, ShipmentStatus.OnRoute, ShipmentStatus.AtWarehouse, ShipmentStatus.ArrivedDestination };
+                var busyIds = db.Shipments
+                                .Where(s => s.DriverId.HasValue && active.Contains(s.Status))
+                                .Select(s => s.DriverId.Value)
+                                .Distinct()
+                                .ToList();
 
-                // Lấy danh sách ID của các tài xế đang bận
-                var busyDriverIds = db.Shipments
-                                      // *** BỎ CHECK != null Ở ĐÂY ***
-                                      .Where(s => activeShipmentStatuses.Contains(s.Status))
-                                      .Select(s => s.DriverId) // Chỉ cần lấy DriverId
-                                      .Distinct()
-                                      .ToList();
-
-                // Lấy tất cả tài xế đang hoạt động và không nằm trong danh sách bận
-                var availableDrivers = db.Drivers
-                                         .Where(d => d.IsActive && !busyDriverIds.Contains(d.Id))
-                                         .OrderBy(d => d.FullName)
-                                         .ToList();
-
-                return availableDrivers;
+                return db.Drivers
+                         .Where(d => d.IsActive
+                                  && d.VehicleId == null     // CHƯA có xe
+                                  && !busyIds.Contains(d.Id))// KHÔNG bận
+                         .OrderBy(d => d.FullName)
+                         .ToList();
             }
         }
     }

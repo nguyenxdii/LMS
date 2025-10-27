@@ -1,5 +1,4 @@
-﻿// LMS.DAL/Models/Customer.cs
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using static TheArtOfDevHtmlRenderer.Adapters.RGraphicsPath;
 

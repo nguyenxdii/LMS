@@ -1,5 +1,4 @@
-﻿// LMS.BUS/Services/RouteTemplateService_Admin.cs
-using LMS.BUS.Dtos;
+﻿using LMS.BUS.Dtos;
 using LMS.DAL;
 using LMS.DAL.Models;
 using LogisticsApp.DAL.Models;
@@ -22,7 +21,6 @@ namespace LMS.BUS.Services
                              .Include(rt => rt.ToWarehouse)
                              .Include(rt => rt.Stops); // Include Stops
 
-                // ---> Đặt breakpoint ở dòng return hoặc dòng .ToList() dưới đây <---
                 var resultBeforeSelect = query.OrderBy(rt => rt.Name).ToList(); // Tạm thời ToList() ở đây để debug
 
                 return resultBeforeSelect.Select(rt => new RouteTemplateListItemDto // Bây giờ Select trên List in-memory
@@ -74,11 +72,6 @@ namespace LMS.BUS.Services
             }
         }
 
-
-        /// <summary>
-        /// Checks if a route template is currently used by any active (not Completed/Failed) shipment.
-        /// (This is a simplified check, adjust based on your exact Shipment creation logic)
-        /// </summary>
         public bool IsRouteTemplateInUse(int templateId)
         {
             using (var db = new LogisticsDbContext())
@@ -95,9 +88,6 @@ namespace LMS.BUS.Services
         }
 
 
-        /// <summary>
-        /// Deletes a route template and its associated stops.
-        /// </summary>
         public void DeleteRouteTemplate(int templateId)
         {
             using (var db = new LogisticsDbContext())
@@ -137,9 +127,7 @@ namespace LMS.BUS.Services
 
         // --- Methods needed for ucRouteTemplateEditor_Admin ---
 
-        /// <summary>
-        /// Gets details of a specific RouteTemplate and its stops for editing.
-        /// </summary>
+
         //public RouteTemplate GetTemplateWithStops(int templateId)
         //{
         //    using (var db = new LogisticsDbContext())
@@ -158,12 +146,6 @@ namespace LMS.BUS.Services
                          .FirstOrDefault(rt => rt.Id == templateId);
             }
         }
-
-        /// <summary>
-        /// Creates a new RouteTemplate and its RouteTemplateStops.
-        /// </summary>
-        /// <param name="template">The RouteTemplate object (without stops added yet).</param>
-        /// <param name="stopWarehouseIds">List of Warehouse IDs for the stops, IN ORDER.</param>
         public void CreateTemplateWithStops(RouteTemplate template, List<int> stopWarehouseIds)
         {
             if (template == null) throw new ArgumentNullException(nameof(template));

@@ -64,9 +64,11 @@
     <Compile Include="Dtos\OrderDraft.cs" />
     <Compile Include="Dtos\OrderListItemDto.cs" />
     <Compile Include="Dtos\RouteTemplateListItemDto.cs" />
+    <Compile Include="Dtos\ShipmentDriverLogDto.cs" />
     <Compile Include="Dtos\ShipmentDtos.cs" />
     <Compile Include="Dtos\ShipmentDtos_Admin.cs" />
     <Compile Include="Dtos\ShipmentRowDto.cs" />
+    <Compile Include="Dtos\VehicleListItemDto.cs" />
     <Compile Include="Helpers\AppSession.cs" />
     <Compile Include="Helpers\GridHelper.cs" />
     <Compile Include="Helpers\OrderCode.cs" />
@@ -81,6 +83,7 @@
     <Compile Include="Services\RouteTemplateService_Admin.cs" />
     <Compile Include="Services\ShipmentService_Admin.cs" />
     <Compile Include="Services\UserAccountService_Admin.cs" />
+    <Compile Include="Services\VehicleService_Admin.cs" />
     <Compile Include="Services\WarehouseService_Admin.cs" />
   </ItemGroup>
   <ItemGroup>

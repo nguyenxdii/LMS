@@ -1,5 +1,4 @@
-﻿// LMS.GUI/WarehouseAdmin/ucWarehouseSearch_Admin.cs
-using Guna.UI2.WinForms;
+﻿using Guna.UI2.WinForms;
 using LMS.BUS.Helpers;
 using LMS.BUS.Services;
 using LMS.DAL.Models;
@@ -15,21 +14,16 @@ namespace LMS.GUI.WarehouseAdmin
 {
     public partial class ucWarehouseSearch_Admin : UserControl
     {
-        // Event to notify when a warehouse is picked
         public event EventHandler<int> WarehousePicked;
 
-        // Service Dependency
         private readonly WarehouseService_Admin _warehouseSvc = new WarehouseService_Admin(); // Ensure this service exists
 
-        // Grid Data & Sorting
         private BindingList<Warehouse> _bindingList; // Using Model directly
         private DataGridViewColumn _sortedColumn = null;
         private SortOrder _sortOrder = SortOrder.None;
 
-        // Live Search Timer
         private readonly Timer _debounceTimer = new Timer { Interval = 350 }; // 350ms delay
 
-        // Dragging State
         private bool dragging = false;
         private Point dragCursorPoint;
         private Point dragFormPoint;
@@ -113,7 +107,6 @@ namespace LMS.GUI.WarehouseAdmin
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 SortMode = DataGridViewColumnSortMode.Programmatic
             });
-            // Type might not be needed for search results, add if desired
             g.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "Status",
@@ -124,14 +117,12 @@ namespace LMS.GUI.WarehouseAdmin
                 SortMode = DataGridViewColumnSortMode.Programmatic
             });
 
-            // Add Event Handlers
             g.CellFormatting += DgvSearchResults_CellFormatting;
             g.RowPrePaint += DgvSearchResults_RowPrePaint; // Reuse coloring logic
             g.ColumnHeaderMouseClick += DgvSearchResults_ColumnHeaderMouseClick;
             g.CellDoubleClick += DgvSearchResults_CellDoubleClick; // Double-click to pick
         }
 
-        // Cell Formatting (Copied and adapted from ucWarehouse_Admin)
         private void DgvSearchResults_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.RowIndex < 0 || e.Value == null) return;
@@ -139,14 +130,12 @@ namespace LMS.GUI.WarehouseAdmin
             if (colName == "Zone" && e.Value is Zone zone) { e.Value = FormatZone(zone); e.FormattingApplied = true; }
             else if (colName == "Status" && e.Value is bool isActive) { e.Value = isActive ? "Hoạt động" : "Đã khóa"; e.FormattingApplied = true; }
         }
-        // Row PrePaint (Copied and adapted from ucWarehouse_Admin)
         private void DgvSearchResults_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
         {
             if (e.RowIndex < 0) return;
             var row = dgvSearchResults.Rows[e.RowIndex];
             if (row.DataBoundItem is Warehouse wh) { row.DefaultCellStyle.ForeColor = wh.IsActive ? Color.Black : Color.Gray; }
         }
-        // Enum Formatting Helpers (Copied from ucWarehouse_Admin)
         private string FormatZone(Zone zone) { switch (zone) { case Zone.North: return "Bắc"; case Zone.Central: return "Trung"; case Zone.South: return "Nam"; default: return zone.ToString(); } }
 
         #endregion
@@ -155,7 +144,6 @@ namespace LMS.GUI.WarehouseAdmin
 
         private void WireEvents()
         {
-            // Filter Controls -> Trigger Debounce Timer
             txtSearchName.TextChanged += FilterControl_Changed;
             cmbSearchZone.SelectedIndexChanged += FilterControl_Changed;
             cmbSearchStatus.SelectedIndexChanged += FilterControl_Changed;
@@ -164,9 +152,6 @@ namespace LMS.GUI.WarehouseAdmin
             btnReset.Click += BtnReset_Click;
             btnClose.Click += (s, e) => this.FindForm()?.Close(); // Close the popup
 
-            // Grid events are wired in ConfigureGrid
-
-            // Drag and Drop for the parent Form
             Control dragHandle = pnlTop;
             if (dragHandle != null)
             {
@@ -176,14 +161,12 @@ namespace LMS.GUI.WarehouseAdmin
             }
         }
 
-        // When any filter control changes, reset the timer
         private void FilterControl_Changed(object sender, EventArgs e)
         {
             _debounceTimer.Stop();
             _debounceTimer.Start();
         }
 
-        // When timer ticks (user stopped typing/changing selection), perform search
         private void DebounceTimer_Tick(object sender, EventArgs e)
         {
             _debounceTimer.Stop();
@@ -198,12 +181,10 @@ namespace LMS.GUI.WarehouseAdmin
         {
             try
             {
-                // Get filter values from controls
                 string nameFilter = txtSearchName.Text.Trim();
                 Zone? zoneFilter = cmbSearchZone.SelectedValue as Zone?; // Nullable Zone
                 bool? statusFilter = cmbSearchStatus.SelectedValue as bool?; // Nullable bool
 
-                // Call service method (assuming SearchWarehouses exists)
                 var results = _warehouseSvc.SearchWarehouses(
                     string.IsNullOrWhiteSpace(nameFilter) ? null : nameFilter,
                     zoneFilter,
@@ -225,17 +206,14 @@ namespace LMS.GUI.WarehouseAdmin
 
         private void BtnReset_Click(object sender, EventArgs e)
         {
-            // Temporarily detach event handlers to prevent multiple searches
             txtSearchName.TextChanged -= FilterControl_Changed;
             cmbSearchZone.SelectedIndexChanged -= FilterControl_Changed;
             cmbSearchStatus.SelectedIndexChanged -= FilterControl_Changed;
 
-            // Clear/reset controls
             txtSearchName.Clear();
             cmbSearchZone.SelectedIndex = 0; // "All"
             cmbSearchStatus.SelectedIndex = 0; // "All"
 
-            // Reattach event handlers
             txtSearchName.TextChanged += FilterControl_Changed;
             cmbSearchZone.SelectedIndexChanged += FilterControl_Changed;
             cmbSearchStatus.SelectedIndexChanged += FilterControl_Changed;
@@ -245,7 +223,6 @@ namespace LMS.GUI.WarehouseAdmin
             txtSearchName.Focus();
         }
 
-        // Handle double-click on a row to pick the warehouse
         private void DgvSearchResults_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && dgvSearchResults.Rows[e.RowIndex].DataBoundItem is Warehouse selectedWarehouse)

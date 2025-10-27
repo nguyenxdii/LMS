@@ -135,6 +135,7 @@
             this.btnSelect.Size = new System.Drawing.Size(151, 45);
             this.btnSelect.TabIndex = 15;
             this.btnSelect.Text = "Xác Nhận";
+            this.btnSelect.Click += new System.EventHandler(this.BtnSelect_Click);
             // 
             // dgvDrivers
             // 

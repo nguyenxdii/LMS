@@ -1,5 +1,4 @@
-﻿// LMS.GUI/OrderCustomer/ucTracking_Cus.cs
-using LMS.BUS.Helpers;
+﻿using LMS.BUS.Helpers;
 using LMS.BUS.Services;
 using LMS.DAL.Models;
 using LMS.GUI.Main; // Cần để cast FindForm()
@@ -19,11 +18,9 @@ namespace LMS.GUI.OrderCustomer
         private readonly int _orderId; // ID đơn hàng cần hiển thị (bắt buộc)
         private readonly int _customerId;
 
-        // Biến cho chức năng Sort
         private DataGridViewColumn _sortedColumn = null;
         private SortOrder _sortOrder = SortOrder.None;
 
-        // Hàm khởi tạo - BẮT BUỘC phải có orderId
         public ucTracking_Cus(int customerId, int orderId)
         {
             InitializeComponent();
@@ -37,14 +34,10 @@ namespace LMS.GUI.OrderCustomer
             ConfigureStopsGrid(); // Cấu hình Grid trước
             LoadOrderDetails();   // Tải chi tiết đơn hàng ngay lập tức
 
-            // Gán sự kiện cho nút Back và Grid
             btnBack.Click += BtnBack_Click; // Gán sự kiện cho nút Quay lại mới
             dgvRouteStops.ColumnHeaderMouseClick += dgvRouteStops_ColumnHeaderMouseClick;
-            // Không cần CellFormatting vì đã xử lý tiếng Việt trong BindOrder
-            // dgvRouteStops.CellFormatting += dgvRouteStops_CellFormatting;
         }
 
-        // Cấu hình giao diện và cột cho Grid hiển thị các chặng
         private void ConfigureStopsGrid()
         {
             var g = dgvRouteStops;
@@ -62,7 +55,6 @@ namespace LMS.GUI.OrderCustomer
             TryEnableDoubleBuffer(g);
         }
 
-        // Helper bật DoubleBuffer
         private static void TryEnableDoubleBuffer(DataGridView grid)
         {
             try
@@ -70,13 +62,11 @@ namespace LMS.GUI.OrderCustomer
                 var prop = grid.GetType().GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic);
                 prop?.SetValue(grid, true, null);
             }
-            catch { /* Bỏ qua lỗi */ }
+            catch { }
         }
 
-        // Tải chi tiết đơn hàng và các chặng
         private void LoadOrderDetails()
         {
-            // Lấy thông tin đơn hàng dựa vào _orderId và _customerId (để bảo mật)
             var order = _orderSvc.GetOrderWithStops(_customerId, _orderId);
 
             if (order == null)
@@ -84,8 +74,6 @@ namespace LMS.GUI.OrderCustomer
                 MessageBox.Show($"Không tìm thấy đơn hàng #{_orderId} hoặc bạn không có quyền xem.", "LMS");
                 lblOrderStatus.Text = "— Không tìm thấy đơn hàng —";
                 dgvRouteStops.DataSource = null;
-                // Có thể tự động quay lại nếu muốn:
-                // BtnBack_Click(this, EventArgs.Empty);
                 return;
             }
 
@@ -93,7 +81,6 @@ namespace LMS.GUI.OrderCustomer
             ResetSortGlyphs(); // Reset trạng thái sort
         }
 
-        // Hiển thị thông tin đơn hàng và các chặng lên giao diện
         private void BindOrder(Order order)
         {
             // Hiển thị trạng thái tổng quát của đơn hàng và shipment (nếu có)
@@ -129,9 +116,6 @@ namespace LMS.GUI.OrderCustomer
             dgvRouteStops.DataSource = rows; // Gán nguồn mới
         }
 
-        // --- Các hàm xử lý sự kiện ---
-
-        // Sự kiện click nút Quay lại
         private void BtnBack_Click(object sender, EventArgs e)
         {
             var host = this.FindForm() as frmMain_Customer;
@@ -141,7 +125,6 @@ namespace LMS.GUI.OrderCustomer
             //if (host != null) host.lblPageTitle.Text = "Công Cụ / Danh Sách Đơn Hàng";
         }
 
-        // Xử lý click header cột để sort
         private void dgvRouteStops_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             var list = dgvRouteStops.DataSource as IEnumerable<object>;
@@ -181,7 +164,6 @@ namespace LMS.GUI.OrderCustomer
             }
         }
 
-        // Reset mũi tên sort
         private void ResetSortGlyphs()
         {
             if (_sortedColumn?.HeaderCell != null)
@@ -191,8 +173,6 @@ namespace LMS.GUI.OrderCustomer
             _sortedColumn = null;
             _sortOrder = SortOrder.None;
         }
-
-        // --- Các hàm Helper chuyển Enum sang tiếng Việt ---
 
         private string BuildActivityVi(RouteStop s, RouteStop current)
         {
