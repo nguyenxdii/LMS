@@ -196,7 +196,7 @@
             this.btnHome.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.btnHome.Size = new System.Drawing.Size(301, 58);
             this.btnHome.TabIndex = 6;
-            this.btnHome.Text = "       DashBoard";
+            this.btnHome.Text = "       Trang Chủ";
             this.btnHome.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnHome.UseVisualStyleBackColor = false;
             // 

@@ -61,6 +61,10 @@
     <Compile Include="Migrations\202510261316544_InitialCreate.Designer.cs">
       <DependentUpon>202510261316544_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202510270530110_AddNoteToRouteStop.cs" />
+    <Compile Include="Migrations\202510270530110_AddNoteToRouteStop.Designer.cs">
+      <DependentUpon>202510270530110_AddNoteToRouteStop.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Driver.cs" />
@@ -89,6 +93,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202510261316544_InitialCreate.resx">
       <DependentUpon>202510261316544_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202510270530110_AddNoteToRouteStop.resx">
+      <DependentUpon>202510270530110_AddNoteToRouteStop.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

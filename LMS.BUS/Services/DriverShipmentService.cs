@@ -145,7 +145,7 @@ namespace LMS.BUS.Services
                     Status = s.Status.ToString(),
                     CurrentStopSeq = s.CurrentStopSeq,
                     StartedAt = s.StartedAt,
-                    DeliveredAt = s.DeliveredAt
+                    DeliveredAt = s.DeliveredAt,
                 },
                 DriverName = s.Driver?.FullName,
                 VehicleNo = s.Vehicle?.PlateNo,
@@ -163,7 +163,8 @@ namespace LMS.BUS.Services
                     PlannedETA = r.PlannedETA,
                     ArrivedAt = r.ArrivedAt,
                     DepartedAt = r.DepartedAt,
-                    StopStatus = r.Status.ToString()
+                    StopStatus = r.Status.ToString(),
+                    Note = s.Note,
                 }).ToList();
 
             return dto;
@@ -267,15 +268,53 @@ namespace LMS.BUS.Services
             _db.SaveChanges();
         }
 
-        public void SaveShipmentNote(int shipmentId, int driverId, string noteContent)
+        //public void SaveShipmentNote(int shipmentId, int driverId, string noteContent)
+        //{
+        //    var s = _db.Shipments.Find(shipmentId);
+        //    if (s == null) throw new Exception("Shipment không tồn tại.");
+        //    if (s.DriverId != driverId) throw new Exception("Không phải shipment của bạn.");
+
+        //    s.Note = noteContent; // Lưu nội dung ghi chú
+        //    s.UpdatedAt = DateTime.Now;
+
+        //    _db.SaveChanges();
+        //}
+        // Trong DriverShipmentService.cs
+        public void SaveStopNote(int shipmentId, int driverId, string noteContent)
         {
-            var s = _db.Shipments.Find(shipmentId);
+            var s = _db.Shipments
+                       .Include(x => x.RouteStops) // Cần include RouteStops
+                       .FirstOrDefault(x => x.Id == shipmentId);
+
             if (s == null) throw new Exception("Shipment không tồn tại.");
             if (s.DriverId != driverId) throw new Exception("Không phải shipment của bạn.");
 
-            s.Note = noteContent; // Lưu nội dung ghi chú
-            s.UpdatedAt = DateTime.Now;
+            // Chỉ cho phép ghi chú khi chuyến đang hoạt động
+            var activeStatuses = new[] { ShipmentStatus.Assigned, ShipmentStatus.OnRoute, ShipmentStatus.AtWarehouse, ShipmentStatus.ArrivedDestination };
+            if (!activeStatuses.Contains(s.Status))
+            {
+                throw new Exception("Không thể ghi chú cho chuyến hàng ở trạng thái này.");
+            }
 
+            // Tìm chặng dừng hiện tại dựa trên CurrentStopSeq
+            if (!s.CurrentStopSeq.HasValue)
+            {
+                throw new Exception("Chưa xác định được chặng dừng hiện tại để lưu ghi chú.");
+                // Hoặc: Lưu vào Shipment.Note nếu chưa có CurrentStopSeq
+                // s.Note = noteContent;
+            }
+            else
+            {
+                var currentStop = s.RouteStops.FirstOrDefault(rs => rs.Seq == s.CurrentStopSeq.Value);
+                if (currentStop == null)
+                {
+                    throw new Exception($"Không tìm thấy chặng dừng số {s.CurrentStopSeq.Value}.");
+                }
+                // Lưu ghi chú vào chặng hiện tại
+                currentStop.Note = noteContent?.Trim(); // Trim để loại bỏ khoảng trắng thừa
+            }
+
+            s.UpdatedAt = DateTime.Now; // Cập nhật thời gian chỉnh sửa Shipment
             _db.SaveChanges();
         }
     }

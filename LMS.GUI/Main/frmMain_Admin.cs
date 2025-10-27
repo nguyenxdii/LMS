@@ -1,10 +1,9 @@
 ﻿using LMS.BUS.Helpers;
-using LMS.GUI.CustomerAdmin; // Ví dụ: Cần using này để LoadUc
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing; // <-- Cần using này
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,17 +19,14 @@ namespace LMS.GUI.Main
         private Color normalColor = Color.FromArgb(32, 33, 36);
         private Color selectedColor = Color.FromArgb(0, 4, 53);
 
-        // --- (1) THÊM CÁC BIẾN ĐỂ KÉO THẢ ---
         private bool dragging = false;
         private Point dragCursorPoint;
         private Point dragFormPoint;
-        // --- KẾT THÚC THÊM BIẾN ---
 
         public frmMain_Admin()
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
-            // *** (2) THÊM DÒNG NÀY ĐỂ BỎ VIỀN FORM ***
             this.FormBorderStyle = FormBorderStyle.None;
 
             foreach (Control control in sidebar.Controls)
@@ -45,15 +41,12 @@ namespace LMS.GUI.Main
             lblTitle.Click += lblTitle_Click;
             btnHam.Click += btnHam_Click;
 
-            // --- (3) GÁN SỰ KIỆN KÉO THẢ CHO PANEL TOP ---
-            // !!! QUAN TRỌNG: Đảm bảo Panel trên cùng của bạn tên là 'pnlTop' !!!
             if (this.pnlTop != null) // Kiểm tra panel tồn tại
             {
                 this.pnlTop.MouseDown += PnlTop_MouseDown;
                 this.pnlTop.MouseMove += PnlTop_MouseMove;
                 this.pnlTop.MouseUp += PnlTop_MouseUp;
             }
-            // --- KẾT THÚC GÁN SỰ KIỆN ---
 
             LoadUc(new LMS.GUI.Main.ucDashboard_Ad());
             lblPageTitle.Text = "Trang Chủ";
@@ -61,7 +54,6 @@ namespace LMS.GUI.Main
 
         private void FrmMain_Admin_Load(object sender, EventArgs e)
         {
-            // Kiểm tra xem đã đăng nhập chưa và đúng vai trò Admin chưa
             if (!AppSession.IsLoggedIn || AppSession.Role != DAL.Models.UserRole.Admin)
             {
                 MessageBox.Show("Bạn chưa đăng nhập bằng tài khoản Quản trị viên.", "Lỗi Truy Cập", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -74,18 +66,16 @@ namespace LMS.GUI.Main
                 stsWelcome.Text = $"Xin chào, {AppSession.DisplayName}";
             }
 
-            sidebar.AutoScroll = true;
-            sidebar.WrapContents = false;
-            sidebar.FlowDirection = FlowDirection.TopDown;
+            //sidebar.AutoScroll = true;
+            //sidebar.WrapContents = false;
+            //sidebar.FlowDirection = FlowDirection.TopDown;
         }
 
         private void InitializeNavigationButtons()
         {
             navigationButtons = new List<Button>
             {
-                //btnMenu,
                 btnOrder,
-                //btnAccount,
                 btnCustomer, // Đảm bảo nút này tồn tại trong Designer
                 btnDriver,
                 btnShipment,
@@ -98,7 +88,6 @@ namespace LMS.GUI.Main
             {
                 btn.Click += NavigationButton_Click;
             }
-            // Gán thêm sự kiện cho nút Home, Logout nếu cần
             btnHome.Click += btnHome_Click;
             btnLogOut.Click += btnLogOut_Click;
             btnAccount.Click += btnAccount_Click;
@@ -128,11 +117,6 @@ namespace LMS.GUI.Main
                 LoadUc(new LMS.GUI.OrderAdmin.ucOrder_Admin());
                 lblPageTitle.Text = "Quản Lý / Đơn Hàng";
             }
-            //else if (clickedButton == btnAccount)
-            //{
-            //    LoadUc(new LMS.GUI.AccountAdmin.ucAccount_Admin());
-            //    lblPageTitle.Text = "Quản Lý / Tài Khoản";
-            //}
             else if (clickedButton == btnCustomer)
             {
                 LoadUc(new LMS.GUI.CustomerAdmin.ucCustomer_Admin()); // Load UC Customer
@@ -164,7 +148,6 @@ namespace LMS.GUI.Main
                 lblPageTitle.Text = "Quản Lý / Phương Tiện";
             }
         }
-        // Thêm lại các hàm sự kiện Home, Logout,... nếu bạn có
         private void btnHome_Click(object sender, EventArgs e)
         {
             ResetButtonStyles();
@@ -217,7 +200,6 @@ namespace LMS.GUI.Main
             pnlContent.Controls.Add(uc);    // thêm UC mới vào
         }
 
-        // --- (4) THÊM 3 HÀM XỬ LÝ KÉO THẢ ---
         private void PnlTop_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -244,17 +226,13 @@ namespace LMS.GUI.Main
                 dragging = false;
             }
         }
-        // --- KẾT THÚC THÊM HÀM ---
 
-
-        // --- (Các hàm animation giữ nguyên code gốc của bạn) ---
         private void menuTransition_Tick(object sender, EventArgs e)
         {
             if (menuExpant == false)
             {
                 menuContainer.Height += 10;
-                // Giữ nguyên giá trị Height gốc của bạn
-                if (menuContainer.Height >= 582)
+                if (menuContainer.Height >= 525)
                 {
                     menuTransition.Stop();
                     menuExpant = true;
@@ -263,7 +241,6 @@ namespace LMS.GUI.Main
             else
             {
                 menuContainer.Height -= 10;
-                // Giữ nguyên giá trị Height gốc của bạn
                 if (menuContainer.Height <= 58)
                 {
                     menuTransition.Stop();
@@ -290,7 +267,6 @@ namespace LMS.GUI.Main
             if (sidebarExpant)
             {
                 sidebar.Width -= 10;
-                // Giữ nguyên giá trị Width gốc của bạn
                 if (sidebar.Width <= 78)
                 {
                     sidebarExpant = false;
@@ -300,7 +276,6 @@ namespace LMS.GUI.Main
             else
             {
                 sidebar.Width += 5;
-                // Giữ nguyên giá trị Width gốc của bạn
                 if (sidebar.Width >= 301)
                 {
                     sidebarExpant = true;

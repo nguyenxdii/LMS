@@ -49,7 +49,6 @@
             this.btnWarehouse = new CSharp.Winform.UI.Button();
             this.btnShipment = new CSharp.Winform.UI.Button();
             this.btnOrder = new CSharp.Winform.UI.Button();
-            this.btnTracking = new CSharp.Winform.UI.Button();
             this.btnReport = new CSharp.Winform.UI.Button();
             this.btnRouteTemplate = new CSharp.Winform.UI.Button();
             this.btnAccount = new CSharp.Winform.UI.Button();
@@ -161,7 +160,6 @@
             // 
             // sidebar
             // 
-            this.sidebar.AutoScroll = true;
             this.sidebar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(24)))), ((int)(((byte)(29)))));
             this.sidebar.Controls.Add(this.btnHome);
             this.sidebar.Controls.Add(this.menuContainer);
@@ -189,7 +187,7 @@
             this.btnHome.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.btnHome.Size = new System.Drawing.Size(301, 58);
             this.btnHome.TabIndex = 6;
-            this.btnHome.Text = "       DashBoard";
+            this.btnHome.Text = "       Trang Chủ";
             this.btnHome.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnHome.UseVisualStyleBackColor = false;
             // 
@@ -203,12 +201,11 @@
             this.menuContainer.Controls.Add(this.btnWarehouse);
             this.menuContainer.Controls.Add(this.btnShipment);
             this.menuContainer.Controls.Add(this.btnOrder);
-            this.menuContainer.Controls.Add(this.btnTracking);
             this.menuContainer.Controls.Add(this.btnReport);
             this.menuContainer.Controls.Add(this.btnRouteTemplate);
             this.menuContainer.Location = new System.Drawing.Point(3, 61);
             this.menuContainer.Name = "menuContainer";
-            this.menuContainer.Size = new System.Drawing.Size(301, 62);
+            this.menuContainer.Size = new System.Drawing.Size(301, 58);
             this.menuContainer.TabIndex = 9;
             // 
             // btnMenu
@@ -344,25 +341,6 @@
             this.btnOrder.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnOrder.UseVisualStyleBackColor = false;
             // 
-            // btnTracking
-            // 
-            this.btnTracking.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(33)))), ((int)(((byte)(36)))));
-            this.btnTracking.FlatAppearance.BorderSize = 0;
-            this.btnTracking.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTracking.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTracking.ForeColor = System.Drawing.Color.White;
-            this.btnTracking.Image = global::LMS.GUI.Properties.Resources.dot_mini;
-            this.btnTracking.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTracking.Location = new System.Drawing.Point(0, 406);
-            this.btnTracking.Margin = new System.Windows.Forms.Padding(0);
-            this.btnTracking.Name = "btnTracking";
-            this.btnTracking.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.btnTracking.Size = new System.Drawing.Size(301, 58);
-            this.btnTracking.TabIndex = 16;
-            this.btnTracking.Text = "            Theo Dỏi Đơn Hàng";
-            this.btnTracking.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTracking.UseVisualStyleBackColor = false;
-            // 
             // btnReport
             // 
             this.btnReport.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(33)))), ((int)(((byte)(36)))));
@@ -372,7 +350,7 @@
             this.btnReport.ForeColor = System.Drawing.Color.White;
             this.btnReport.Image = global::LMS.GUI.Properties.Resources.dot_mini;
             this.btnReport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnReport.Location = new System.Drawing.Point(0, 464);
+            this.btnReport.Location = new System.Drawing.Point(0, 406);
             this.btnReport.Margin = new System.Windows.Forms.Padding(0);
             this.btnReport.Name = "btnReport";
             this.btnReport.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
@@ -391,7 +369,7 @@
             this.btnRouteTemplate.ForeColor = System.Drawing.Color.White;
             this.btnRouteTemplate.Image = global::LMS.GUI.Properties.Resources.dot_mini;
             this.btnRouteTemplate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnRouteTemplate.Location = new System.Drawing.Point(0, 522);
+            this.btnRouteTemplate.Location = new System.Drawing.Point(0, 464);
             this.btnRouteTemplate.Margin = new System.Windows.Forms.Padding(0);
             this.btnRouteTemplate.Name = "btnRouteTemplate";
             this.btnRouteTemplate.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
@@ -410,7 +388,7 @@
             this.btnAccount.ForeColor = System.Drawing.Color.White;
             this.btnAccount.Image = global::LMS.GUI.Properties.Resources.account_;
             this.btnAccount.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAccount.Location = new System.Drawing.Point(0, 126);
+            this.btnAccount.Location = new System.Drawing.Point(0, 122);
             this.btnAccount.Margin = new System.Windows.Forms.Padding(0);
             this.btnAccount.Name = "btnAccount";
             this.btnAccount.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
@@ -429,7 +407,7 @@
             this.btnLogOut.ForeColor = System.Drawing.Color.White;
             this.btnLogOut.Image = global::LMS.GUI.Properties.Resources.logout_;
             this.btnLogOut.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLogOut.Location = new System.Drawing.Point(0, 184);
+            this.btnLogOut.Location = new System.Drawing.Point(0, 180);
             this.btnLogOut.Margin = new System.Windows.Forms.Padding(0);
             this.btnLogOut.Name = "btnLogOut";
             this.btnLogOut.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
@@ -542,7 +520,6 @@
         private CSharp.Winform.UI.Button btnWarehouse;
         private CSharp.Winform.UI.Button btnShipment;
         private CSharp.Winform.UI.Button btnOrder;
-        private CSharp.Winform.UI.Button btnTracking;
         private CSharp.Winform.UI.Button btnReport;
         private CSharp.Winform.UI.Button btnRouteTemplate;
     }

@@ -25,6 +25,7 @@ namespace LMS.BUS.Dtos
         public DateTime? ArrivedAt { get; set; }
         public DateTime? DepartedAt { get; set; }
         public string StopStatus { get; set; }
+        public string Note { get; set; }
     }
 
     public class ShipmentDetailDto

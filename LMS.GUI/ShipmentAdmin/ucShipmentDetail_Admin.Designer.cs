@@ -31,7 +31,6 @@
             this.pnlTop = new CSharp.Winform.UI.Panel();
             this.guna2ControlBox3 = new Guna.UI2.WinForms.Guna2ControlBox();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.dgvDriverHistory = new CSharp.Winform.UI.DataGridView();
             this.dgvRouteStops = new CSharp.Winform.UI.DataGridView();
             this.panel1 = new CSharp.Winform.UI.Panel();
             this.tableLayoutPanel1 = new CSharp.Winform.UI.TableLayoutPanel();
@@ -46,10 +45,8 @@
             this.lblRoute = new System.Windows.Forms.Label();
             this.lblShipmentNo = new System.Windows.Forms.Label();
             this.txtNotes = new Guna.UI2.WinForms.Guna2TextBox();
-            this.btnClose = new Guna.UI2.WinForms.Guna2Button();
             this.label6 = new System.Windows.Forms.Label();
             this.pnlTop.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDriverHistory)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRouteStops)).BeginInit();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -64,7 +61,7 @@
             this.pnlTop.Font = new System.Drawing.Font("Tahoma", 8.25F);
             this.pnlTop.Location = new System.Drawing.Point(0, 0);
             this.pnlTop.Name = "pnlTop";
-            this.pnlTop.Size = new System.Drawing.Size(1426, 49);
+            this.pnlTop.Size = new System.Drawing.Size(950, 49);
             this.pnlTop.TabIndex = 9;
             // 
             // guna2ControlBox3
@@ -73,7 +70,7 @@
             this.guna2ControlBox3.BorderRadius = 5;
             this.guna2ControlBox3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(24)))), ((int)(((byte)(29)))));
             this.guna2ControlBox3.IconColor = System.Drawing.Color.White;
-            this.guna2ControlBox3.Location = new System.Drawing.Point(1374, 5);
+            this.guna2ControlBox3.Location = new System.Drawing.Point(898, 5);
             this.guna2ControlBox3.Name = "guna2ControlBox3";
             this.guna2ControlBox3.Size = new System.Drawing.Size(46, 35);
             this.guna2ControlBox3.TabIndex = 5;
@@ -84,30 +81,19 @@
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.lblTitle.Location = new System.Drawing.Point(16, 15);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(102, 25);
+            this.lblTitle.Size = new System.Drawing.Size(63, 25);
             this.lblTitle.TabIndex = 13;
-            this.lblTitle.Text = "Tên Chuyến";
-            // 
-            // dgvDriverHistory
-            // 
-            this.dgvDriverHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDriverHistory.Location = new System.Drawing.Point(672, 296);
-            this.dgvDriverHistory.Name = "dgvDriverHistory";
-            this.dgvDriverHistory.RowHeadersWidth = 62;
-            this.dgvDriverHistory.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8.25F);
-            this.dgvDriverHistory.RowTemplate.Height = 28;
-            this.dgvDriverHistory.Size = new System.Drawing.Size(646, 396);
-            this.dgvDriverHistory.TabIndex = 12;
+            this.lblTitle.Text = "lblTitle";
             // 
             // dgvRouteStops
             // 
             this.dgvRouteStops.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRouteStops.Location = new System.Drawing.Point(20, 296);
+            this.dgvRouteStops.Location = new System.Drawing.Point(20, 364);
             this.dgvRouteStops.Name = "dgvRouteStops";
             this.dgvRouteStops.RowHeadersWidth = 62;
             this.dgvRouteStops.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 8.25F);
             this.dgvRouteStops.RowTemplate.Height = 28;
-            this.dgvRouteStops.Size = new System.Drawing.Size(646, 396);
+            this.dgvRouteStops.Size = new System.Drawing.Size(910, 396);
             this.dgvRouteStops.TabIndex = 12;
             // 
             // panel1
@@ -115,8 +101,6 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.tableLayoutPanel1);
             this.panel1.Controls.Add(this.txtNotes);
-            this.panel1.Controls.Add(this.btnClose);
-            this.panel1.Controls.Add(this.dgvDriverHistory);
             this.panel1.Controls.Add(this.dgvRouteStops);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.pnlTop);
@@ -124,7 +108,7 @@
             this.panel1.Font = new System.Drawing.Font("Tahoma", 8.25F);
             this.panel1.Location = new System.Drawing.Point(2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1426, 782);
+            this.panel1.Size = new System.Drawing.Size(950, 782);
             this.panel1.TabIndex = 10;
             // 
             // tableLayoutPanel1
@@ -270,39 +254,23 @@
             this.txtNotes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.txtNotes.ForeColor = System.Drawing.Color.Black;
             this.txtNotes.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtNotes.Location = new System.Drawing.Point(1027, 108);
+            this.txtNotes.Location = new System.Drawing.Point(98, 319);
             this.txtNotes.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtNotes.Name = "txtNotes";
             this.txtNotes.PlaceholderText = "";
             this.txtNotes.SelectedText = "";
-            this.txtNotes.Size = new System.Drawing.Size(236, 36);
+            this.txtNotes.Size = new System.Drawing.Size(478, 36);
             this.txtNotes.TabIndex = 12;
-            // 
-            // btnClose
-            // 
-            this.btnClose.BorderRadius = 15;
-            this.btnClose.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnClose.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnClose.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnClose.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnClose.FillColor = System.Drawing.Color.Black;
-            this.btnClose.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(948, 55);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(180, 45);
-            this.btnClose.TabIndex = 14;
-            this.btnClose.Text = "Đóng";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label6.Location = new System.Drawing.Point(935, 119);
+            this.label6.Location = new System.Drawing.Point(17, 319);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(85, 25);
+            this.label6.Size = new System.Drawing.Size(74, 25);
             this.label6.TabIndex = 13;
-            this.label6.Text = "Tìm Kiếm";
+            this.label6.Text = "Ghi Chú";
             // 
             // ucShipmentDetail_Admin
             // 
@@ -312,10 +280,9 @@
             this.Controls.Add(this.panel1);
             this.Name = "ucShipmentDetail_Admin";
             this.Padding = new System.Windows.Forms.Padding(2);
-            this.Size = new System.Drawing.Size(1430, 786);
+            this.Size = new System.Drawing.Size(954, 786);
             this.pnlTop.ResumeLayout(false);
             this.pnlTop.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDriverHistory)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRouteStops)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -328,7 +295,6 @@
         #endregion
         private CSharp.Winform.UI.Panel pnlTop;
         private Guna.UI2.WinForms.Guna2ControlBox guna2ControlBox3;
-        private CSharp.Winform.UI.DataGridView dgvDriverHistory;
         private CSharp.Winform.UI.DataGridView dgvRouteStops;
         private CSharp.Winform.UI.Panel panel1;
         private Guna.UI2.WinForms.Guna2TextBox txtNotes;
@@ -344,7 +310,6 @@
         private System.Windows.Forms.Label lblOrderNo;
         private System.Windows.Forms.Label lblRoute;
         private System.Windows.Forms.Label lblShipmentNo;
-        private Guna.UI2.WinForms.Guna2Button btnClose;
         private System.Windows.Forms.Label lblTitle;
     }
 }

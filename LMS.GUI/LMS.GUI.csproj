@@ -455,6 +455,7 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReportAdmin\Report1.rdlc" />
     <EmbeddedResource Include="RouteTemplateAdmin\ucRouteTemplateEditor_Admin.resx">
       <DependentUpon>ucRouteTemplateEditor_Admin.cs</DependentUpon>
     </EmbeddedResource>

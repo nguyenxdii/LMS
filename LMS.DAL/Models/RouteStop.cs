@@ -24,6 +24,8 @@ namespace LMS.DAL.Models
         public DateTime? PlannedETA { get; set; }
         public DateTime? ArrivedAt { get; set; }
         public DateTime? DepartedAt { get; set; }
+        [StringLength(500)] // Giới hạn độ dài nếu cần
+        public string Note { get; set; }
 
         public RouteStopStatus Status { get; set; } = RouteStopStatus.Waiting;
     }

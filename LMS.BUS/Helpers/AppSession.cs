@@ -51,6 +51,8 @@ namespace LMS.BUS.Helpers
 
         public static void RaiseVehicleAssignmentChanged()
         {
+            // note lại
+            System.Diagnostics.Debug.WriteLine(">>> VehicleAssignmentChanged event raised!"); // Thêm dòng này
             try { VehicleAssignmentChanged?.Invoke(); }
             catch { }
         }

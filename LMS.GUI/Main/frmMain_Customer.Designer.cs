@@ -37,6 +37,7 @@
             this.guna2ControlBox1 = new Guna.UI2.WinForms.Guna2ControlBox();
             this.tsllblWelcome = new System.Windows.Forms.ToolStripStatusLabel();
             this.stsMain = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.sidebar = new System.Windows.Forms.FlowLayoutPanel();
             this.btnHome = new CSharp.Winform.UI.Button();
             this.menuContainer = new System.Windows.Forms.FlowLayoutPanel();
@@ -51,7 +52,6 @@
             this.pnlContent = new Guna.UI2.WinForms.Guna2Panel();
             this.task = new CSharp.Winform.UI.Panel();
             this.lblPageTitle = new CSharp.Winform.UI.Label();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.pnlTopBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnHam)).BeginInit();
             this.stsMain.SuspendLayout();
@@ -154,6 +154,12 @@
             this.stsMain.TabIndex = 0;
             this.stsMain.Text = "statusStrip1";
             // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(179, 25);
+            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            // 
             // sidebar
             // 
             this.sidebar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(24)))), ((int)(((byte)(29)))));
@@ -183,7 +189,7 @@
             this.btnHome.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.btnHome.Size = new System.Drawing.Size(301, 58);
             this.btnHome.TabIndex = 6;
-            this.btnHome.Text = "       DashBoard";
+            this.btnHome.Text = "       Trang Chủ";
             this.btnHome.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnHome.UseVisualStyleBackColor = false;
             this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
@@ -355,12 +361,6 @@
             this.lblPageTitle.Size = new System.Drawing.Size(54, 21);
             this.lblPageTitle.TabIndex = 1;
             this.lblPageTitle.Text = "label1";
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(179, 25);
-            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             // 
             // frmMain_Customer
             // 

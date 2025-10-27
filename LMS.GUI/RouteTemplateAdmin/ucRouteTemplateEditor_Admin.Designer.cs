@@ -40,14 +40,16 @@
             this.label4 = new System.Windows.Forms.Label();
             this.cmbFromZone = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.cmbStopWarehouse = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.cmbToWarehouse = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cmbToZone = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.cmbStopZone = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.cmbFromWarehouse = new Guna.UI2.WinForms.Guna2ComboBox();
             this.pnlTop = new CSharp.Winform.UI.Panel();
             this.guna2ControlBox3 = new Guna.UI2.WinForms.Guna2ControlBox();
             this.lblTitle = new CSharp.Winform.UI.Label();
+            this.cmbStopZone = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.cmbStopWarehouse = new Guna.UI2.WinForms.Guna2ComboBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSelectedStops)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAvailableStops)).BeginInit();
@@ -63,7 +65,9 @@
             this.panel1.Controls.Add(this.btnMoveUp);
             this.panel1.Controls.Add(this.dgvSelectedStops);
             this.panel1.Controls.Add(this.dgvAvailableStops);
+            this.panel1.Controls.Add(this.cmbStopWarehouse);
             this.panel1.Controls.Add(this.groupBox1);
+            this.panel1.Controls.Add(this.cmbStopZone);
             this.panel1.Controls.Add(this.pnlTop);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Font = new System.Drawing.Font("Tahoma", 8.25F);
@@ -149,11 +153,11 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.cmbFromZone);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.cmbStopWarehouse);
+            this.groupBox1.Controls.Add(this.cmbToWarehouse);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.cmbToZone);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.cmbStopZone);
+            this.groupBox1.Controls.Add(this.cmbFromWarehouse);
             this.groupBox1.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.groupBox1.Location = new System.Drawing.Point(14, 55);
             this.groupBox1.Name = "groupBox1";
@@ -229,21 +233,21 @@
             this.label3.TabIndex = 13;
             this.label3.Text = "Kho Đi";
             // 
-            // cmbStopWarehouse
+            // cmbToWarehouse
             // 
-            this.cmbStopWarehouse.BackColor = System.Drawing.Color.Transparent;
-            this.cmbStopWarehouse.BorderRadius = 15;
-            this.cmbStopWarehouse.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cmbStopWarehouse.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbStopWarehouse.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cmbStopWarehouse.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cmbStopWarehouse.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.cmbStopWarehouse.ForeColor = System.Drawing.Color.Black;
-            this.cmbStopWarehouse.ItemHeight = 30;
-            this.cmbStopWarehouse.Location = new System.Drawing.Point(138, 208);
-            this.cmbStopWarehouse.Name = "cmbStopWarehouse";
-            this.cmbStopWarehouse.Size = new System.Drawing.Size(236, 36);
-            this.cmbStopWarehouse.TabIndex = 11;
+            this.cmbToWarehouse.BackColor = System.Drawing.Color.Transparent;
+            this.cmbToWarehouse.BorderRadius = 15;
+            this.cmbToWarehouse.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbToWarehouse.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbToWarehouse.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbToWarehouse.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbToWarehouse.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.cmbToWarehouse.ForeColor = System.Drawing.Color.Black;
+            this.cmbToWarehouse.ItemHeight = 30;
+            this.cmbToWarehouse.Location = new System.Drawing.Point(138, 208);
+            this.cmbToWarehouse.Name = "cmbToWarehouse";
+            this.cmbToWarehouse.Size = new System.Drawing.Size(236, 36);
+            this.cmbToWarehouse.TabIndex = 11;
             // 
             // label2
             // 
@@ -266,7 +270,7 @@
             this.cmbToZone.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.cmbToZone.ForeColor = System.Drawing.Color.Black;
             this.cmbToZone.ItemHeight = 30;
-            this.cmbToZone.Location = new System.Drawing.Point(138, 124);
+            this.cmbToZone.Location = new System.Drawing.Point(138, 166);
             this.cmbToZone.Name = "cmbToZone";
             this.cmbToZone.Size = new System.Drawing.Size(236, 36);
             this.cmbToZone.TabIndex = 11;
@@ -281,21 +285,21 @@
             this.label1.TabIndex = 13;
             this.label1.Text = "Tên Chuyến";
             // 
-            // cmbStopZone
+            // cmbFromWarehouse
             // 
-            this.cmbStopZone.BackColor = System.Drawing.Color.Transparent;
-            this.cmbStopZone.BorderRadius = 15;
-            this.cmbStopZone.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cmbStopZone.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbStopZone.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cmbStopZone.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cmbStopZone.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.cmbStopZone.ForeColor = System.Drawing.Color.Black;
-            this.cmbStopZone.ItemHeight = 30;
-            this.cmbStopZone.Location = new System.Drawing.Point(138, 166);
-            this.cmbStopZone.Name = "cmbStopZone";
-            this.cmbStopZone.Size = new System.Drawing.Size(236, 36);
-            this.cmbStopZone.TabIndex = 11;
+            this.cmbFromWarehouse.BackColor = System.Drawing.Color.Transparent;
+            this.cmbFromWarehouse.BorderRadius = 15;
+            this.cmbFromWarehouse.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbFromWarehouse.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbFromWarehouse.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbFromWarehouse.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbFromWarehouse.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.cmbFromWarehouse.ForeColor = System.Drawing.Color.Black;
+            this.cmbFromWarehouse.ItemHeight = 30;
+            this.cmbFromWarehouse.Location = new System.Drawing.Point(138, 124);
+            this.cmbFromWarehouse.Name = "cmbFromWarehouse";
+            this.cmbFromWarehouse.Size = new System.Drawing.Size(236, 36);
+            this.cmbFromWarehouse.TabIndex = 11;
             // 
             // pnlTop
             // 
@@ -331,6 +335,38 @@
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Thêm Tuyến đường Mới";
             // 
+            // cmbStopZone
+            // 
+            this.cmbStopZone.BackColor = System.Drawing.Color.Transparent;
+            this.cmbStopZone.BorderRadius = 15;
+            this.cmbStopZone.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbStopZone.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbStopZone.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbStopZone.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbStopZone.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.cmbStopZone.ForeColor = System.Drawing.Color.Black;
+            this.cmbStopZone.ItemHeight = 30;
+            this.cmbStopZone.Location = new System.Drawing.Point(424, 221);
+            this.cmbStopZone.Name = "cmbStopZone";
+            this.cmbStopZone.Size = new System.Drawing.Size(236, 36);
+            this.cmbStopZone.TabIndex = 11;
+            // 
+            // cmbStopWarehouse
+            // 
+            this.cmbStopWarehouse.BackColor = System.Drawing.Color.Transparent;
+            this.cmbStopWarehouse.BorderRadius = 15;
+            this.cmbStopWarehouse.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbStopWarehouse.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbStopWarehouse.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbStopWarehouse.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbStopWarehouse.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.cmbStopWarehouse.ForeColor = System.Drawing.Color.Black;
+            this.cmbStopWarehouse.ItemHeight = 30;
+            this.cmbStopWarehouse.Location = new System.Drawing.Point(424, 263);
+            this.cmbStopWarehouse.Name = "cmbStopWarehouse";
+            this.cmbStopWarehouse.Size = new System.Drawing.Size(236, 36);
+            this.cmbStopWarehouse.TabIndex = 11;
+            // 
             // ucRouteTemplateEditor_Admin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -364,13 +400,15 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private Guna.UI2.WinForms.Guna2ComboBox cmbStopZone;
+        private Guna.UI2.WinForms.Guna2ComboBox cmbFromWarehouse;
         private Guna.UI2.WinForms.Guna2ComboBox cmbToZone;
-        private Guna.UI2.WinForms.Guna2ComboBox cmbStopWarehouse;
+        private Guna.UI2.WinForms.Guna2ComboBox cmbToWarehouse;
         private CSharp.Winform.UI.DataGridView dgvAvailableStops;
         private CSharp.Winform.UI.DataGridView dgvSelectedStops;
         private Guna.UI2.WinForms.Guna2Button btnSave;
         private Guna.UI2.WinForms.Guna2Button btnMoveDown;
         private Guna.UI2.WinForms.Guna2Button btnMoveUp;
+        private Guna.UI2.WinForms.Guna2ComboBox cmbStopWarehouse;
+        private Guna.UI2.WinForms.Guna2ComboBox cmbStopZone;
     }
 }
