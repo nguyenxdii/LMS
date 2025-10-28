@@ -42,6 +42,9 @@
             this.sidebar = new System.Windows.Forms.FlowLayoutPanel();
             this.btnHome = new CSharp.Winform.UI.Button();
             this.menuContainer = new System.Windows.Forms.FlowLayoutPanel();
+            this.pnlTop = new CSharp.Winform.UI.Panel();
+            this.task = new CSharp.Winform.UI.Panel();
+            this.lblPageTitle = new CSharp.Winform.UI.Label();
             this.btnMenu = new CSharp.Winform.UI.Button();
             this.btnCustomer = new CSharp.Winform.UI.Button();
             this.btnDriver = new CSharp.Winform.UI.Button();
@@ -53,17 +56,14 @@
             this.btnRouteTemplate = new CSharp.Winform.UI.Button();
             this.btnAccount = new CSharp.Winform.UI.Button();
             this.btnLogOut = new CSharp.Winform.UI.Button();
-            this.pnlTop = new CSharp.Winform.UI.Panel();
             this.btnHam = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.task = new CSharp.Winform.UI.Panel();
-            this.lblPageTitle = new CSharp.Winform.UI.Label();
             this.pnlContent.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.sidebar.SuspendLayout();
             this.menuContainer.SuspendLayout();
             this.pnlTop.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnHam)).BeginInit();
             this.task.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnHam)).BeginInit();
             this.SuspendLayout();
             // 
             // sidebarTransition
@@ -144,8 +144,6 @@
             // statusStrip1
             // 
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.stsWelcome});
             this.statusStrip1.Location = new System.Drawing.Point(0, 657);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1199, 32);
@@ -207,6 +205,42 @@
             this.menuContainer.Name = "menuContainer";
             this.menuContainer.Size = new System.Drawing.Size(301, 58);
             this.menuContainer.TabIndex = 9;
+            // 
+            // pnlTop
+            // 
+            this.pnlTop.BackColor = System.Drawing.Color.White;
+            this.pnlTop.Controls.Add(this.btnHam);
+            this.pnlTop.Controls.Add(this.guna2ControlBox3);
+            this.pnlTop.Controls.Add(this.lblTitle);
+            this.pnlTop.Controls.Add(this.guna2ControlBox2);
+            this.pnlTop.Controls.Add(this.guna2ControlBox1);
+            this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlTop.Font = new System.Drawing.Font("Tahoma", 8.25F);
+            this.pnlTop.Location = new System.Drawing.Point(0, 0);
+            this.pnlTop.Name = "pnlTop";
+            this.pnlTop.Size = new System.Drawing.Size(1500, 67);
+            this.pnlTop.TabIndex = 6;
+            // 
+            // task
+            // 
+            this.task.BackColor = System.Drawing.Color.LightGray;
+            this.task.Controls.Add(this.lblPageTitle);
+            this.task.Dock = System.Windows.Forms.DockStyle.Top;
+            this.task.Font = new System.Drawing.Font("Tahoma", 8.25F);
+            this.task.Location = new System.Drawing.Point(301, 67);
+            this.task.Name = "task";
+            this.task.Size = new System.Drawing.Size(1199, 44);
+            this.task.TabIndex = 9;
+            // 
+            // lblPageTitle
+            // 
+            this.lblPageTitle.AutoSize = true;
+            this.lblPageTitle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.lblPageTitle.Location = new System.Drawing.Point(7, 11);
+            this.lblPageTitle.Name = "lblPageTitle";
+            this.lblPageTitle.Size = new System.Drawing.Size(59, 25);
+            this.lblPageTitle.TabIndex = 1;
+            this.lblPageTitle.Text = "label1";
             // 
             // btnMenu
             // 
@@ -417,21 +451,6 @@
             this.btnLogOut.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnLogOut.UseVisualStyleBackColor = false;
             // 
-            // pnlTop
-            // 
-            this.pnlTop.BackColor = System.Drawing.Color.White;
-            this.pnlTop.Controls.Add(this.btnHam);
-            this.pnlTop.Controls.Add(this.guna2ControlBox3);
-            this.pnlTop.Controls.Add(this.lblTitle);
-            this.pnlTop.Controls.Add(this.guna2ControlBox2);
-            this.pnlTop.Controls.Add(this.guna2ControlBox1);
-            this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlTop.Font = new System.Drawing.Font("Tahoma", 8.25F);
-            this.pnlTop.Location = new System.Drawing.Point(0, 0);
-            this.pnlTop.Name = "pnlTop";
-            this.pnlTop.Size = new System.Drawing.Size(1500, 67);
-            this.pnlTop.TabIndex = 6;
-            // 
             // btnHam
             // 
             this.btnHam.Image = global::LMS.GUI.Properties.Resources.menu_;
@@ -443,27 +462,6 @@
             this.btnHam.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.btnHam.TabIndex = 2;
             this.btnHam.TabStop = false;
-            // 
-            // task
-            // 
-            this.task.BackColor = System.Drawing.Color.LightGray;
-            this.task.Controls.Add(this.lblPageTitle);
-            this.task.Dock = System.Windows.Forms.DockStyle.Top;
-            this.task.Font = new System.Drawing.Font("Tahoma", 8.25F);
-            this.task.Location = new System.Drawing.Point(301, 67);
-            this.task.Name = "task";
-            this.task.Size = new System.Drawing.Size(1199, 44);
-            this.task.TabIndex = 9;
-            // 
-            // lblPageTitle
-            // 
-            this.lblPageTitle.AutoSize = true;
-            this.lblPageTitle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.lblPageTitle.Location = new System.Drawing.Point(7, 11);
-            this.lblPageTitle.Name = "lblPageTitle";
-            this.lblPageTitle.Size = new System.Drawing.Size(59, 25);
-            this.lblPageTitle.TabIndex = 1;
-            this.lblPageTitle.Text = "label1";
             // 
             // frmMain_Admin
             // 
@@ -485,9 +483,9 @@
             this.menuContainer.ResumeLayout(false);
             this.pnlTop.ResumeLayout(false);
             this.pnlTop.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnHam)).EndInit();
             this.task.ResumeLayout(false);
             this.task.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnHam)).EndInit();
             this.ResumeLayout(false);
 
         }

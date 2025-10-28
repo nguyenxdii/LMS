@@ -30,7 +30,6 @@
         {
             this.label9 = new CSharp.Winform.UI.Label();
             this.label7 = new CSharp.Winform.UI.Label();
-            this.btnCancel = new Guna.UI2.WinForms.Guna2Button();
             this.btnClear = new Guna.UI2.WinForms.Guna2Button();
             this.btnNext = new Guna.UI2.WinForms.Guna2Button();
             this.dtpDesiredTime = new Guna.UI2.WinForms.Guna2DateTimePicker();
@@ -76,22 +75,6 @@
             this.label7.TabIndex = 22;
             this.label7.Text = "Ghi Chú";
             // 
-            // btnCancel
-            // 
-            this.btnCancel.BorderRadius = 15;
-            this.btnCancel.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnCancel.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnCancel.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnCancel.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnCancel.FillColor = System.Drawing.Color.Black;
-            this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnCancel.ForeColor = System.Drawing.Color.White;
-            this.btnCancel.Location = new System.Drawing.Point(776, 78);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(219, 45);
-            this.btnCancel.TabIndex = 19;
-            this.btnCancel.Text = "Quay lại";
-            // 
             // btnClear
             // 
             this.btnClear.BorderRadius = 15;
@@ -102,7 +85,7 @@
             this.btnClear.FillColor = System.Drawing.Color.Black;
             this.btnClear.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnClear.ForeColor = System.Drawing.Color.White;
-            this.btnClear.Location = new System.Drawing.Point(551, 78);
+            this.btnClear.Location = new System.Drawing.Point(558, 162);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(219, 45);
             this.btnClear.TabIndex = 20;
@@ -118,7 +101,7 @@
             this.btnNext.FillColor = System.Drawing.Color.Black;
             this.btnNext.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnNext.ForeColor = System.Drawing.Color.White;
-            this.btnNext.Location = new System.Drawing.Point(776, 27);
+            this.btnNext.Location = new System.Drawing.Point(558, 93);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(219, 45);
             this.btnNext.TabIndex = 21;
@@ -128,7 +111,9 @@
             // 
             this.dtpDesiredTime.BorderRadius = 15;
             this.dtpDesiredTime.Checked = true;
+            this.dtpDesiredTime.FillColor = System.Drawing.Color.Black;
             this.dtpDesiredTime.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.dtpDesiredTime.ForeColor = System.Drawing.Color.White;
             this.dtpDesiredTime.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpDesiredTime.Location = new System.Drawing.Point(188, 350);
             this.dtpDesiredTime.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
@@ -307,7 +292,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.groupBox1.Location = new System.Drawing.Point(37, 14);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(496, 553);
+            this.groupBox1.Size = new System.Drawing.Size(502, 460);
             this.groupBox1.TabIndex = 16;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Thông Tin Đơn Hàng";
@@ -372,7 +357,7 @@
             this.btnCalcFee.FillColor = System.Drawing.Color.Black;
             this.btnCalcFee.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnCalcFee.ForeColor = System.Drawing.Color.White;
-            this.btnCalcFee.Location = new System.Drawing.Point(551, 27);
+            this.btnCalcFee.Location = new System.Drawing.Point(558, 22);
             this.btnCalcFee.Name = "btnCalcFee";
             this.btnCalcFee.Size = new System.Drawing.Size(219, 45);
             this.btnCalcFee.TabIndex = 22;
@@ -381,7 +366,6 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
-            this.panel1.Controls.Add(this.btnCancel);
             this.panel1.Controls.Add(this.btnClear);
             this.panel1.Controls.Add(this.btnNext);
             this.panel1.Controls.Add(this.btnCalcFee);
@@ -411,7 +395,6 @@
 
         private CSharp.Winform.UI.Label label9;
         private CSharp.Winform.UI.Label label7;
-        private Guna.UI2.WinForms.Guna2Button btnCancel;
         private Guna.UI2.WinForms.Guna2Button btnClear;
         private Guna.UI2.WinForms.Guna2Button btnNext;
         private Guna.UI2.WinForms.Guna2DateTimePicker dtpDesiredTime;

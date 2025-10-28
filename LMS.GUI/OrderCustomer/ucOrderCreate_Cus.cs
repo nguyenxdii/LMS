@@ -120,11 +120,11 @@ namespace LMS.GUI.OrderCustomer
             btnCalcFee.Click += (s, ev) => ShowEstimatedFee();
             btnNext.Click += (s, ev) => GoConfirm();
             btnClear.Click += (s, ev) => ClearForm();
-            btnCancel.Click += (s, ev) =>
-            {
-                var host = this.FindForm() as frmMain_Customer;
-                host?.LoadUc(new ucOrderCreate_Cus(_customerId)); // hoặc trở về danh sách
-            };
+            //btnCancel.Click += (s, ev) =>
+            //{
+            //    var host = this.FindForm() as frmMain_Customer;
+            //    host?.LoadUc(new ucOrderCreate_Cus(_customerId)); // hoặc trở về danh sách
+            //};
 
             txtPickupAddress.Enabled = false;
             lblEstimatedFee.Text = "Tổng phí: —";

@@ -44,6 +44,8 @@ namespace LMS.GUI.Main
             InitializeNavigationButtons();
             this.Load += frmMain_Customer_Load;
             btnMenu.Click += btnMenu_Click;
+            this.FormClosing += new FormClosingEventHandler(this.Customer_FormClosing);
+            btnLogOut.Click += btnLogOut_Click;
 
             LoadUc(new LMS.GUI.Main.ucDashboard_Cus());
             lblPageTitle.Text = "Trang Chủ";
@@ -139,65 +141,25 @@ namespace LMS.GUI.Main
             pnlContent.ResumeLayout();
         }
 
-        // Hàm này được gọi khi bạn nhấn chuột xuống trên Panel
-        private void PnlTopBar_MouseDown(object sender, MouseEventArgs e)
+        private void Customer_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Chỉ bắt đầu kéo khi nhấn chuột trái
-            if (e.Button == MouseButtons.Left)
+            if (e.CloseReason == CloseReason.UserClosing)
             {
-                dragging = true; // Bắt đầu trạng thái kéo
-                dragCursorPoint = Cursor.Position; // Lấy vị trí con trỏ chuột (tọa độ màn hình)
-                dragFormPoint = this.Location;     // Lấy vị trí hiện tại của Form (góc trên bên trái)
-            }
-        }
-
-        // Hàm này được gọi khi bạn di chuyển chuột *trong khi đang nhấn giữ*
-        private void PnlTopBar_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (dragging) // Chỉ thực hiện khi đang kéo
-            {
-                // Tính toán khoảng cách con trỏ chuột đã di chuyển
-                Point dif = Point.Subtract(Cursor.Position, new Size(dragCursorPoint));
-
-                // Cập nhật vị trí mới của Form bằng cách cộng khoảng cách di chuyển vào vị trí ban đầu
-                this.Location = Point.Add(dragFormPoint, new Size(dif));
-            }
-        }
-
-        // Hàm này được gọi khi bạn nhả chuột ra
-        private void PnlTopBar_MouseUp(object sender, MouseEventArgs e)
-        {
-            // Chỉ dừng kéo nếu đang nhấn chuột trái
-            if (e.Button == MouseButtons.Left)
-            {
-                dragging = false; // Kết thúc trạng thái kéo
-            }
-        }
-
-        // =============== (Giữ nguyên toàn bộ code animation) ===============
-
-        private void menuTransition_Tick(object sender, EventArgs e)
-        {
-            if (menuExpant == false)
-            {
-                menuContainer.Height += 10;
-                if (menuContainer.Height >= 235)
+                if (!HandleLogout())
                 {
-                    menuTransition.Stop();
-                    menuExpant = true;
-                }
-            }
-            else
-            {
-                menuContainer.Height -= 10;
-                if (menuContainer.Height <= 58)
-                {
-                    menuTransition.Stop();
-                    menuExpant = false;
+                    e.Cancel = true;
                 }
             }
         }
 
+        private bool HandleLogout()
+        {
+            if (MessageBox.Show("Bạn có chắc muốn đăng xuất?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                return true; // Cho phép đóng form
+            }
+            return false; // Hủy đóng form
+        }
         private void btnHam_Click(object sender, EventArgs e)
         {
             sidebarTransition.Start();
@@ -221,11 +183,60 @@ namespace LMS.GUI.Main
             lblPageTitle.Text = "Tài Khoản Khách Hàng";
         }
 
-
-
         private void btnLogOut_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+
+        private void PnlTopBar_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                dragging = true; // Bắt đầu trạng thái kéo
+                dragCursorPoint = Cursor.Position; // Lấy vị trí con trỏ chuột (tọa độ màn hình)
+                dragFormPoint = this.Location;     // Lấy vị trí hiện tại của Form (góc trên bên trái)
+            }
+        }
+
+        private void PnlTopBar_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (dragging) // Chỉ thực hiện khi đang kéo
+            {
+                Point dif = Point.Subtract(Cursor.Position, new Size(dragCursorPoint));
+
+                this.Location = Point.Add(dragFormPoint, new Size(dif));
+            }
+        }
+
+        private void PnlTopBar_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                dragging = false; // Kết thúc trạng thái kéo
+            }
+        }
+
+        private void menuTransition_Tick(object sender, EventArgs e)
+        {
+            if (menuExpant == false)
+            {
+                menuContainer.Height += 10;
+                if (menuContainer.Height >= 235)
+                {
+                    menuTransition.Stop();
+                    menuExpant = true;
+                }
+            }
+            else
+            {
+                menuContainer.Height -= 10;
+                if (menuContainer.Height <= 58)
+                {
+                    menuTransition.Stop();
+                    menuExpant = false;
+                }
+            }
         }
 
         private void sidebarTransition_Tick(object sender, EventArgs e)

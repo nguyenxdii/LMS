@@ -53,6 +53,7 @@ namespace LMS.GUI.Main
             InitializeNavigationButtons();
             this.Load += FrmMain_Driver_Load;
             btnMenu.Click += btnMenu_Click;
+            this.FormClosing += new FormClosingEventHandler(this.Driver_FormClosing);
 
             LoadUc(new LMS.GUI.Main.ucDashboard_Drv());
             lblPageTitle.Text = "Trang Chủ";
@@ -140,13 +141,52 @@ namespace LMS.GUI.Main
             pnlContent.Controls.Add(uc);
             pnlContent.ResumeLayout();
         }
+        private void Driver_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Chỉ kiểm tra xác nhận nếu form đang đóng do người dùng nhấn nút Close
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                if (!HandleLogout())
+                {
+                    e.Cancel = true; // Hủy đóng form nếu người dùng chọn "No"
+                }
+            }
+        }
+
+        private bool HandleLogout()
+        {
+            if (MessageBox.Show("Bạn có chắc muốn đăng xuất?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                return true; // Cho phép đóng form
+            }
+            return false; // Hủy đóng form
+        }
 
         private void btnLogOut_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+        private void btnHam_Click(object sender, EventArgs e)
+        {
+            sidebarTransition.Start();
+        }
 
-        // ====== LOGIC KÉO THẢ FORM (3 HÀM) ======
+        private void btnMenu_Click(object sender, EventArgs e)
+        {
+            menuTransition.Start();
+        }
+        private void btnHome_Click(object sender, EventArgs e)
+        {
+            ResetButtonStyles();
+            LoadUc(new LMS.GUI.Main.ucDashboard_Drv());
+            lblPageTitle.Text = "Trang Chủ";
+        }
+        private void btnAccount_Click(object sender, EventArgs e)
+        {
+            ResetButtonStyles();
+            LoadUc(new LMS.GUI.ProfileUser.ucDriverProfile());
+            lblPageTitle.Text = "Thông Tin Tài Khoản";
+        }
 
         private void PnlTopBar_MouseDown(object sender, MouseEventArgs e)
         {
@@ -199,21 +239,6 @@ namespace LMS.GUI.Main
             }
         }
 
-        private void btnHam_Click(object sender, EventArgs e)
-        {
-            sidebarTransition.Start();
-        }
-
-        private void btnMenu_Click(object sender, EventArgs e)
-        {
-            menuTransition.Start();
-        }
-        private void btnHome_Click(object sender, EventArgs e)
-        {
-            ResetButtonStyles();
-            LoadUc(new LMS.GUI.Main.ucDashboard_Drv());
-            lblPageTitle.Text = "Trang Chủ";
-        }
 
         private void sidebarTransition_Tick(object sender, EventArgs e)
         {
@@ -250,5 +275,7 @@ namespace LMS.GUI.Main
                 NavigationButton_Click(btnShipmentDetail, EventArgs.Empty);
             }
         }
+
+
     }
 }

@@ -298,5 +298,104 @@ namespace LMS.BUS.Services
                          .ToList();
             }
         }
+        // 1. Lấy thông tin chi tiết (Driver + Account) bằng AccountId
+        public DriverDetailDto GetDriverDetailsByAccountId(int accountId)
+        {
+            using (var db = new LogisticsDbContext())
+            {
+                var account = db.UserAccounts
+                                .Include(a => a.Driver) // Load kèm Driver
+                                .FirstOrDefault(a => a.Id == accountId);
+
+                if (account == null || account.Driver == null)
+                    throw new Exception("Không tìm thấy tài khoản hoặc hồ sơ tài xế.");
+
+                // Dùng lại DTO bạn đã có
+                return new DriverDetailDto
+                {
+                    Driver = account.Driver,
+                    Account = account
+                    // Shipments không cần load ở đây trừ khi bạn muốn hiển thị
+                };
+            }
+        }
+
+        // 2. Cập nhật thông tin cá nhân (Tên, SĐT, CCCD, GPLX)
+        public void UpdateDriverProfile(DriverProfileDto dto)
+        {
+            using (var db = new LogisticsDbContext())
+            {
+                var driver = db.Drivers.Find(dto.DriverId);
+                if (driver == null)
+                    throw new Exception("Không tìm thấy tài xế.");
+
+                // Validation
+                if (string.IsNullOrWhiteSpace(dto.FullName))
+                    throw new InvalidOperationException("Họ tên không được rỗng.");
+                if (!string.IsNullOrWhiteSpace(dto.Phone) && !Regex.IsMatch(dto.Phone, @"^\d{9,15}$"))
+                    throw new InvalidOperationException("SĐT không hợp lệ.");
+                if (!string.IsNullOrWhiteSpace(dto.CitizenId) && !Regex.IsMatch(dto.CitizenId, @"^\d{12}$"))
+                    throw new InvalidOperationException("Số CCCD phải gồm 12 chữ số.");
+                // Kiểm tra CCCD trùng (trừ chính mình)
+                if (!string.IsNullOrWhiteSpace(dto.CitizenId) && db.Drivers.Any(d => d.CitizenId == dto.CitizenId && d.Id != dto.DriverId))
+                    throw new InvalidOperationException("Số CCCD này đã tồn tại.");
+                if (string.IsNullOrWhiteSpace(dto.LicenseType))
+                    throw new InvalidOperationException("Vui lòng chọn loại GPLX.");
+
+
+                // Gán giá trị mới
+                driver.FullName = dto.FullName;
+                driver.Phone = dto.Phone;
+                driver.CitizenId = dto.CitizenId;
+                driver.LicenseType = dto.LicenseType;
+
+                db.SaveChanges();
+            }
+        }
+
+        // 3. Cập nhật ảnh đại diện Driver
+        public void UpdateDriverAvatar(int driverId, byte[] avatarData)
+        {
+            using (var db = new LogisticsDbContext())
+            {
+                var driver = db.Drivers.Find(driverId);
+                if (driver == null)
+                    throw new Exception("Không tìm thấy tài xế.");
+
+                if (avatarData == null || avatarData.Length == 0)
+                    throw new InvalidOperationException("Dữ liệu ảnh không hợp lệ.");
+
+                driver.AvatarData = avatarData;
+                db.SaveChanges();
+            }
+        }
+
+        // 4. Đổi mật khẩu Driver (Logic giống hệt Customer)
+        public void ChangeDriverPassword(int accountId, string oldPassword, string newPassword)
+        {
+            using (var db = new LogisticsDbContext())
+            {
+                var account = db.UserAccounts.Find(accountId);
+                if (account == null)
+                    throw new Exception("Không tìm thấy tài khoản.");
+
+                // TODO: THAY THẾ logic kiểm tra mật khẩu này bằng HASHING THẬT
+                if (account.PasswordHash != oldPassword)
+                    throw new InvalidOperationException("Mật khẩu cũ không chính xác.");
+
+                if (string.IsNullOrWhiteSpace(newPassword) || newPassword.Length < 6)
+                    throw new InvalidOperationException("Mật khẩu mới phải từ 6 ký tự trở lên.");
+
+                // Kiểm tra trùng MK cũ
+                if (newPassword == oldPassword)
+                    throw new InvalidOperationException("Mật khẩu mới phải khác mật khẩu cũ.");
+
+                // TODO: HASH mật khẩu mới trước khi lưu
+                account.PasswordHash = newPassword;
+                account.LastPasswordChangeAt = DateTime.Now;
+
+                db.SaveChanges();
+            }
+        }
     }
 }

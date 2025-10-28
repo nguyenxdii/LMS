@@ -62,6 +62,7 @@
     <Compile Include="Dtos\CustomerDtos.cs" />
     <Compile Include="Dtos\CustomerProfileDto.cs" />
     <Compile Include="Dtos\DriverDtos.cs" />
+    <Compile Include="Dtos\DriverProfileDto.cs" />
     <Compile Include="Dtos\OrderDraft.cs" />
     <Compile Include="Dtos\OrderListItemDto.cs" />
     <Compile Include="Dtos\RouteTemplateListItemDto.cs" />

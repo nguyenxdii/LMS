@@ -118,14 +118,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="default_avatar_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\default_avatar 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="menu-" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\menu-.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="dashboard-1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\dashboard-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="default_avatar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\default_avatar.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="dot-mini" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dot-mini.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -145,7 +142,7 @@
   <data name="1login" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1login.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="default_avatar 2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\default_avatar 21.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="dashboard-1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dashboard-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

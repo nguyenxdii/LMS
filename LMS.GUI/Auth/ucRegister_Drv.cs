@@ -192,7 +192,7 @@ namespace LMS.GUI.Auth
                 }
                 byte[] avatarData = null;
                 if (picAvatar.Image != null &&
-                    !picAvatar.Image.Equals(LMS.GUI.Properties.Resources.default_avatar))
+                    !picAvatar.Image.Equals(LMS.GUI.Properties.Resources.default_avatar_2))
                 {
                     avatarData = ImageToByteArray(picAvatar.Image);
                 }

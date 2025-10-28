@@ -252,7 +252,7 @@ namespace LMS.GUI.Auth
                 byte[] avatarData = null;
                 // (Giả sử ảnh default của bạn tên là "default_avatar" trong Resources)
                 if (picAvatar.Image != null &&
-                    !picAvatar.Image.Equals(LMS.GUI.Properties.Resources.default_avatar))
+                    !picAvatar.Image.Equals(LMS.GUI.Properties.Resources.default_avatar_2))
                 {
                     avatarData = ImageToByteArray(picAvatar.Image);
                 }

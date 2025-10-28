@@ -145,9 +145,6 @@
             // stsMain
             // 
             this.stsMain.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.stsMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsllblWelcome,
-            this.toolStripStatusLabel1});
             this.stsMain.Location = new System.Drawing.Point(0, 657);
             this.stsMain.Name = "stsMain";
             this.stsMain.Size = new System.Drawing.Size(1199, 32);
@@ -320,7 +317,7 @@
             this.btnLogOut.Text = "       Đăng Xuất";
             this.btnLogOut.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnLogOut.UseVisualStyleBackColor = false;
-            this.btnLogOut.Click += new System.EventHandler(this.btnLogOut_Click);
+            //this.btnLogOut.Click += new System.EventHandler(this.btnLogOut_Click);
             // 
             // menuTransition
             // 

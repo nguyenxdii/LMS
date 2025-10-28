@@ -56,7 +56,6 @@
             this.menuContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnHam)).BeginInit();
             this.pnlTop.SuspendLayout();
-            this.stsMain.SuspendLayout();
             this.pnlContent.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -230,6 +229,7 @@
             this.btnAccount.Text = "       Tài Khoản";
             this.btnAccount.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAccount.UseVisualStyleBackColor = false;
+            this.btnAccount.Click += new System.EventHandler(this.btnAccount_Click);
             // 
             // btnLogOut
             // 
@@ -249,9 +249,11 @@
             this.btnLogOut.Text = "       Đăng Xuất";
             this.btnLogOut.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnLogOut.UseVisualStyleBackColor = false;
+            //this.btnLogOut.Click += new System.EventHandler(this.btnLogOut_Click_1);
             // 
             // tsllblWelcome
             // 
+            this.tsllblWelcome.Margin = new System.Windows.Forms.Padding(0, 3, 0, 2);
             this.tsllblWelcome.Name = "tsllblWelcome";
             this.tsllblWelcome.Size = new System.Drawing.Size(179, 25);
             this.tsllblWelcome.Text = "toolStripStatusLabel1";
@@ -332,11 +334,9 @@
             // stsMain
             // 
             this.stsMain.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.stsMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsllblWelcome});
-            this.stsMain.Location = new System.Drawing.Point(0, 657);
+            this.stsMain.Location = new System.Drawing.Point(0, 667);
             this.stsMain.Name = "stsMain";
-            this.stsMain.Size = new System.Drawing.Size(1199, 32);
+            this.stsMain.Size = new System.Drawing.Size(1199, 22);
             this.stsMain.TabIndex = 0;
             this.stsMain.Text = "statusStrip1";
             // 
@@ -368,8 +368,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnHam)).EndInit();
             this.pnlTop.ResumeLayout(false);
             this.pnlTop.PerformLayout();
-            this.stsMain.ResumeLayout(false);
-            this.stsMain.PerformLayout();
             this.pnlContent.ResumeLayout(false);
             this.pnlContent.PerformLayout();
             this.ResumeLayout(false);

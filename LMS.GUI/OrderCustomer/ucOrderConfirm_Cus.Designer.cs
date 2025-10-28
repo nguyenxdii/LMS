@@ -125,18 +125,20 @@
             this.grpConfirm.Controls.Add(this.lblOrigin);
             this.grpConfirm.Controls.Add(this.lblTotalFee);
             this.grpConfirm.CustomBorderColor = System.Drawing.Color.Black;
-            this.grpConfirm.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.grpConfirm.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.grpConfirm.ForeColor = System.Drawing.Color.White;
             this.grpConfirm.Location = new System.Drawing.Point(15, 21);
             this.grpConfirm.Name = "grpConfirm";
             this.grpConfirm.Size = new System.Drawing.Size(448, 373);
             this.grpConfirm.TabIndex = 61;
-            this.grpConfirm.Text = "guna2GroupBox1";
+            this.grpConfirm.Text = "Chi Tiết Đơn Hàng";
+            this.grpConfirm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // lblRemainingAmount
             // 
             this.lblRemainingAmount.AutoSize = true;
             this.lblRemainingAmount.BackColor = System.Drawing.Color.Transparent;
+            this.lblRemainingAmount.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.lblRemainingAmount.ForeColor = System.Drawing.Color.Black;
             this.lblRemainingAmount.Location = new System.Drawing.Point(20, 325);
             this.lblRemainingAmount.Name = "lblRemainingAmount";
@@ -148,6 +150,7 @@
             // 
             this.lblRouteFee.AutoSize = true;
             this.lblRouteFee.BackColor = System.Drawing.Color.Transparent;
+            this.lblRouteFee.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.lblRouteFee.ForeColor = System.Drawing.Color.Black;
             this.lblRouteFee.Location = new System.Drawing.Point(20, 185);
             this.lblRouteFee.Name = "lblRouteFee";
@@ -159,6 +162,7 @@
             // 
             this.lblDepositAmount.AutoSize = true;
             this.lblDepositAmount.BackColor = System.Drawing.Color.Transparent;
+            this.lblDepositAmount.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.lblDepositAmount.ForeColor = System.Drawing.Color.Black;
             this.lblDepositAmount.Location = new System.Drawing.Point(20, 297);
             this.lblDepositAmount.Name = "lblDepositAmount";
@@ -170,6 +174,7 @@
             // 
             this.lblPackageDesc.AutoSize = true;
             this.lblPackageDesc.BackColor = System.Drawing.Color.Transparent;
+            this.lblPackageDesc.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.lblPackageDesc.ForeColor = System.Drawing.Color.Black;
             this.lblPackageDesc.Location = new System.Drawing.Point(20, 157);
             this.lblPackageDesc.Name = "lblPackageDesc";
@@ -181,6 +186,7 @@
             // 
             this.lblDesiredTime.AutoSize = true;
             this.lblDesiredTime.BackColor = System.Drawing.Color.Transparent;
+            this.lblDesiredTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.lblDesiredTime.ForeColor = System.Drawing.Color.Black;
             this.lblDesiredTime.Location = new System.Drawing.Point(20, 129);
             this.lblDesiredTime.Name = "lblDesiredTime";
@@ -192,6 +198,7 @@
             // 
             this.lblPickupFee.AutoSize = true;
             this.lblPickupFee.BackColor = System.Drawing.Color.Transparent;
+            this.lblPickupFee.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.lblPickupFee.ForeColor = System.Drawing.Color.Black;
             this.lblPickupFee.Location = new System.Drawing.Point(20, 213);
             this.lblPickupFee.Name = "lblPickupFee";
@@ -203,6 +210,7 @@
             // 
             this.lblDepositPercent.AutoSize = true;
             this.lblDepositPercent.BackColor = System.Drawing.Color.Transparent;
+            this.lblDepositPercent.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.lblDepositPercent.ForeColor = System.Drawing.Color.Black;
             this.lblDepositPercent.Location = new System.Drawing.Point(20, 269);
             this.lblDepositPercent.Name = "lblDepositPercent";
@@ -214,6 +222,7 @@
             // 
             this.lblPickup.AutoSize = true;
             this.lblPickup.BackColor = System.Drawing.Color.Transparent;
+            this.lblPickup.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.lblPickup.ForeColor = System.Drawing.Color.Black;
             this.lblPickup.Location = new System.Drawing.Point(20, 101);
             this.lblPickup.Name = "lblPickup";
@@ -225,6 +234,7 @@
             // 
             this.lblDest.AutoSize = true;
             this.lblDest.BackColor = System.Drawing.Color.Transparent;
+            this.lblDest.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.lblDest.ForeColor = System.Drawing.Color.Black;
             this.lblDest.Location = new System.Drawing.Point(20, 73);
             this.lblDest.Name = "lblDest";
@@ -236,6 +246,7 @@
             // 
             this.lblOrigin.AutoSize = true;
             this.lblOrigin.BackColor = System.Drawing.Color.Transparent;
+            this.lblOrigin.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.lblOrigin.ForeColor = System.Drawing.Color.Black;
             this.lblOrigin.Location = new System.Drawing.Point(20, 45);
             this.lblOrigin.Name = "lblOrigin";
@@ -247,6 +258,7 @@
             // 
             this.lblTotalFee.AutoSize = true;
             this.lblTotalFee.BackColor = System.Drawing.Color.Transparent;
+            this.lblTotalFee.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.lblTotalFee.ForeColor = System.Drawing.Color.Black;
             this.lblTotalFee.Location = new System.Drawing.Point(20, 241);
             this.lblTotalFee.Name = "lblTotalFee";

@@ -234,5 +234,99 @@ namespace LMS.BUS.Services
                 return query.OrderBy(c => c.Name).ToList();
             }
         }
+
+        // PROFILE CUSTOMER 
+
+        // 1. Lấy thông tin chi tiết (Customer + Account)
+        public CustomerDetailDto GetCustomerDetailsByAccountId(int accountId)
+        {
+            using (var db = new LogisticsDbContext())
+            {
+                var account = db.UserAccounts
+                                .Include(a => a.Customer) // Load kèm Customer
+                                .FirstOrDefault(a => a.Id == accountId);
+
+                if (account == null || account.Customer == null)
+                    throw new Exception("Không tìm thấy tài khoản hoặc hồ sơ khách hàng.");
+
+                // Dùng lại DTO bạn đã có
+                return new CustomerDetailDto
+                {
+                    Customer = account.Customer,
+                    Account = account
+                };
+            }
+        }
+
+        // 2. Cập nhật thông tin cá nhân (Tên, SĐT, Email, Địa chỉ)
+        public void UpdateCustomerProfile(CustomerProfileDto dto)
+        {
+            using (var db = new LogisticsDbContext())
+            {
+                var customer = db.Customers.Find(dto.CustomerId);
+                if (customer == null)
+                    throw new Exception("Không tìm thấy khách hàng.");
+
+                // Validation (giống như khi đăng ký)
+                if (string.IsNullOrWhiteSpace(dto.FullName))
+                    throw new InvalidOperationException("Họ tên không được rỗng.");
+
+                if (!string.IsNullOrWhiteSpace(dto.Email) && !Regex.IsMatch(dto.Email, @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"))
+                    throw new InvalidOperationException("Email không hợp lệ (không dấu).");
+
+                if (!string.IsNullOrWhiteSpace(dto.Phone) && !Regex.IsMatch(dto.Phone, @"^\d{9,15}$"))
+                    throw new InvalidOperationException("SĐT không hợp lệ.");
+
+                // Gán giá trị mới
+                customer.Name = dto.FullName;
+                customer.Phone = dto.Phone;
+                customer.Email = dto.Email;
+                customer.Address = dto.Address;
+
+                db.SaveChanges();
+            }
+        }
+
+        // 3. Cập nhật ảnh đại diện
+        public void UpdateCustomerAvatar(int customerId, byte[] avatarData)
+        {
+            using (var db = new LogisticsDbContext())
+            {
+                var customer = db.Customers.Find(customerId);
+                if (customer == null)
+                    throw new Exception("Không tìm thấy khách hàng.");
+
+                if (avatarData == null || avatarData.Length == 0)
+                    throw new InvalidOperationException("Dữ liệu ảnh không hợp lệ.");
+
+                customer.AvatarData = avatarData;
+                db.SaveChanges();
+            }
+        }
+
+        // 4. Đổi mật khẩu
+        public void ChangeCustomerPassword(int accountId, string oldPassword, string newPassword)
+        {
+            using (var db = new LogisticsDbContext())
+            {
+                var account = db.UserAccounts.Find(accountId);
+                if (account == null)
+                    throw new Exception("Không tìm thấy tài khoản.");
+
+                // TODO: THAY THẾ logic kiểm tra mật khẩu này bằng HASHING THẬT
+                // Đây chỉ là code giả định khi bạn chưa hash mật khẩu
+                if (account.PasswordHash != oldPassword)
+                    throw new InvalidOperationException("Mật khẩu cũ không chính xác.");
+
+                if (string.IsNullOrWhiteSpace(newPassword) || newPassword.Length < 6)
+                    throw new InvalidOperationException("Mật khẩu mới phải từ 6 ký tự trở lên.");
+
+                // TODO: HASH mật khẩu mới trước khi lưu
+                account.PasswordHash = newPassword;
+                account.LastPasswordChangeAt = DateTime.Now;
+
+                db.SaveChanges();
+            }
+        }
     }
 }
