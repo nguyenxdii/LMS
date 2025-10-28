@@ -413,7 +413,7 @@
             this.grpAccountInfo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.grpAccountInfo.Location = new System.Drawing.Point(827, 102);
             this.grpAccountInfo.Name = "grpAccountInfo";
-            this.grpAccountInfo.Size = new System.Drawing.Size(347, 223);
+            this.grpAccountInfo.Size = new System.Drawing.Size(347, 417);
             this.grpAccountInfo.TabIndex = 14;
             this.grpAccountInfo.TabStop = false;
             this.grpAccountInfo.Text = "Thông Tin Tài Khoản";
