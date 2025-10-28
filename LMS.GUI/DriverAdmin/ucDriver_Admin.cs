@@ -567,10 +567,12 @@ namespace LMS.GUI.DriverAdmin
             btnViewDetail.Enabled = has;
 
             if (this.Controls.Find("btnAssignVehicle", true).FirstOrDefault() is Button btnAssignVehicle)
-                btnAssignVehicle.Enabled = has && d.VehicleId == null;
+                //btnAssignVehicle.Enabled = has && d.VehicleId == null;
+                btnAssignVehicle.Enabled = has && d.Vehicle == null;
 
             if (this.Controls.Find("btnUnassignVehicle", true).FirstOrDefault() is Button btnUnassignVehicle)
-                btnUnassignVehicle.Enabled = has && d.VehicleId != null;
+                //btnUnassignVehicle.Enabled = has && d.VehicleId != null;
+                btnUnassignVehicle.Enabled = has && d.Vehicle != null;
         }
 
         private void SelectRowById(int driverId)

@@ -423,6 +423,7 @@
             this.picAvatar.Location = new System.Drawing.Point(170, 391);
             this.picAvatar.Name = "picAvatar";
             this.picAvatar.Size = new System.Drawing.Size(251, 164);
+            this.picAvatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picAvatar.TabIndex = 22;
             this.picAvatar.TabStop = false;
             // 

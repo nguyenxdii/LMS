@@ -43,35 +43,37 @@
     <Reference Include="Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261, processorArchitecture=MSIL">
       <HintPath>..\packages\Guna.UI2.WinForms.2.0.4.7\lib\net472\Guna.UI2.dll</HintPath>
     </Reference>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.WinForms, Version=0.9.7.1, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.WinForms.0.9.7.1\lib\net45\LiveCharts.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
     <Reference Include="System.Management" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\202510261316544_InitialCreate.cs" />
-    <Compile Include="Migrations\202510261316544_InitialCreate.Designer.cs">
-      <DependentUpon>202510261316544_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202510270530110_AddNoteToRouteStop.cs" />
-    <Compile Include="Migrations\202510270530110_AddNoteToRouteStop.Designer.cs">
-      <DependentUpon>202510270530110_AddNoteToRouteStop.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202510280158368_AddAvaterToCustomer.cs" />
-    <Compile Include="Migrations\202510280158368_AddAvaterToCustomer.Designer.cs">
-      <DependentUpon>202510280158368_AddAvaterToCustomer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202510280250384_AddAvatarToDriver.cs" />
-    <Compile Include="Migrations\202510280250384_AddAvatarToDriver.Designer.cs">
-      <DependentUpon>202510280250384_AddAvatarToDriver.cs</DependentUpon>
+    <Compile Include="Migrations\202510281239007_InitialCreate.cs" />
+    <Compile Include="Migrations\202510281239007_InitialCreate.Designer.cs">
+      <DependentUpon>202510281239007_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -99,17 +101,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202510261316544_InitialCreate.resx">
-      <DependentUpon>202510261316544_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202510270530110_AddNoteToRouteStop.resx">
-      <DependentUpon>202510270530110_AddNoteToRouteStop.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202510280158368_AddAvaterToCustomer.resx">
-      <DependentUpon>202510280158368_AddAvaterToCustomer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202510280250384_AddAvatarToDriver.resx">
-      <DependentUpon>202510280250384_AddAvatarToDriver.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202510281239007_InitialCreate.resx">
+      <DependentUpon>202510281239007_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

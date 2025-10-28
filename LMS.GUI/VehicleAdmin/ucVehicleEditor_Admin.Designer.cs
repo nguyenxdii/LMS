@@ -32,7 +32,6 @@
             this.pnlTop = new CSharp.Winform.UI.Panel();
             this.guna2ControlBox3 = new Guna.UI2.WinForms.Guna2ControlBox();
             this.groupBox1 = new CSharp.Winform.UI.GroupBox();
-            this.txtCapacity = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtPlateNo = new Guna.UI2.WinForms.Guna2TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.cmbType = new Guna.UI2.WinForms.Guna2ComboBox();
@@ -43,6 +42,7 @@
             this.btnSave = new Guna.UI2.WinForms.Guna2Button();
             this.btnCancel = new Guna.UI2.WinForms.Guna2Button();
             this.panel1 = new CSharp.Winform.UI.Panel();
+            this.cmbSpecificType = new Guna.UI2.WinForms.Guna2ComboBox();
             this.pnlTop.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -84,9 +84,9 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.txtCapacity);
             this.groupBox1.Controls.Add(this.txtPlateNo);
             this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.cmbSpecificType);
             this.groupBox1.Controls.Add(this.cmbType);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
@@ -99,27 +99,6 @@
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Thông tin Tuyến đường";
-            // 
-            // txtCapacity
-            // 
-            this.txtCapacity.BorderRadius = 15;
-            this.txtCapacity.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtCapacity.DefaultText = "";
-            this.txtCapacity.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.txtCapacity.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.txtCapacity.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtCapacity.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtCapacity.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtCapacity.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.txtCapacity.ForeColor = System.Drawing.Color.Black;
-            this.txtCapacity.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtCapacity.Location = new System.Drawing.Point(138, 114);
-            this.txtCapacity.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtCapacity.Name = "txtCapacity";
-            this.txtCapacity.PlaceholderText = "";
-            this.txtCapacity.SelectedText = "";
-            this.txtCapacity.Size = new System.Drawing.Size(236, 36);
-            this.txtCapacity.TabIndex = 12;
             // 
             // txtPlateNo
             // 
@@ -260,6 +239,22 @@
             this.panel1.Size = new System.Drawing.Size(912, 388);
             this.panel1.TabIndex = 10;
             // 
+            // cmbSpecificType
+            // 
+            this.cmbSpecificType.BackColor = System.Drawing.Color.Transparent;
+            this.cmbSpecificType.BorderRadius = 15;
+            this.cmbSpecificType.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbSpecificType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSpecificType.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbSpecificType.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cmbSpecificType.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.cmbSpecificType.ForeColor = System.Drawing.Color.Black;
+            this.cmbSpecificType.ItemHeight = 30;
+            this.cmbSpecificType.Location = new System.Drawing.Point(138, 116);
+            this.cmbSpecificType.Name = "cmbSpecificType";
+            this.cmbSpecificType.Size = new System.Drawing.Size(236, 36);
+            this.cmbSpecificType.TabIndex = 11;
+            // 
             // ucVehicleEditor_Admin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -294,6 +289,6 @@
         private Guna.UI2.WinForms.Guna2Button btnSave;
         private Guna.UI2.WinForms.Guna2Button btnCancel;
         private CSharp.Winform.UI.Panel panel1;
-        private Guna.UI2.WinForms.Guna2TextBox txtCapacity;
+        private Guna.UI2.WinForms.Guna2ComboBox cmbSpecificType;
     }
 }

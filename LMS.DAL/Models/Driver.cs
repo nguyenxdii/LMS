@@ -24,7 +24,7 @@ namespace LMS.DAL.Models
         public byte[] AvatarData { get; set; }
 
         // Gán xe sau này (nếu cần)
-        public int? VehicleId { get; set; }
+        //public int? VehicleId { get; set; }
         public virtual Vehicle Vehicle { get; set; }
 
         public virtual ICollection<UserAccount> Accounts { get; set; } = new HashSet<UserAccount>();

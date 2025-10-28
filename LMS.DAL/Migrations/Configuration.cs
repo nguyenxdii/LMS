@@ -80,8 +80,8 @@ namespace LMS.DAL.Migrations
 
             // ===== Seed Drivers (Assign VehicleId HERE) =====
             db.Drivers.AddOrUpdate(d => d.Phone,
-                new Driver { FullName = "Nguyễn Văn Tài", Phone = "0905556667", LicenseType = "B2", CitizenId = "079011111111", IsActive = true, VehicleId = vehicle1?.Id }, // Assign VehicleId
-                new Driver { FullName = "Trần Văn Xe", Phone = "0907778889", LicenseType = "C", CitizenId = "079022222222", IsActive = true, VehicleId = vehicle2?.Id }       // Assign VehicleId
+                new Driver { FullName = "Nguyễn Văn Tài", Phone = "0905556667", LicenseType = "B2", CitizenId = "079011111111", IsActive = true }, // Assign VehicleId
+                new Driver { FullName = "Trần Văn Xe", Phone = "0907778889", LicenseType = "C", CitizenId = "079022222222", IsActive = true }       // Assign VehicleId
             );
             db.SaveChanges(); // Save Drivers to get IDs
             // Get Driver ID by querying again

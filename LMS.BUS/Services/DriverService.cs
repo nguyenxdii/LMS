@@ -67,25 +67,55 @@ namespace LMS.BUS.Services
         }
 
         // === 3. Dùng cho ucDriverDetail_Admin (View Detail "A") ===
+        //public DriverDetailDto GetDriverDetails(int driverId)
+        //{
+        //    using (var db = new LogisticsDbContext())
+        //    {
+        //        var dto = new DriverDetailDto();
+
+        //        dto.Driver = db.Drivers.Find(driverId);
+        //        if (dto.Driver == null)
+        //            throw new Exception($"Không tìm thấy tài xế ID={driverId}.");
+
+        //        dto.Account = db.UserAccounts
+        //                        .FirstOrDefault(a => a.DriverId == driverId);
+
+        //        // Lấy lịch sử chuyến hàng
+        //        dto.Shipments = db.Shipments
+        //                       .Where(s => s.DriverId == driverId)
+        //                       .Include(s => s.Order) // Load kèm đơn hàng
+        //                       .Include(s => s.FromWarehouse) // Load kèm kho đi
+        //                       .Include(s => s.ToWarehouse)  // Load kèm kho đến
+        //                       .OrderByDescending(s => s.UpdatedAt)
+        //                       .ToList();
+        //        return dto;
+        //    }
+        //}
         public DriverDetailDto GetDriverDetails(int driverId)
         {
             using (var db = new LogisticsDbContext())
             {
                 var dto = new DriverDetailDto();
 
-                dto.Driver = db.Drivers.Find(driverId);
+                // --- SỬA DÒNG NÀY ---
+                // dto.Driver = db.Drivers.Find(driverId); // Dòng cũ
+                dto.Driver = db.Drivers
+                               .Include(d => d.Vehicle) // <-- THÊM INCLUDE ĐỂ TẢI KÈM XE
+                               .FirstOrDefault(d => d.Id == driverId); // Dùng FirstOrDefault thay Find
+                                                                       // --- KẾT THÚC SỬA ---
+
                 if (dto.Driver == null)
                     throw new Exception($"Không tìm thấy tài xế ID={driverId}.");
 
+                // Giữ nguyên phần tải Account và Shipments
                 dto.Account = db.UserAccounts
                                 .FirstOrDefault(a => a.DriverId == driverId);
 
-                // Lấy lịch sử chuyến hàng
                 dto.Shipments = db.Shipments
                                .Where(s => s.DriverId == driverId)
-                               .Include(s => s.Order) // Load kèm đơn hàng
-                               .Include(s => s.FromWarehouse) // Load kèm kho đi
-                               .Include(s => s.ToWarehouse)  // Load kèm kho đến
+                               .Include(s => s.Order)
+                               .Include(s => s.FromWarehouse)
+                               .Include(s => s.ToWarehouse)
                                .OrderByDescending(s => s.UpdatedAt)
                                .ToList();
                 return dto;
@@ -292,7 +322,7 @@ namespace LMS.BUS.Services
 
                 return db.Drivers
                          .Where(d => d.IsActive
-                                  && d.VehicleId == null     // CHƯA có xe
+                                  && d.Vehicle == null     // CHƯA có xe
                                   && !busyIds.Contains(d.Id))// KHÔNG bận
                          .OrderBy(d => d.FullName)
                          .ToList();

@@ -153,6 +153,16 @@ namespace LMS.GUI.DriverAdmin // Đổi namespace
                     lblPassword.Text = "Mật khẩu: (N/A)";
                     lblAccountStatus.Text = "Trạng thái TK: (N/A)";
                 }
+                if (dto.Driver?.Vehicle != null) // Kiểm tra xem Driver có được gán xe không
+                {
+                    // Nếu có xe, hiển thị biển số và loại xe
+                    lblVehiclePlate.Text = $"Xe đang chạy: {dto.Driver.Vehicle.PlateNo} ({dto.Driver.Vehicle.Type})";
+                }
+                else
+                {
+                    // Nếu không có xe, hiển thị "(Chưa gán)"
+                    lblVehiclePlate.Text = "Xe đang chạy: (Chưa gán)";
+                }
 
                 // Gán dữ liệu Lịch sử chuyến hàng
                 var shipmentData = dto.Shipments.Select(s => new

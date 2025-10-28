@@ -7,13 +7,13 @@ namespace LMS.DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.5.1")]
-    public sealed partial class AddNoteToRouteStop : IMigrationMetadata
+    public sealed partial class InitialCreate : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddNoteToRouteStop));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate));
         
         string IMigrationMetadata.Id
         {
-            get { return "202510270530110_AddNoteToRouteStop"; }
+            get { return "202510281239007_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source

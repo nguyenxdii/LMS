@@ -505,7 +505,6 @@ namespace LMS.GUI.ShipmentAdmin
         #endregion
 
         #region Actions
-        // ... (OpenSearchPopup, OpenDetailPopup giữ nguyên) ...
         private void OpenSearchPopup()
         {
             int? selectedId = null;

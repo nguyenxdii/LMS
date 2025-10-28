@@ -320,6 +320,25 @@ namespace LMS.BUS.Services
             }
         }
 
+        public Dictionary<OrderStatus, int> GetOrderStatusCounts()
+        {
+            using (var db = new LogisticsDbContext())
+            {
+                var counts = db.Orders
+                               .GroupBy(o => o.Status)
+                               .Select(g => new { Status = g.Key, Count = g.Count() })
+                               .ToDictionary(x => x.Status, x => x.Count);
+
+                foreach (OrderStatus status in Enum.GetValues(typeof(OrderStatus)))
+                {
+                    if (!counts.ContainsKey(status))
+                    {
+                        counts.Add(status, 0);
+                    }
+                }
+                return counts;
+            }
+        }
 
     }
 }

@@ -96,10 +96,25 @@ namespace LMS.DAL
                 .WillCascadeOnDelete(false);         // Không xóa Log khi xóa Driver
 
             // *** CẤU HÌNH MỐI QUAN HỆ 1-1 GIỮA DRIVER VÀ VEHICLE ***
-            mb.Entity<Driver>()
-                .HasOptional(d => d.Vehicle)         // Driver có thể có hoặc không có Vehicle
-                .WithOptionalPrincipal(v => v.Driver); // Vehicle cũng có thể có hoặc không có Driver, và liên kết ngược lại qua thuộc tính 'Driver'
+            //mb.Entity<Driver>()
+            //    .HasOptional(d => d.Vehicle)         // Driver có thể có hoặc không có Vehicle
+            //    .WithOptionalPrincipal(v => v.Driver); // Vehicle cũng có thể có hoặc không có Driver, và liên kết ngược lại qua thuộc tính 'Driver'
 
+            // Driver (principal) 1 -> 0..1 Vehicle (dependent), FK: Vehicles.Driver_Id
+            //mb.Entity<Vehicle>()
+            //  .HasOptional(v => v.Driver)     // Vehicle có thể có hoặc không có Driver
+            //  .WithMany()                     // Không cần collection ngược trong Driver
+            //  .Map(m => m.MapKey("Driver_Id"));// Đặt đúng tên cột FK hiện có trong bảng Vehicles
+            // *** CẤU HÌNH MỐI QUAN HỆ 1-1 GIỮA DRIVER VÀ VEHICLE ***
+            // Ta định nghĩa 2 chiều của mối quan hệ
+            // Bắt đầu từ phía Dependent (Vehicle, là bảng chứa FK)
+            mb.Entity<Vehicle>()
+                 // Chỉ định Vehicle có thể có 1 Driver
+                 .HasOptional(vehicle => vehicle.Driver)
+                 // Chỉ định Driver có thể có 1 Vehicle, và FK nằm trên Vehicle
+                 .WithOptionalDependent(driver => driver.Vehicle)
+                 // Ánh xạ rõ ràng cột FK tên là "Driver_Id"
+                 .Map(m => m.MapKey("Driver_Id"));
             // --- Gọi hàm base cuối cùng ---
             base.OnModelCreating(mb);
         }

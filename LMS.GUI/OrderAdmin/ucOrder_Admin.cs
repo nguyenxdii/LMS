@@ -34,27 +34,123 @@ namespace LMS.GUI.OrderAdmin
             };
         }
 
+        //#region Grid config
+        //private void ConfigureGrid()
+        //{
+        //    var g = dgvOrders;
+        //    g.Columns.Clear();
+        //    g.ApplyBaseStyle();
+
+        //    g.Columns.Add(new DataGridViewTextBoxColumn
+        //    {
+        //        Name = "Id",
+        //        DataPropertyName = "Id",
+        //        Visible = false
+        //    });
+        //    // Thêm các cột với SortMode = Programmatic
+        //    g.Columns.Add(new DataGridViewTextBoxColumn
+        //    {
+        //        Name = "OrderNo",
+        //        DataPropertyName = "OrderNo",
+        //        HeaderText = "Mã ĐH",
+        //        AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+        //        SortMode = DataGridViewColumnSortMode.Programmatic
+        //    });
+        //    g.Columns.Add(new DataGridViewTextBoxColumn
+        //    {
+        //        Name = "CustomerName",
+        //        DataPropertyName = "CustomerName",
+        //        HeaderText = "Khách hàng",
+        //        AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+        //        SortMode = DataGridViewColumnSortMode.Programmatic
+        //    });
+        //    g.Columns.Add(new DataGridViewTextBoxColumn
+        //    {
+        //        Name = "OriginWarehouseName",
+        //        DataPropertyName = "OriginWarehouseName",
+        //        HeaderText = "Kho gửi",
+        //        AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+        //        SortMode = DataGridViewColumnSortMode.Programmatic
+        //    });
+        //    g.Columns.Add(new DataGridViewTextBoxColumn
+        //    {
+        //        Name = "DestWarehouseName",
+        //        DataPropertyName = "DestWarehouseName",
+        //        HeaderText = "Kho nhận",
+        //        AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+        //        SortMode = DataGridViewColumnSortMode.Programmatic
+        //    });
+        //    g.Columns.Add(new DataGridViewTextBoxColumn
+        //    {
+        //        Name = "TotalFee",
+        //        DataPropertyName = "TotalFee",
+        //        HeaderText = "Tổng phí",
+        //        AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+        //        DefaultCellStyle = { Format = "N0", Alignment = DataGridViewContentAlignment.MiddleRight },
+        //        SortMode = DataGridViewColumnSortMode.Programmatic
+        //    });
+        //    g.Columns.Add(new DataGridViewTextBoxColumn
+        //    {
+        //        Name = "DepositAmount",
+        //        DataPropertyName = "DepositAmount",
+        //        HeaderText = "Đặt cọc",
+        //        AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+        //        DefaultCellStyle = { Format = "N0", Alignment = DataGridViewContentAlignment.MiddleRight },
+        //        SortMode = DataGridViewColumnSortMode.Programmatic
+        //    });
+        //    g.Columns.Add(new DataGridViewTextBoxColumn
+        //    {
+        //        Name = "Status", // Giữ nguyên Name là "Status"
+        //        DataPropertyName = "Status",
+        //        HeaderText = "Trạng thái",
+        //        AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+        //        SortMode = DataGridViewColumnSortMode.Programmatic
+        //    });
+        //    g.Columns.Add(new DataGridViewTextBoxColumn
+        //    {
+        //        Name = "CreatedAt",
+        //        DataPropertyName = "CreatedAt",
+        //        HeaderText = "Ngày tạo",
+        //        AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+        //        DefaultCellStyle = { Format = "dd/MM/yyyy HH:mm", Alignment = DataGridViewContentAlignment.MiddleCenter },
+        //        SortMode = DataGridViewColumnSortMode.Programmatic
+        //    });
+
+        //    // double buffer
+        //    try
+        //    {
+        //        var property = g.GetType().GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic);
+        //        if (property != null)
+        //        {
+        //            property.SetValue(g, true, null);
+        //        }
+        //    }
+        //    catch { }
+        //}
+        //#endregion
         #region Grid config
         private void ConfigureGrid()
         {
             var g = dgvOrders;
             g.Columns.Clear();
-            g.ApplyBaseStyle();
+            g.ApplyBaseStyle(); // Make sure this extension method exists and applies basic styling
 
+            // Add hidden ID column
             g.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "Id",
                 DataPropertyName = "Id",
                 Visible = false
             });
-            // Thêm các cột với SortMode = Programmatic
+
+            // Add other columns with AllCells AutoSizeMode
             g.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "OrderNo",
                 DataPropertyName = "OrderNo",
                 HeaderText = "Mã ĐH",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
-                SortMode = DataGridViewColumnSortMode.Programmatic
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells, // Let column adjust to content
+                SortMode = DataGridViewColumnSortMode.Programmatic // Use custom sorting
             });
             g.Columns.Add(new DataGridViewTextBoxColumn
             {
@@ -86,7 +182,7 @@ namespace LMS.GUI.OrderAdmin
                 DataPropertyName = "TotalFee",
                 HeaderText = "Tổng phí",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
-                DefaultCellStyle = { Format = "N0", Alignment = DataGridViewContentAlignment.MiddleRight },
+                DefaultCellStyle = { Format = "N0", Alignment = DataGridViewContentAlignment.MiddleRight }, // Format as number
                 SortMode = DataGridViewColumnSortMode.Programmatic
             });
             g.Columns.Add(new DataGridViewTextBoxColumn
@@ -100,32 +196,40 @@ namespace LMS.GUI.OrderAdmin
             });
             g.Columns.Add(new DataGridViewTextBoxColumn
             {
-                Name = "Status", // Giữ nguyên Name là "Status"
-                DataPropertyName = "Status",
+                Name = "Status",
+                DataPropertyName = "Status", // Keep DataPropertyName as "Status" for enum
                 HeaderText = "Trạng thái",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 SortMode = DataGridViewColumnSortMode.Programmatic
             });
+
+            // === Last column set to Fill ===
             g.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "CreatedAt",
                 DataPropertyName = "CreatedAt",
                 HeaderText = "Ngày tạo",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill, // Make this column fill remaining space
+                MinimumWidth = 120, // Ensure it's not too narrow
                 DefaultCellStyle = { Format = "dd/MM/yyyy HH:mm", Alignment = DataGridViewContentAlignment.MiddleCenter },
                 SortMode = DataGridViewColumnSortMode.Programmatic
             });
 
-            // double buffer
+            // Enable double buffering for smoother scrolling
             try
             {
-                var property = g.GetType().GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic);
-                if (property != null)
+                // Use reflection to access the protected DoubleBuffered property
+                var dgvType = g.GetType();
+                var pi = dgvType.GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic);
+                if (pi != null)
                 {
-                    property.SetValue(g, true, null);
+                    pi.SetValue(g, true, null);
                 }
             }
-            catch { }
+            catch (Exception)
+            {
+                // Ignore exceptions if DoubleBuffered property cannot be set
+            }
         }
         #endregion
 
@@ -223,7 +327,7 @@ namespace LMS.GUI.OrderAdmin
                 Text = "Tìm đơn hàng",
                 StartPosition = FormStartPosition.CenterScreen,
                 FormBorderStyle = FormBorderStyle.None,
-                Size = new Size(1199, 689)
+                Size = new Size(1195, 762)
             })
             {
                 var uc = new ucOrderSearch_Admin { Dock = DockStyle.Fill };

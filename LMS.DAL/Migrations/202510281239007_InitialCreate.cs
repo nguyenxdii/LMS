@@ -16,6 +16,7 @@
                         Phone = c.String(maxLength: 15),
                         Email = c.String(maxLength: 120),
                         Address = c.String(nullable: false, maxLength: 200),
+                        AvatarData = c.Binary(),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -51,7 +52,7 @@
                         CitizenId = c.String(maxLength: 12),
                         LicenseType = c.String(nullable: false, maxLength: 10),
                         IsActive = c.Boolean(nullable: false),
-                        VehicleId = c.Int(),
+                        AvatarData = c.Binary(),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -144,6 +145,7 @@
                         PlannedETA = c.DateTime(),
                         ArrivedAt = c.DateTime(),
                         DepartedAt = c.DateTime(),
+                        Note = c.String(maxLength: 500),
                         Status = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
@@ -236,8 +238,8 @@
             DropForeignKey("dbo.RouteTemplateStops", "TemplateId", "dbo.RouteTemplates");
             DropForeignKey("dbo.RouteTemplateStops", "WarehouseId", "dbo.Warehouses");
             DropForeignKey("dbo.RouteTemplates", "FromWarehouseId", "dbo.Warehouses");
-            DropForeignKey("dbo.Vehicles", "Driver_Id", "dbo.Drivers");
             DropForeignKey("dbo.Shipments", "VehicleId", "dbo.Vehicles");
+            DropForeignKey("dbo.Vehicles", "Driver_Id", "dbo.Drivers");
             DropForeignKey("dbo.Shipments", "ToWarehouseId", "dbo.Warehouses");
             DropForeignKey("dbo.RouteStops", "WarehouseId", "dbo.Warehouses");
             DropForeignKey("dbo.RouteStops", "ShipmentId", "dbo.Shipments");
