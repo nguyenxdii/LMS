@@ -12,6 +12,7 @@ namespace LMS.BUS.Dtos
         public string Address { get; set; }
         public string Username { get; set; }
         public string Password { get; set; } // Chỉ set khi Add hoặc Reset
+        public byte[] AvatarData { get; set; }
     }
 
     public class CustomerDetailDto

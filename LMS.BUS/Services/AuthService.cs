@@ -3,6 +3,7 @@ using LMS.DAL.Models;
 using System;
 using System.Data.Entity; // Keep this if you use other EF features here
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace LMS.BUS.Services
 {
@@ -44,10 +45,15 @@ namespace LMS.BUS.Services
 
         // ============ REGISTER CUSTOMER ============
         public void RegisterCustomer(string fullName, string username, string password,
-                                     string address, string phone, string email)
+                                     string address, string phone, string email, byte[] avatarData)
         {
             using (var db = new LogisticsDbContext())
             {
+                if (string.IsNullOrWhiteSpace(email) || !Regex.IsMatch(email, @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"))
+                {
+                    throw new InvalidOperationException("Email không hợp lệ (Chỉ dùng ký tự la-tinh, không dấu).");
+                }
+
                 if (db.UserAccounts.Any(u => u.Username == username))
                     throw new InvalidOperationException("Tên tài khoản đã tồn tại.");
 
@@ -56,7 +62,8 @@ namespace LMS.BUS.Services
                     Name = fullName,
                     Address = address,
                     Phone = phone,
-                    Email = email
+                    Email = email,
+                    AvatarData = avatarData
                 };
                 db.Customers.Add(cus);
                 db.SaveChanges(); // Lưu để lấy Id
@@ -68,7 +75,7 @@ namespace LMS.BUS.Services
                     Role = UserRole.Customer,
                     CustomerId = cus.Id,
                     IsActive = true, // Tài khoản mới luôn Active
-                    CreatedAt = DateTime.Now
+                    CreatedAt = DateTime.Now,
                 };
                 db.UserAccounts.Add(acc);
                 db.SaveChanges();
@@ -77,7 +84,7 @@ namespace LMS.BUS.Services
 
         // ============ REGISTER DRIVER ============
         public void RegisterDriver(string fullName, string username, string password,
-                                   string phone, string licenseType, string citizenId)
+                                   string phone, string licenseType, string citizenId, byte[] avatarData)
         {
             using (var db = new LogisticsDbContext())
             {
@@ -90,7 +97,8 @@ namespace LMS.BUS.Services
                     Phone = phone,
                     LicenseType = licenseType,
                     CitizenId = citizenId,
-                    IsActive = true // Driver mới mặc định Active
+                    IsActive = true, // Driver mới mặc định Active
+                    AvatarData = avatarData,
                 };
                 db.Drivers.Add(drv);
                 db.SaveChanges(); // Lưu để lấy Id

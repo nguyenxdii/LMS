@@ -2,6 +2,7 @@
 using LMS.BUS.Services;
 using System;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -14,8 +15,6 @@ namespace LMS.GUI.Auth
         private readonly Guna2HtmlToolTip htip = new Guna2HtmlToolTip();
         private readonly ContextMenuStrip emailMenu = new ContextMenuStrip();
         private readonly string[] emailDomains = new[] { "gmail.com", "yahoo.com", "outlook.com", "hotmail.com", "icloud.com", "student.edu.vn", "company.com" };
-
-        //public Button RegisterButton => btnRegisterC;
 
         public ucRegister_Cus(AuthService auth)
         {
@@ -37,7 +36,11 @@ namespace LMS.GUI.Auth
             chkShowPassC1.CheckedChanged += (s, e) => TogglePasswordMask(txtPasswordC, chkShowPassC1.Checked);
             chkShowPassC2.CheckedChanged += (s, e) => TogglePasswordMask(txtConfirmC, chkShowPassC2.Checked);
 
+            // cấu hình picAvatar
+            picAvatar.SizeMode = PictureBoxSizeMode.Zoom;
+
             // Gán sự kiện nút
+            btnChooseImage.Click += btnChooseImage_Click;
             btnRegisterC.Click += btnRegisterC_Click;
             btnExitC.Click += btnExitC_Click;
         }
@@ -162,6 +165,37 @@ namespace LMS.GUI.Auth
             tb.PasswordChar = '●';
         }
 
+        public byte[] ImageToByteArray(Image imageIn)
+        {
+            if (imageIn == null)
+                return null;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                // Dùng định dạng gốc của ảnh để giữ chất lượng
+                imageIn.Save(ms, imageIn.RawFormat);
+                return ms.ToArray();
+            }
+        }
+        private void btnChooseImage_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFile = new OpenFileDialog();
+            openFile.Filter = "Image Files (*.jpg;*.jpeg;*.png;*.gif)|*.jpg;*.jpeg;*.png;*.gif";
+            openFile.Title = "Chọn ảnh đại diện";
+
+            if (openFile.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    // Tải ảnh vào PictureBox
+                    picAvatar.Image = Image.FromFile(openFile.FileName);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Không thể tải ảnh: " + ex.Message, "Lỗi Ảnh");
+                }
+            }
+        }
+
         private void btnRegisterC_Click(object sender, EventArgs e)
         {
             try
@@ -215,7 +249,16 @@ namespace LMS.GUI.Auth
                     txtCusEmail.Focus();
                     return;
                 }
-                _auth.RegisterCustomer(fullName, username, pass, addr, phone, email);
+                byte[] avatarData = null;
+                // (Giả sử ảnh default của bạn tên là "default_avatar" trong Resources)
+                if (picAvatar.Image != null &&
+                    !picAvatar.Image.Equals(LMS.GUI.Properties.Resources.default_avatar))
+                {
+                    avatarData = ImageToByteArray(picAvatar.Image);
+                }
+
+
+                _auth.RegisterCustomer(fullName, username, pass, addr, phone, email, avatarData);
                 MessageBox.Show("Đăng ký khách hàng thành công!", "Thành công");
                 this.FindForm()?.Close();
             }

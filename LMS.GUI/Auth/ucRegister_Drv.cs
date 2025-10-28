@@ -2,6 +2,7 @@
 using LMS.BUS.Services;
 using System;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -37,6 +38,7 @@ namespace LMS.GUI.Auth
             cmbLicenseType.SelectedIndex = -1;
 
             // Gán sự kiện nút
+            btnChooseImage.Click += btnChooseImage_Click;
             btnRegisterD.Click += btnRegisterD_Click;
             btnExitD.Click += btnExitD_Click;
         }
@@ -105,6 +107,36 @@ namespace LMS.GUI.Auth
             tb.PasswordChar = '●';
         }
 
+        public byte[] ImageToByteArray(Image imageIn)
+        {
+            if (imageIn == null)
+                return null;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                imageIn.Save(ms, imageIn.RawFormat);
+                return ms.ToArray();
+            }
+        }
+
+        private void btnChooseImage_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFile = new OpenFileDialog();
+            openFile.Filter = "Image Files (*.jpg;*.jpeg;*.png;*.gif)|*.jpg;*.jpeg;*.png;*.gif";
+            openFile.Title = "Chọn ảnh đại diện cho tài xế";
+
+            if (openFile.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    picAvatar.Image = Image.FromFile(openFile.FileName);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Không thể tải ảnh: " + ex.Message, "Lỗi Ảnh");
+                }
+            }
+        }
+
         private void btnRegisterD_Click(object sender, EventArgs e)
         {
             try
@@ -158,7 +190,14 @@ namespace LMS.GUI.Auth
                     txtCitizenId.Focus();
                     return;
                 }
-                _auth.RegisterDriver(fullName, username, pass, phone, licenseType, citizenId);
+                byte[] avatarData = null;
+                if (picAvatar.Image != null &&
+                    !picAvatar.Image.Equals(LMS.GUI.Properties.Resources.default_avatar))
+                {
+                    avatarData = ImageToByteArray(picAvatar.Image);
+                }
+
+                _auth.RegisterDriver(fullName, username, pass, phone, licenseType, citizenId, avatarData);
                 MessageBox.Show("Đăng ký tài xế thành công!", "Thành công");
                 this.FindForm()?.Close();
             }

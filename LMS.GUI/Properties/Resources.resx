@@ -124,6 +124,9 @@
   <data name="dashboard-1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dashboard-1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="default_avatar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\default_avatar.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="dot-mini" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dot-mini.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -141,5 +144,8 @@
   </data>
   <data name="1login" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1login.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="default_avatar 2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\default_avatar 21.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

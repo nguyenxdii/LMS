@@ -277,8 +277,19 @@
     <Compile Include="OrderDriver\ucShipmentRun_Drv.Designer.cs">
       <DependentUpon>ucShipmentRun_Drv.cs</DependentUpon>
     </Compile>
+    <Compile Include="ProfileCustomer\ucCustomerProfile.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProfileCustomer\ucCustomerProfile.Designer.cs">
+      <DependentUpon>ucCustomerProfile.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="RouteTemplateAdmin\ucRouteTemplateEditor_Admin.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -450,6 +461,9 @@
     <EmbeddedResource Include="OrderDriver\ucShipmentRun_Drv.resx">
       <DependentUpon>ucShipmentRun_Drv.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ProfileCustomer\ucCustomerProfile.resx">
+      <DependentUpon>ucCustomerProfile.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -498,11 +512,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -524,6 +533,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MetroFramework.txt" />
+    <None Include="Resources\default_avatar 21.png" />
+    <None Include="Resources\default_avatar 2.png" />
+    <None Include="Resources\default_avatar 1.jpg" />
+    <None Include="Resources\default_avatar.jpg" />
     <None Include="Resources\1login.png" />
     <None Include="Resources\login1.png" />
     <None Include="Resources\login.png" />

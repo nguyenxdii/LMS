@@ -65,6 +65,14 @@
     <Compile Include="Migrations\202510270530110_AddNoteToRouteStop.Designer.cs">
       <DependentUpon>202510270530110_AddNoteToRouteStop.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202510280158368_AddAvaterToCustomer.cs" />
+    <Compile Include="Migrations\202510280158368_AddAvaterToCustomer.Designer.cs">
+      <DependentUpon>202510280158368_AddAvaterToCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202510280250384_AddAvatarToDriver.cs" />
+    <Compile Include="Migrations\202510280250384_AddAvatarToDriver.Designer.cs">
+      <DependentUpon>202510280250384_AddAvatarToDriver.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Driver.cs" />
@@ -96,6 +104,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202510270530110_AddNoteToRouteStop.resx">
       <DependentUpon>202510270530110_AddNoteToRouteStop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202510280158368_AddAvaterToCustomer.resx">
+      <DependentUpon>202510280158368_AddAvaterToCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202510280250384_AddAvatarToDriver.resx">
+      <DependentUpon>202510280250384_AddAvatarToDriver.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

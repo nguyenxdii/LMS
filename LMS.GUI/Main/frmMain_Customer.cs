@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Guna.UI2.WinForms;
+using LMS.BUS.Helpers;
+using LMS.BUS.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,8 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using LMS.BUS.Helpers;
-using LMS.BUS.Services;
+using static Guna.UI2.Native.WinApi;
 
 namespace LMS.GUI.Main
 {
@@ -70,7 +72,6 @@ namespace LMS.GUI.Main
             pnlTopBar.MouseUp += PnlTopBar_MouseUp;
 
             tsllblWelcome.Text = $"Xin chào, {AppSession.CustomerId}";
-
         }
 
         private void InitializeNavigationButtons()
@@ -89,7 +90,10 @@ namespace LMS.GUI.Main
             }
 
             btnHome.Click += btnHome_Click;
+            btnAccount.Click += BtnAccount_Click;
         }
+
+
 
         private void ResetButtonStyles()
         {
@@ -210,6 +214,15 @@ namespace LMS.GUI.Main
             LoadUc(new LMS.GUI.Main.ucDashboard_Cus());
             lblPageTitle.Text = "Trang Chủ";
         }
+        private void BtnAccount_Click(object sender, EventArgs e)
+        {
+            ResetButtonStyles();
+            LoadUc(new LMS.GUI.ProfileCustomer.ucCustomerProfile());
+            lblPageTitle.Text = "Tài Khoản Khách Hàng";
+        }
+
+
+
         private void btnLogOut_Click(object sender, EventArgs e)
         {
             this.Close();

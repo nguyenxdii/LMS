@@ -19,6 +19,7 @@ namespace LMS.DAL.Models
 
         [Required, StringLength(200)]
         public string Address { get; set; }
+        public byte[] AvatarData { get; set; } // lưu trực tiếp vào db, nên là không khuyên dùng
 
         public virtual ICollection<Order> Orders { get; set; } = new HashSet<Order>();
         public virtual ICollection<UserAccount> Accounts { get; set; } = new HashSet<UserAccount>();

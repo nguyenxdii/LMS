@@ -32,6 +32,7 @@
             this.btnRegisterD = new Guna.UI2.WinForms.Guna2Button();
             this.btnExitD = new Guna.UI2.WinForms.Guna2Button();
             this.tlpRegisterDrv = new System.Windows.Forms.TableLayoutPanel();
+            this.txtCitizenId = new Guna.UI2.WinForms.Guna2TextBox();
             this.cmbLicenseType = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -47,9 +48,12 @@
             this.txtConfirmD = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtPasswordD = new Guna.UI2.WinForms.Guna2TextBox();
             this.label1 = new CSharp.Winform.UI.Label();
-            this.txtCitizenId = new Guna.UI2.WinForms.Guna2TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.picAvatar = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.btnChooseImage = new Guna.UI2.WinForms.Guna2Button();
             this.tableLayoutPanel3.SuspendLayout();
             this.tlpRegisterDrv.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAvatar)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel3
@@ -60,7 +64,7 @@
             this.tableLayoutPanel3.Controls.Add(this.btnRegisterD, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.btnExitD, 1, 0);
             this.tableLayoutPanel3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(77, 396);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(73, 590);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.Padding = new System.Windows.Forms.Padding(10);
             this.tableLayoutPanel3.RowCount = 1;
@@ -127,10 +131,12 @@
             this.tlpRegisterDrv.Controls.Add(this.txtConfirmD, 1, 8);
             this.tlpRegisterDrv.Controls.Add(this.txtPasswordD, 1, 4);
             this.tlpRegisterDrv.Controls.Add(this.label1, 0, 14);
+            this.tlpRegisterDrv.Controls.Add(this.label2, 0, 15);
+            this.tlpRegisterDrv.Controls.Add(this.picAvatar, 1, 15);
             this.tlpRegisterDrv.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.tlpRegisterDrv.Location = new System.Drawing.Point(19, 0);
             this.tlpRegisterDrv.Name = "tlpRegisterDrv";
-            this.tlpRegisterDrv.RowCount = 15;
+            this.tlpRegisterDrv.RowCount = 16;
             this.tlpRegisterDrv.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlpRegisterDrv.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlpRegisterDrv.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -145,9 +151,31 @@
             this.tlpRegisterDrv.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlpRegisterDrv.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlpRegisterDrv.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlpRegisterDrv.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tlpRegisterDrv.Size = new System.Drawing.Size(424, 390);
+            this.tlpRegisterDrv.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tlpRegisterDrv.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
+            this.tlpRegisterDrv.Size = new System.Drawing.Size(424, 558);
             this.tlpRegisterDrv.TabIndex = 18;
+            // 
+            // txtCitizenId
+            // 
+            this.txtCitizenId.BorderRadius = 15;
+            this.txtCitizenId.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtCitizenId.DefaultText = "";
+            this.txtCitizenId.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtCitizenId.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtCitizenId.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtCitizenId.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtCitizenId.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtCitizenId.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.txtCitizenId.ForeColor = System.Drawing.Color.Black;
+            this.txtCitizenId.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtCitizenId.Location = new System.Drawing.Point(171, 347);
+            this.txtCitizenId.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtCitizenId.Name = "txtCitizenId";
+            this.txtCitizenId.PlaceholderText = "";
+            this.txtCitizenId.SelectedText = "";
+            this.txtCitizenId.Size = new System.Drawing.Size(249, 36);
+            this.txtCitizenId.TabIndex = 20;
             // 
             // cmbLicenseType
             // 
@@ -371,43 +399,63 @@
             this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.label1.Location = new System.Drawing.Point(3, 342);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(161, 48);
+            this.label1.Size = new System.Drawing.Size(161, 46);
             this.label1.TabIndex = 9;
             this.label1.Text = "CCCD";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // txtCitizenId
+            // label2
             // 
-            this.txtCitizenId.BorderRadius = 15;
-            this.txtCitizenId.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtCitizenId.DefaultText = "";
-            this.txtCitizenId.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.txtCitizenId.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.txtCitizenId.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtCitizenId.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtCitizenId.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtCitizenId.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.txtCitizenId.ForeColor = System.Drawing.Color.Black;
-            this.txtCitizenId.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtCitizenId.Location = new System.Drawing.Point(171, 347);
-            this.txtCitizenId.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtCitizenId.Name = "txtCitizenId";
-            this.txtCitizenId.PlaceholderText = "";
-            this.txtCitizenId.SelectedText = "";
-            this.txtCitizenId.Size = new System.Drawing.Size(249, 36);
-            this.txtCitizenId.TabIndex = 20;
+            this.label2.AutoSize = true;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.Location = new System.Drawing.Point(3, 388);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(161, 170);
+            this.label2.TabIndex = 21;
+            this.label2.Text = "Ảnh Đại Diện";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // picAvatar
+            // 
+            this.picAvatar.BorderRadius = 15;
+            this.picAvatar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picAvatar.ImageRotate = 0F;
+            this.picAvatar.Location = new System.Drawing.Point(170, 391);
+            this.picAvatar.Name = "picAvatar";
+            this.picAvatar.Size = new System.Drawing.Size(251, 164);
+            this.picAvatar.TabIndex = 22;
+            this.picAvatar.TabStop = false;
+            // 
+            // btnChooseImage
+            // 
+            this.btnChooseImage.BorderRadius = 15;
+            this.btnChooseImage.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnChooseImage.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnChooseImage.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnChooseImage.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnChooseImage.FillColor = System.Drawing.Color.Black;
+            this.btnChooseImage.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.btnChooseImage.ForeColor = System.Drawing.Color.White;
+            this.btnChooseImage.Location = new System.Drawing.Point(446, 453);
+            this.btnChooseImage.Margin = new System.Windows.Forms.Padding(0);
+            this.btnChooseImage.Name = "btnChooseImage";
+            this.btnChooseImage.Size = new System.Drawing.Size(74, 30);
+            this.btnChooseImage.TabIndex = 22;
+            this.btnChooseImage.Text = "Chọn";
             // 
             // ucRegister_Drv
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnChooseImage);
             this.Controls.Add(this.tableLayoutPanel3);
             this.Controls.Add(this.tlpRegisterDrv);
             this.Name = "ucRegister_Drv";
-            this.Size = new System.Drawing.Size(450, 666);
+            this.Size = new System.Drawing.Size(530, 695);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tlpRegisterDrv.ResumeLayout(false);
             this.tlpRegisterDrv.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAvatar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -434,5 +482,8 @@
         private Guna.UI2.WinForms.Guna2TextBox txtPasswordD;
         private CSharp.Winform.UI.Label label1;
         private Guna.UI2.WinForms.Guna2TextBox txtCitizenId;
+        private System.Windows.Forms.Label label2;
+        private Guna.UI2.WinForms.Guna2PictureBox picAvatar;
+        private Guna.UI2.WinForms.Guna2Button btnChooseImage;
     }
 }

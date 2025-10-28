@@ -52,7 +52,7 @@
             this.panel1.Font = new System.Drawing.Font("Tahoma", 8.25F);
             this.panel1.Location = new System.Drawing.Point(2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(484, 805);
+            this.panel1.Size = new System.Drawing.Size(565, 964);
             this.panel1.TabIndex = 0;
             // 
             // pnlTop
@@ -64,7 +64,7 @@
             this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTop.Location = new System.Drawing.Point(0, 0);
             this.pnlTop.Name = "pnlTop";
-            this.pnlTop.Size = new System.Drawing.Size(484, 100);
+            this.pnlTop.Size = new System.Drawing.Size(565, 100);
             this.pnlTop.TabIndex = 31;
             // 
             // guna2ControlBox3
@@ -73,7 +73,7 @@
             this.guna2ControlBox3.BorderRadius = 5;
             this.guna2ControlBox3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(24)))), ((int)(((byte)(29)))));
             this.guna2ControlBox3.IconColor = System.Drawing.Color.White;
-            this.guna2ControlBox3.Location = new System.Drawing.Point(411, 12);
+            this.guna2ControlBox3.Location = new System.Drawing.Point(492, 12);
             this.guna2ControlBox3.Name = "guna2ControlBox3";
             this.guna2ControlBox3.Size = new System.Drawing.Size(61, 39);
             this.guna2ControlBox3.TabIndex = 5;
@@ -84,7 +84,7 @@
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Tahoma", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(88, 12);
+            this.label2.Location = new System.Drawing.Point(128, 12);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(308, 72);
             this.label2.TabIndex = 4;
@@ -95,7 +95,7 @@
             this.pnlContent.Font = new System.Drawing.Font("Tahoma", 8.25F);
             this.pnlContent.Location = new System.Drawing.Point(13, 148);
             this.pnlContent.Name = "pnlContent";
-            this.pnlContent.Size = new System.Drawing.Size(450, 500);
+            this.pnlContent.Size = new System.Drawing.Size(530, 695);
             this.pnlContent.TabIndex = 35;
             // 
             // label1
@@ -128,9 +128,9 @@
             // 
             this.guna2Panel1.BackColor = System.Drawing.Color.White;
             this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.guna2Panel1.Location = new System.Drawing.Point(0, 705);
+            this.guna2Panel1.Location = new System.Drawing.Point(0, 864);
             this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(484, 100);
+            this.guna2Panel1.Size = new System.Drawing.Size(565, 100);
             this.guna2Panel1.TabIndex = 32;
             // 
             // frmRegister
@@ -138,7 +138,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(488, 809);
+            this.ClientSize = new System.Drawing.Size(569, 968);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmRegister";

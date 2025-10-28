@@ -31,6 +31,7 @@
             this.tlpRegisterCus = new System.Windows.Forms.TableLayoutPanel();
             this.label12 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
+            this.picAvatar = new Guna.UI2.WinForms.Guna2PictureBox();
             this.label21 = new System.Windows.Forms.Label();
             this.txtCusPhone = new Guna.UI2.WinForms.Guna2TextBox();
             this.label23 = new System.Windows.Forms.Label();
@@ -45,10 +46,13 @@
             this.txtConfirmC = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtPasswordC = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtCusEmail = new Guna.UI2.WinForms.Guna2TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.btnRegisterC = new Guna.UI2.WinForms.Guna2Button();
             this.btnExitC = new Guna.UI2.WinForms.Guna2Button();
+            this.btnChooseImage = new Guna.UI2.WinForms.Guna2Button();
             this.tlpRegisterCus.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAvatar)).BeginInit();
             this.tableLayoutPanel3.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,6 +64,7 @@
             this.tlpRegisterCus.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tlpRegisterCus.Controls.Add(this.label12, 0, 0);
             this.tlpRegisterCus.Controls.Add(this.label19, 0, 2);
+            this.tlpRegisterCus.Controls.Add(this.picAvatar, 1, 17);
             this.tlpRegisterCus.Controls.Add(this.label21, 0, 4);
             this.tlpRegisterCus.Controls.Add(this.txtCusPhone, 1, 15);
             this.tlpRegisterCus.Controls.Add(this.label23, 0, 8);
@@ -74,10 +79,11 @@
             this.tlpRegisterCus.Controls.Add(this.txtConfirmC, 1, 8);
             this.tlpRegisterCus.Controls.Add(this.txtPasswordC, 1, 4);
             this.tlpRegisterCus.Controls.Add(this.txtCusEmail, 1, 16);
+            this.tlpRegisterCus.Controls.Add(this.label1, 0, 17);
             this.tlpRegisterCus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.tlpRegisterCus.Location = new System.Drawing.Point(19, 3);
             this.tlpRegisterCus.Name = "tlpRegisterCus";
-            this.tlpRegisterCus.RowCount = 17;
+            this.tlpRegisterCus.RowCount = 18;
             this.tlpRegisterCus.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlpRegisterCus.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlpRegisterCus.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -95,7 +101,8 @@
             this.tlpRegisterCus.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlpRegisterCus.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlpRegisterCus.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlpRegisterCus.Size = new System.Drawing.Size(424, 392);
+            this.tlpRegisterCus.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tlpRegisterCus.Size = new System.Drawing.Size(424, 557);
             this.tlpRegisterCus.TabIndex = 18;
             // 
             // label12
@@ -121,6 +128,17 @@
             this.label19.TabIndex = 0;
             this.label19.Text = "Tài Khoản";
             this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // picAvatar
+            // 
+            this.picAvatar.BorderRadius = 15;
+            this.picAvatar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picAvatar.ImageRotate = 0F;
+            this.picAvatar.Location = new System.Drawing.Point(170, 395);
+            this.picAvatar.Name = "picAvatar";
+            this.picAvatar.Size = new System.Drawing.Size(251, 159);
+            this.picAvatar.TabIndex = 12;
+            this.picAvatar.TabStop = false;
             // 
             // label21
             // 
@@ -351,6 +369,17 @@
             this.txtCusEmail.Size = new System.Drawing.Size(249, 36);
             this.txtCusEmail.TabIndex = 10;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Location = new System.Drawing.Point(3, 392);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(161, 165);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Ảnh Đại Diện";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // tableLayoutPanel3
             // 
             this.tableLayoutPanel3.ColumnCount = 2;
@@ -359,7 +388,7 @@
             this.tableLayoutPanel3.Controls.Add(this.btnRegisterC, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.btnExitC, 1, 0);
             this.tableLayoutPanel3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(77, 391);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(117, 573);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.Padding = new System.Windows.Forms.Padding(10);
             this.tableLayoutPanel3.RowCount = 1;
@@ -402,16 +431,35 @@
             this.btnExitC.TabIndex = 13;
             this.btnExitC.Text = "Thoát";
             // 
+            // btnChooseImage
+            // 
+            this.btnChooseImage.BorderRadius = 15;
+            this.btnChooseImage.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnChooseImage.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnChooseImage.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnChooseImage.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnChooseImage.FillColor = System.Drawing.Color.Black;
+            this.btnChooseImage.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.btnChooseImage.ForeColor = System.Drawing.Color.White;
+            this.btnChooseImage.Location = new System.Drawing.Point(446, 462);
+            this.btnChooseImage.Margin = new System.Windows.Forms.Padding(0);
+            this.btnChooseImage.Name = "btnChooseImage";
+            this.btnChooseImage.Size = new System.Drawing.Size(74, 30);
+            this.btnChooseImage.TabIndex = 21;
+            this.btnChooseImage.Text = "Chọn";
+            // 
             // ucRegister_Cus
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnChooseImage);
             this.Controls.Add(this.tableLayoutPanel3);
             this.Controls.Add(this.tlpRegisterCus);
             this.Name = "ucRegister_Cus";
-            this.Size = new System.Drawing.Size(450, 500);
+            this.Size = new System.Drawing.Size(530, 695);
             this.tlpRegisterCus.ResumeLayout(false);
             this.tlpRegisterCus.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAvatar)).EndInit();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -439,5 +487,8 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private Guna.UI2.WinForms.Guna2Button btnRegisterC;
         private Guna.UI2.WinForms.Guna2Button btnExitC;
+        private System.Windows.Forms.Label label1;
+        private Guna.UI2.WinForms.Guna2PictureBox picAvatar;
+        private Guna.UI2.WinForms.Guna2Button btnChooseImage;
     }
 }
