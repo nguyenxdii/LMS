@@ -29,7 +29,6 @@ namespace LMS.GUI.OrderCustomer
             err.ContainerControl = this;
             this.Load += UcOrderCreate_Cus_Load;
 
-            // Cấu hình Guna2HtmlToolTip giống frmRegister
             htip.TitleFont = new Font("Segoe UI", 9, FontStyle.Bold);
             htip.TitleForeColor = Color.FromArgb(31, 113, 185);
             htip.ForeColor = Color.Black;
@@ -54,7 +53,6 @@ namespace LMS.GUI.OrderCustomer
             err.ContainerControl = this;
             this.Load += UcOrderCreate_Cus_Load;
 
-            // Cấu hình Guna2HtmlToolTip giống frmRegister
             htip.TitleFont = new Font("Segoe UI", 9, FontStyle.Bold);
             htip.TitleForeColor = Color.FromArgb(31, 113, 185);
             htip.ForeColor = Color.Black;
@@ -120,14 +118,15 @@ namespace LMS.GUI.OrderCustomer
             btnCalcFee.Click += (s, ev) => ShowEstimatedFee();
             btnNext.Click += (s, ev) => GoConfirm();
             btnClear.Click += (s, ev) => ClearForm();
-            //btnCancel.Click += (s, ev) =>
-            //{
-            //    var host = this.FindForm() as frmMain_Customer;
-            //    host?.LoadUc(new ucOrderCreate_Cus(_customerId)); // hoặc trở về danh sách
-            //};
 
             txtPickupAddress.Enabled = false;
             lblEstimatedFee.Text = "Tổng phí: —";
+
+            // Cấu hình Ngày gửi hàng
+            dtpDesiredTime.Value = DateTime.Today;
+            dtpDesiredTime.Format = DateTimePickerFormat.Custom;
+            dtpDesiredTime.CustomFormat = "dd/MM/yyyy";
+            dtpDesiredTime.MinDate = DateTime.Today;
 
             if (_initDraft != null) PrefillFromDraft(_initDraft);
 
@@ -265,6 +264,13 @@ namespace LMS.GUI.OrderCustomer
         }
         private void GoConfirm()
         {
+            // <--- THÊM ĐOẠN KIỂM TRA NÀY ---
+            if (_customerId <= 0)
+            {
+                MessageBox.Show("Lỗi: Không thể xác định ID khách hàng. \nVui lòng đăng nhập lại.", "Lỗi Người Dùng", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return; // Dừng lại
+            }
+
             if (!btnNext.Enabled)
             {
                 return; // Không cần ShowTip nữa vì đã có ErrorProvider

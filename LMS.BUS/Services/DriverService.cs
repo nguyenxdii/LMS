@@ -309,7 +309,8 @@ namespace LMS.BUS.Services
 
         //=================
 
-        public List<Driver> GetAvailableDriversForAdmin()
+        // driver không xe
+        public List<Driver> GetDriversWithoutVehicles()
         {
             using (var db = new LogisticsDbContext())
             {
@@ -324,6 +325,33 @@ namespace LMS.BUS.Services
                          .Where(d => d.IsActive
                                   && d.Vehicle == null     // CHƯA có xe
                                   && !busyIds.Contains(d.Id))// KHÔNG bận
+                         .OrderBy(d => d.FullName)
+                         .ToList();
+            }
+        }
+
+        // driver có xe để tạo shipment
+        public List<Driver> GetDriversWithVehiclesForShipment() // <-- Hàm MỚI
+        {
+            using (var db = new LogisticsDbContext())
+            {
+                var active = new[] {
+                    ShipmentStatus.Pending,
+                    ShipmentStatus.Assigned,
+                    ShipmentStatus.OnRoute,
+                    ShipmentStatus.AtWarehouse,
+                    ShipmentStatus.ArrivedDestination };
+                var busyIds = db.Shipments
+                                .Where(s => s.DriverId.HasValue && active.Contains(s.Status))
+                                .Select(s => s.DriverId.Value)
+                                .Distinct()
+                                .ToList();
+
+                return db.Drivers
+                         .Include(d => d.Vehicle) // Cần Include để lấy thông tin xe nếu muốn hiển thị
+                         .Where(d => d.IsActive
+                                  && d.Vehicle != null      // <<< ĐÃ CÓ xe
+                                  && !busyIds.Contains(d.Id)) // KHÔNG bận
                          .OrderBy(d => d.FullName)
                          .ToList();
             }

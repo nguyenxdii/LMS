@@ -1,13 +1,13 @@
 ﻿namespace LMS.GUI.Main
 {
-    partial class test
+    partial class frmadmintest
     {
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -20,10 +20,10 @@
             base.Dispose(disposing);
         }
 
-        #region Component Designer generated code
+        #region Windows Form Designer generated code
 
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -41,7 +41,7 @@
             this.flowLayoutPanel1.Controls.Add(this.button1);
             this.flowLayoutPanel1.Controls.Add(this.button9);
             this.flowLayoutPanel1.Controls.Add(this.guna2Button1);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(275, 114);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(289, 81);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(301, 557);
             this.flowLayoutPanel1.TabIndex = 11;
@@ -86,27 +86,30 @@
             // 
             // guna2Button1
             // 
+            this.guna2Button1.CustomBorderThickness = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.guna2Button1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.guna2Button1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.guna2Button1.FillColor = System.Drawing.Color.Transparent;
             this.guna2Button1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2Button1.ForeColor = System.Drawing.Color.White;
             this.guna2Button1.HoverState.CustomBorderColor = System.Drawing.Color.Red;
-            this.guna2Button1.HoverState.FillColor = System.Drawing.Color.White;
+            this.guna2Button1.HoverState.FillColor = System.Drawing.Color.Red;
             this.guna2Button1.Location = new System.Drawing.Point(3, 119);
             this.guna2Button1.Name = "guna2Button1";
             this.guna2Button1.Size = new System.Drawing.Size(298, 45);
-            this.guna2Button1.TabIndex = 19;
+            this.guna2Button1.TabIndex = 20;
             this.guna2Button1.Text = "guna2Button1";
             // 
-            // test
+            // frmadmintest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1478, 744);
             this.Controls.Add(this.flowLayoutPanel1);
-            this.Name = "test";
-            this.Size = new System.Drawing.Size(1500, 800);
+            this.Name = "frmadmintest";
+            this.Text = "frmadmintest";
             this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 

@@ -50,13 +50,15 @@
             this.btnHam = new Guna.UI2.WinForms.Guna2PictureBox();
             this.pnlTop = new CSharp.Winform.UI.Panel();
             this.stsMain = new System.Windows.Forms.StatusStrip();
+            this.tsslblUserInfo = new System.Windows.Forms.ToolStripStatusLabel();
             this.pnlContent = new Guna.UI2.WinForms.Guna2Panel();
+            this.timerClock = new System.Windows.Forms.Timer(this.components);
             this.task.SuspendLayout();
             this.sidebar.SuspendLayout();
             this.menuContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnHam)).BeginInit();
             this.pnlTop.SuspendLayout();
-            this.pnlContent.SuspendLayout();
+            this.stsMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblPageTitle
@@ -161,9 +163,9 @@
             this.task.Controls.Add(this.lblPageTitle);
             this.task.Dock = System.Windows.Forms.DockStyle.Top;
             this.task.Font = new System.Drawing.Font("Tahoma", 8.25F);
-            this.task.Location = new System.Drawing.Point(301, 67);
+            this.task.Location = new System.Drawing.Point(303, 69);
             this.task.Name = "task";
-            this.task.Size = new System.Drawing.Size(1199, 44);
+            this.task.Size = new System.Drawing.Size(1195, 44);
             this.task.TabIndex = 12;
             // 
             // sidebar
@@ -175,9 +177,9 @@
             this.sidebar.Controls.Add(this.btnLogOut);
             this.sidebar.Dock = System.Windows.Forms.DockStyle.Left;
             this.sidebar.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.sidebar.Location = new System.Drawing.Point(0, 67);
+            this.sidebar.Location = new System.Drawing.Point(2, 69);
             this.sidebar.Name = "sidebar";
-            this.sidebar.Size = new System.Drawing.Size(301, 733);
+            this.sidebar.Size = new System.Drawing.Size(301, 697);
             this.sidebar.TabIndex = 14;
             // 
             // btnHome
@@ -249,7 +251,6 @@
             this.btnLogOut.Text = "       Đăng Xuất";
             this.btnLogOut.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnLogOut.UseVisualStyleBackColor = false;
-            //this.btnLogOut.Click += new System.EventHandler(this.btnLogOut_Click_1);
             // 
             // tsllblWelcome
             // 
@@ -264,7 +265,7 @@
             this.guna2ControlBox3.BorderRadius = 5;
             this.guna2ControlBox3.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(24)))), ((int)(((byte)(29)))));
             this.guna2ControlBox3.IconColor = System.Drawing.Color.White;
-            this.guna2ControlBox3.Location = new System.Drawing.Point(1427, 12);
+            this.guna2ControlBox3.Location = new System.Drawing.Point(1423, 12);
             this.guna2ControlBox3.Name = "guna2ControlBox3";
             this.guna2ControlBox3.Size = new System.Drawing.Size(61, 39);
             this.guna2ControlBox3.TabIndex = 4;
@@ -287,7 +288,7 @@
             this.guna2ControlBox2.ControlBoxType = Guna.UI2.WinForms.Enums.ControlBoxType.MaximizeBox;
             this.guna2ControlBox2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(24)))), ((int)(((byte)(29)))));
             this.guna2ControlBox2.IconColor = System.Drawing.Color.White;
-            this.guna2ControlBox2.Location = new System.Drawing.Point(1360, 11);
+            this.guna2ControlBox2.Location = new System.Drawing.Point(1356, 11);
             this.guna2ControlBox2.Name = "guna2ControlBox2";
             this.guna2ControlBox2.Size = new System.Drawing.Size(61, 39);
             this.guna2ControlBox2.TabIndex = 3;
@@ -299,7 +300,7 @@
             this.guna2ControlBox1.ControlBoxType = Guna.UI2.WinForms.Enums.ControlBoxType.MinimizeBox;
             this.guna2ControlBox1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(24)))), ((int)(((byte)(29)))));
             this.guna2ControlBox1.IconColor = System.Drawing.Color.White;
-            this.guna2ControlBox1.Location = new System.Drawing.Point(1293, 11);
+            this.guna2ControlBox1.Location = new System.Drawing.Point(1289, 11);
             this.guna2ControlBox1.Name = "guna2ControlBox1";
             this.guna2ControlBox1.Size = new System.Drawing.Size(61, 39);
             this.guna2ControlBox1.TabIndex = 2;
@@ -326,40 +327,56 @@
             this.pnlTop.Controls.Add(this.guna2ControlBox1);
             this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTop.Font = new System.Drawing.Font("Tahoma", 8.25F);
-            this.pnlTop.Location = new System.Drawing.Point(0, 0);
+            this.pnlTop.Location = new System.Drawing.Point(2, 2);
             this.pnlTop.Name = "pnlTop";
-            this.pnlTop.Size = new System.Drawing.Size(1500, 67);
+            this.pnlTop.Size = new System.Drawing.Size(1496, 67);
             this.pnlTop.TabIndex = 13;
             // 
             // stsMain
             // 
+            this.stsMain.BackColor = System.Drawing.SystemColors.Control;
             this.stsMain.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.stsMain.Location = new System.Drawing.Point(0, 667);
+            this.stsMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsslblUserInfo});
+            this.stsMain.Location = new System.Drawing.Point(2, 766);
             this.stsMain.Name = "stsMain";
-            this.stsMain.Size = new System.Drawing.Size(1199, 22);
+            this.stsMain.Size = new System.Drawing.Size(1496, 32);
             this.stsMain.TabIndex = 0;
             this.stsMain.Text = "statusStrip1";
             // 
+            // tsslblUserInfo
+            // 
+            this.tsslblUserInfo.Name = "tsslblUserInfo";
+            this.tsslblUserInfo.Size = new System.Drawing.Size(179, 25);
+            this.tsslblUserInfo.Text = "toolStripStatusLabel1";
+            // 
             // pnlContent
             // 
-            this.pnlContent.Controls.Add(this.stsMain);
+            this.pnlContent.BackColor = System.Drawing.SystemColors.Control;
             this.pnlContent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlContent.Location = new System.Drawing.Point(301, 111);
+            this.pnlContent.Location = new System.Drawing.Point(303, 113);
             this.pnlContent.Name = "pnlContent";
-            this.pnlContent.Size = new System.Drawing.Size(1199, 689);
+            this.pnlContent.Size = new System.Drawing.Size(1195, 653);
             this.pnlContent.TabIndex = 15;
+            // 
+            // timerClock
+            // 
+            this.timerClock.Tick += new System.EventHandler(this.timerClock_Tick);
             // 
             // frmMain_Driver
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1500, 800);
             this.Controls.Add(this.pnlContent);
             this.Controls.Add(this.task);
             this.Controls.Add(this.sidebar);
             this.Controls.Add(this.pnlTop);
+            this.Controls.Add(this.stsMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmMain_Driver";
+            this.Padding = new System.Windows.Forms.Padding(2);
             this.Text = "frmMain_Driver";
             this.task.ResumeLayout(false);
             this.task.PerformLayout();
@@ -368,9 +385,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnHam)).EndInit();
             this.pnlTop.ResumeLayout(false);
             this.pnlTop.PerformLayout();
-            this.pnlContent.ResumeLayout(false);
-            this.pnlContent.PerformLayout();
+            this.stsMain.ResumeLayout(false);
+            this.stsMain.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -398,5 +416,7 @@
         private CSharp.Winform.UI.Panel pnlTop;
         private System.Windows.Forms.StatusStrip stsMain;
         private Guna.UI2.WinForms.Guna2Panel pnlContent;
+        private System.Windows.Forms.ToolStripStatusLabel tsslblUserInfo;
+        private System.Windows.Forms.Timer timerClock;
     }
 }

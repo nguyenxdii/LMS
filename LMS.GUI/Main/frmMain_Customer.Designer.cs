@@ -36,7 +36,6 @@
             this.guna2ControlBox2 = new Guna.UI2.WinForms.Guna2ControlBox();
             this.guna2ControlBox1 = new Guna.UI2.WinForms.Guna2ControlBox();
             this.tsllblWelcome = new System.Windows.Forms.ToolStripStatusLabel();
-            this.stsMain = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.sidebar = new System.Windows.Forms.FlowLayoutPanel();
             this.btnHome = new CSharp.Winform.UI.Button();
@@ -52,13 +51,15 @@
             this.pnlContent = new Guna.UI2.WinForms.Guna2Panel();
             this.task = new CSharp.Winform.UI.Panel();
             this.lblPageTitle = new CSharp.Winform.UI.Label();
+            this.stsMain = new System.Windows.Forms.StatusStrip();
+            this.tsslblUserInfo = new System.Windows.Forms.ToolStripStatusLabel();
+            this.timerClock = new System.Windows.Forms.Timer(this.components);
             this.pnlTopBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnHam)).BeginInit();
-            this.stsMain.SuspendLayout();
             this.sidebar.SuspendLayout();
             this.menuContainer.SuspendLayout();
-            this.pnlContent.SuspendLayout();
             this.task.SuspendLayout();
+            this.stsMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlTopBar
@@ -138,21 +139,14 @@
             // 
             // tsllblWelcome
             // 
+            this.tsllblWelcome.Margin = new System.Windows.Forms.Padding(0, 3, 0, 2);
             this.tsllblWelcome.Name = "tsllblWelcome";
             this.tsllblWelcome.Size = new System.Drawing.Size(179, 25);
             this.tsllblWelcome.Text = "toolStripStatusLabel1";
             // 
-            // stsMain
-            // 
-            this.stsMain.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.stsMain.Location = new System.Drawing.Point(0, 657);
-            this.stsMain.Name = "stsMain";
-            this.stsMain.Size = new System.Drawing.Size(1199, 32);
-            this.stsMain.TabIndex = 0;
-            this.stsMain.Text = "statusStrip1";
-            // 
             // toolStripStatusLabel1
             // 
+            this.toolStripStatusLabel1.Margin = new System.Windows.Forms.Padding(0, 3, 0, 2);
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(179, 25);
             this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
@@ -168,7 +162,7 @@
             this.sidebar.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.sidebar.Location = new System.Drawing.Point(0, 67);
             this.sidebar.Name = "sidebar";
-            this.sidebar.Size = new System.Drawing.Size(301, 733);
+            this.sidebar.Size = new System.Drawing.Size(301, 701);
             this.sidebar.TabIndex = 10;
             // 
             // btnHome
@@ -317,7 +311,6 @@
             this.btnLogOut.Text = "       Đăng Xuất";
             this.btnLogOut.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnLogOut.UseVisualStyleBackColor = false;
-            //this.btnLogOut.Click += new System.EventHandler(this.btnLogOut_Click);
             // 
             // menuTransition
             // 
@@ -331,11 +324,10 @@
             // 
             // pnlContent
             // 
-            this.pnlContent.Controls.Add(this.stsMain);
             this.pnlContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlContent.Location = new System.Drawing.Point(301, 111);
             this.pnlContent.Name = "pnlContent";
-            this.pnlContent.Size = new System.Drawing.Size(1199, 689);
+            this.pnlContent.Size = new System.Drawing.Size(1199, 657);
             this.pnlContent.TabIndex = 11;
             // 
             // task
@@ -359,6 +351,29 @@
             this.lblPageTitle.TabIndex = 1;
             this.lblPageTitle.Text = "label1";
             // 
+            // stsMain
+            // 
+            this.stsMain.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.stsMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsslblUserInfo});
+            this.stsMain.Location = new System.Drawing.Point(0, 768);
+            this.stsMain.Name = "stsMain";
+            this.stsMain.Size = new System.Drawing.Size(1500, 32);
+            this.stsMain.TabIndex = 12;
+            this.stsMain.Text = "statusStrip1";
+            // 
+            // tsslblUserInfo
+            // 
+            this.tsslblUserInfo.Name = "tsslblUserInfo";
+            this.tsslblUserInfo.Size = new System.Drawing.Size(120, 25);
+            this.tsslblUserInfo.Text = "tsslblUserInfo";
+            // 
+            // timerClock
+            // 
+            this.timerClock.Enabled = true;
+            this.timerClock.Interval = 1000;
+            this.timerClock.Tick += new System.EventHandler(this.timerClock_Tick);
+            // 
             // frmMain_Customer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -368,21 +383,21 @@
             this.Controls.Add(this.task);
             this.Controls.Add(this.sidebar);
             this.Controls.Add(this.pnlTopBar);
+            this.Controls.Add(this.stsMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmMain_Customer";
             this.Text = "frmMain_Customer";
             this.pnlTopBar.ResumeLayout(false);
             this.pnlTopBar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnHam)).EndInit();
-            this.stsMain.ResumeLayout(false);
-            this.stsMain.PerformLayout();
             this.sidebar.ResumeLayout(false);
             this.menuContainer.ResumeLayout(false);
-            this.pnlContent.ResumeLayout(false);
-            this.pnlContent.PerformLayout();
             this.task.ResumeLayout(false);
             this.task.PerformLayout();
+            this.stsMain.ResumeLayout(false);
+            this.stsMain.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -395,7 +410,6 @@
         private Guna.UI2.WinForms.Guna2ControlBox guna2ControlBox2;
         private Guna.UI2.WinForms.Guna2ControlBox guna2ControlBox1;
         private System.Windows.Forms.ToolStripStatusLabel tsllblWelcome;
-        private System.Windows.Forms.StatusStrip stsMain;
         private System.Windows.Forms.FlowLayoutPanel sidebar;
         private CSharp.Winform.UI.Button btnHome;
         private System.Windows.Forms.FlowLayoutPanel menuContainer;
@@ -411,5 +425,8 @@
         private CSharp.Winform.UI.Panel task;
         private CSharp.Winform.UI.Label lblPageTitle;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.StatusStrip stsMain;
+        private System.Windows.Forms.ToolStripStatusLabel tsslblUserInfo;
+        private System.Windows.Forms.Timer timerClock;
     }
 }

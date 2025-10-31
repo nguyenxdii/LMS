@@ -1,6 +1,7 @@
 ﻿// LMS.GUI/OrderAdmin/ucOrder_Admin.cs
 using Guna.UI2.WinForms;
 using LMS.BUS.Dtos;
+using LMS.BUS.Helpers;
 using LMS.BUS.Services;
 using LMS.DAL;
 using LMS.DAL.Models;
@@ -10,9 +11,9 @@ using System.ComponentModel;
 using System.Data.Entity;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 using System.Reflection;
-using LMS.BUS.Helpers;
+using System.Windows.Forms;
+using static LMS.GUI.OrderAdmin.ucDriverPicker_Admin;
 
 namespace LMS.GUI.OrderAdmin
 {
@@ -422,60 +423,129 @@ namespace LMS.GUI.OrderAdmin
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Lỗi"); }
         }
+        //private void CreateShipment()
+        //{
+        //    var it = Current();
+        //    if (it == null) return;
+        //    if (it.Status != OrderStatus.Approved)
+        //    {
+        //        MessageBox.Show("Chỉ tạo Shipment cho đơn đã được duyệt.", "LMS",
+        //            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //        return;
+        //    }
+
+        //    // === SỬA TỪ ĐÂY: Mở popup UserControl thay vì gọi PickDriverId() ===
+
+        //    int? selectedDriverId = null; // Biến để lưu ID tài xế được chọn
+
+        //    // Tạo Form popup để chứa UC chọn tài xế
+        //    using (var fPicker = new Form
+        //    {
+        //        Text = "Chọn Tài Xế Cho Chuyến Hàng",
+        //        StartPosition = FormStartPosition.CenterParent,
+        //        // Đặt kích thước phù hợp với UserControl chọn tài xế của bạn
+        //        Size = new Size(583, 539),
+        //        FormBorderStyle = FormBorderStyle.None, // Hoặc .None
+        //    })
+        //    {
+        //        var ucPicker = new ucDriverPicker_Admin();
+
+        //        ucPicker.DriverSelected += (selectedId) =>
+        //        {
+        //            selectedDriverId = selectedId;
+        //            fPicker.DialogResult = DialogResult.OK; // Đóng popup và báo thành công
+        //        };
+
+        //        // Thêm UserControl vào Form popup
+        //        fPicker.Controls.Add(ucPicker);
+
+        //        // Hiển thị popup và chờ người dùng chọn
+        //        if (fPicker.ShowDialog(this.FindForm()) == DialogResult.OK && selectedDriverId.HasValue)
+        //        {
+        //            // Người dùng đã chọn một tài xế -> Tiếp tục tạo Shipment
+        //            try
+        //            {
+        //                int shipId = _svc.CreateShipmentFromOrder(it.Id, selectedDriverId.Value);
+        //                KeepAndReload(it.Id); // Tải lại và giữ focus
+        //                MessageBox.Show($"Đã tạo Shipment SHP{shipId}.", "LMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                MessageBox.Show($"Lỗi khi tạo Shipment: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //            }
+        //        }
+        //        // else: Người dùng đóng popup mà không chọn -> Không làm gì cả
+        //    }
+        //    // === KẾT THÚC SỬA ===
+        //}
+        // [Dán vào file ucOrder_Admin.cs, thay thế hàm CreateShipment cũ]
         private void CreateShipment()
         {
+            // Lấy thông tin đơn hàng đang chọn trên grid
             var it = Current();
-            if (it == null) return;
+            if (it == null) return; // Không có dòng nào được chọn thì thoát
+
+            // Kiểm tra trạng thái đơn hàng: Chỉ cho phép tạo chuyến khi đơn đã được duyệt (Approved)
             if (it.Status != OrderStatus.Approved)
             {
                 MessageBox.Show("Chỉ tạo Shipment cho đơn đã được duyệt.", "LMS",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // === SỬA TỪ ĐÂY: Mở popup UserControl thay vì gọi PickDriverId() ===
+            int? selectedDriverId = null; // Biến để lưu ID tài xế được chọn từ popup
 
-            int? selectedDriverId = null; // Biến để lưu ID tài xế được chọn
-
-            // Tạo Form popup để chứa UC chọn tài xế
+            // Tạo Form popup để chứa UserControl chọn tài xế
             using (var fPicker = new Form
             {
-                Text = "Chọn Tài Xế Cho Chuyến Hàng",
-                StartPosition = FormStartPosition.CenterParent,
-                // Đặt kích thước phù hợp với UserControl chọn tài xế của bạn
-                Size = new Size(583, 539),
-                FormBorderStyle = FormBorderStyle.None, // Hoặc .None
+                Text = "Chọn Tài Xế Cho Chuyến Hàng", // Tiêu đề của Form popup
+                StartPosition = FormStartPosition.CenterParent, // Hiển thị giữa Form cha
+                                                                // Đặt kích thước phù hợp với UserControl ucDriverPicker_Admin
+                Size = new Size(583, 539), // Điều chỉnh kích thước này nếu cần
+                FormBorderStyle = FormBorderStyle.None, // Bỏ viền và nút điều khiển của Form
             })
             {
-                var ucPicker = new ucDriverPicker_Admin();
+                // Tạo instance của ucDriverPicker_Admin và truyền vào mode CreateShipment
+                // Điều này sẽ khiến ucDriverPicker_Admin gọi hàm GetDriversWithVehiclesForShipment
+                var ucPicker = new ucDriverPicker_Admin(DriverPickerMode.CreateShipment); // <<< TRUYỀN MODE VÀO ĐÂY
 
+                // Đăng ký sự kiện để nhận ID tài xế khi người dùng chọn xong
                 ucPicker.DriverSelected += (selectedId) =>
                 {
-                    selectedDriverId = selectedId;
-                    fPicker.DialogResult = DialogResult.OK; // Đóng popup và báo thành công
+                    selectedDriverId = selectedId; // Lưu ID được chọn
+                    fPicker.DialogResult = DialogResult.OK; // Đặt kết quả để đóng Form
+                                                            // fPicker.Close(); // Không cần gọi Close() ở đây vì DialogResult sẽ tự đóng
                 };
 
-                // Thêm UserControl vào Form popup
+                // Thêm UserControl vào Form popup và cho nó fill đầy Form
                 fPicker.Controls.Add(ucPicker);
+                ucPicker.Dock = DockStyle.Fill;
 
-                // Hiển thị popup và chờ người dùng chọn
+                // Hiển thị Form popup dưới dạng Dialog (chặn tương tác với Form cha)
+                // và kiểm tra xem người dùng có nhấn nút "Xác Nhận" (DialogResult.OK)
+                // và đã chọn được tài xế (selectedDriverId.HasValue) hay không
                 if (fPicker.ShowDialog(this.FindForm()) == DialogResult.OK && selectedDriverId.HasValue)
                 {
-                    // Người dùng đã chọn một tài xế -> Tiếp tục tạo Shipment
+                    // Nếu người dùng đã chọn tài xế, tiến hành tạo Shipment
                     try
                     {
+                        // Gọi service để tạo Shipment với Order ID và Driver ID đã chọn
                         int shipId = _svc.CreateShipmentFromOrder(it.Id, selectedDriverId.Value);
-                        KeepAndReload(it.Id); // Tải lại và giữ focus
+
+                        // Tải lại dữ liệu grid và giữ focus vào đơn hàng vừa tạo chuyến
+                        KeepAndReload(it.Id);
+
+                        // Thông báo tạo thành công
                         MessageBox.Show($"Đã tạo Shipment SHP{shipId}.", "LMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     catch (Exception ex)
                     {
+                        // Hiển thị lỗi nếu có vấn đề xảy ra trong quá trình tạo Shipment
                         MessageBox.Show($"Lỗi khi tạo Shipment: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                // else: Người dùng đóng popup mà không chọn -> Không làm gì cả
+                // else: Nếu người dùng nhấn Hủy hoặc đóng Form mà không chọn -> Không làm gì cả
             }
-            // === KẾT THÚC SỬA ===
         }
         #endregion
 

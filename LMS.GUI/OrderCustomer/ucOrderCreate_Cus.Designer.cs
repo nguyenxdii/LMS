@@ -111,6 +111,7 @@
             // 
             this.dtpDesiredTime.BorderRadius = 15;
             this.dtpDesiredTime.Checked = true;
+            this.dtpDesiredTime.CustomFormat = "";
             this.dtpDesiredTime.FillColor = System.Drawing.Color.Black;
             this.dtpDesiredTime.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.dtpDesiredTime.ForeColor = System.Drawing.Color.White;

@@ -218,46 +218,130 @@ namespace LMS.GUI.VehicleAdmin
             }
         }
 
+        //private void AssignDriver()
+        //{
+        //    var v = GetSelectedVehicle();
+        //    if (v == null || !btnAssignDriver.Enabled)
+        //    {
+        //        MessageBox.Show("Chọn một xe chưa gán tài xế.", "Thông báo");
+        //        return;
+        //    }
+
+        //    int? driverId = null;
+        //    using (var f = new Form
+        //    {
+        //        Text = "Chọn Tài Xế (chỉ tài xế rảnh & chưa có xe)",
+        //        StartPosition = FormStartPosition.CenterScreen,
+        //        Size = new System.Drawing.Size(583, 539),
+        //        FormBorderStyle = FormBorderStyle.None
+        //    })
+        //    {
+        //        var picker = new ucDriverPicker_Admin();
+        //        picker.DriverSelected += (id) => { driverId = id; f.DialogResult = DialogResult.OK; };
+        //        f.Controls.Add(picker);
+        //        var owner = this.FindForm();
+        //        if (owner == null) { MessageBox.Show("Không xác định form cha.", "Lỗi"); return; }
+
+        //        if (f.ShowDialog(owner) == DialogResult.OK && driverId.HasValue)
+        //        {
+        //            if (MessageBox.Show($"Gán tài xế ID {driverId.Value} cho xe {v.PlateNo}?",
+        //                "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+        //            {
+        //                try
+        //                {
+        //                    _vehicleSvc.AssignDriverToVehicle(v.Id, driverId.Value);
+        //                    MessageBox.Show("Đã gán tài xế.", "Thông báo");
+        //                    LoadData();
+        //                    SelectRowById(v.Id);
+        //                }
+        //                catch (InvalidOperationException opEx) { MessageBox.Show(opEx.Message, "Lỗi nghiệp vụ", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+        //                catch (Exception ex) { MessageBox.Show($"Lỗi gán tài xế: {ex.Message}", "Lỗi"); }
+        //            }
+        //        }
+        //    }
+        //}
+        // [Paste into ucVehicle_Admin.cs, replacing the old AssignDriver method]
         private void AssignDriver()
         {
+            // Get the currently selected vehicle from the grid
             var v = GetSelectedVehicle();
+
+            // Check if a vehicle is selected and if the "Assign Driver" button is enabled
+            // (Button is enabled only if a vehicle is selected AND it doesn't already have a driver)
             if (v == null || !btnAssignDriver.Enabled)
             {
-                MessageBox.Show("Chọn một xe chưa gán tài xế.", "Thông báo");
+                MessageBox.Show("Vui lòng chọn một xe chưa được gán tài xế.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            int? driverId = null;
-            using (var f = new Form
+            int? selectedDriverId = null; // Variable to store the ID of the chosen driver
+
+            // Create a popup Form to host the driver picker UserControl
+            using (var fPicker = new Form
             {
-                Text = "Chọn Tài Xế (chỉ tài xế rảnh & chưa có xe)",
-                StartPosition = FormStartPosition.CenterScreen,
-                Size = new System.Drawing.Size(583, 539),
-                FormBorderStyle = FormBorderStyle.None
+                // Form properties
+                Text = "Chọn Tài Xế (Chưa có xe & Rảnh)", // Title for the popup
+                StartPosition = FormStartPosition.CenterScreen, // Center the popup
+                Size = new System.Drawing.Size(583, 539), // Set size (adjust if needed)
+                FormBorderStyle = FormBorderStyle.None // No border or control box
             })
             {
-                var picker = new ucDriverPicker_Admin();
-                picker.DriverSelected += (id) => { driverId = id; f.DialogResult = DialogResult.OK; };
-                f.Controls.Add(picker);
-                var owner = this.FindForm();
-                if (owner == null) { MessageBox.Show("Không xác định form cha.", "Lỗi"); return; }
+                // Create an instance of the driver picker UserControl.
+                // We don't need to pass a mode, as the default is AssignVehicle,
+                // which correctly calls GetDriversWithoutVehicles().
+                var ucPicker = new ucDriverPicker_Admin(); // Or: new ucDriverPicker_Admin(DriverPickerMode.AssignVehicle);
 
-                if (f.ShowDialog(owner) == DialogResult.OK && driverId.HasValue)
+                // Subscribe to the event fired when a driver is selected in the picker
+                ucPicker.DriverSelected += (id) =>
                 {
-                    if (MessageBox.Show($"Gán tài xế ID {driverId.Value} cho xe {v.PlateNo}?",
+                    selectedDriverId = id; // Store the selected driver's ID
+                    fPicker.DialogResult = DialogResult.OK; // Set the result to OK to close the form
+                };
+
+                // Add the picker UserControl to the popup Form and make it fill the form
+                fPicker.Controls.Add(ucPicker);
+                ucPicker.Dock = DockStyle.Fill; // Make the UC fill the popup form
+
+                // Get the parent form (the main application window) to show the dialog modally
+                var owner = this.FindForm();
+                if (owner == null)
+                {
+                    MessageBox.Show("Không xác định được form cha.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Show the popup. If the user clicks "Xác Nhận" (OK) and a driver was selected...
+                if (fPicker.ShowDialog(owner) == DialogResult.OK && selectedDriverId.HasValue)
+                {
+                    // Ask for confirmation before assigning
+                    if (MessageBox.Show($"Gán tài xế ID {selectedDriverId.Value} cho xe {v.PlateNo}?",
                         "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         try
                         {
-                            _vehicleSvc.AssignDriverToVehicle(v.Id, driverId.Value);
-                            MessageBox.Show("Đã gán tài xế.", "Thông báo");
+                            // Call the service method to perform the assignment
+                            _vehicleSvc.AssignDriverToVehicle(v.Id, selectedDriverId.Value);
+
+                            // Show success message
+                            MessageBox.Show("Đã gán tài xế thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            // Reload the grid data to show the change
                             LoadData();
+
+                            // Re-select the row for the vehicle that was just updated
                             SelectRowById(v.Id);
                         }
-                        catch (InvalidOperationException opEx) { MessageBox.Show(opEx.Message, "Lỗi nghiệp vụ", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
-                        catch (Exception ex) { MessageBox.Show($"Lỗi gán tài xế: {ex.Message}", "Lỗi"); }
+                        catch (InvalidOperationException opEx) // Catch specific business logic errors
+                        {
+                            MessageBox.Show(opEx.Message, "Lỗi nghiệp vụ", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        catch (Exception ex) // Catch general errors
+                        {
+                            MessageBox.Show($"Lỗi xảy ra khi gán tài xế: {ex.Message}", "Lỗi hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                 }
+                // If the user cancels or closes the picker form, do nothing.
             }
         }
 

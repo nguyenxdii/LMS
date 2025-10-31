@@ -261,8 +261,35 @@ namespace LMS.BUS.Services
                     throw new Exception("Đơn đã có Shipment.");
                 }
 
-                var drvOk = db.Drivers.Any(d => d.Id == driverId && d.IsActive);
-                if (!drvOk) throw new Exception("Driver không hợp lệ hoặc không hoạt động.");
+                //var drvOk = db.Drivers.Any(d => d.Id == driverId && d.IsActive);
+                //if (!drvOk) throw new Exception("Driver không hợp lệ hoặc không hoạt động.");
+
+                var driver = db.Drivers
+                    .Include(d => d.Vehicle)
+                    .FirstOrDefault(d => d.Id == driverId && d.IsActive);
+                if (driver == null)
+                    throw new Exception("Driver không hợp lệ hoặc không hoạt động.");
+                if (driver.Vehicle == null)
+                    throw new Exception("Tài xế chưa được gán xe.");
+
+                // <--- BẮT ĐẦU KHỐI CODE THÊM MỚI ---
+                // Kiểm tra xem tài xế này có đang "Chờ nhận" hoặc "Đang chạy" chuyến khác không
+                var unavailableStatuses = new[] {
+                    ShipmentStatus.Pending, // Kiểm tra Pending
+                    ShipmentStatus.Assigned,
+                    ShipmentStatus.OnRoute,
+                    ShipmentStatus.AtWarehouse,
+                    ShipmentStatus.ArrivedDestination
+                };
+
+                bool isDriverUnavailable = db.Shipments.Any(s => s.DriverId == driverId && unavailableStatuses.Contains(s.Status));
+
+                if (isDriverUnavailable)
+                {
+                    // Ném lỗi InvalidOperationException, ucOrder_Admin sẽ bắt được lỗi này
+                    throw new InvalidOperationException($"Tài xế '{driver.FullName}' đang có một chuyến hàng khác (Đang chờ nhận hoặc Đang chạy). \nVui lòng chọn tài xế khác.");
+                }
+                // <--- KẾT THÚC KHỐI CODE THÊM MỚI ---
 
                 var tpl = db.RouteTemplates
                             .FirstOrDefault(t => t.FromWarehouseId == o.OriginWarehouseId
@@ -292,6 +319,7 @@ namespace LMS.BUS.Services
                 {
                     OrderId = o.Id,
                     DriverId = driverId,
+                    VehicleId = driver.Vehicle.Id,
                     FromWarehouseId = stopWarehouseIds.First(),
                     ToWarehouseId = stopWarehouseIds.Last(),
                     Status = ShipmentStatus.Pending,

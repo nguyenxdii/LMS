@@ -436,7 +436,7 @@
             this.btnCancel.FillColor = System.Drawing.Color.Black;
             this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnCancel.ForeColor = System.Drawing.Color.White;
-            this.btnCancel.Location = new System.Drawing.Point(438, 534);
+            this.btnCancel.Location = new System.Drawing.Point(47, 558);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(347, 45);
             this.btnCancel.TabIndex = 2;
@@ -452,7 +452,7 @@
             this.btnSave.FillColor = System.Drawing.Color.Black;
             this.btnSave.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnSave.ForeColor = System.Drawing.Color.White;
-            this.btnSave.Location = new System.Drawing.Point(438, 483);
+            this.btnSave.Location = new System.Drawing.Point(47, 507);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(347, 45);
             this.btnSave.TabIndex = 14;

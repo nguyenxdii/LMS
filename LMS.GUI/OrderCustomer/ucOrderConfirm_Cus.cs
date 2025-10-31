@@ -72,9 +72,28 @@ namespace LMS.GUI.OrderCustomer
                     // 3. Tự đóng popup sau khi phát sự kiện
                     this.FindForm()?.Close();
                 }
+                //catch (Exception ex)
+                //{
+                //    MessageBox.Show($"Lỗi khi tạo đơn hàng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //    // Không đóng popup nếu có lỗi
+                //}
+
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Lỗi khi tạo đơn hàng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // Tạo một chuỗi thông báo lỗi chi tiết, đi sâu vào InnerException
+                    string errorMessage = "Lỗi khi tạo đơn hàng:\n";
+                    errorMessage += $"Lỗi chính: {ex.Message}\n\n";
+
+                    Exception inner = ex.InnerException;
+                    int count = 1;
+                    while (inner != null)
+                    {
+                        errorMessage += $"Chi tiết cấp {count}: {inner.Message}\n";
+                        inner = inner.InnerException;
+                        count++;
+                    }
+
+                    MessageBox.Show(errorMessage, "Lỗi Chi Tiết", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     // Không đóng popup nếu có lỗi
                 }
             };
