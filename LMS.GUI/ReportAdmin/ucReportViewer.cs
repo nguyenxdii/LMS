@@ -1,73 +1,87 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using LMS.BUS.Dtos; // Cần DTO ChartDataPoint
-using Microsoft.Reporting.WinForms; // Thư viện ReportViewer
+using LMS.BUS.Dtos;                 // ChartDataPoint
+using Microsoft.Reporting.WinForms; // ReportViewer
 
 namespace LMS.GUI.ReportAdmin
 {
-    /// <summary>
-    /// Một UserControl tùy chỉnh chứa ReportViewer và các nút xuất file.
-    /// </summary>
     public partial class ucReportViewer : UserControl
     {
+        // --- DRAG STATE ---
+        private bool dragging = false;
+        private Point dragCursorPoint;
+        private Point dragFormPoint;
+
         public ucReportViewer()
         {
             InitializeComponent();
 
-            // Kết nối sự kiện với các hàm (methods) ở bên dưới
+            // Gắn event export
             btnExportPdf.Click += btnExportPdf_Click;
             btnExportExcel.Click += btnExportExcel_Click;
+
+            // Kéo form bằng pnlTop
+            pnlTop.MouseDown += PnlTop_MouseDown;
+            pnlTop.MouseMove += PnlTop_MouseMove;
+            pnlTop.MouseUp += PnlTop_MouseUp;
+
+
         }
 
+        // Cho phép set tiêu đề từ ngoài
+        public string ReportTitle
+        {
+            get => lblReportTitle.Text;
+            set => lblReportTitle.Text = value ?? "Báo cáo";
+        }
 
-        public void LoadOrderStatusReport(List<ChartDataPoint> data, string dateRange)
+        // Nạp báo cáo "Tình trạng đơn hàng"
+        //  -> summary: dữ liệu cho biểu đồ (DS_OrderStatus)
+        //  -> details: dữ liệu cho bảng chi tiết (DS_OrderDetails)
+        public void LoadOrderStatusReport(
+            List<ChartDataPoint> summary,
+            List<ChartDataPoint.OrderStatusDetailDto> details,
+            string dateRange)
         {
             try
             {
-                // 1. Tên DataSet bên trong file .rdlc (ví dụ: DataSet_OrderStatus)
-                ReportDataSource rds = new ReportDataSource("DataSet_OrderStatus", data);
+                var dsSummary = new ReportDataSource("DS_OrderStatus", summary ?? new List<ChartDataPoint>());
+                var dsDetails = new ReportDataSource("DS_OrderDetails", details ?? new List<ChartDataPoint.OrderStatusDetailDto>());
 
-                // Giả định ReportViewer của bạn tên là 'reportViewer1'
-                this.reportViewer1.LocalReport.DataSources.Clear();
-                this.reportViewer1.LocalReport.DataSources.Add(rds);
+                reportViewer1.LocalReport.DataSources.Clear();
+                reportViewer1.LocalReport.DataSources.Add(dsSummary);
+                reportViewer1.LocalReport.DataSources.Add(dsDetails);
 
-                // 2. Đường dẫn (embedded) đến tệp .rdlc
-                this.reportViewer1.LocalReport.ReportEmbeddedResource = "LMS.GUI.ReportAdmin.rpt_OrderStatus.rdlc";
+                // RDLC: đảm bảo Build Action = Embedded Resource
+                string embedded = "LMS.GUI.ReportAdmin.rpt_OrderStatus.rdlc";
+                reportViewer1.LocalReport.ReportEmbeddedResource = embedded;
 
-                // 3. Truyền tham số
-                ReportParameter param = new ReportParameter("pDateRange", dateRange);
-                this.reportViewer1.LocalReport.SetParameters(new[] { param });
+                // RDLC hiện chưa khai báo ReportParameter -> không SetParameters
 
-                // 4. Tắt thanh công cụ mặc định của ReportViewer (vì ta dùng nút tùy chỉnh)
-                this.reportViewer1.ShowToolBar = false;
-
-                // 5. Tải lại báo cáo
-                this.reportViewer1.RefreshReport();
+                reportViewer1.ShowToolBar = false;
+                reportViewer1.RefreshReport();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi nạp báo cáo: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi khi nạp báo cáo: " + ex.Message,
+                                "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        // <--- HÀM BỊ THIẾU 1 (Gây ra lỗi trong ảnh) ---
+        // ======== Export ========
         private void btnExportPdf_Click(object sender, EventArgs e)
         {
             ExportReport("PDF", "PDF files (*.pdf)|*.pdf", "pdf");
         }
 
-        // <--- HÀM BỊ THIẾU 2 (Sẽ gây lỗi nếu không thêm) ---
         private void btnExportExcel_Click(object sender, EventArgs e)
         {
-            // Dùng EXCELOPENXML để xuất ra file .xlsx (Excel 2007+), có thể chỉnh sửa được.
             ExportReport("EXCELOPENXML", "Excel files (*.xlsx)|*.xlsx", "xlsx");
         }
 
-        /// <summary>
-        /// Hàm chung để render (kết xuất) và lưu báo cáo ra file
-        /// </summary>
         private void ExportReport(string format, string filter, string extension)
         {
             try
@@ -76,17 +90,10 @@ namespace LMS.GUI.ReportAdmin
                 string[] streamids;
                 string mimeType, encoding, filenameExtension;
 
-                // Render báo cáo ra một mảng byte[]
-                byte[] bytes = this.reportViewer1.LocalReport.Render(
-                    format,
-                    null,
-                    out mimeType,
-                    out encoding,
-                    out filenameExtension,
-                    out streamids,
-                    out warnings);
+                byte[] bytes = reportViewer1.LocalReport.Render(
+                    format, null, out mimeType, out encoding,
+                    out filenameExtension, out streamids, out warnings);
 
-                // Mở hộp thoại lưu file
                 using (SaveFileDialog sfd = new SaveFileDialog())
                 {
                     sfd.Filter = filter;
@@ -95,16 +102,42 @@ namespace LMS.GUI.ReportAdmin
 
                     if (sfd.ShowDialog() == DialogResult.OK)
                     {
-                        // Ghi mảng byte[] ra file
                         File.WriteAllBytes(sfd.FileName, bytes);
-                        MessageBox.Show("Xuất báo cáo thành công!", "Thành Công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Xuất báo cáo thành công!",
+                            "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi xuất file: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi khi xuất file: " + ex.Message,
+                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        // ======== Drag parent Form via pnlTop ========
+        private void PnlTop_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button != MouseButtons.Left) return;
+            var parentForm = this.FindForm();
+            if (parentForm == null) return;
+            dragging = true;
+            dragCursorPoint = Cursor.Position;
+            dragFormPoint = parentForm.Location;
+        }
+
+        private void PnlTop_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (!dragging) return;
+            var parentForm = this.FindForm();
+            if (parentForm == null) return;
+            Point dif = Point.Subtract(Cursor.Position, new Size(dragCursorPoint));
+            parentForm.Location = Point.Add(dragFormPoint, new Size(dif));
+        }
+
+        private void PnlTop_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left) dragging = false;
         }
     }
 }

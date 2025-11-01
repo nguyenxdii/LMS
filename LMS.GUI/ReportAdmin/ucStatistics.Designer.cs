@@ -204,7 +204,7 @@
             // 
             this.chartTopCustomers.Location = new System.Drawing.Point(3, 6);
             this.chartTopCustomers.Name = "chartTopCustomers";
-            this.chartTopCustomers.Size = new System.Drawing.Size(937, 400);
+            this.chartTopCustomers.Size = new System.Drawing.Size(937, 423);
             this.chartTopCustomers.TabIndex = 4;
             this.chartTopCustomers.Text = "cartesianChart3";
             // 
@@ -232,7 +232,7 @@
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvCustomerDetails.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgvCustomerDetails.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dgvCustomerDetails.Location = new System.Drawing.Point(23, 446);
+            this.dgvCustomerDetails.Location = new System.Drawing.Point(23, 485);
             this.dgvCustomerDetails.Name = "dgvCustomerDetails";
             this.dgvCustomerDetails.RowHeadersVisible = false;
             this.dgvCustomerDetails.RowHeadersWidth = 62;
@@ -322,18 +322,19 @@
             // 
             // btnExportOverview
             // 
+            this.btnExportOverview.BorderRadius = 15;
             this.btnExportOverview.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnExportOverview.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnExportOverview.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnExportOverview.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnExportOverview.FillColor = System.Drawing.Color.Black;
             this.btnExportOverview.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnExportOverview.ForeColor = System.Drawing.Color.White;
-            this.btnExportOverview.Location = new System.Drawing.Point(23, 616);
+            this.btnExportOverview.Location = new System.Drawing.Point(23, 437);
             this.btnExportOverview.Name = "btnExportOverview";
             this.btnExportOverview.Size = new System.Drawing.Size(210, 45);
             this.btnExportOverview.TabIndex = 2;
-            this.btnExportOverview.Text = "btnExportOverview";
-            this.btnExportOverview.Click += new System.EventHandler(this.btnExportOverview_Click);
+            this.btnExportOverview.Text = "Chi Tiết";
             // 
             // tabControlMain
             // 

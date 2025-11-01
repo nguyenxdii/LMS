@@ -1,43 +1,33 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
-using System.Drawing; // => dùng Color bình thường
-using System.IO;     // <--- Cần cho việc kiểm tra lỗi
-using System.Globalization; // Cần cho Format
+using System.Drawing;
 
 // LiveCharts v1
 using LiveCharts;
 using LiveCharts.Wpf;
 
-// Alias tránh trùng & nhầm Brush
+// Alias tránh trùng Brush/Control
 using WpfBrushes = System.Windows.Media.Brushes;
-using WfCartesianChart = LiveCharts.WinForms.CartesianChart;   // dùng cho chữ ký hàm init nếu cần
+using WfCartesianChart = LiveCharts.WinForms.CartesianChart;
 
 // App
 using LMS.BUS.Services;
 using LMS.BUS.Dtos;
-using LMS.BUS.Helpers;  // Cần cho ApplyBaseStyle()
-using static LMS.BUS.Dtos.ChartDataPoint; // Cần để truy cập TopCustomerDto, TopDriverDto
+using LMS.BUS.Helpers;
+using static LMS.BUS.Dtos.ChartDataPoint;
 
-// --- Các using MỚI cho chức năng Báo cáo ---
-using Microsoft.Reporting.WinForms; // Cần cho ReportViewer
-using Guna.UI2.WinForms; // Cần cho Guna2ShadowForm (hoặc các control Guna khác)
+// DAL cho dữ liệu chi tiết RDLC
+using LMS.DAL;
+using System.Data.Entity;
 
 namespace LMS.GUI.ReportAdmin
 {
     public partial class ucStatistics : UserControl
     {
-
-        public delegate void ShowPopupEventHandler(object sender, UserControl content, string title);
-
-
-        public event ShowPopupEventHandler ShowPopupRequest;
-
-        // --- CÁC BIẾN HIỆN CÓ ---
         private readonly StatisticsService _statsSvc = new StatisticsService();
         private Control _activeFilterButton = null;
 
-        // Màu nút filter (WinForms Color)
         private readonly Color _activeFilterColor = Color.FromArgb(32, 33, 36);
         private readonly Color _inactiveFilterColor = Color.Black;
 
@@ -54,7 +44,6 @@ namespace LMS.GUI.ReportAdmin
 
             InitializeAllCharts();
             WireFilterEvents();
-
             tabControlMain.SelectedIndexChanged += tabControlMain_SelectedIndexChanged;
 
             // mặc định: Hôm nay
@@ -62,22 +51,22 @@ namespace LMS.GUI.ReportAdmin
             else LoadAllData(DateTime.Today, DateTime.Today);
         }
 
-        // ====================== Init charts ======================
+        // -------------------- Init --------------------
         private void InitializeAllCharts()
         {
-            // Tab 1: Tổng quan (Pie LiveCharts)
+            // Tab 1: Tổng quan (Pie)
             if (pieOrderStatus != null)
             {
                 pieOrderStatus.LegendLocation = LegendLocation.Right;
-                pieOrderStatus.BackColor = Color.White; // WinForms color
+                pieOrderStatus.BackColor = Color.White;
                 pieOrderStatus.HoverPushOut = 8;
-                pieOrderStatus.InnerRadius = 60; // donut
+                pieOrderStatus.InnerRadius = 60;
             }
 
-            // Tab 2: Doanh Thu (Cartesian LiveCharts)
+            // Tab 2: Doanh thu (Line)
             InitCartesian(chartRevenueOverTime);
 
-            // Tab 3: Vận Hành
+            // Tab 3: Vận hành (Pie + Bar)
             if (pieShipmentStatus != null)
             {
                 pieShipmentStatus.LegendLocation = LegendLocation.Right;
@@ -87,105 +76,44 @@ namespace LMS.GUI.ReportAdmin
             }
             InitCartesian(chartTopRoutes);
 
+            // Tab 4/5: Bar + Grid
+            InitCartesian(chartTopCustomers);
+            InitCartesian(chartTopDrivers);
+
             ConfigureGrids();
         }
 
-        // ====================== Cấu hình Grids ======================
         private void ConfigureGrids()
         {
-            // Cấu hình Grid Top Khách Hàng
+            // Grid Top Customers
             if (dgvCustomerDetails != null)
             {
                 dgvCustomerDetails.Columns.Clear();
-                dgvCustomerDetails.ApplyBaseStyle(); // Dùng helper
+                dgvCustomerDetails.ApplyBaseStyle();
                 dgvCustomerDetails.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-                dgvCustomerDetails.Columns.Add(new DataGridViewTextBoxColumn
-                {
-                    Name = "CustomerName",
-                    DataPropertyName = "CustomerName",
-                    HeaderText = "Tên Khách Hàng",
-                    FillWeight = 30
-                });
-                dgvCustomerDetails.Columns.Add(new DataGridViewTextBoxColumn
-                {
-                    Name = "Phone",
-                    DataPropertyName = "Phone",
-                    HeaderText = "SĐT",
-                    AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-                });
-                dgvCustomerDetails.Columns.Add(new DataGridViewTextBoxColumn
-                {
-                    Name = "Email",
-                    DataPropertyName = "Email",
-                    HeaderText = "Email",
-                    FillWeight = 30
-                });
-                dgvCustomerDetails.Columns.Add(new DataGridViewTextBoxColumn
-                {
-                    Name = "TotalOrders",
-                    DataPropertyName = "TotalOrders",
-                    HeaderText = "Tổng Đơn",
-                    AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
-                    DefaultCellStyle = new DataGridViewCellStyle { Alignment = DataGridViewContentAlignment.MiddleCenter }
-                });
-                dgvCustomerDetails.Columns.Add(new DataGridViewTextBoxColumn
-                {
-                    Name = "TotalRevenue",
-                    DataPropertyName = "TotalRevenue",
-                    HeaderText = "Tổng Doanh Thu",
-                    AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
-                    DefaultCellStyle = new DataGridViewCellStyle { Format = "N0", Alignment = DataGridViewContentAlignment.MiddleRight }
-                });
+                dgvCustomerDetails.Columns.Add(new DataGridViewTextBoxColumn { Name = "CustomerName", DataPropertyName = "CustomerName", HeaderText = "Tên Khách Hàng", FillWeight = 30 });
+                dgvCustomerDetails.Columns.Add(new DataGridViewTextBoxColumn { Name = "Phone", DataPropertyName = "Phone", HeaderText = "SĐT", AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells });
+                dgvCustomerDetails.Columns.Add(new DataGridViewTextBoxColumn { Name = "Email", DataPropertyName = "Email", HeaderText = "Email", FillWeight = 30 });
+                dgvCustomerDetails.Columns.Add(new DataGridViewTextBoxColumn { Name = "TotalOrders", DataPropertyName = "TotalOrders", HeaderText = "Tổng Đơn", AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells, DefaultCellStyle = new DataGridViewCellStyle { Alignment = DataGridViewContentAlignment.MiddleCenter } });
+                dgvCustomerDetails.Columns.Add(new DataGridViewTextBoxColumn { Name = "TotalRevenue", DataPropertyName = "TotalRevenue", HeaderText = "Tổng Doanh Thu", AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells, DefaultCellStyle = new DataGridViewCellStyle { Format = "N0", Alignment = DataGridViewContentAlignment.MiddleRight } });
             }
 
-            // Cấu hình Grid Top Tài Xế
+            // Grid Top Drivers
             if (dgvDriverDetails != null)
             {
                 dgvDriverDetails.Columns.Clear();
                 dgvDriverDetails.ApplyBaseStyle();
                 dgvDriverDetails.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-                dgvDriverDetails.Columns.Add(new DataGridViewTextBoxColumn
-                {
-                    Name = "DriverName",
-                    DataPropertyName = "DriverName",
-                    HeaderText = "Tên Tài Xế",
-                    FillWeight = 30
-                });
-                dgvDriverDetails.Columns.Add(new DataGridViewTextBoxColumn
-                {
-                    Name = "Phone",
-                    DataPropertyName = "Phone",
-                    HeaderText = "SĐT",
-                    AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-                });
-                dgvDriverDetails.Columns.Add(new DataGridViewTextBoxColumn
-                {
-                    Name = "LicenseType",
-                    DataPropertyName = "LicenseType",
-                    HeaderText = "GPLX",
-                    AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-                });
-                dgvDriverDetails.Columns.Add(new DataGridViewTextBoxColumn
-                {
-                    Name = "VehiclePlate",
-                    DataPropertyName = "VehiclePlate",
-                    HeaderText = "Biển Số Xe",
-                    AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-                });
-                dgvDriverDetails.Columns.Add(new DataGridViewTextBoxColumn
-                {
-                    Name = "TotalShipments",
-                    DataPropertyName = "TotalShipments",
-                    HeaderText = "Tổng Chuyến",
-                    AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
-                    DefaultCellStyle = new DataGridViewCellStyle { Alignment = DataGridViewContentAlignment.MiddleCenter }
-                });
+                dgvDriverDetails.Columns.Add(new DataGridViewTextBoxColumn { Name = "DriverName", DataPropertyName = "DriverName", HeaderText = "Tên Tài Xế", FillWeight = 30 });
+                dgvDriverDetails.Columns.Add(new DataGridViewTextBoxColumn { Name = "Phone", DataPropertyName = "Phone", HeaderText = "SĐT", AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells });
+                dgvDriverDetails.Columns.Add(new DataGridViewTextBoxColumn { Name = "LicenseType", DataPropertyName = "LicenseType", HeaderText = "GPLX", AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells });
+                dgvDriverDetails.Columns.Add(new DataGridViewTextBoxColumn { Name = "VehiclePlate", DataPropertyName = "VehiclePlate", HeaderText = "Biển Số Xe", AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells });
+                dgvDriverDetails.Columns.Add(new DataGridViewTextBoxColumn { Name = "TotalShipments", DataPropertyName = "TotalShipments", HeaderText = "Tổng Chuyến", AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells, DefaultCellStyle = new DataGridViewCellStyle { Alignment = DataGridViewContentAlignment.MiddleCenter } });
             }
         }
 
-        // Init cơ bản cho CartesianChart (LiveCharts)
         private void InitCartesian(WfCartesianChart cart)
         {
             if (cart == null) return;
@@ -197,7 +125,6 @@ namespace LMS.GUI.ReportAdmin
             cart.DisableAnimations = false;
         }
 
-        // ====================== Wire filters ======================
         private void WireFilterEvents()
         {
             btnToday.Click += FilterButton_Click;
@@ -210,15 +137,11 @@ namespace LMS.GUI.ReportAdmin
             dtpFrom.ValueChanged += DatePicker_ValueChanged;
             dtpTo.ValueChanged += DatePicker_ValueChanged;
 
-            // QUAN TRỌNG: 
-            // Dòng này đã có sẵn trong file Designer.cs của bạn (gây ra lỗi)
-            // nên bạn KHÔNG cần thêm dòng này ở đây.
-            // Nếu bạn đã xóa dòng lỗi 515 trong Designer.cs, 
-            // thì hãy BỎ COMMENT dòng dưới đây:
-            //btnExportOverview.Click += btnExportOverview_Click;
+            // chỉ đăng ký 1 chỗ để tránh click mở 2 form
+            btnExportOverview.Click += btnExportOverview_Click;
         }
 
-        // ====================== Filter Logic ======================
+        // -------------------- Filters --------------------
         private void FilterButton_Click(object sender, EventArgs e)
         {
             var btn = sender as Guna.UI2.WinForms.Guna2Button;
@@ -262,7 +185,6 @@ namespace LMS.GUI.ReportAdmin
                 from = new DateTime(today.Year, 1, 1);
             }
 
-            // đồng bộ lại datepicker (tránh vòng lặp sự kiện)
             dtpFrom.ValueChanged -= DatePicker_ValueChanged;
             dtpTo.ValueChanged -= DatePicker_ValueChanged;
             dtpFrom.Value = from;
@@ -299,7 +221,7 @@ namespace LMS.GUI.ReportAdmin
             LoadAllData(dtpFrom.Value, dtpTo.Value);
         }
 
-        // ====================== Load tổng ======================
+        // -------------------- Load tổng --------------------
         private void LoadAllData(DateTime from, DateTime to)
         {
             try
@@ -330,11 +252,12 @@ namespace LMS.GUI.ReportAdmin
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi tải thống kê: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi tải thống kê: " + ex.Message, "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        // ====================== KPI ======================
+        // -------------------- KPI --------------------
         private void LoadKpis(DateTime from, DateTime to)
         {
             var kpi = _statsSvc.GetKpis(from, to);
@@ -344,7 +267,7 @@ namespace LMS.GUI.ReportAdmin
             lblRevenueValue.Text = kpi.TotalRevenue.ToString("N0") + " đ";
         }
 
-        // ====================== Pie: Đơn hàng ======================
+        // -------------------- Pie: Orders --------------------
         private void LoadOrderStatusPie(DateTime from, DateTime to)
         {
             var data = _statsSvc.GetOrderStatusCounts(from, to);
@@ -352,13 +275,7 @@ namespace LMS.GUI.ReportAdmin
             var series = new SeriesCollection();
             if (data == null || data.Count == 0 || data.All(d => d.Value == 0))
             {
-                series.Add(new PieSeries
-                {
-                    Title = "Không có dữ liệu",
-                    Values = new ChartValues<int> { 1 },
-                    DataLabels = false,
-                    Fill = WpfBrushes.LightGray
-                });
+                series.Add(new PieSeries { Title = "Không có dữ liệu", Values = new ChartValues<int> { 1 }, DataLabels = false, Fill = WpfBrushes.LightGray });
             }
             else
             {
@@ -381,7 +298,7 @@ namespace LMS.GUI.ReportAdmin
             pieOrderStatus.LegendLocation = LegendLocation.Right;
         }
 
-        // ====================== Pie: Shipment ======================
+        // -------------------- Pie: Shipments --------------------
         private void LoadShipmentStatusPie(DateTime from, DateTime to)
         {
             var data = _statsSvc.GetShipmentStatusCounts(from, to);
@@ -389,13 +306,7 @@ namespace LMS.GUI.ReportAdmin
             var series = new SeriesCollection();
             if (data == null || data.Count == 0 || data.All(d => d.Value == 0))
             {
-                series.Add(new PieSeries
-                {
-                    Title = "Không có dữ liệu",
-                    Values = new ChartValues<int> { 1 },
-                    DataLabels = false,
-                    Fill = WpfBrushes.LightGray
-                });
+                series.Add(new PieSeries { Title = "Không có dữ liệu", Values = new ChartValues<int> { 1 }, DataLabels = false, Fill = WpfBrushes.LightGray });
             }
             else
             {
@@ -418,7 +329,7 @@ namespace LMS.GUI.ReportAdmin
             pieShipmentStatus.LegendLocation = LegendLocation.Right;
         }
 
-        // ====================== Revenue: Line ======================
+        // -------------------- Line: Revenue --------------------
         private void LoadRevenueChart(DateTime from, DateTime to)
         {
             var rows = _statsSvc.GetRevenueOverTime(from, to);
@@ -441,19 +352,13 @@ namespace LMS.GUI.ReportAdmin
             };
 
             chartRevenueOverTime.AxisX.Clear();
-            chartRevenueOverTime.AxisX.Add(new Axis
-            {
-                Labels = rows.Select(r => r.Date.ToString("dd/MM")).ToArray()
-            });
+            chartRevenueOverTime.AxisX.Add(new Axis { Labels = rows.Select(r => r.Date.ToString("dd/MM")).ToArray() });
 
             chartRevenueOverTime.AxisY.Clear();
-            chartRevenueOverTime.AxisY.Add(new Axis
-            {
-                LabelFormatter = v => v.ToString("N0")
-            });
+            chartRevenueOverTime.AxisY.Add(new Axis { LabelFormatter = v => v.ToString("N0") });
         }
 
-        // ====================== Bar ngang: Top Routes ======================
+        // -------------------- Bar: Top Routes --------------------
         private void LoadTopRoutesBar(DateTime from, DateTime to)
         {
             var rows = _statsSvc.GetTopRoutes(from, to, 5);
@@ -474,18 +379,12 @@ namespace LMS.GUI.ReportAdmin
             };
 
             chartTopRoutes.AxisY.Clear();
-            chartTopRoutes.AxisY.Add(new Axis
-            {
-                Labels = rows.Select(x => x.Label).ToArray()
-            });
+            chartTopRoutes.AxisY.Add(new Axis { Labels = rows.Select(x => x.Label).ToArray() });
             chartTopRoutes.AxisX.Clear();
-            chartTopRoutes.AxisX.Add(new Axis
-            {
-                LabelFormatter = v => v.ToString("N0")
-            });
+            chartTopRoutes.AxisX.Add(new Axis { LabelFormatter = v => v.ToString("N0") });
         }
 
-        // ====================== Bar ngang + Grid: Top Customers ======================
+        // -------------------- Bar + Grid: Top Customers --------------------
         private void LoadTopCustomersBar(DateTime from, DateTime to)
         {
             var rows = _statsSvc.GetTopCustomers(from, to, 5).ToList();
@@ -506,18 +405,11 @@ namespace LMS.GUI.ReportAdmin
                 };
 
                 chartTopCustomers.AxisY.Clear();
-                chartTopCustomers.AxisY.Add(new Axis
-                {
-                    Labels = rows.Select(x => x.CustomerName).ToArray()
-                });
+                chartTopCustomers.AxisY.Add(new Axis { Labels = rows.Select(x => x.CustomerName).ToArray() });
                 chartTopCustomers.AxisX.Clear();
-                chartTopCustomers.AxisX.Add(new Axis
-                {
-                    LabelFormatter = v => v.ToString("N0")
-                });
+                chartTopCustomers.AxisX.Add(new Axis { LabelFormatter = v => v.ToString("N0") });
             }
 
-            // Luôn tải grid, ngay cả khi biểu đồ rỗng
             if (dgvCustomerDetails != null)
             {
                 var gridData = _statsSvc.GetTopCustomers(from, to, 10);
@@ -525,7 +417,7 @@ namespace LMS.GUI.ReportAdmin
             }
         }
 
-        // ====================== Bar ngang + Grid: Top Drivers ======================
+        // -------------------- Bar + Grid: Top Drivers --------------------
         private void LoadTopDriversBar(DateTime from, DateTime to)
         {
             var rows = _statsSvc.GetTopDrivers(from, to, 5).ToList();
@@ -546,18 +438,11 @@ namespace LMS.GUI.ReportAdmin
                 };
 
                 chartTopDrivers.AxisY.Clear();
-                chartTopDrivers.AxisY.Add(new Axis
-                {
-                    Labels = rows.Select(x => x.DriverName).ToArray()
-                });
+                chartTopDrivers.AxisY.Add(new Axis { Labels = rows.Select(x => x.DriverName).ToArray() });
                 chartTopDrivers.AxisX.Clear();
-                chartTopDrivers.AxisX.Add(new Axis
-                {
-                    LabelFormatter = v => v.ToString("N0")
-                });
+                chartTopDrivers.AxisX.Add(new Axis { LabelFormatter = v => v.ToString("N0") });
             }
 
-            // Luôn tải grid, ngay cả khi biểu đồ rỗng
             if (dgvDriverDetails != null)
             {
                 var gridData = _statsSvc.GetTopDrivers(from, to, 10);
@@ -565,63 +450,156 @@ namespace LMS.GUI.ReportAdmin
             }
         }
 
-        // <--- HÀM BỊ THIẾU CỦA BẠN NẰM Ở ĐÂY ---
-        /// <summary>
-        /// Mở popup xem trước báo cáo cho Tab Tổng Quan
-        /// </summary>
+        // -------------------- Helper: chi tiết đơn hàng cho RDLC --------------------
+        private System.Collections.Generic.List<ChartDataPoint.OrderStatusDetailDto> GetOrderDetails(DateTime from, DateTime to)
+        {
+            var list = new System.Collections.Generic.List<ChartDataPoint.OrderStatusDetailDto>();
+
+            using (var db = new LogisticsDbContext())
+            {
+                var orders = db.Orders
+                    .Include(o => o.Customer)
+                    .Where(o => o.CreatedAt >= from && o.CreatedAt <= to)
+                    .OrderByDescending(o => o.CreatedAt)
+                    .Select(o => new
+                    {
+                        o.OrderNo,
+                        CustomerName = o.Customer != null ? o.Customer.Name : "",
+                        StatusText = o.Status.ToString(),
+                        o.TotalFee,
+                        o.CreatedAt
+                    })
+                    .ToList();
+
+                foreach (var o in orders)
+                {
+                    list.Add(new ChartDataPoint.OrderStatusDetailDto
+                    {
+                        OrderNo = o.OrderNo,
+                        CustomerName = o.CustomerName,
+                        //Status = o.StatusText,
+                        Status = StatusMapper.ToVietnamese(o.StatusText),
+                        TotalFee = o.TotalFee,
+                        CreatedAt = o.CreatedAt
+                    });
+                }
+            }
+
+            return list;
+        }
+
+        //// -------------------- Nút xem/Export Overview --------------------
+        //private void btnExportOverview_Click(object sender, EventArgs e)
+        //{
+        //    if (tabControlMain.SelectedTab != tabOverview)
+        //    {
+        //        MessageBox.Show("Chức năng này chỉ dành cho tab 'Tổng Quan'.", "Thông báo",
+        //            MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //        return;
+        //    }
+
+        //    try
+        //    {
+        //        DateTime from = dtpFrom.Value.Date;
+        //        DateTime to = dtpTo.Value.Date;
+
+        //        var summary = _statsSvc.GetOrderStatusCounts(from, to);
+        //        if (summary == null || summary.Count == 0 || summary.All(d => d.Value == 0))
+        //        {
+        //            MessageBox.Show("Không có dữ liệu để lập báo cáo.", "Thông báo",
+        //                MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //            return;
+        //        }
+
+        //        // dữ liệu chi tiết cho RDLC (bảng)
+        //        var details = GetOrderDetails(from, to);
+
+        //        var viewer = new ucReportViewer { Dock = DockStyle.Fill };
+        //        string dateRange = $"Từ {from:dd/MM/yyyy} đến {to:dd/MM/yyyy}";
+        //        viewer.LoadOrderStatusReport(summary, details, dateRange);
+
+        //        var frm = new Form
+        //        {
+        //            //Text = "Xem Trước Báo Cáo - Tình Trạng Đơn Hàng",
+        //            StartPosition = FormStartPosition.CenterParent,
+        //            MinimizeBox = false,
+        //            MaximizeBox = true,
+        //            FormBorderStyle = FormBorderStyle.Sizable,
+        //            BackColor = Color.White,
+        //            Size = new Size(1100, 800)
+        //        };
+        //        frm.Controls.Add(viewer);
+        //        frm.ShowDialog(this.FindForm());
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("Đã xảy ra lỗi khi tạo báo cáo: " + ex.Message,
+        //            "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //    }
+        //}
+
+        // -------------------- Nút xem/Export Overview --------------------
         private void btnExportOverview_Click(object sender, EventArgs e)
         {
-            // Chỉ xử lý nếu tab Tổng Quan (Overview) đang được chọn
             if (tabControlMain.SelectedTab != tabOverview)
             {
-                MessageBox.Show("Chức năng này chỉ dành cho tab 'Tổng Quan'.", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Chức năng này chỉ dành cho tab 'Tổng Quan'.", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
             try
             {
-                DateTime from = dtpFrom.Value;
-                DateTime to = dtpTo.Value;
+                DateTime from = dtpFrom.Value.Date;
+                DateTime to = dtpTo.Value.Date;
 
-                // 1. Lấy dữ liệu
-                var data = _statsSvc.GetOrderStatusCounts(from, to);
-                if (data == null || data.Count == 0 || data.All(d => d.Value == 0))
+                //var summary = _statsSvc.GetOrderStatusCounts(from, to);
+                var summary = _statsSvc.GetOrderStatusCounts(from, to)
+                    .Select(x => new ChartDataPoint
+                    {
+                        Label = StatusMapper.ToVietnamese(x.Label), // dùng helper đã tách
+                        Value = x.Value
+                    })
+                    .ToList();
+
+                if (summary == null || summary.Count == 0 || summary.All(d => d.Value == 0))
                 {
-                    MessageBox.Show("Không có dữ liệu để lập báo cáo.", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Không có dữ liệu để lập báo cáo.", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
-                // 2. Tạo control báo cáo
-                ucReportViewer viewer = new ucReportViewer();
-                viewer.Dock = DockStyle.Fill;
+                // dữ liệu chi tiết cho RDLC (bảng)
+                var details = GetOrderDetails(from, to);
 
-                // 3. (ĐÃ XÓA) Không tạo Guna2ShadowForm ở đây
-
-                // 4. Nạp dữ liệu vào control
+                var viewer = new ucReportViewer { Dock = DockStyle.Fill };
                 string dateRange = $"Từ {from:dd/MM/yyyy} đến {to:dd/MM/yyyy}";
-                viewer.LoadOrderStatusReport(data, dateRange);
+                viewer.ReportTitle = "Tình Trạng Đơn Hàng"; // <== hiển thị lên lblReportTitle
+                viewer.LoadOrderStatusReport(summary, details, dateRange);
 
-                // 5. SỬA LẠI: Phát sự kiện để Form cha xử lý việc hiển thị popup
-                string title = "Xem Trước Báo Cáo - Tình Trạng Đơn Hàng";
-                ShowPopupRequest?.Invoke(this, viewer, title);
+                // === Tạo form borderless, center, size 1300x820 ===
+                var frm = new Form
+                {
+                    StartPosition = FormStartPosition.CenterScreen,   // center
+                    FormBorderStyle = FormBorderStyle.None,           // tắt border
+                    MinimizeBox = false,                              // tắt
+                    MaximizeBox = false,                              // tắt
+                    BackColor = Color.White,
+                    Size = new Size(1300, 820)                        // kích thước yêu cầu
+                };
+
+                // đặt UC ở giữa form nếu cần (nhưng đã DockFill)
+                viewer.Dock = DockStyle.Fill;
+                frm.Controls.Add(viewer);
+
+                // show modal
+                frm.ShowDialog(this.FindForm());
             }
             catch (Exception ex)
             {
-                // Bắt các lỗi phổ biến khi dùng ReportViewer
-                if (ex is FileNotFoundException || ex.InnerException is FileNotFoundException || ex.Message.Contains("ReportViewer"))
-                {
-                    MessageBox.Show("Lỗi: Không tìm thấy thư viện Microsoft.Reporting.WinForms.\n\nVui lòng cài đặt 'Microsoft.ReportingServices.ReportViewerControl.Winforms' qua NuGet.", "Lỗi Thư Viện", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else if (ex.Message.Contains(".rdlc"))
-                {
-                    MessageBox.Show("Lỗi: Không tìm thấy tệp báo cáo '.rdlc'.\n\nHãy chắc chắn rằng tệp tồn tại và có Build Action = Embedded Resource.", "Lỗi Báo Cáo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    MessageBox.Show("Đã xảy ra lỗi khi tạo báo cáo: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                MessageBox.Show("Đã xảy ra lỗi khi tạo báo cáo: " + ex.Message,
+                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        // <--- KẾT THÚC PHẦN CODE MỚI ---
     }
 }
