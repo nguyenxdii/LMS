@@ -14,8 +14,8 @@ namespace LMS.BUS.Services
                 if (o == null || d == null) return 0m;
 
                 if (o.ZoneId == d.ZoneId) return 100_000m;
-                if (IsAdjacent(o.ZoneId, d.ZoneId)) return 125_000m;
-                return 150_000m;
+                if (IsAdjacent(o.ZoneId, d.ZoneId)) return 150_000m;
+                return 200_000m;
             }
         }
 

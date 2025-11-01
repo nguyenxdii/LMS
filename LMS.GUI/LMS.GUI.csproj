@@ -296,6 +296,12 @@
     <Compile Include="OrderAdmin\ucOrderDetail_Admin.Designer.cs">
       <DependentUpon>ucOrderDetail_Admin.cs</DependentUpon>
     </Compile>
+    <Compile Include="OrderAdmin\ucOrderReject_Admin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OrderAdmin\ucOrderReject_Admin.Designer.cs">
+      <DependentUpon>ucOrderReject_Admin.cs</DependentUpon>
+    </Compile>
     <Compile Include="OrderAdmin\ucOrderSearch_Admin.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -521,6 +527,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="OrderAdmin\ucOrderDetail_Admin.resx">
       <DependentUpon>ucOrderDetail_Admin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OrderAdmin\ucOrderReject_Admin.resx">
+      <DependentUpon>ucOrderReject_Admin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OrderAdmin\ucOrderSearch_Admin.resx">
       <DependentUpon>ucOrderSearch_Admin.cs</DependentUpon>

@@ -35,108 +35,13 @@ namespace LMS.GUI.OrderAdmin
             };
         }
 
-        //#region Grid config
-        //private void ConfigureGrid()
-        //{
-        //    var g = dgvOrders;
-        //    g.Columns.Clear();
-        //    g.ApplyBaseStyle();
-
-        //    g.Columns.Add(new DataGridViewTextBoxColumn
-        //    {
-        //        Name = "Id",
-        //        DataPropertyName = "Id",
-        //        Visible = false
-        //    });
-        //    // Thêm các cột với SortMode = Programmatic
-        //    g.Columns.Add(new DataGridViewTextBoxColumn
-        //    {
-        //        Name = "OrderNo",
-        //        DataPropertyName = "OrderNo",
-        //        HeaderText = "Mã ĐH",
-        //        AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
-        //        SortMode = DataGridViewColumnSortMode.Programmatic
-        //    });
-        //    g.Columns.Add(new DataGridViewTextBoxColumn
-        //    {
-        //        Name = "CustomerName",
-        //        DataPropertyName = "CustomerName",
-        //        HeaderText = "Khách hàng",
-        //        AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
-        //        SortMode = DataGridViewColumnSortMode.Programmatic
-        //    });
-        //    g.Columns.Add(new DataGridViewTextBoxColumn
-        //    {
-        //        Name = "OriginWarehouseName",
-        //        DataPropertyName = "OriginWarehouseName",
-        //        HeaderText = "Kho gửi",
-        //        AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
-        //        SortMode = DataGridViewColumnSortMode.Programmatic
-        //    });
-        //    g.Columns.Add(new DataGridViewTextBoxColumn
-        //    {
-        //        Name = "DestWarehouseName",
-        //        DataPropertyName = "DestWarehouseName",
-        //        HeaderText = "Kho nhận",
-        //        AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
-        //        SortMode = DataGridViewColumnSortMode.Programmatic
-        //    });
-        //    g.Columns.Add(new DataGridViewTextBoxColumn
-        //    {
-        //        Name = "TotalFee",
-        //        DataPropertyName = "TotalFee",
-        //        HeaderText = "Tổng phí",
-        //        AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
-        //        DefaultCellStyle = { Format = "N0", Alignment = DataGridViewContentAlignment.MiddleRight },
-        //        SortMode = DataGridViewColumnSortMode.Programmatic
-        //    });
-        //    g.Columns.Add(new DataGridViewTextBoxColumn
-        //    {
-        //        Name = "DepositAmount",
-        //        DataPropertyName = "DepositAmount",
-        //        HeaderText = "Đặt cọc",
-        //        AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
-        //        DefaultCellStyle = { Format = "N0", Alignment = DataGridViewContentAlignment.MiddleRight },
-        //        SortMode = DataGridViewColumnSortMode.Programmatic
-        //    });
-        //    g.Columns.Add(new DataGridViewTextBoxColumn
-        //    {
-        //        Name = "Status", // Giữ nguyên Name là "Status"
-        //        DataPropertyName = "Status",
-        //        HeaderText = "Trạng thái",
-        //        AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
-        //        SortMode = DataGridViewColumnSortMode.Programmatic
-        //    });
-        //    g.Columns.Add(new DataGridViewTextBoxColumn
-        //    {
-        //        Name = "CreatedAt",
-        //        DataPropertyName = "CreatedAt",
-        //        HeaderText = "Ngày tạo",
-        //        AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
-        //        DefaultCellStyle = { Format = "dd/MM/yyyy HH:mm", Alignment = DataGridViewContentAlignment.MiddleCenter },
-        //        SortMode = DataGridViewColumnSortMode.Programmatic
-        //    });
-
-        //    // double buffer
-        //    try
-        //    {
-        //        var property = g.GetType().GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic);
-        //        if (property != null)
-        //        {
-        //            property.SetValue(g, true, null);
-        //        }
-        //    }
-        //    catch { }
-        //}
-        //#endregion
         #region Grid config
         private void ConfigureGrid()
         {
             var g = dgvOrders;
             g.Columns.Clear();
-            g.ApplyBaseStyle(); // Make sure this extension method exists and applies basic styling
+            g.ApplyBaseStyle();
 
-            // Add hidden ID column
             g.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "Id",
@@ -144,14 +49,13 @@ namespace LMS.GUI.OrderAdmin
                 Visible = false
             });
 
-            // Add other columns with AllCells AutoSizeMode
             g.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "OrderNo",
                 DataPropertyName = "OrderNo",
                 HeaderText = "Mã ĐH",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells, // Let column adjust to content
-                SortMode = DataGridViewColumnSortMode.Programmatic // Use custom sorting
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                SortMode = DataGridViewColumnSortMode.Programmatic
             });
             g.Columns.Add(new DataGridViewTextBoxColumn
             {
@@ -204,7 +108,6 @@ namespace LMS.GUI.OrderAdmin
                 SortMode = DataGridViewColumnSortMode.Programmatic
             });
 
-            // === Last column set to Fill ===
             g.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "CreatedAt",
@@ -216,10 +119,8 @@ namespace LMS.GUI.OrderAdmin
                 SortMode = DataGridViewColumnSortMode.Programmatic
             });
 
-            // Enable double buffering for smoother scrolling
             try
             {
-                // Use reflection to access the protected DoubleBuffered property
                 var dgvType = g.GetType();
                 var pi = dgvType.GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic);
                 if (pi != null)
@@ -229,7 +130,6 @@ namespace LMS.GUI.OrderAdmin
             }
             catch (Exception)
             {
-                // Ignore exceptions if DoubleBuffered property cannot be set
             }
         }
         #endregion
@@ -298,7 +198,6 @@ namespace LMS.GUI.OrderAdmin
             dgvOrders.CellFormatting += dgvOrders_CellFormatting; // Thêm sự kiện format Status
             dgvOrders.CellDoubleClick += (s, e) =>
             {
-                // Chỉ xử lý khi double click vào một dòng dữ liệu (không phải header)
                 if (e.RowIndex >= 0)
                 {
                     ShowDetail(); // Gọi lại hàm ShowDetail() đã có sẵn
@@ -313,7 +212,7 @@ namespace LMS.GUI.OrderAdmin
 
             btnApprove.Enabled = enable && it.Status == OrderStatus.Pending;
             btnReject.Enabled = enable && it.Status == OrderStatus.Pending;
-            btnDelete.Enabled = enable && (it.Status == OrderStatus.Pending || it.Status == OrderStatus.Cancelled);
+            btnDelete.Enabled = enable && (it.Status == OrderStatus.Cancelled || it.Status == OrderStatus.Completed); // <-- ĐÃ SỬA
             btnViewDetail.Enabled = enable;
             btnShipment.Enabled = enable && it.Status == OrderStatus.Approved;
         }
@@ -387,23 +286,72 @@ namespace LMS.GUI.OrderAdmin
             catch (Exception ex) { MessageBox.Show(ex.Message, "Lỗi"); }
         }
 
+        //private void Reject()
+        //{
+        //    var it = Current();
+        //    if (it == null) return;
+        //    if (it.Status != OrderStatus.Pending)
+        //    {
+        //        MessageBox.Show("Chỉ từ chối đơn trạng thái Pending.", "LMS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //        return;
+        //    }
+        //    if (MessageBox.Show("Từ chối đơn hàng này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+        //    try
+        //    {
+        //        _svc.Reject(it.Id);
+        //        KeepAndReload(it.Id);
+        //        MessageBox.Show("Đã từ chối đơn.", "LMS");
+        //    }
+        //    catch (Exception ex) { MessageBox.Show(ex.Message, "Lỗi"); }
+        //}
         private void Reject()
         {
             var it = Current();
-            if (it == null) return;
-            if (it.Status != OrderStatus.Pending)
+            if (it == null || it.Status != OrderStatus.Pending)
             {
-                MessageBox.Show("Chỉ từ chối đơn trạng thái Pending.", "LMS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Chỉ từ chối đơn trạng thái 'Chờ duyệt'.", "LMS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (MessageBox.Show("Từ chối đơn hàng này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
-            try
+
+            // Tạo UC mới
+            var ucReject = new ucOrderReject_Admin();
+            ucReject.LoadOrderInfo(it.OrderNo); // Truyền mã đơn hàng vào UC
+
+            // Tạo Form popup để chứa UC
+            using (var popup = new Form())
             {
-                _svc.Reject(it.Id);
-                KeepAndReload(it.Id);
-                MessageBox.Show("Đã từ chối đơn.", "LMS");
+                popup.StartPosition = FormStartPosition.CenterParent;
+                popup.FormBorderStyle = FormBorderStyle.None; // UC đã có pnlTop để kéo
+                popup.Size = ucReject.Size; // Lấy kích thước từ UC
+                popup.Controls.Add(ucReject);
+                ucReject.Dock = DockStyle.Fill;
+
+                // Xử lý sự kiện khi UC nhấn "Xác nhận"
+                ucReject.Confirmed += (sender, reason) =>
+                {
+                    try
+                    {
+                        // Gọi service với lý do
+                        _svc.Reject(it.Id, reason);
+                        KeepAndReload(it.Id);
+                        MessageBox.Show("Đã từ chối đơn hàng thành công.", "LMS");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Lỗi");
+                    }
+                    // Form sẽ tự đóng (do code trong ucReject)
+                };
+
+                // Xử lý sự kiện khi UC nhấn "Hủy bỏ"
+                ucReject.Cancelled += (sender, e) =>
+                {
+                    // Không làm gì cả, Form sẽ tự đóng
+                };
+
+                // Hiển thị popup
+                popup.ShowDialog(this.FindForm());
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message, "Lỗi"); }
         }
 
         private void Delete()
@@ -411,8 +359,8 @@ namespace LMS.GUI.OrderAdmin
             var it = Current();
             if (it == null) return;
             var note =
-                "- Chỉ xoá được đơn Pending/Cancelled.\n" +
-                "- Nếu đơn đã gắn Shipment hoặc đang/đã vận chuyển thì KHÔNG thể xoá.\n\n" +
+                "- Chỉ xoá được đơn 'Đã hủy' hoặc 'Hoàn thành'.\n" +
+                "- Xóa đơn hàng sẽ XÓA VĨNH VIỄN (không thể khôi phục).\n\n" +
                 "Bạn có chắc muốn xoá đơn này?";
             if (MessageBox.Show(note, "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
             try
@@ -423,69 +371,11 @@ namespace LMS.GUI.OrderAdmin
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Lỗi"); }
         }
-        //private void CreateShipment()
-        //{
-        //    var it = Current();
-        //    if (it == null) return;
-        //    if (it.Status != OrderStatus.Approved)
-        //    {
-        //        MessageBox.Show("Chỉ tạo Shipment cho đơn đã được duyệt.", "LMS",
-        //            MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        //        return;
-        //    }
-
-        //    // === SỬA TỪ ĐÂY: Mở popup UserControl thay vì gọi PickDriverId() ===
-
-        //    int? selectedDriverId = null; // Biến để lưu ID tài xế được chọn
-
-        //    // Tạo Form popup để chứa UC chọn tài xế
-        //    using (var fPicker = new Form
-        //    {
-        //        Text = "Chọn Tài Xế Cho Chuyến Hàng",
-        //        StartPosition = FormStartPosition.CenterParent,
-        //        // Đặt kích thước phù hợp với UserControl chọn tài xế của bạn
-        //        Size = new Size(583, 539),
-        //        FormBorderStyle = FormBorderStyle.None, // Hoặc .None
-        //    })
-        //    {
-        //        var ucPicker = new ucDriverPicker_Admin();
-
-        //        ucPicker.DriverSelected += (selectedId) =>
-        //        {
-        //            selectedDriverId = selectedId;
-        //            fPicker.DialogResult = DialogResult.OK; // Đóng popup và báo thành công
-        //        };
-
-        //        // Thêm UserControl vào Form popup
-        //        fPicker.Controls.Add(ucPicker);
-
-        //        // Hiển thị popup và chờ người dùng chọn
-        //        if (fPicker.ShowDialog(this.FindForm()) == DialogResult.OK && selectedDriverId.HasValue)
-        //        {
-        //            // Người dùng đã chọn một tài xế -> Tiếp tục tạo Shipment
-        //            try
-        //            {
-        //                int shipId = _svc.CreateShipmentFromOrder(it.Id, selectedDriverId.Value);
-        //                KeepAndReload(it.Id); // Tải lại và giữ focus
-        //                MessageBox.Show($"Đã tạo Shipment SHP{shipId}.", "LMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                MessageBox.Show($"Lỗi khi tạo Shipment: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //            }
-        //        }
-        //        // else: Người dùng đóng popup mà không chọn -> Không làm gì cả
-        //    }
-        //    // === KẾT THÚC SỬA ===
-        //}
-        // [Dán vào file ucOrder_Admin.cs, thay thế hàm CreateShipment cũ]
         private void CreateShipment()
         {
-            // Lấy thông tin đơn hàng đang chọn trên grid
             var it = Current();
             if (it == null) return; // Không có dòng nào được chọn thì thoát
 
-            // Kiểm tra trạng thái đơn hàng: Chỉ cho phép tạo chuyến khi đơn đã được duyệt (Approved)
             if (it.Status != OrderStatus.Approved)
             {
                 MessageBox.Show("Chỉ tạo Shipment cho đơn đã được duyệt.", "LMS",
@@ -495,7 +385,6 @@ namespace LMS.GUI.OrderAdmin
 
             int? selectedDriverId = null; // Biến để lưu ID tài xế được chọn từ popup
 
-            // Tạo Form popup để chứa UserControl chọn tài xế
             using (var fPicker = new Form
             {
                 Text = "Chọn Tài Xế Cho Chuyến Hàng", // Tiêu đề của Form popup
@@ -505,11 +394,8 @@ namespace LMS.GUI.OrderAdmin
                 FormBorderStyle = FormBorderStyle.None, // Bỏ viền và nút điều khiển của Form
             })
             {
-                // Tạo instance của ucDriverPicker_Admin và truyền vào mode CreateShipment
-                // Điều này sẽ khiến ucDriverPicker_Admin gọi hàm GetDriversWithVehiclesForShipment
                 var ucPicker = new ucDriverPicker_Admin(DriverPickerMode.CreateShipment); // <<< TRUYỀN MODE VÀO ĐÂY
 
-                // Đăng ký sự kiện để nhận ID tài xế khi người dùng chọn xong
                 ucPicker.DriverSelected += (selectedId) =>
                 {
                     selectedDriverId = selectedId; // Lưu ID được chọn
@@ -517,34 +403,24 @@ namespace LMS.GUI.OrderAdmin
                                                             // fPicker.Close(); // Không cần gọi Close() ở đây vì DialogResult sẽ tự đóng
                 };
 
-                // Thêm UserControl vào Form popup và cho nó fill đầy Form
                 fPicker.Controls.Add(ucPicker);
                 ucPicker.Dock = DockStyle.Fill;
 
-                // Hiển thị Form popup dưới dạng Dialog (chặn tương tác với Form cha)
-                // và kiểm tra xem người dùng có nhấn nút "Xác Nhận" (DialogResult.OK)
-                // và đã chọn được tài xế (selectedDriverId.HasValue) hay không
                 if (fPicker.ShowDialog(this.FindForm()) == DialogResult.OK && selectedDriverId.HasValue)
                 {
-                    // Nếu người dùng đã chọn tài xế, tiến hành tạo Shipment
                     try
                     {
-                        // Gọi service để tạo Shipment với Order ID và Driver ID đã chọn
                         int shipId = _svc.CreateShipmentFromOrder(it.Id, selectedDriverId.Value);
 
-                        // Tải lại dữ liệu grid và giữ focus vào đơn hàng vừa tạo chuyến
                         KeepAndReload(it.Id);
 
-                        // Thông báo tạo thành công
                         MessageBox.Show($"Đã tạo Shipment SHP{shipId}.", "LMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     catch (Exception ex)
                     {
-                        // Hiển thị lỗi nếu có vấn đề xảy ra trong quá trình tạo Shipment
                         MessageBox.Show($"Lỗi khi tạo Shipment: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                // else: Nếu người dùng nhấn Hủy hoặc đóng Form mà không chọn -> Không làm gì cả
             }
         }
         #endregion
@@ -552,13 +428,11 @@ namespace LMS.GUI.OrderAdmin
         #region Sort functionality
         private void dgvOrders_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            // Kiểm tra null cho dgvOrders và _binding trước khi sử dụng
             if (dgvOrders == null || _binding == null || _binding.Count == 0) return;
 
             var column = dgvOrders.Columns[e.ColumnIndex];
             if (column.SortMode == DataGridViewColumnSortMode.NotSortable) return;
 
-            // Xác định hướng sắp xếp
             if (_sortedColumn == column)
             {
                 _sortOrder = (_sortOrder == SortOrder.Ascending) ? SortOrder.Descending : SortOrder.Ascending;
@@ -573,7 +447,6 @@ namespace LMS.GUI.OrderAdmin
                 _sortedColumn = column;
             }
 
-            // Sắp xếp danh sách bằng reflection
             var property = typeof(OrderListItemDto).GetProperty(column.DataPropertyName);
             if (property != null)
             {
@@ -583,11 +456,9 @@ namespace LMS.GUI.OrderAdmin
                 else
                     sortedList = _binding.OrderByDescending(x => property.GetValue(x, null)); // Thêm null vào GetValue
 
-                // Cập nhật binding với danh sách đã sắp xếp
                 var newList = sortedList.ToList(); // Chuyển thành List trước
                 _binding = new BindingList<OrderListItemDto>(newList); // Tạo BindingList mới
 
-                // Gán lại DataSource và cập nhật mũi tên
                 dgvOrders.DataSource = null; // Gán null trước để refresh
                 dgvOrders.DataSource = _binding;
                 column.HeaderCell.SortGlyphDirection = _sortOrder;
@@ -606,16 +477,12 @@ namespace LMS.GUI.OrderAdmin
         #endregion
 
         #region Cell Formatting for Status
-        // Thêm hàm xử lý format Status sang tiếng Việt
         private void dgvOrders_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            // Kiểm tra xem có phải cột "Status" không
             if (dgvOrders.Columns[e.ColumnIndex].Name == "Status" && e.Value != null)
             {
-                // Kiểm tra xem giá trị có phải là OrderStatus không
                 if (e.Value is OrderStatus status)
                 {
-                    // Chuyển đổi enum sang tiếng Việt
                     switch (status)
                     {
                         case OrderStatus.Pending: e.Value = "Chờ duyệt"; break;

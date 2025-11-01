@@ -209,15 +209,21 @@ namespace LMS.BUS.Services
                 db.SaveChanges();
             }
         }
-        public void Reject(int id)
+        public void Reject(int id, string reason)
         {
+            if (string.IsNullOrWhiteSpace(reason))
+            {
+                throw new InvalidOperationException("Vui lòng nhập lý do từ chối đơn hàng.");
+            }
+
             using (var db = new LogisticsDbContext())
             {
                 var o = db.Orders.Find(id);
                 if (o == null) throw new Exception("Không tìm thấy đơn.");
                 if (o.Status != OrderStatus.Pending) throw new Exception("Chỉ từ chối đơn trạng thái Pending.");
 
-                o.Status = OrderStatus.Cancelled;
+                o.Status = OrderStatus.Cancelled; // Chuyển trạng thái
+                o.CancelReason = reason; // <-- LƯU LÝ DO VÀO CSDL
                 db.SaveChanges();
             }
         }
@@ -228,8 +234,8 @@ namespace LMS.BUS.Services
                 var o = db.Orders.Find(id);
                 if (o == null) return;
 
-                if (o.Status != OrderStatus.Pending && o.Status != OrderStatus.Cancelled)
-                    throw new Exception("Chỉ xoá được đơn Pending/Cancelled.");
+                if (o.Status != OrderStatus.Cancelled && o.Status != OrderStatus.Completed)
+                    throw new Exception("Chỉ xoá được đơn ở trạng thái 'Đã hủy' hoặc 'Hoàn thành'.");
 
                 if (o.ShipmentId != null)
                     throw new Exception("Đơn đã gắn Shipment, không thể xoá.");

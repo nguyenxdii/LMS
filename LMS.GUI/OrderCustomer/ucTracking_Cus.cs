@@ -83,16 +83,23 @@ namespace LMS.GUI.OrderCustomer
 
         private void BindOrder(Order order)
         {
-            // Hiển thị trạng thái tổng quát của đơn hàng và shipment (nếu có)
-            //lblOrderStatus.Text = order.Shipment != null
-            //    ? $"Đơn #{OrderCode.ToCode(order.Id)} – {ToVi(order.Status)} – Chuyến #{order.Shipment.Id}: {ToVi(order.Shipment.Status)}"
-            //    : $"Đơn #{OrderCode.ToCode(order.Id)} – {ToVi(order.Status)} (Chưa có chuyến)";
-            // Trong hàm BindOrder(Order order) của ucTracking_Cus.cs
-
-            lblOrderStatus.Text = order.Shipment != null
-                ? $"Đơn #{OrderCode.ToCode(order.Id)} – {ToVi(order.Status)}\n" + // Xuống dòng
-                  $"Chuyến #{order.Shipment.Id}: {ToVi(order.Shipment.Status)}"
-                : $"Đơn #{OrderCode.ToCode(order.Id)} – {ToVi(order.Status)} (Chưa có chuyến)";
+            if (order.Status == OrderStatus.Cancelled)
+            {
+                lblOrderStatus.Text = $"Đơn #{OrderCode.ToCode(order.Id)} – {ToVi(order.Status)}\n" +
+                                      $"Lý do: {order.CancelReason ?? "Không có lý do cụ thể."}";
+                lblOrderStatus.ForeColor = Color.Red;
+            }
+            else if (order.Shipment != null)
+            {
+                lblOrderStatus.Text = $"Đơn #{OrderCode.ToCode(order.Id)} – {ToVi(order.Status)}\n" + // Xuống dòng
+                                      $"Chuyến #{order.Shipment.Id}: {ToVi(order.Shipment.Status)}";
+                lblOrderStatus.ForeColor = Color.Black;
+            }
+            else
+            {
+                lblOrderStatus.Text = $"Đơn #{OrderCode.ToCode(order.Id)} – {ToVi(order.Status)} (Chưa có chuyến)";
+                lblOrderStatus.ForeColor = Color.Black;
+            }
 
             var stops = (order.Shipment?.RouteStops ?? new List<RouteStop>())
                             .OrderBy(rs => rs.Seq)

@@ -35,6 +35,8 @@ namespace LMS.DAL.Models
 
         // Thời điểm mong muốn (đến kho / lấy hàng)
         public DateTime? DesiredTime { get; set; }
+        [StringLength(250)]
+        public string CancelReason { get; set; }        // lý do hủy đơn hàng
 
         // NEW: Phí
         [Range(0, 100000000)]

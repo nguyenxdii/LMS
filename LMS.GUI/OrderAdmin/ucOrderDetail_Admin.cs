@@ -18,25 +18,18 @@ namespace LMS.GUI.OrderAdmin
             InitializeComponent();
             _orderId = orderId;
             this.Load += UcOrderDetail_Admin_Load;
-            // No need to set Size here, rely on the Form containing it
-            // this.Size = new Size(500, 500); 
         }
 
         private void UcOrderDetail_Admin_Load(object sender, EventArgs e)
         {
             LoadData();
 
-            // Set Size AFTER LoadData if needed, but Dock=Fill is better
-            // this.Size = new Size(500, 500); 
-
-            // Back button click event
             btnBack.Click += (s, ev) =>
             {
                 this.FindForm()?.Close(); // Close the parent Form
             };
         }
 
-        // In LMS.GUI/OrderAdmin/ucOrderDetail_Admin.cs
 
         private void LoadData()
         {
