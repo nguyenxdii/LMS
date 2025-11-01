@@ -655,7 +655,11 @@
     <None Include="Properties\DataSources\LMS.BUS.Dtos.ChartDataPoint+TopCustomerDto.datasource" />
     <None Include="Properties\DataSources\LMS.BUS.Dtos.ChartDataPoint+TopDriverDto.datasource" />
     <None Include="Properties\DataSources\LMS.BUS.Dtos.ChartDataPoint.datasource" />
+    <None Include="Properties\DataSources\LMS.BUS.Dtos.CustomerDetailDto.datasource" />
+    <None Include="Properties\DataSources\LMS.BUS.Dtos.CustomerOrderDetailDto.datasource" />
+    <None Include="Properties\DataSources\LMS.BUS.Dtos.DriverShipmentDetailDto.datasource" />
     <None Include="Properties\DataSources\LMS.BUS.Dtos.ShipmentDetailDto.datasource" />
+    <None Include="Properties\DataSources\LMS.BUS.Dtos.ShipmentDetailDto1.datasource" />
     <None Include="Properties\DataSources\LMS.GUI.ReportAdmin.DataSet1+ChartDataPointDataTable.datasource" />
     <None Include="Properties\DataSources\LMS.GUI.ReportAdmin.DataSet1+ChartDataPointRow.datasource" />
     <None Include="Properties\DataSources\LMS.GUI.ReportAdmin.DataSet1+ChartDataPointRowChangeEvent.datasource" />
