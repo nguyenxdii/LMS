@@ -11,7 +11,6 @@
 //    public class StatisticsService
 //    {
 //        private readonly LogisticsDbContext db = new LogisticsDbContext();
-//        //private readonly LmsDbContext _context;
 
 //        // ==== KPI OVERVIEW ====
 //        public KpiDto GetKpis(DateTime from, DateTime to)
@@ -19,36 +18,24 @@
 //            var fromDate = from.Date;
 //            var toDate = to.Date.AddDays(1).AddTicks(-1);
 
-//            // 1) Tổng đơn tạo trong kỳ
 //            var totalOrders = db.Orders.Count(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate);
 
-//            // 2) Shipment đang vận hành (bắt đầu trong kỳ và chưa kết thúc)
 //            var inProgress = db.Shipments.Count(s =>
 //                s.StartedAt >= fromDate && s.StartedAt <= toDate &&
 //                s.Status != ShipmentStatus.Delivered &&
 //                s.Status != ShipmentStatus.Failed
 //            );
 
-//            // 3) Shipment giao thành công trong kỳ
 //            var completed = db.Shipments.Count(s =>
 //                s.Status == ShipmentStatus.Delivered &&
 //                s.DeliveredAt >= fromDate && s.DeliveredAt <= toDate
 //            );
 
-//            // 4) Doanh thu: tổng tiền các Order thuộc shipment đã giao trong kỳ
-//            //var revenue = db.Orders
-//            //    //.Include(o => o.Shipment)
-//            //    .Where(o => o.Shipment != null &&
-//            //                o.Shipment.Status == ShipmentStatus.Delivered &&
-//            //                o.Shipment.DeliveredAt >= fromDate &&
-//            //                o.Shipment.DeliveredAt <= toDate &&
-//            //                o.Order != null)
-//            //    .Sum(o => (decimal?)o.TotalFee) ?? 0m;
 //            var revenue = db.Shipments
 //                .Where(s => s.Status == ShipmentStatus.Delivered &&
 //                            s.DeliveredAt >= fromDate &&
 //                            s.DeliveredAt <= toDate &&
-//                            s.Order != null) // Đảm bảo có Order liên kết
+//                            s.Order != null)
 //                .Sum(s => (decimal?)s.Order.TotalFee) ?? 0m;
 
 //            return new KpiDto
@@ -77,42 +64,32 @@
 //                Label = FormatOrderStatus(x.Status),
 //                Value = x.Count
 //            })
-//                    .OrderBy(d => d.Label)
-//                    .ToList();
+//            .OrderBy(d => d.Label)
+//            .ToList();
 //        }
 
 //        // ==== LINE/COLUMN: DOANH THU THEO THỜI GIAN ====
-//        public List<ChartDataPoint.TimeSeriesDataPoint> GetRevenueOverTime(DateTime from, DateTime to)
+//        // SỬA: trả về DTO ngoài ChartDataPoint
+//        public List<TimeSeriesDataPoint> GetRevenueOverTime(DateTime from, DateTime to)
 //        {
 //            var fromDate = from.Date;
 //            var toDate = to.Date.AddDays(1).AddTicks(-1);
 
-//            //var rows = db.Orders
-//            //    .Where(o => o.Shipment != null &&
-//            //                o.Shipment.Status == ShipmentStatus.Delivered &&
-//            //                o.Shipment.DeliveredAt >= fromDate &&
-//            //                o.Shipment.DeliveredAt <= toDate)
-//            //    .Select(o => new
-//            //    {
-//            //        DeliveredDate = DbFunctions.TruncateTime(o.Shipment.DeliveredAt.Value),
-//            //        o.TotalFee
-//            //    })
-//            //    .ToList();
-//            var rows = db.Shipments // <-- Sửa: Bắt đầu từ Shipments
-//                .Where(s => s.Status == ShipmentStatus.Delivered && // <-- Sửa: Dùng s.Status
+//            var rows = db.Shipments
+//                .Where(s => s.Status == ShipmentStatus.Delivered &&
 //                            s.DeliveredAt >= fromDate &&
 //                            s.DeliveredAt <= toDate &&
-//                            s.Order != null) // <-- Thêm kiểm tra
-//                .Select(s => new // <-- Sửa: Select từ s (Shipment)
+//                            s.Order != null)
+//                .Select(s => new
 //                {
 //                    DeliveredDate = DbFunctions.TruncateTime(s.DeliveredAt.Value),
-//                    TotalFee = s.Order.TotalFee // <-- Sửa: Lấy phí từ s.Order
+//                    TotalFee = s.Order.TotalFee
 //                })
 //                .ToList();
 
 //            var grouped = rows
 //                .GroupBy(x => x.DeliveredDate)
-//                .Select(g => new ChartDataPoint.TimeSeriesDataPoint
+//                .Select(g => new TimeSeriesDataPoint
 //                {
 //                    Date = g.Key.Value,
 //                    Value = g.Sum(x => x.TotalFee)
@@ -140,11 +117,11 @@
 //                Label = FormatShipmentStatus(x.Status),
 //                Value = x.Count
 //            })
-//                    .OrderBy(d => d.Label)
-//                    .ToList();
+//            .OrderBy(d => d.Label)
+//            .ToList();
 //        }
 
-//        // ==== BAR HORIZONTAL: TOP ROUTES (đã FIX lỗi anonymous type) ====
+//        // ==== BAR HORIZONTAL: TOP ROUTES ====
 //        public List<ChartDataPoint> GetTopRoutes(DateTime from, DateTime to, int topN = 5)
 //        {
 //            var fromDate = from.Date;
@@ -169,38 +146,21 @@
 //            var fromDate = from.Date;
 //            var toDate = to.Date.AddDays(1).AddTicks(-1);
 
-//            //return db.Orders
-//            //    .Where(o => o.Status == OrderStatus.Completed &&
-//            //                o.Shipment.DeliveredAt >= fromDate &&
-//            //                o.Shipment.DeliveredAt <= toDate)
-//            //    .GroupBy(o => o.Customer)
-//            //    .Select(g => new ChartDataPoint.TopCustomerDto
-//            //    {
-//            //        CustomerId = g.Key.Id,
-//            //        CustomerName = g.Key.Name,
-//            //        Phone = g.Key.Phone,
-//            //        Email = g.Key.Email,
-//            //        TotalOrders = g.Count(),
-//            //        TotalRevenue = g.Sum(o => o.TotalFee)
-//            //    })
-//            //    .OrderByDescending(x => x.TotalRevenue)
-//            //    .Take(topN)
-//            //    .ToList();
-//            return db.Shipments // <-- Sửa: Bắt đầu từ Shipments
-//                .Where(s => s.Status == ShipmentStatus.Delivered && // <-- Sửa: Dùng s.Status
+//            return db.Shipments
+//                .Where(s => s.Status == ShipmentStatus.Delivered &&
 //                            s.DeliveredAt >= fromDate &&
 //                            s.DeliveredAt <= toDate &&
-//                            s.Order != null && // <-- Thêm kiểm tra
-//                            s.Order.Customer != null) // <-- Thêm kiểm tra
-//                .GroupBy(s => s.Order.Customer) // <-- Sửa: Group theo s.Order.Customer
+//                            s.Order != null &&
+//                            s.Order.Customer != null)
+//                .GroupBy(s => s.Order.Customer)
 //                .Select(g => new ChartDataPoint.TopCustomerDto
 //                {
 //                    CustomerId = g.Key.Id,
 //                    CustomerName = g.Key.Name,
 //                    Phone = g.Key.Phone,
 //                    Email = g.Key.Email,
-//                    TotalOrders = g.Count(), // Đây là tổng số chuyến hàng (Shipment) đã giao
-//                    TotalRevenue = g.Sum(s => s.Order.TotalFee) // <-- Sửa: Sum TotalFee từ s.Order
+//                    TotalOrders = g.Count(),
+//                    TotalRevenue = g.Sum(s => s.Order.TotalFee)
 //                })
 //                .OrderByDescending(x => x.TotalRevenue)
 //                .Take(topN)
@@ -225,7 +185,7 @@
 //                    DriverName = g.Key.FullName,
 //                    Phone = g.Key.Phone,
 //                    LicenseType = g.Key.LicenseType,
-//                    VehiclePlate = g.Key.Vehicle.PlateNo,
+//                    VehiclePlate = g.Key.Vehicle != null ? g.Key.Vehicle.PlateNo : "", // tránh NRE
 //                    TotalShipments = g.Count()
 //                })
 //                .OrderByDescending(x => x.TotalShipments)
@@ -233,20 +193,21 @@
 //                .ToList();
 //        }
 
-//        // --- THÊM HÀM MỚI NÀY ĐỂ LẤY DỮ LIỆU CHO BẢNG ---
-//        public List<ChartDataPoint.OrderStatusDetailDto> GetOrderStatusDetails(DateTime from, DateTime to)
+//        // --- DỮ LIỆU BẢNG: TRẠNG THÁI ĐƠN HÀNG ---
+//        // SỬA: trả về DTO ngoài ChartDataPoint
+//        public List<OrderStatusDetailDto> GetOrderStatusDetails(DateTime from, DateTime to)
 //        {
 //            var fromDate = from.Date;
 //            var toDate = to.Date.AddDays(1).AddTicks(-1);
 
 //            return db.Orders
 //                .Where(o => o.CreatedAt >= fromDate && o.CreatedAt <= toDate)
-//                .Include(o => o.Customer) // Lấy kèm thông tin Khách hàng
-//                .Select(o => new ChartDataPoint.OrderStatusDetailDto
+//                .Include(o => o.Customer)
+//                .Select(o => new OrderStatusDetailDto
 //                {
-//                    OrderNo = o.OrderNo ?? ("ORD" + o.Id), // Dùng mã đơn hoặc tạo mã
-//                    CustomerName = o.Customer.Name,
-//                    Status = o.Status.ToString(), // Sẽ format lại ở RDLC hoặc Service
+//                    OrderNo = o.OrderNo ?? ("ORD" + o.Id),
+//                    CustomerName = o.Customer != null ? o.Customer.Name : "",
+//                    Status = o.Status.ToString(),
 //                    TotalFee = o.TotalFee,
 //                    CreatedAt = o.CreatedAt
 //                })
@@ -254,8 +215,9 @@
 //                .ToList();
 //        }
 
-//        // --- LẤY DỮ LIỆU BẢNG DOANH THU ---
-//        public List<ChartDataPoint.RevenueDetailDto> GetRevenueDetails(DateTime from, DateTime to)
+//        // --- DỮ LIỆU BẢNG: DOANH THU ---
+//        // SỬA: trả về DTO ngoài ChartDataPoint
+//        public List<RevenueDetailDto> GetRevenueDetails(DateTime from, DateTime to)
 //        {
 //            var fromDate = from.Date;
 //            var toDate = to.Date.AddDays(1).AddTicks(-1);
@@ -264,19 +226,18 @@
 //                .Where(s => s.Status == ShipmentStatus.Delivered &&
 //                            s.DeliveredAt >= fromDate &&
 //                            s.DeliveredAt <= toDate &&
-//                            s.Order != null && // Phải có đơn hàng
-//                            s.Order.Customer != null) // Phải có khách hàng
-//                .Select(s => new ChartDataPoint.RevenueDetailDto
+//                            s.Order != null &&
+//                            s.Order.Customer != null)
+//                .Select(s => new RevenueDetailDto
 //                {
 //                    OrderNo = s.Order.OrderNo ?? ("ORD" + s.Order.Id),
 //                    CustomerName = s.Order.Customer.Name,
-//                    DeliveredAt = s.DeliveredAt.Value, // .Value vì DeliveredAt là nullable
+//                    DeliveredAt = s.DeliveredAt.Value,
 //                    TotalFee = s.Order.TotalFee
 //                })
 //                .OrderByDescending(o => o.DeliveredAt)
 //                .ToList();
 //        }
-
 
 //        // ====== format helpers ======
 //        private string FormatOrderStatus(OrderStatus status)
@@ -380,7 +341,6 @@ namespace LMS.BUS.Services
         }
 
         // ==== LINE/COLUMN: DOANH THU THEO THỜI GIAN ====
-        // SỬA: trả về DTO ngoài ChartDataPoint
         public List<TimeSeriesDataPoint> GetRevenueOverTime(DateTime from, DateTime to)
         {
             var fromDate = from.Date;
@@ -496,7 +456,7 @@ namespace LMS.BUS.Services
                     DriverName = g.Key.FullName,
                     Phone = g.Key.Phone,
                     LicenseType = g.Key.LicenseType,
-                    VehiclePlate = g.Key.Vehicle != null ? g.Key.Vehicle.PlateNo : "", // tránh NRE
+                    VehiclePlate = g.Key.Vehicle != null ? g.Key.Vehicle.PlateNo : "",
                     TotalShipments = g.Count()
                 })
                 .OrderByDescending(x => x.TotalShipments)
@@ -504,8 +464,7 @@ namespace LMS.BUS.Services
                 .ToList();
         }
 
-        // --- DỮ LIỆU BẢNG: TRẠNG THÁI ĐƠN HÀNG ---
-        // SỬA: trả về DTO ngoài ChartDataPoint
+        // --- BẢNG: TRẠNG THÁI ĐƠN HÀNG ---
         public List<OrderStatusDetailDto> GetOrderStatusDetails(DateTime from, DateTime to)
         {
             var fromDate = from.Date;
@@ -526,8 +485,7 @@ namespace LMS.BUS.Services
                 .ToList();
         }
 
-        // --- DỮ LIỆU BẢNG: DOANH THU ---
-        // SỬA: trả về DTO ngoài ChartDataPoint
+        // --- BẢNG: DOANH THU ---
         public List<RevenueDetailDto> GetRevenueDetails(DateTime from, DateTime to)
         {
             var fromDate = from.Date;
@@ -549,6 +507,48 @@ namespace LMS.BUS.Services
                 .OrderByDescending(o => o.DeliveredAt)
                 .ToList();
         }
+
+        //// --- BẢNG: CHI TIẾT CHUYẾN HÀNG THEO TÀI XẾ (VIỆT HOÁ TRẠNG THÁI) ---
+        //public List<DriverShipmentDetailDto> GetDriverShipmentDetails(DateTime from, DateTime to)
+        //{
+        //    var fromDate = from.Date;
+        //    var toDate = to.Date.AddDays(1).AddTicks(-1);
+
+        //    var rows = db.Shipments
+        //        .Include(s => s.Driver)
+        //        .Include(s => s.FromWarehouse)
+        //        .Include(s => s.ToWarehouse)
+        //        .Where(s => s.DriverId != null &&
+        //                    s.UpdatedAt >= fromDate &&
+        //                    s.UpdatedAt <= toDate)
+        //        .Select(s => new DriverShipmentDetailDto
+        //        {
+        //            ShipmentId = s.Id,
+        //            // Entity không có ShipmentNo -> tự tạo mã hiển thị
+        //            ShipmentNo = "SHP" + s.Id,
+
+        //            DriverId = s.DriverId.Value,
+        //            DriverName = s.Driver.FullName,
+        //            Phone = s.Driver.Phone,
+        //            LicenseType = s.Driver.LicenseType,
+
+        //            VehiclePlate = s.Driver.Vehicle != null ? s.Driver.Vehicle.PlateNo : "",
+
+        //            FromWarehouse = s.FromWarehouse != null ? s.FromWarehouse.Name : "",
+        //            ToWarehouse = s.ToWarehouse != null ? s.ToWarehouse.Name : "",
+
+        //            StartedAt = s.StartedAt,
+        //            CompletedAt = s.DeliveredAt,                 // RDLC dùng CompletedAt -> map từ DeliveredAt
+
+        //            Status = s.Status.ToString(),
+        //            StatusVN = FormatShipmentStatus(s.Status)    // Việt hoá
+        //        })
+        //        .OrderByDescending(x => x.StartedAt)
+        //        .ToList();
+
+        //    return rows;
+        //}
+
 
         // ====== format helpers ======
         private string FormatOrderStatus(OrderStatus status)
