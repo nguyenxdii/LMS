@@ -46,6 +46,15 @@ namespace LMS.BUS.Dtos
             public decimal TotalFee { get; set; }
             public DateTime CreatedAt { get; set; }
         }
+
+        // DTO cho bảng chi tiết Báo cáo Doanh thu
+        public class RevenueDetailDto
+        {
+            public string OrderNo { get; set; }
+            public string CustomerName { get; set; }
+            public DateTime DeliveredAt { get; set; }
+            public decimal TotalFee { get; set; }
+        }
     }
 
 }
