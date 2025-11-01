@@ -114,6 +114,10 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\LMS.BUS.Dtos.ChartDataPoint+TimeSeriesDataPoint.datasource" />
+    <None Include="Properties\DataSources\LMS.BUS.Dtos.ChartDataPoint+TopCustomerDto.datasource" />
+    <None Include="Properties\DataSources\LMS.BUS.Dtos.ChartDataPoint+TopDriverDto.datasource" />
+    <None Include="Properties\DataSources\LMS.BUS.Dtos.ChartDataPoint.datasource" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

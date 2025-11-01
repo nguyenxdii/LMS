@@ -37,6 +37,15 @@ namespace LMS.BUS.Dtos
             public string VehiclePlate { get; set; } // Biển số xe
             public int TotalShipments { get; set; }
         }
+
+        public class OrderStatusDetailDto
+        {
+            public string OrderNo { get; set; }
+            public string CustomerName { get; set; }
+            public string Status { get; set; } // Trạng thái (Pending, Approved...)
+            public decimal TotalFee { get; set; }
+            public DateTime CreatedAt { get; set; }
+        }
     }
 
 }
