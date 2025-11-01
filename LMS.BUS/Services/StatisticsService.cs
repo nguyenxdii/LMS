@@ -254,6 +254,30 @@ namespace LMS.BUS.Services
                 .ToList();
         }
 
+        // --- LẤY DỮ LIỆU BẢNG DOANH THU ---
+        public List<ChartDataPoint.RevenueDetailDto> GetRevenueDetails(DateTime from, DateTime to)
+        {
+            var fromDate = from.Date;
+            var toDate = to.Date.AddDays(1).AddTicks(-1);
+
+            return db.Shipments
+                .Where(s => s.Status == ShipmentStatus.Delivered &&
+                            s.DeliveredAt >= fromDate &&
+                            s.DeliveredAt <= toDate &&
+                            s.Order != null && // Phải có đơn hàng
+                            s.Order.Customer != null) // Phải có khách hàng
+                .Select(s => new ChartDataPoint.RevenueDetailDto
+                {
+                    OrderNo = s.Order.OrderNo ?? ("ORD" + s.Order.Id),
+                    CustomerName = s.Order.Customer.Name,
+                    DeliveredAt = s.DeliveredAt.Value, // .Value vì DeliveredAt là nullable
+                    TotalFee = s.Order.TotalFee
+                })
+                .OrderByDescending(o => o.DeliveredAt)
+                .ToList();
+        }
+
+
         // ====== format helpers ======
         private string FormatOrderStatus(OrderStatus status)
         {

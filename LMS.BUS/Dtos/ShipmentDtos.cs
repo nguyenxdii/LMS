@@ -27,7 +27,6 @@ namespace LMS.BUS.Dtos
         public string StopStatus { get; set; }
         public string Note { get; set; }
     }
-
     public class ShipmentDetailDto
     {
         public ShipmentRunHeaderDto Header { get; set; }
@@ -38,4 +37,5 @@ namespace LMS.BUS.Dtos
         public TimeSpan? Duration { get; set; }
         public List<ShipmentDriverLogDto> DriverHistory { get; set; } = new List<ShipmentDriverLogDto>();
     }
+
 }

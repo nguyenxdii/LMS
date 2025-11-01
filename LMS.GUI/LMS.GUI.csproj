@@ -594,7 +594,11 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReportAdmin\rpt_Customers.rdlc" />
+    <EmbeddedResource Include="ReportAdmin\rpt_Drivers.rdlc" />
+    <EmbeddedResource Include="ReportAdmin\rpt_Operations.rdlc" />
     <EmbeddedResource Include="ReportAdmin\rpt_OrderStatus.rdlc" />
+    <EmbeddedResource Include="ReportAdmin\rpt_RevenueReport.rdlc" />
     <EmbeddedResource Include="ReportAdmin\ucReportViewer.resx">
       <DependentUpon>ucReportViewer.cs</DependentUpon>
     </EmbeddedResource>
@@ -640,11 +644,18 @@
     <None Include="app.manifest" />
     <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\LMS.BUS.Dtos.ChartDataPoint+CustomerOrderDetailDto.datasource" />
+    <None Include="Properties\DataSources\LMS.BUS.Dtos.ChartDataPoint+CustomerOrderDetailDto1.datasource" />
+    <None Include="Properties\DataSources\LMS.BUS.Dtos.ChartDataPoint+DriverShipmentDetailDto.datasource" />
     <None Include="Properties\DataSources\LMS.BUS.Dtos.ChartDataPoint+OrderStatusDetailDto.datasource" />
+    <None Include="Properties\DataSources\LMS.BUS.Dtos.ChartDataPoint+RevenueDetailDto.datasource" />
+    <None Include="Properties\DataSources\LMS.BUS.Dtos.ChartDataPoint+ShipmentDetailDto.datasource" />
+    <None Include="Properties\DataSources\LMS.BUS.Dtos.ChartDataPoint+ShipmentDetailDto1.datasource" />
     <None Include="Properties\DataSources\LMS.BUS.Dtos.ChartDataPoint+TimeSeriesDataPoint.datasource" />
     <None Include="Properties\DataSources\LMS.BUS.Dtos.ChartDataPoint+TopCustomerDto.datasource" />
     <None Include="Properties\DataSources\LMS.BUS.Dtos.ChartDataPoint+TopDriverDto.datasource" />
     <None Include="Properties\DataSources\LMS.BUS.Dtos.ChartDataPoint.datasource" />
+    <None Include="Properties\DataSources\LMS.BUS.Dtos.ShipmentDetailDto.datasource" />
     <None Include="Properties\DataSources\LMS.GUI.ReportAdmin.DataSet1+ChartDataPointDataTable.datasource" />
     <None Include="Properties\DataSources\LMS.GUI.ReportAdmin.DataSet1+ChartDataPointRow.datasource" />
     <None Include="Properties\DataSources\LMS.GUI.ReportAdmin.DataSet1+ChartDataPointRowChangeEvent.datasource" />

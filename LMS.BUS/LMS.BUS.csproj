@@ -81,6 +81,7 @@
     <Compile Include="Dtos\KpiDto.cs" />
     <Compile Include="Dtos\OrderDraft.cs" />
     <Compile Include="Dtos\OrderListItemDto.cs" />
+    <Compile Include="Dtos\ReportDetailDtos.cs" />
     <Compile Include="Dtos\RouteTemplateListItemDto.cs" />
     <Compile Include="Dtos\ShipmentDriverLogDto.cs" />
     <Compile Include="Dtos\ShipmentDtos.cs" />

@@ -1,25 +1,27 @@
-﻿using System;
-using System.Linq;
-using System.Windows.Forms;
-using System.Drawing;
-
-// LiveCharts v1
+﻿// LiveCharts v1
 using LiveCharts;
 using LiveCharts.Wpf;
-
-// Alias tránh trùng Brush/Control
-using WpfBrushes = System.Windows.Media.Brushes;
-using WfCartesianChart = LiveCharts.WinForms.CartesianChart;
-
-// App
-using LMS.BUS.Services;
 using LMS.BUS.Dtos;
 using LMS.BUS.Helpers;
-using static LMS.BUS.Dtos.ChartDataPoint;
-
+// App
+using LMS.BUS.Services;
 // DAL cho dữ liệu chi tiết RDLC
 using LMS.DAL;
+using System;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
+using static LMS.BUS.Dtos.ChartDataPoint;
+using WfCartesianChart = LiveCharts.WinForms.CartesianChart;
+// Alias cho các DTO chi tiết dùng trong RDLC
+using ShipmentDetailDto = LMS.BUS.Dtos.ShipmentDetailDto1;
+using CustomerOrderDetailDto = LMS.BUS.Dtos.CustomerOrderDetailDto;
+using DriverShipmentDetailDto = LMS.BUS.Dtos.DriverShipmentDetailDto;
+using TimeSeriesDataPoint = LMS.BUS.Dtos.TimeSeriesDataPoint;
+using TopCustomerDto = LMS.BUS.Dtos.ChartDataPoint.TopCustomerDto;
+using TopDriverDto = LMS.BUS.Dtos.ChartDataPoint.TopDriverDto;
 
 namespace LMS.GUI.ReportAdmin
 {
@@ -450,6 +452,20 @@ namespace LMS.GUI.ReportAdmin
             }
         }
 
+        // -------------------- Helper: map trạng thái đơn hàng sang tiếng Việt --------------------
+        private string MapOrderStatusVi(string statusEnum)
+        {
+            if (string.IsNullOrWhiteSpace(statusEnum)) return string.Empty;
+            switch (statusEnum.Trim())
+            {
+                case "Pending": return "Chờ duyệt";
+                case "Approved": return "Đã duyệt";
+                case "Completed": return "Hoàn thành";
+                case "Cancelled": return "Đã hủy";
+                default: return statusEnum;
+            }
+        }
+
         // -------------------- Helper: chi tiết đơn hàng cho RDLC --------------------
         private System.Collections.Generic.List<ChartDataPoint.OrderStatusDetailDto> GetOrderDetails(DateTime from, DateTime to)
         {
@@ -477,8 +493,7 @@ namespace LMS.GUI.ReportAdmin
                     {
                         OrderNo = o.OrderNo,
                         CustomerName = o.CustomerName,
-                        //Status = o.StatusText,
-                        Status = StatusMapper.ToVietnamese(o.StatusText),
+                        Status = MapOrderStatusVi(o.StatusText),
                         TotalFee = o.TotalFee,
                         CreatedAt = o.CreatedAt
                     });
@@ -488,112 +503,73 @@ namespace LMS.GUI.ReportAdmin
             return list;
         }
 
-        //// -------------------- Nút xem/Export Overview --------------------
-        //private void btnExportOverview_Click(object sender, EventArgs e)
-        //{
-        //    if (tabControlMain.SelectedTab != tabOverview)
-        //    {
-        //        MessageBox.Show("Chức năng này chỉ dành cho tab 'Tổng Quan'.", "Thông báo",
-        //            MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //        return;
-        //    }
+        // -------------------- Helper: chi tiết doanh thu cho RDLC --------------------
+        private System.Collections.Generic.List<ChartDataPoint.RevenueDetailDto> GetRevenueDetails(DateTime from, DateTime to)
+        {
+            var list = new System.Collections.Generic.List<ChartDataPoint.RevenueDetailDto>();
+            using (var db = new LogisticsDbContext())
+            {
+                var orders = db.Orders
+                    .Include(o => o.Customer)
+                    .Where(o => o.CreatedAt >= from && o.CreatedAt <= to)
+                    .OrderByDescending(o => o.CreatedAt)
+                    .Select(o => new
+                    {
+                        o.OrderNo,
+                        CustomerName = o.Customer != null ? o.Customer.Name : "",
+                        o.TotalFee,
+                        o.CreatedAt
+                    })
+                    .ToList();
 
-        //    try
-        //    {
-        //        DateTime from = dtpFrom.Value.Date;
-        //        DateTime to = dtpTo.Value.Date;
+                foreach (var o in orders)
+                {
+                    list.Add(new ChartDataPoint.RevenueDetailDto
+                    {
+                        OrderNo = o.OrderNo,
+                        CustomerName = o.CustomerName,
+                        TotalFee = o.TotalFee,
+                        DeliveredAt = o.CreatedAt // nếu bạn muốn ngày giao, đổi sang DeliveredAt từ Shipment
+                    });
+                }
+            }
+            return list;
+        }
 
-        //        var summary = _statsSvc.GetOrderStatusCounts(from, to);
-        //        if (summary == null || summary.Count == 0 || summary.All(d => d.Value == 0))
-        //        {
-        //            MessageBox.Show("Không có dữ liệu để lập báo cáo.", "Thông báo",
-        //                MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //            return;
-        //        }
-
-        //        // dữ liệu chi tiết cho RDLC (bảng)
-        //        var details = GetOrderDetails(from, to);
-
-        //        var viewer = new ucReportViewer { Dock = DockStyle.Fill };
-        //        string dateRange = $"Từ {from:dd/MM/yyyy} đến {to:dd/MM/yyyy}";
-        //        viewer.LoadOrderStatusReport(summary, details, dateRange);
-
-        //        var frm = new Form
-        //        {
-        //            //Text = "Xem Trước Báo Cáo - Tình Trạng Đơn Hàng",
-        //            StartPosition = FormStartPosition.CenterParent,
-        //            MinimizeBox = false,
-        //            MaximizeBox = true,
-        //            FormBorderStyle = FormBorderStyle.Sizable,
-        //            BackColor = Color.White,
-        //            Size = new Size(1100, 800)
-        //        };
-        //        frm.Controls.Add(viewer);
-        //        frm.ShowDialog(this.FindForm());
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("Đã xảy ra lỗi khi tạo báo cáo: " + ex.Message,
-        //            "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        //}
-
-        // -------------------- Nút xem/Export Overview --------------------
+        // -------------------- Nút xuất báo cáo dùng chung --------------------
         private void btnExportOverview_Click(object sender, EventArgs e)
         {
-            if (tabControlMain.SelectedTab != tabOverview)
-            {
-                MessageBox.Show("Chức năng này chỉ dành cho tab 'Tổng Quan'.", "Thông báo",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
             try
             {
                 DateTime from = dtpFrom.Value.Date;
                 DateTime to = dtpTo.Value.Date;
 
-                //var summary = _statsSvc.GetOrderStatusCounts(from, to);
-                var summary = _statsSvc.GetOrderStatusCounts(from, to)
-                    .Select(x => new ChartDataPoint
-                    {
-                        Label = StatusMapper.ToVietnamese(x.Label), // dùng helper đã tách
-                        Value = x.Value
-                    })
-                    .ToList();
-
-                if (summary == null || summary.Count == 0 || summary.All(d => d.Value == 0))
+                if (tabControlMain.SelectedTab == tabOverview)
                 {
-                    MessageBox.Show("Không có dữ liệu để lập báo cáo.", "Thông báo",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
+                    HandleExportOrderStatus(from, to);
+                }
+                else if (tabControlMain.SelectedTab == tabRevenue)
+                {
+                    HandleExportRevenue(from, to);
+                }
+                else if (tabControlMain.SelectedTab == tabOperations)
+                {
+                    HandleExportOperations(from, to);
+                }
+                else if (tabControlMain.SelectedTab == tabCustomers)
+                {
+                    HandleExportCustomers(from, to);
+                }
+                else if (tabControlMain.SelectedTab == tabDrivers)
+                {
+                    HandleExportDrivers(from, to);
+                }
+                else
+                {
+                    MessageBox.Show("Tab này chưa hỗ trợ xuất báo cáo.",
+                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
-                // dữ liệu chi tiết cho RDLC (bảng)
-                var details = GetOrderDetails(from, to);
-
-                var viewer = new ucReportViewer { Dock = DockStyle.Fill };
-                string dateRange = $"Từ {from:dd/MM/yyyy} đến {to:dd/MM/yyyy}";
-                viewer.ReportTitle = "Tình Trạng Đơn Hàng"; // <== hiển thị lên lblReportTitle
-                viewer.LoadOrderStatusReport(summary, details, dateRange);
-
-                // === Tạo form borderless, center, size 1300x820 ===
-                var frm = new Form
-                {
-                    StartPosition = FormStartPosition.CenterScreen,   // center
-                    FormBorderStyle = FormBorderStyle.None,           // tắt border
-                    MinimizeBox = false,                              // tắt
-                    MaximizeBox = false,                              // tắt
-                    BackColor = Color.White,
-                    Size = new Size(1300, 820)                        // kích thước yêu cầu
-                };
-
-                // đặt UC ở giữa form nếu cần (nhưng đã DockFill)
-                viewer.Dock = DockStyle.Fill;
-                frm.Controls.Add(viewer);
-
-                // show modal
-                frm.ShowDialog(this.FindForm());
             }
             catch (Exception ex)
             {
@@ -601,5 +577,272 @@ namespace LMS.GUI.ReportAdmin
                     "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        // --- Xử lý: xuất báo cáo Tình trạng đơn hàng ---
+        private void HandleExportOrderStatus(DateTime from, DateTime to)
+        {
+            var summary = _statsSvc.GetOrderStatusCounts(from, to)
+                .Select(x => new ChartDataPoint { Label = x.Label, Value = x.Value })
+                .ToList();
+
+            if (summary == null || summary.Count == 0 || summary.All(d => d.Value == 0))
+            {
+                MessageBox.Show("Không có dữ liệu để lập báo cáo.", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            var details = GetOrderDetails(from, to);
+
+            var viewer = new ucReportViewer { Dock = DockStyle.Fill };
+            string dateRange = $"Từ {from:dd/MM/yyyy} đến {to:dd/MM/yyyy}";
+            viewer.ReportTitle = "Tình Trạng Đơn Hàng";
+            viewer.LoadOrderStatusReport(summary, details, dateRange);
+
+            var frm = new Form
+            {
+                StartPosition = FormStartPosition.CenterScreen,
+                FormBorderStyle = FormBorderStyle.None,
+                MinimizeBox = false,
+                MaximizeBox = false,
+                BackColor = Color.White,
+                Size = new Size(1300, 820)
+            };
+            frm.Controls.Add(viewer);
+            frm.ShowDialog(this.FindForm());
+        }
+
+        // --- Xử lý: xuất báo cáo Doanh thu ---
+        private void HandleExportRevenue(DateTime from, DateTime to)
+        {
+            var summaryData = _statsSvc.GetRevenueOverTime(from, to);
+            var detailData = GetRevenueDetails(from, to);
+
+            if ((summaryData == null || summaryData.Count == 0) && (detailData == null || detailData.Count == 0))
+            {
+                MessageBox.Show("Không có dữ liệu (Doanh thu) để lập báo cáo.", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            var viewer = new ucReportViewer { Dock = DockStyle.Fill };
+            string dateRange = $"Từ {from:dd/MM/yyyy} đến {to:dd/MM/yyyy}";
+            viewer.ReportTitle = "Báo Cáo Doanh Thu";
+            viewer.LoadRevenueReport(summaryData, detailData, dateRange);
+
+            var frm = new Form
+            {
+                StartPosition = FormStartPosition.CenterScreen,
+                FormBorderStyle = FormBorderStyle.None,
+                MinimizeBox = false,
+                MaximizeBox = false,
+                BackColor = Color.White,
+                Size = new Size(1300, 820)
+            };
+            frm.Controls.Add(viewer);
+            frm.ShowDialog(this.FindForm());
+        }
+
+        // THÊM MỚI trong ucStatistics.cs
+        // --- Chi tiết vận hành cho RDLC ---
+        private List<ShipmentDetailDto> GetOperationDetails(DateTime from, DateTime to)
+        {
+            using (var db = new LogisticsDbContext())
+            {
+                var q = db.Shipments
+                    .Include(s => s.Driver)
+                    .Include(s => s.Vehicle)
+                    .Where(s =>
+                        (s.StartedAt.HasValue && s.StartedAt >= from && s.StartedAt <= to) ||
+                        (s.DeliveredAt.HasValue && s.DeliveredAt >= from && s.DeliveredAt <= to))
+                    .OrderByDescending(s => s.DeliveredAt ?? s.StartedAt)
+                    .Select(s => new
+                    {
+                        // Nếu Shipment có trường ShipmentNo thì dùng, 
+                        // còn nếu không thì sinh tạm bằng Id
+                        ShipmentNo = s.Id.ToString(),
+
+                        DriverName = s.Driver != null ? s.Driver.FullName : "",
+                        VehiclePlate = s.Vehicle != null ? s.Vehicle.PlateNo : "",
+                        StatusText = s.Status.ToString(),
+                        StartedAt = s.StartedAt,
+                        CompletedAt = s.DeliveredAt
+                    })
+                    .ToList();
+
+                var list = new List<ShipmentDetailDto>();
+                foreach (var x in q)
+                {
+                    list.Add(new ShipmentDetailDto
+                    {
+                        ShipmentNo = x.ShipmentNo,
+                        DriverName = x.DriverName,
+                        VehiclePlate = x.VehiclePlate,
+                        Status = MapOrderStatusVi(x.StatusText),
+                        // Dùng GetValueOrDefault để tránh lỗi nullable
+                        StartedAt = x.StartedAt.GetValueOrDefault(),
+                        CompletedAt = x.CompletedAt.GetValueOrDefault()
+                    });
+                }
+                return list;
+            }
+        }
+
+
+
+        // THÊM MỚI
+        private List<CustomerOrderDetailDto> GetCustomerOrderDetails(DateTime from, DateTime to)
+        {
+            using (var db = new LogisticsDbContext())
+            {
+                var q = db.Orders
+                    .Include(o => o.Customer)
+                    .Where(o => o.CreatedAt >= from && o.CreatedAt <= to)
+                    .OrderByDescending(o => o.CreatedAt)
+                    .Select(o => new
+                    {
+                        o.OrderNo,
+                        CustomerName = o.Customer != null ? o.Customer.Name : "",
+                        StatusText = o.Status.ToString(),
+                        o.TotalFee,
+                        o.CreatedAt
+                    })
+                    .ToList();
+
+                var list = new List<CustomerOrderDetailDto>();
+                foreach (var o in q)
+                {
+                    list.Add(new CustomerOrderDetailDto
+                    {
+                        OrderNo = o.OrderNo,
+                        CustomerName = o.CustomerName,
+                        Status = MapOrderStatusVi(o.StatusText),
+                        TotalFee = o.TotalFee,
+                        CreatedAt = o.CreatedAt
+                    });
+                }
+                return list;
+            }
+        }
+
+        // THÊM MỚI
+        // Chi tiết theo tài xế – RDLC Drivers
+        private List<DriverShipmentDetailDto> GetDriverShipmentDetails(DateTime from, DateTime to)
+        {
+            using (var db = new LogisticsDbContext())
+            {
+                var q = db.Shipments
+                    .Include(s => s.Driver)
+                    .Include(s => s.Vehicle)
+                    .Where(s =>
+                        (s.StartedAt.HasValue && s.StartedAt >= from && s.StartedAt <= to) ||
+                        (s.DeliveredAt.HasValue && s.DeliveredAt >= from && s.DeliveredAt <= to))  // ✅ đổi DeliveredAt
+                    .OrderByDescending(s => s.DeliveredAt ?? s.StartedAt)                         // ✅ đổi DeliveredAt
+                    .Select(s => new
+                    {
+                        s.Id,
+                        DriverName = s.Driver != null ? s.Driver.FullName : "",
+                        VehiclePlate = s.Vehicle != null ? s.Vehicle.PlateNo : "",
+                        StatusText = s.Status.ToString(),
+                        CompletedAt = s.DeliveredAt,                                             // ✅ alias sang CompletedAt
+                        Fee = s.Order != null ? s.Order.TotalFee : (decimal?)null        // nếu muốn hiển thị phí
+                    })
+                    .ToList();
+
+                var list = new List<DriverShipmentDetailDto>();
+                foreach (var s in q)
+                {
+                    list.Add(new DriverShipmentDetailDto
+                    {
+                        ShipmentNo = "SHP" + s.Id,  // ShipmentNo thực tế tạo từ Id
+                        DriverName = s.DriverName,
+                        VehiclePlate = s.VehiclePlate,
+                        Status = MapOrderStatusVi(s.StatusText),
+                        CompletedAt = s.CompletedAt,
+                        //Fee = s.Fee
+                    });
+                }
+                return list;
+            }
+        }
+
+        private void HandleExportOperations(DateTime from, DateTime to)
+        {
+            var shipmentStatus = _statsSvc.GetShipmentStatusCounts(from, to);
+            var topRoutes = _statsSvc.GetTopRoutes(from, to, 5);
+            var opDetails = GetOperationDetails(from, to);
+
+            if ((shipmentStatus == null || shipmentStatus.Count == 0) &&
+                (topRoutes == null || topRoutes.Count == 0) &&
+                (opDetails == null || opDetails.Count == 0))
+            {
+                MessageBox.Show("Không có dữ liệu (Vận hành) để lập báo cáo.",
+                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            var viewer = new ucReportViewer { Dock = DockStyle.Fill };
+            string dateRange = $"Từ {from:dd/MM/yyyy} đến {to:dd/MM/yyyy}";
+            viewer.ReportTitle = "Báo Cáo Vận Hành";
+            viewer.LoadOperationsReport(shipmentStatus, topRoutes, opDetails, dateRange);
+
+            ShowViewerInForm(viewer);
+        }
+
+        private void HandleExportCustomers(DateTime from, DateTime to)
+        {
+            var rows = _statsSvc.GetTopCustomers(from, to, 50).Cast<TopCustomerDto>().ToList();
+            var details = GetCustomerOrderDetails(from, to);
+
+            if ((rows == null || rows.Count == 0) && (details == null || details.Count == 0))
+            {
+                MessageBox.Show("Không có dữ liệu (Khách hàng) để lập báo cáo.",
+                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            var viewer = new ucReportViewer { Dock = DockStyle.Fill };
+            string dateRange = $"Từ {from:dd/MM/yyyy} đến {to:dd/MM/yyyy}";
+            viewer.ReportTitle = "Báo Cáo Khách Hàng";
+            viewer.LoadCustomersReport(rows, details, dateRange);
+            ShowViewerInForm(viewer);
+        }
+
+        private void HandleExportDrivers(DateTime from, DateTime to)
+        {
+            var rows = _statsSvc.GetTopDrivers(from, to, 50).Cast<TopDriverDto>().ToList();
+            var details = GetDriverShipmentDetails(from, to); // tên hàm đúng là GetDriverShipmentDetails
+
+            if ((rows == null || rows.Count == 0) && (details == null || details.Count == 0))
+            {
+                MessageBox.Show("Không có dữ liệu (Tài xế) để lập báo cáo.",
+                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            var viewer = new ucReportViewer { Dock = DockStyle.Fill };
+            string dateRange = $"Từ {from:dd/MM/yyyy} đến {to:dd/MM/yyyy}";
+            viewer.ReportTitle = "Báo Cáo Tài Xế";
+            viewer.LoadDriversReport(rows, details, dateRange);
+            ShowViewerInForm(viewer);
+        }
+
+        // helper hiển thị form
+        private void ShowViewerInForm(ucReportViewer viewer)
+        {
+            var frm = new Form
+            {
+                StartPosition = FormStartPosition.CenterScreen,
+                FormBorderStyle = FormBorderStyle.None,
+                MinimizeBox = false,
+                MaximizeBox = false,
+                BackColor = Color.White,
+                Size = new Size(1300, 820)
+            };
+            viewer.Dock = DockStyle.Fill;
+            frm.Controls.Add(viewer);
+            frm.ShowDialog(this.FindForm());
+        }
+
     }
 }

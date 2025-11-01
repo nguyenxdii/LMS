@@ -310,7 +310,6 @@
             // 
             // tabOverview
             // 
-            this.tabOverview.Controls.Add(this.btnExportOverview);
             this.tabOverview.Controls.Add(this.pieOrderStatus);
             this.tabOverview.Location = new System.Drawing.Point(184, 4);
             this.tabOverview.Name = "tabOverview";
@@ -330,9 +329,9 @@
             this.btnExportOverview.FillColor = System.Drawing.Color.Black;
             this.btnExportOverview.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnExportOverview.ForeColor = System.Drawing.Color.White;
-            this.btnExportOverview.Location = new System.Drawing.Point(23, 437);
+            this.btnExportOverview.Location = new System.Drawing.Point(984, 88);
             this.btnExportOverview.Name = "btnExportOverview";
-            this.btnExportOverview.Size = new System.Drawing.Size(210, 45);
+            this.btnExportOverview.Size = new System.Drawing.Size(122, 45);
             this.btnExportOverview.TabIndex = 2;
             this.btnExportOverview.Text = "Chi Tiết";
             // 
@@ -396,6 +395,7 @@
             this.guna2GroupBox1.BorderColor = System.Drawing.Color.Black;
             this.guna2GroupBox1.BorderRadius = 15;
             this.guna2GroupBox1.BorderThickness = 2;
+            this.guna2GroupBox1.Controls.Add(this.btnExportOverview);
             this.guna2GroupBox1.Controls.Add(this.btnCustom);
             this.guna2GroupBox1.Controls.Add(this.btnYear);
             this.guna2GroupBox1.Controls.Add(this.btnQuarter);
