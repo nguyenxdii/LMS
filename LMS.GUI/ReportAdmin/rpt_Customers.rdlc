@@ -174,10 +174,10 @@
                   <Width>1.51528in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.51528in</Width>
+                  <Width>1.28611in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.51528in</Width>
+                  <Width>1.1125in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.51528in</Width>
@@ -425,10 +425,14 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!OrderNo.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>OrderNo</rd:DefaultName>
@@ -455,10 +459,14 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!CustomerName.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>CustomerName</rd:DefaultName>
@@ -485,10 +493,14 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Status.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Status</rd:DefaultName>
@@ -515,10 +527,14 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!TotalFee.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>TotalFee</rd:DefaultName>
@@ -545,10 +561,14 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!CreatedAt.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>CreatedAt</rd:DefaultName>
@@ -592,7 +612,7 @@
             <Top>0.41889in</Top>
             <Left>0.21181in</Left>
             <Height>0.75in</Height>
-            <Width>7.5764in</Width>
+            <Width>6.94445in</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>

@@ -147,19 +147,19 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1.97778in</Width>
+                  <Width>1.36111in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.97778in</Width>
+                  <Width>1.75695in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.97778in</Width>
+                  <Width>1.57639in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.97778in</Width>
+                  <Width>1.41667in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.97778in</Width>
+                  <Width>1.82639in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -392,7 +392,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!ShipmentNo.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -425,7 +427,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!DriverName.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -458,7 +462,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!VehiclePlate.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -491,7 +497,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Status.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -524,7 +532,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!CompletedAt.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -571,10 +581,10 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DS_Details</DataSetName>
-            <Top>0.58555in</Top>
-            <Left>0.27888in</Left>
+            <Top>0.46055in</Top>
+            <Left>0.53124in</Left>
             <Height>0.5in</Height>
-            <Width>9.88891in</Width>
+            <Width>7.93751in</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -586,7 +596,7 @@
         <Height>6.37722in</Height>
         <Style />
       </Body>
-      <Width>10.44667in</Width>
+      <Width>9in</Width>
       <Page>
         <LeftMargin>1in</LeftMargin>
         <RightMargin>1in</RightMargin>

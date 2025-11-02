@@ -15,5 +15,7 @@ namespace LMS.BUS.Dtos
         public decimal DepositAmount { get; set; }
         public OrderStatus Status { get; set; }
         public DateTime CreatedAt { get; set; }
+        public string StatusVN { get; set; }
+
     }
 }

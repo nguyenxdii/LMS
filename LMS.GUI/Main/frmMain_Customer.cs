@@ -1,5 +1,6 @@
 ﻿using LMS.BUS.Helpers;
 using LMS.BUS.Services;
+using LMS.GUI.OrderCustomer;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -61,6 +62,7 @@ namespace LMS.GUI.Main
                 pnlTopBar.MouseUp += PnlTopBar_MouseUp;
             }
 
+            LoadDashboard();
             // KHÔNG Load dashboard ở đây để tránh nháy trước khi check quyền
             // LoadUc(new LMS.GUI.Main.ucDashboard_Cus());
             // lblPageTitle.Text = "Trang Chủ";
@@ -178,6 +180,27 @@ namespace LMS.GUI.Main
             pnlContent.ResumeLayout();
         }
 
+        private void LoadDashboard()
+        {
+            var dash = new LMS.GUI.Main.ucDashboard_Cus();
+
+            // Nghe sự kiện từ UC con
+            dash.CreateOrderClick += (s, e) =>
+            {
+                LoadUc(new ucOrderCreate_Cus(AppSession.CustomerId ?? 0));
+                lblPageTitle.Text = "Công Cụ / Tạo Đơn Hàng";
+            };
+
+            dash.OrderDoubleClick += (s, orderId) =>
+            {
+                LoadUc(new ucTracking_Cus(AppSession.CustomerId ?? 0, orderId));
+                lblPageTitle.Text = "Công Cụ / Theo Dõi Vận Đơn";
+            };
+
+            LoadUc(dash);
+            lblPageTitle.Text = "Trang Chủ";
+        }
+
         private void Customer_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Chỉ confirm khi user thật sự chủ động đóng
@@ -216,7 +239,8 @@ namespace LMS.GUI.Main
         private void btnHome_Click(object sender, EventArgs e)
         {
             ResetButtonStyles();
-            LoadUc(new LMS.GUI.Main.ucDashboard_Cus());
+            //LoadUc(new LMS.GUI.Main.ucDashboard_Cus());
+            LoadDashboard();
             lblPageTitle.Text = "Trang Chủ";
         }
 
