@@ -65,5 +65,25 @@ namespace LMS.GUI.OrderAdmin
             lblCreatedAt.Text = $"Ngày tạo: {o.CreatedAt.ToString("dd/MM/yyyy HH:mm")}"; // Chọn định dạng bạn muốn
             grpDetail.Text = $"Chi tiết đơn hàng {OrderCode.ToCode(o.Id)}";
         }
+
+        private void ShowOrderDetailDialog(int orderId)
+        {
+            using (var f = new Form
+            {
+                StartPosition = FormStartPosition.CenterScreen,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                MinimizeBox = false,
+                MaximizeBox = false,
+                Width = 900,
+                Height = 650,
+                Text = $"Chi tiết đơn hàng {OrderCode.ToCode(orderId)}"
+            })
+            {
+                var uc = new LMS.GUI.OrderAdmin.ucOrderDetail_Admin(orderId) { Dock = DockStyle.Fill };
+                f.Controls.Add(uc);
+                f.ShowDialog(this);
+            }
+        }
+
     }
 }
