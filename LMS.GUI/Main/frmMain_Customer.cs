@@ -36,7 +36,7 @@ namespace LMS.GUI.Main
             // Form base
             this.StartPosition = FormStartPosition.CenterScreen; // CenterParent không có owner sẽ không ăn
             this.FormBorderStyle = FormBorderStyle.None;
-            this.MinimumSize = new Size(1000, 650);
+            //this.MinimumSize = new Size(1000, 650);
             this.DoubleBuffered = true; // giảm nhấp nháy
 
             // Fit chiều rộng item trong sidebar (nếu cần)
@@ -61,11 +61,6 @@ namespace LMS.GUI.Main
                 pnlTopBar.MouseMove += PnlTopBar_MouseMove;
                 pnlTopBar.MouseUp += PnlTopBar_MouseUp;
             }
-
-            LoadDashboard();
-            // KHÔNG Load dashboard ở đây để tránh nháy trước khi check quyền
-            // LoadUc(new LMS.GUI.Main.ucDashboard_Cus());
-            // lblPageTitle.Text = "Trang Chủ";
         }
 
         // Constructor phụ (dùng AppSession)
@@ -85,14 +80,7 @@ namespace LMS.GUI.Main
             // Hiển thị user info 1 lần (không ghi đè)
             var userName = AppSession.DisplayName ?? "Customer";
             tsslblUserInfo.Text = $"User: {userName} - {DateTime.Now:dd/MM/yyyy HH:mm:ss}";
-            // Nếu muốn cập nhật giờ liên tục:
-            // timerClock.Enabled = true;
-
-            // (tuỳ chọn) thanh trạng thái chào mừng khác:
-            // tsllblWelcome.Text = $"Xin chào, {AppSession.DisplayName}";
-
-            // Sau khi pass check -> nạp dashboard
-            LoadUc(new LMS.GUI.Main.ucDashboard_Cus());
+            LoadDashboard();
             lblPageTitle.Text = "Trang Chủ";
         }
 
@@ -131,31 +119,16 @@ namespace LMS.GUI.Main
             if (sender is Button clickedButton)
                 clickedButton.BackColor = selectedColor;
 
-            //if (sender == btnNewOrder)
-            //{
-            //    LoadUc(new LMS.GUI.OrderCustomer.ucOrderCreate_Cus(_customerId));
-            //    lblPageTitle.Text = "Công Cụ / Tạo Đơn Hàng";
-            //}
             if (sender == btnNewOrder)
             {
                 // Sửa _customerId thành AppSession.CustomerId
                 LoadUc(new LMS.GUI.OrderCustomer.ucOrderCreate_Cus(AppSession.CustomerId ?? 0)); // <--- ĐÃ SỬA
                 lblPageTitle.Text = "Công Cụ / Tạo Đơn Hàng";
             }
-            //else if (sender == btnOrderList)
-            //{
-            //    LoadUc(new LMS.GUI.OrderCustomer.ucOrderList_Cus(_customerId));
-            //    lblPageTitle.Text = "Công Cụ / Danh Sách Đơn Hàng";
-            //}
             else if (sender == btnOrderList)
             {
                 LoadUc(new LMS.GUI.OrderCustomer.ucOrderList_Cus(AppSession.CustomerId ?? 0)); // <--- LỖI Ở ĐÂY
                 lblPageTitle.Text = "Công Cụ / Danh Sách Đơn Hàng";
-            }
-            else if (sender == btnViewTracking)
-            {
-                // LoadUc(new LMS.GUI.OrderCustomer.ucTracking_Cus(_customerId));
-                lblPageTitle.Text = "Công Cụ / Theo Dõi Vận Đơn";
             }
         }
 

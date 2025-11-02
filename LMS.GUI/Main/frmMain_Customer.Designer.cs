@@ -43,7 +43,6 @@
             this.btnMenu = new CSharp.Winform.UI.Button();
             this.btnNewOrder = new CSharp.Winform.UI.Button();
             this.btnOrderList = new CSharp.Winform.UI.Button();
-            this.btnViewTracking = new CSharp.Winform.UI.Button();
             this.btnAccount = new CSharp.Winform.UI.Button();
             this.btnLogOut = new CSharp.Winform.UI.Button();
             this.menuTransition = new System.Windows.Forms.Timer(this.components);
@@ -88,7 +87,6 @@
             this.btnHam.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.btnHam.TabIndex = 2;
             this.btnHam.TabStop = false;
-            this.btnHam.Click += new System.EventHandler(this.btnHam_Click);
             // 
             // guna2ControlBox3
             // 
@@ -111,7 +109,6 @@
             this.lblTitle.Size = new System.Drawing.Size(271, 36);
             this.lblTitle.TabIndex = 3;
             this.lblTitle.Text = "Customer Dashboard";
-            this.lblTitle.Click += new System.EventHandler(this.lblTitle_Click);
             // 
             // guna2ControlBox2
             // 
@@ -183,7 +180,6 @@
             this.btnHome.Text = "       Trang Chủ";
             this.btnHome.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnHome.UseVisualStyleBackColor = false;
-            this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
             // 
             // menuContainer
             // 
@@ -191,7 +187,6 @@
             this.menuContainer.Controls.Add(this.btnMenu);
             this.menuContainer.Controls.Add(this.btnNewOrder);
             this.menuContainer.Controls.Add(this.btnOrderList);
-            this.menuContainer.Controls.Add(this.btnViewTracking);
             this.menuContainer.Location = new System.Drawing.Point(3, 61);
             this.menuContainer.Name = "menuContainer";
             this.menuContainer.Size = new System.Drawing.Size(301, 58);
@@ -210,12 +205,11 @@
             this.btnMenu.Margin = new System.Windows.Forms.Padding(0);
             this.btnMenu.Name = "btnMenu";
             this.btnMenu.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.btnMenu.Size = new System.Drawing.Size(301, 58);
+            this.btnMenu.Size = new System.Drawing.Size(301, 62);
             this.btnMenu.TabIndex = 2;
             this.btnMenu.Text = "       Công Cụ";
             this.btnMenu.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnMenu.UseVisualStyleBackColor = false;
-            this.btnMenu.Click += new System.EventHandler(this.btnMenu_Click);
             // 
             // btnNewOrder
             // 
@@ -226,7 +220,7 @@
             this.btnNewOrder.ForeColor = System.Drawing.Color.White;
             this.btnNewOrder.Image = global::LMS.GUI.Properties.Resources.dot_mini;
             this.btnNewOrder.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNewOrder.Location = new System.Drawing.Point(0, 58);
+            this.btnNewOrder.Location = new System.Drawing.Point(0, 62);
             this.btnNewOrder.Margin = new System.Windows.Forms.Padding(0);
             this.btnNewOrder.Name = "btnNewOrder";
             this.btnNewOrder.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
@@ -245,7 +239,7 @@
             this.btnOrderList.ForeColor = System.Drawing.Color.White;
             this.btnOrderList.Image = global::LMS.GUI.Properties.Resources.dot_mini;
             this.btnOrderList.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOrderList.Location = new System.Drawing.Point(0, 116);
+            this.btnOrderList.Location = new System.Drawing.Point(0, 120);
             this.btnOrderList.Margin = new System.Windows.Forms.Padding(0);
             this.btnOrderList.Name = "btnOrderList";
             this.btnOrderList.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
@@ -254,25 +248,6 @@
             this.btnOrderList.Text = "            Danh Sách Đơn Hàng";
             this.btnOrderList.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnOrderList.UseVisualStyleBackColor = false;
-            // 
-            // btnViewTracking
-            // 
-            this.btnViewTracking.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(33)))), ((int)(((byte)(36)))));
-            this.btnViewTracking.FlatAppearance.BorderSize = 0;
-            this.btnViewTracking.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnViewTracking.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnViewTracking.ForeColor = System.Drawing.Color.White;
-            this.btnViewTracking.Image = global::LMS.GUI.Properties.Resources.dot_mini;
-            this.btnViewTracking.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnViewTracking.Location = new System.Drawing.Point(0, 174);
-            this.btnViewTracking.Margin = new System.Windows.Forms.Padding(0);
-            this.btnViewTracking.Name = "btnViewTracking";
-            this.btnViewTracking.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.btnViewTracking.Size = new System.Drawing.Size(301, 58);
-            this.btnViewTracking.TabIndex = 12;
-            this.btnViewTracking.Text = "            Tra Cứu";
-            this.btnViewTracking.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnViewTracking.UseVisualStyleBackColor = false;
             // 
             // btnAccount
             // 
@@ -372,7 +347,6 @@
             // 
             this.timerClock.Enabled = true;
             this.timerClock.Interval = 1000;
-            this.timerClock.Tick += new System.EventHandler(this.timerClock_Tick);
             // 
             // frmMain_Customer
             // 
@@ -415,7 +389,6 @@
         private System.Windows.Forms.FlowLayoutPanel menuContainer;
         private CSharp.Winform.UI.Button btnNewOrder;
         private CSharp.Winform.UI.Button btnOrderList;
-        private CSharp.Winform.UI.Button btnViewTracking;
         private CSharp.Winform.UI.Button btnAccount;
         private CSharp.Winform.UI.Button btnLogOut;
         private System.Windows.Forms.Timer menuTransition;
