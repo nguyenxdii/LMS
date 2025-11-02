@@ -35,7 +35,6 @@
             this.cmbStatus = new Guna.UI2.WinForms.Guna2ComboBox();
             this.dtTo = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.dtFrom = new Guna.UI2.WinForms.Guna2DateTimePicker();
-            this.btnSearchHistory = new Guna.UI2.WinForms.Guna2Button();
             this.btnReload = new Guna.UI2.WinForms.Guna2Button();
             this.btnManageShipment = new Guna.UI2.WinForms.Guna2Button();
             this.tlpContent = new CSharp.Winform.UI.TableLayoutPanel();
@@ -75,12 +74,12 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvShipments.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvShipments.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dgvShipments.Location = new System.Drawing.Point(3, 356);
+            this.dgvShipments.Location = new System.Drawing.Point(35, 303);
             this.dgvShipments.Name = "dgvShipments";
             this.dgvShipments.RowHeadersVisible = false;
             this.dgvShipments.RowHeadersWidth = 62;
             this.dgvShipments.RowTemplate.Height = 28;
-            this.dgvShipments.Size = new System.Drawing.Size(1193, 330);
+            this.dgvShipments.Size = new System.Drawing.Size(1128, 354);
             this.dgvShipments.TabIndex = 22;
             this.dgvShipments.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
             this.dgvShipments.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -115,7 +114,7 @@
             this.cmbStatus.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.cmbStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
             this.cmbStatus.ItemHeight = 30;
-            this.cmbStatus.Location = new System.Drawing.Point(494, 268);
+            this.cmbStatus.Location = new System.Drawing.Point(705, 247);
             this.cmbStatus.Name = "cmbStatus";
             this.cmbStatus.Size = new System.Drawing.Size(200, 36);
             this.cmbStatus.TabIndex = 21;
@@ -128,7 +127,7 @@
             this.dtTo.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.dtTo.ForeColor = System.Drawing.Color.White;
             this.dtTo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtTo.Location = new System.Drawing.Point(288, 268);
+            this.dtTo.Location = new System.Drawing.Point(499, 247);
             this.dtTo.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
             this.dtTo.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
             this.dtTo.Name = "dtTo";
@@ -145,7 +144,7 @@
             this.dtFrom.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.dtFrom.ForeColor = System.Drawing.Color.White;
             this.dtFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtFrom.Location = new System.Drawing.Point(82, 268);
+            this.dtFrom.Location = new System.Drawing.Point(293, 247);
             this.dtFrom.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
             this.dtFrom.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
             this.dtFrom.Name = "dtFrom";
@@ -153,22 +152,6 @@
             this.dtFrom.TabIndex = 20;
             this.dtFrom.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.dtFrom.Value = new System.DateTime(2025, 10, 23, 17, 28, 37, 210);
-            // 
-            // btnSearchHistory
-            // 
-            this.btnSearchHistory.BorderRadius = 15;
-            this.btnSearchHistory.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnSearchHistory.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnSearchHistory.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnSearchHistory.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnSearchHistory.FillColor = System.Drawing.Color.Black;
-            this.btnSearchHistory.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnSearchHistory.ForeColor = System.Drawing.Color.White;
-            this.btnSearchHistory.Location = new System.Drawing.Point(484, 211);
-            this.btnSearchHistory.Name = "btnSearchHistory";
-            this.btnSearchHistory.Size = new System.Drawing.Size(210, 45);
-            this.btnSearchHistory.TabIndex = 18;
-            this.btnSearchHistory.Text = "Tìm kiếm";
             // 
             // btnReload
             // 
@@ -180,7 +163,7 @@
             this.btnReload.FillColor = System.Drawing.Color.Black;
             this.btnReload.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnReload.ForeColor = System.Drawing.Color.White;
-            this.btnReload.Location = new System.Drawing.Point(288, 211);
+            this.btnReload.Location = new System.Drawing.Point(499, 190);
             this.btnReload.Name = "btnReload";
             this.btnReload.Size = new System.Drawing.Size(190, 45);
             this.btnReload.TabIndex = 18;
@@ -196,7 +179,7 @@
             this.btnManageShipment.FillColor = System.Drawing.Color.Black;
             this.btnManageShipment.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnManageShipment.ForeColor = System.Drawing.Color.White;
-            this.btnManageShipment.Location = new System.Drawing.Point(82, 211);
+            this.btnManageShipment.Location = new System.Drawing.Point(293, 190);
             this.btnManageShipment.Name = "btnManageShipment";
             this.btnManageShipment.Size = new System.Drawing.Size(200, 45);
             this.btnManageShipment.TabIndex = 18;
@@ -219,7 +202,7 @@
             this.tlpContent.Controls.Add(this.lblOriginWarehouse, 1, 0);
             this.tlpContent.Controls.Add(this.lblDestinationWarehouse, 1, 1);
             this.tlpContent.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.tlpContent.Location = new System.Drawing.Point(13, 22);
+            this.tlpContent.Location = new System.Drawing.Point(121, 22);
             this.tlpContent.Name = "tlpContent";
             this.tlpContent.RowCount = 3;
             this.tlpContent.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -338,7 +321,6 @@
             this.Controls.Add(this.dtFrom);
             this.Controls.Add(this.btnManageShipment);
             this.Controls.Add(this.btnReload);
-            this.Controls.Add(this.btnSearchHistory);
             this.Name = "ucShipmentDetail_Drv";
             this.Size = new System.Drawing.Size(1199, 689);
             ((System.ComponentModel.ISupportInitialize)(this.dgvShipments)).EndInit();
@@ -354,7 +336,6 @@
         private Guna.UI2.WinForms.Guna2ComboBox cmbStatus;
         private Guna.UI2.WinForms.Guna2DateTimePicker dtTo;
         private Guna.UI2.WinForms.Guna2DateTimePicker dtFrom;
-        private Guna.UI2.WinForms.Guna2Button btnSearchHistory;
         private Guna.UI2.WinForms.Guna2Button btnReload;
         private Guna.UI2.WinForms.Guna2Button btnManageShipment;
         private CSharp.Winform.UI.TableLayoutPanel tlpContent;

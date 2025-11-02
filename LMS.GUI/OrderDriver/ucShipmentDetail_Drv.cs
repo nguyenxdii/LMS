@@ -319,6 +319,25 @@ namespace LMS.GUI.OrderDriver
             }
         }
 
+        public void SelectShipmentByNo(string shipmentNo)
+        {
+            if (string.IsNullOrEmpty(shipmentNo)) return;
+            var grid = dgvShipments;
+            foreach (DataGridViewRow row in grid.Rows)
+            {
+                var dto = row.DataBoundItem as ShipmentRowDto;
+                if (dto != null && dto.ShipmentNo == shipmentNo)
+                {
+                    grid.ClearSelection();
+                    row.Selected = true;
+                    grid.CurrentCell = row.Cells["ShipmentNo"];
+                    UpdateLabels(dto);
+                    break;
+                }
+            }
+        }
+
+
         public class ShipmentStatusFilterItem
         {
             public ShipmentStatus? Value { get; set; }

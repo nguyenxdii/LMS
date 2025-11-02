@@ -218,6 +218,25 @@ namespace LMS.GUI.Main
             pnlContent.ResumeLayout();
         }
 
+        // LMS.GUI/Main/frmMain_Admin.cs
+        public void NavigateToOrderAdmin(string orderNoToSelect = null)
+        {
+            //ResetButtonStylesIfAny(); // nếu bạn có
+            var uc = new LMS.GUI.OrderAdmin.ucOrder_Admin();
+            LoadUc(uc);               // hàm LoadUc bạn đã dùng cho các UC khác
+            lblPageTitle.Text = "Quản Lý Đơn Hàng";
+
+            if (!string.IsNullOrWhiteSpace(orderNoToSelect))
+            {
+                // gọi sau khi UC load xong để chọn đúng đơn
+                this.BeginInvoke(new Action(() =>
+                {
+                    uc.SelectOrderByNo(orderNoToSelect);
+                }));
+            }
+        }
+
+
         // ===== Drag form via pnlTop =====
         private void PnlTop_MouseDown(object sender, MouseEventArgs e)
         {

@@ -28,14 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblWelcome = new System.Windows.Forms.Label();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.lblInTransitCount = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.btnCreateOrder = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
             this.lblPendingCount = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -44,6 +43,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.dgvRecentOrders = new Guna.UI2.WinForms.Guna2DataGridView();
             this.label3 = new System.Windows.Forms.Label();
+            this.btnCreateOrder = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel1.SuspendLayout();
             this.guna2Panel2.SuspendLayout();
             this.guna2Panel3.SuspendLayout();
@@ -86,30 +86,11 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label2.Location = new System.Drawing.Point(64, 1);
+            this.label2.Location = new System.Drawing.Point(41, 1);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(176, 28);
+            this.label2.Size = new System.Drawing.Size(222, 28);
             this.label2.TabIndex = 0;
-            this.label2.Text = "Đang vận chuyển";
-            // 
-            // btnCreateOrder
-            // 
-            this.btnCreateOrder.BorderColor = System.Drawing.Color.White;
-            this.btnCreateOrder.BorderRadius = 15;
-            this.btnCreateOrder.BorderThickness = 1;
-            this.btnCreateOrder.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnCreateOrder.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnCreateOrder.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnCreateOrder.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnCreateOrder.FillColor = System.Drawing.Color.Black;
-            this.btnCreateOrder.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
-            this.btnCreateOrder.ForeColor = System.Drawing.Color.White;
-            this.btnCreateOrder.Location = new System.Drawing.Point(107, 220);
-            this.btnCreateOrder.Name = "btnCreateOrder";
-            this.btnCreateOrder.Size = new System.Drawing.Size(989, 74);
-            this.btnCreateOrder.TabIndex = 2;
-            this.btnCreateOrder.Text = "ĐẶT ĐƠN NGAY";
-            this.btnCreateOrder.Click += new System.EventHandler(this.btnCreateOrder_Click);
+            this.label2.Text = "Hoàn Thành Hôm Nay";
             // 
             // guna2Panel2
             // 
@@ -137,11 +118,11 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label5.Location = new System.Drawing.Point(74, 1);
+            this.label5.Location = new System.Drawing.Point(62, 1);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(156, 28);
+            this.label5.Size = new System.Drawing.Size(181, 28);
             this.label5.TabIndex = 0;
-            this.label5.Text = "Đang chờ xử lý";
+            this.label5.Text = "Chuyến Đang Chờ";
             // 
             // guna2Panel3
             // 
@@ -169,35 +150,35 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label7.Location = new System.Drawing.Point(76, 1);
+            this.label7.Location = new System.Drawing.Point(30, 1);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(152, 28);
+            this.label7.Size = new System.Drawing.Size(257, 28);
             this.label7.TabIndex = 0;
-            this.label7.Text = "Đã hoàn thành";
+            this.label7.Text = "Tổng Chuyến Hoàn Thành";
             // 
             // dgvRecentOrders
             // 
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            this.dgvRecentOrders.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
+            this.dgvRecentOrders.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvRecentOrders.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvRecentOrders.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvRecentOrders.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvRecentOrders.ColumnHeadersHeight = 4;
             this.dgvRecentOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvRecentOrders.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvRecentOrders.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgvRecentOrders.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dgvRecentOrders.Location = new System.Drawing.Point(107, 344);
             this.dgvRecentOrders.Name = "dgvRecentOrders";
@@ -234,9 +215,28 @@
             this.label3.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.label3.Location = new System.Drawing.Point(102, 302);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(212, 28);
+            this.label3.Size = new System.Drawing.Size(242, 28);
             this.label3.TabIndex = 0;
-            this.label3.Text = "5 Đơn Hàng Gần Đây";
+            this.label3.Text = "5 Chuyến Hàng Gần Đây";
+            // 
+            // btnCreateOrder
+            // 
+            this.btnCreateOrder.BorderColor = System.Drawing.Color.White;
+            this.btnCreateOrder.BorderRadius = 15;
+            this.btnCreateOrder.BorderThickness = 1;
+            this.btnCreateOrder.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnCreateOrder.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnCreateOrder.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnCreateOrder.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnCreateOrder.FillColor = System.Drawing.Color.Black;
+            this.btnCreateOrder.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
+            this.btnCreateOrder.ForeColor = System.Drawing.Color.White;
+            this.btnCreateOrder.Location = new System.Drawing.Point(107, 220);
+            this.btnCreateOrder.Name = "btnCreateOrder";
+            this.btnCreateOrder.Size = new System.Drawing.Size(989, 74);
+            this.btnCreateOrder.TabIndex = 2;
+            this.btnCreateOrder.Text = "TẠO ĐƠN HÀNG";
+            this.btnCreateOrder.Click += new System.EventHandler(this.btnCreateOrder_Click);
             // 
             // ucDashboard_Cus
             // 
@@ -267,7 +267,6 @@
 
         private System.Windows.Forms.Label lblWelcome;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
-        private Guna.UI2.WinForms.Guna2Button btnCreateOrder;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblInTransitCount;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel2;
@@ -278,5 +277,6 @@
         private System.Windows.Forms.Label label7;
         private Guna.UI2.WinForms.Guna2DataGridView dgvRecentOrders;
         private System.Windows.Forms.Label label3;
+        private Guna.UI2.WinForms.Guna2Button btnCreateOrder;
     }
 }

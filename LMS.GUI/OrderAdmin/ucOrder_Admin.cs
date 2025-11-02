@@ -496,5 +496,25 @@ namespace LMS.GUI.OrderAdmin
             }
         }
         #endregion
+
+        // LMS.GUI.OrderAdmin/ucOrder_Admin.cs
+        public void SelectOrderByNo(string orderNo)
+        {
+            if (string.IsNullOrWhiteSpace(orderNo) || dgvOrders == null) return;
+
+            foreach (DataGridViewRow r in dgvOrders.Rows)
+            {
+                var item = r.DataBoundItem; // tuỳ bạn bind DTO nào, chỉ cần lấy ra OrderNo
+                var ordNo = r.Cells["OrderNo"]?.Value?.ToString(); // hoặc từ DTO
+                if (string.Equals(ordNo, orderNo, StringComparison.OrdinalIgnoreCase))
+                {
+                    dgvOrders.ClearSelection();
+                    r.Selected = true;
+                    dgvOrders.CurrentCell = r.Cells["OrderNo"];
+                    break;
+                }
+            }
+        }
+
     }
 }
