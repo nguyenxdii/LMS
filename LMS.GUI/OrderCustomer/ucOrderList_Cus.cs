@@ -139,10 +139,8 @@ namespace LMS.GUI.OrderCustomer
                 return;
             }
 
-            // Tìm form cha và load UC tracking
             var host = this.FindForm() as frmMain_Customer;
             host?.LoadUc(new ucTracking_Cus(_customerId, orderId.Value));
-            // host?.lblPageTitle.Text = "Theo dõi đơn hàng"; // Cập nhật tiêu đề nếu muốn
         }
 
         private void BtnReload_Click(object sender, EventArgs e)
@@ -151,9 +149,6 @@ namespace LMS.GUI.OrderCustomer
             {
                 cmbStatusFilter.SelectedIndex = 0; // Đặt lại filter về "Tất cả"
             }
-            // LoadData() sẽ tự chạy do sự kiện SelectedIndexChanged
-            // Nếu index đã là 0, cần gọi LoadData() thủ công:
-            // else { LoadData(); }
         }
 
 

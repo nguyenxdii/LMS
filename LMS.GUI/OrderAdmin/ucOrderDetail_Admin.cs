@@ -26,10 +26,10 @@ namespace LMS.GUI.OrderAdmin
 
             btnBack.Click += (s, ev) =>
             {
-                this.FindForm()?.Close(); // Close the parent Form
+                // đóng form cha
+                this.FindForm()?.Close();
             };
         }
-
 
         private void LoadData()
         {
@@ -41,15 +41,15 @@ namespace LMS.GUI.OrderAdmin
                 return;
             }
 
-            // --- Assign data to Labels with descriptive text ---
-            lblOrderId.Text = $"Mã ĐH: {OrderCode.ToCode(o.Id)}"; // Add "Mã ĐH: "
-            lblCustomer.Text = $"Khách hàng: {o.Customer?.Name ?? $"#{o.CustomerId}"}"; // Add "Khách hàng: "
-            lblOrigin.Text = $"Kho gửi: {o.OriginWarehouse?.Name ?? $"#{o.OriginWarehouseId}"}"; // Add "Kho gửi: "
-            lblDest.Text = $"Kho nhận: {o.DestWarehouse?.Name ?? $"#{o.DestWarehouseId}"}"; // Add "Kho nhận: "
-            lblPickupAddress.Text = $"Địa chỉ lấy: {(string.IsNullOrEmpty(o.PickupAddress) ? "—" : o.PickupAddress)}"; // Add "Địa chỉ lấy: "
-            lblPackage.Text = $"Ghi Chú: {(string.IsNullOrEmpty(o.PackageDescription) ? "—" : o.PackageDescription)}"; // Add "Gói hàng: "
-            lblTotalFee.Text = $"Tổng phí: {o.TotalFee.ToString("N0")}"; // Add "Tổng phí: "
-            lblDepositAmount.Text = $"Đặt cọc: {o.DepositAmount.ToString("N0")}"; // Add "Đặt cọc: "
+            lblOrderId.Text = $"Mã ĐH: {OrderCode.ToCode(o.Id)}";
+            lblCustomer.Text = $"Khách hàng: {o.Customer?.Name ?? $"#{o.CustomerId}"}";
+            lblOrigin.Text = $"Kho gửi: {o.OriginWarehouse?.Name ?? $"#{o.OriginWarehouseId}"}";
+            lblDest.Text = $"Kho nhận: {o.DestWarehouse?.Name ?? $"#{o.DestWarehouseId}"}";
+            lblPickupAddress.Text = $"Địa chỉ lấy: {(string.IsNullOrEmpty(o.PickupAddress) ? "—" : o.PickupAddress)}";
+            lblPackage.Text = $"Ghi Chú: {(string.IsNullOrEmpty(o.PackageDescription) ? "—" : o.PackageDescription)}";
+            lblTotalFee.Text = $"Tổng phí: {o.TotalFee.ToString("N0")}";
+            lblDepositAmount.Text = $"Đặt cọc: {o.DepositAmount.ToString("N0")}";
+
             string statusText;
             switch (o.Status)
             {
@@ -59,10 +59,9 @@ namespace LMS.GUI.OrderAdmin
                 case OrderStatus.Cancelled: statusText = "Đã hủy"; break;
                 default: statusText = o.Status.ToString(); break;
             }
-            lblStatus.Text = $"Trạng thái: {statusText}"; // Add "Trạng thái: "
-            //dtpCreatedAt.Value = o.CreatedAt;
-            //dtpCreatedAt.Enabled = false;
-            lblCreatedAt.Text = $"Ngày tạo: {o.CreatedAt.ToString("dd/MM/yyyy HH:mm")}"; // Chọn định dạng bạn muốn
+            lblStatus.Text = $"Trạng thái: {statusText}";
+
+            lblCreatedAt.Text = $"Ngày tạo: {o.CreatedAt.ToString("dd/MM/yyyy HH:mm")}";
             grpDetail.Text = $"Chi tiết đơn hàng {OrderCode.ToCode(o.Id)}";
         }
 
@@ -84,6 +83,5 @@ namespace LMS.GUI.OrderAdmin
                 f.ShowDialog(this);
             }
         }
-
     }
 }

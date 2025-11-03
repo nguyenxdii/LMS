@@ -40,13 +40,11 @@ namespace LMS.BUS.Services
                         {
                             db.UserAccounts.RemoveRange(accounts);
                         }
-
                         var customer = db.Customers.Find(customerId);
                         if (customer != null)
                         {
                             db.Customers.Remove(customer);
                         }
-
                         db.SaveChanges();
                         transaction.Commit();
                     }
@@ -64,18 +62,15 @@ namespace LMS.BUS.Services
             using (var db = new LogisticsDbContext())
             {
                 var dto = new CustomerDetailDto();
-
                 dto.Customer = db.Customers.Find(customerId);
                 if (dto.Customer == null)
-                    throw new Exception($"Không tìm thấy khách hàng ID={customerId}.");
-
+                    throw new Exception($"không tìm thấy khách hàng ID={customerId}.");
                 dto.Account = db.UserAccounts
                                 .FirstOrDefault(a => a.CustomerId == customerId);
-
                 dto.Orders = db.Orders
                                .Where(o => o.CustomerId == customerId)
-                               .Include(o => o.OriginWarehouse) // Load kèm kho
-                               .Include(o => o.DestWarehouse)  // Load kèm kho
+                               .Include(o => o.OriginWarehouse) // load kèm kho
+                               .Include(o => o.DestWarehouse) // load kèm kho
                                .OrderByDescending(o => o.CreatedAt)
                                .ToList();
                 return dto;
@@ -88,10 +83,8 @@ namespace LMS.BUS.Services
             {
                 var customer = db.Customers.Find(customerId);
                 if (customer == null)
-                    throw new Exception($"Không tìm thấy khách hàng ID={customerId}.");
-
+                    throw new Exception($"không tìm thấy khách hàng ID={customerId}.");
                 var account = db.UserAccounts.FirstOrDefault(a => a.CustomerId == customerId);
-
                 return new CustomerEditorDto
                 {
                     Id = customer.Id,
@@ -99,7 +92,7 @@ namespace LMS.BUS.Services
                     Phone = customer.Phone,
                     Email = customer.Email,
                     Address = customer.Address,
-                    Username = account?.Username // Có thể null nếu khách hàng này bị tạo lỗi (chưa có TK)
+                    Username = account?.Username // có thể null nếu khách hàng chưa có tài khoản
                 };
             }
         }
@@ -109,18 +102,13 @@ namespace LMS.BUS.Services
             using (var db = new LogisticsDbContext())
             {
                 if (string.IsNullOrWhiteSpace(dto.FullName))
-                    throw new InvalidOperationException("Vui lòng nhập họ tên.");
+                    throw new InvalidOperationException("vui lòng nhập họ tên.");
                 if (db.UserAccounts.Any(u => u.Username == dto.Username))
-                    throw new InvalidOperationException("Tên tài khoản đã tồn tại.");
-
-                //if (!Regex.IsMatch(dto.Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
-                //    throw new InvalidOperationException("Email không hợp lệ.");
+                    throw new InvalidOperationException("tên tài khoản đã tồn tại.");
                 if (string.IsNullOrWhiteSpace(dto.Email) || !Regex.IsMatch(dto.Email, @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"))
-                    throw new InvalidOperationException("Email không hợp lệ (Chỉ dùng ký tự la-tinh, không dấu).");
-
+                    throw new InvalidOperationException("email không hợp lệ (chỉ dùng ký tự la-tinh, không dấu).");
                 if (string.IsNullOrWhiteSpace(dto.Password) || dto.Password.Length < 6)
-                    throw new InvalidOperationException("Mật khẩu phải từ 6 ký tự trở lên.");
-
+                    throw new InvalidOperationException("mật khẩu phải từ 6 ký tự trở lên.");
                 using (var transaction = db.Database.BeginTransaction())
                 {
                     try
@@ -134,12 +122,11 @@ namespace LMS.BUS.Services
                             AvatarData = dto.AvatarData,
                         };
                         db.Customers.Add(customer);
-                        db.SaveChanges(); // Lưu để lấy CustomerId
-
+                        db.SaveChanges(); // lưu để lấy Id
                         var account = new UserAccount
                         {
                             Username = dto.Username,
-                            PasswordHash = dto.Password, // TODO: Băm mật khẩu (hash + salt)
+                            PasswordHash = dto.Password, // todo: băm mật khẩu (hash + salt)
                             Role = UserRole.Customer,
                             CustomerId = customer.Id,
                             IsActive = true,
@@ -147,7 +134,6 @@ namespace LMS.BUS.Services
                         };
                         db.UserAccounts.Add(account);
                         db.SaveChanges();
-
                         transaction.Commit();
                     }
                     catch (Exception)
@@ -165,37 +151,29 @@ namespace LMS.BUS.Services
             {
                 var customer = db.Customers.Find(dto.Id);
                 if (customer == null)
-                    throw new Exception("Không tìm thấy khách hàng.");
-
+                    throw new Exception("không tìm thấy khách hàng.");
                 if (string.IsNullOrWhiteSpace(dto.FullName))
-                    throw new InvalidOperationException("Vui lòng nhập họ tên.");
-                //if (!Regex.IsMatch(dto.Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
-                //    throw new InvalidOperationException("Email không hợp lệ.");
+                    throw new InvalidOperationException("vui lòng nhập họ tên.");
                 if (string.IsNullOrWhiteSpace(dto.Email) || !Regex.IsMatch(dto.Email, @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"))
-                    throw new InvalidOperationException("Email không hợp lệ.");
-
+                    throw new InvalidOperationException("email không hợp lệ.");
                 customer.Name = dto.FullName;
                 customer.Phone = dto.Phone;
                 customer.Email = dto.Email;
                 customer.Address = dto.Address;
-
                 var account = db.UserAccounts.FirstOrDefault(a => a.CustomerId == dto.Id);
-
                 if (account != null)
                 {
                     if (account.Username != dto.Username)
                     {
                         if (db.UserAccounts.Any(u => u.Username == dto.Username && u.Id != account.Id))
-                            throw new InvalidOperationException("Tên tài khoản đã tồn tại.");
+                            throw new InvalidOperationException("tên tài khoản đã tồn tại.");
                         account.Username = dto.Username;
                     }
-
                     if (!string.IsNullOrWhiteSpace(dto.Password))
                     {
                         if (dto.Password.Length < 6)
-                            throw new InvalidOperationException("Mật khẩu mới phải từ 6 ký tự.");
-
-                        account.PasswordHash = dto.Password; // TODO: Băm mật khẩu
+                            throw new InvalidOperationException("mật khẩu mới phải từ 6 ký tự.");
+                        account.PasswordHash = dto.Password; // todo: băm mật khẩu
                         account.LastPasswordChangeAt = DateTime.Now;
                     }
                 }
@@ -203,7 +181,6 @@ namespace LMS.BUS.Services
                 {
                     customer.AvatarData = dto.AvatarData;
                 }
-
                 db.SaveChanges();
             }
         }
@@ -212,8 +189,7 @@ namespace LMS.BUS.Services
         {
             using (var db = new LogisticsDbContext())
             {
-                var query = db.Customers.AsQueryable(); // Bắt đầu từ bảng Customers
-
+                var query = db.Customers.AsQueryable(); // bắt đầu từ bảng customers
                 if (!string.IsNullOrWhiteSpace(nameLike))
                 {
                     query = query.Where(c => c.Name.Contains(nameLike));
@@ -230,26 +206,21 @@ namespace LMS.BUS.Services
                 {
                     query = query.Where(c => c.Address.Contains(addressLike));
                 }
-
                 return query.OrderBy(c => c.Name).ToList();
             }
         }
 
-        // PROFILE CUSTOMER 
-
-        // 1. Lấy thông tin chi tiết (Customer + Account)
+        // profile customer
+        // 1. lấy thông tin chi tiết (customer + account)
         public CustomerDetailDto GetCustomerDetailsByAccountId(int accountId)
         {
             using (var db = new LogisticsDbContext())
             {
                 var account = db.UserAccounts
-                                .Include(a => a.Customer) // Load kèm Customer
+                                .Include(a => a.Customer) // load kèm customer
                                 .FirstOrDefault(a => a.Id == accountId);
-
                 if (account == null || account.Customer == null)
-                    throw new Exception("Không tìm thấy tài khoản hoặc hồ sơ khách hàng.");
-
-                // Dùng lại DTO bạn đã có
+                    throw new Exception("không tìm thấy tài khoản hoặc hồ sơ khách hàng.");
                 return new CustomerDetailDto
                 {
                     Customer = account.Customer,
@@ -258,73 +229,59 @@ namespace LMS.BUS.Services
             }
         }
 
-        // 2. Cập nhật thông tin cá nhân (Tên, SĐT, Email, Địa chỉ)
+        // 2. cập nhật thông tin cá nhân (tên, sđt, email, địa chỉ)
         public void UpdateCustomerProfile(CustomerProfileDto dto)
         {
             using (var db = new LogisticsDbContext())
             {
                 var customer = db.Customers.Find(dto.CustomerId);
                 if (customer == null)
-                    throw new Exception("Không tìm thấy khách hàng.");
-
-                // Validation (giống như khi đăng ký)
+                    throw new Exception("không tìm thấy khách hàng.");
                 if (string.IsNullOrWhiteSpace(dto.FullName))
-                    throw new InvalidOperationException("Họ tên không được rỗng.");
-
+                    throw new InvalidOperationException("họ tên không được rỗng.");
                 if (!string.IsNullOrWhiteSpace(dto.Email) && !Regex.IsMatch(dto.Email, @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"))
-                    throw new InvalidOperationException("Email không hợp lệ (không dấu).");
-
+                    throw new InvalidOperationException("email không hợp lệ (không dấu).");
                 if (!string.IsNullOrWhiteSpace(dto.Phone) && !Regex.IsMatch(dto.Phone, @"^\d{9,15}$"))
-                    throw new InvalidOperationException("SĐT không hợp lệ.");
-
-                // Gán giá trị mới
+                    throw new InvalidOperationException("sđt không hợp lệ.");
                 customer.Name = dto.FullName;
                 customer.Phone = dto.Phone;
                 customer.Email = dto.Email;
                 customer.Address = dto.Address;
-
                 db.SaveChanges();
             }
         }
 
-        // 3. Cập nhật ảnh đại diện
+        // 3. cập nhật ảnh đại diện
         public void UpdateCustomerAvatar(int customerId, byte[] avatarData)
         {
             using (var db = new LogisticsDbContext())
             {
                 var customer = db.Customers.Find(customerId);
                 if (customer == null)
-                    throw new Exception("Không tìm thấy khách hàng.");
-
+                    throw new Exception("không tìm thấy khách hàng.");
                 if (avatarData == null || avatarData.Length == 0)
-                    throw new InvalidOperationException("Dữ liệu ảnh không hợp lệ.");
-
+                    throw new InvalidOperationException("dữ liệu ảnh không hợp lệ.");
                 customer.AvatarData = avatarData;
                 db.SaveChanges();
             }
         }
 
-        // 4. Đổi mật khẩu
+        // 4. đổi mật khẩu
         public void ChangeCustomerPassword(int accountId, string oldPassword, string newPassword)
         {
             using (var db = new LogisticsDbContext())
             {
                 var account = db.UserAccounts.Find(accountId);
                 if (account == null)
-                    throw new Exception("Không tìm thấy tài khoản.");
-
-                // TODO: THAY THẾ logic kiểm tra mật khẩu này bằng HASHING THẬT
-                // Đây chỉ là code giả định khi bạn chưa hash mật khẩu
+                    throw new Exception("không tìm thấy tài khoản.");
+                // todo: thay thế logic kiểm tra mật khẩu bằng hashing thật
                 if (account.PasswordHash != oldPassword)
-                    throw new InvalidOperationException("Mật khẩu cũ không chính xác.");
-
+                    throw new InvalidOperationException("mật khẩu cũ không chính xác.");
                 if (string.IsNullOrWhiteSpace(newPassword) || newPassword.Length < 6)
-                    throw new InvalidOperationException("Mật khẩu mới phải từ 6 ký tự trở lên.");
-
-                // TODO: HASH mật khẩu mới trước khi lưu
+                    throw new InvalidOperationException("mật khẩu mới phải từ 6 ký tự trở lên.");
+                // todo: hash mật khẩu mới trước khi lưu
                 account.PasswordHash = newPassword;
                 account.LastPasswordChangeAt = DateTime.Now;
-
                 db.SaveChanges();
             }
         }

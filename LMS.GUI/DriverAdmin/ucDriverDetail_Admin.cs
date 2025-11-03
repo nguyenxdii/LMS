@@ -1,52 +1,47 @@
-﻿// LMS.GUI/DriverAdmin/ucDriverDetail_Admin.cs
-using Guna.UI2.WinForms;
+﻿using Guna.UI2.WinForms;
 using LMS.BUS.Helpers;
-using LMS.BUS.Services; // Cần cho DriverService
-using LMS.DAL.Models;  // Cần cho Shipment, ShipmentStatus...
+using LMS.BUS.Services;
+using LMS.DAL.Models;
 using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace LMS.GUI.DriverAdmin // Đổi namespace
+namespace LMS.GUI.DriverAdmin
 {
     public partial class ucDriverDetail_Admin : UserControl
     {
         private readonly int _driverId;
         private readonly DriverService _driverSvc = new DriverService();
 
-        // ==========================================================
-        // === (1) THÊM CÁC BIẾN ĐỂ KÉO THẢ FORM CHỨA UC NÀY ===
+        // biến kéo thả form cha
         private bool isDragging = false;
         private Point dragStartPoint = Point.Empty;
         private Point parentFormStartPoint = Point.Empty;
-        // ==========================================================
 
         public ucDriverDetail_Admin(int driverId)
         {
             InitializeComponent();
             _driverId = driverId;
             this.Load += UcDriverDetail_Admin_Load;
-            // Đảm bảo các Label (lblFullName, lblPhone,...) 
-            // và dgvDriverShipments tồn tại trong Designer.cs
         }
 
         private void UcDriverDetail_Admin_Load(object sender, EventArgs e)
         {
             if (this.lblTitle != null)
             {
-                this.lblTitle.Text = "Chi Tiết Khách Hàng";
+                this.lblTitle.Text = "Chi Tiết Tài Xế";
             }
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            ConfigureShipmentGrid(); // Đổi tên hàm
+            ConfigureShipmentGrid();
             LoadDetails();
-            WireDragEvents(); // Gọi hàm gán sự kiện kéo thả
+            WireDragEvents();
 
-            // Gán sự kiện nút đóng (Giả sử tên là btnClose)
+            // gán nút đóng nếu có (btnClose)
             var closeButton = this.Controls.Find("btnClose", true).FirstOrDefault();
             if (closeButton != null)
             {
@@ -54,30 +49,23 @@ namespace LMS.GUI.DriverAdmin // Đổi namespace
             }
         }
 
-        // ==========================================================
-        // === (2) HÀM GÁN SỰ KIỆN KÉO THẢ CHO pnlTop ===
+        // gán sự kiện kéo thả cho pnlTop
         private void WireDragEvents()
         {
-            // !!! QUAN TRỌNG: Giả sử Panel trên cùng có tên là 'pnlTop' !!!
-            // Bạn cần đảm bảo control này tồn tại trong Designer
-            Control dragHandle = this.Controls.Find("pnlTop", true).FirstOrDefault() as Control;
-
-            // Nếu không tìm thấy pnlTop, có thể dùng chính User Control này hoặc control khác
+            var dragHandle = this.Controls.Find("pnlTop", true).FirstOrDefault();
             if (dragHandle == null) return;
 
             dragHandle.MouseDown += DragHandle_MouseDown;
             dragHandle.MouseMove += DragHandle_MouseMove;
             dragHandle.MouseUp += DragHandle_MouseUp;
         }
-        // ==========================================================
 
-
+        // cấu hình lưới lịch sử chuyến hàng
         private void ConfigureShipmentGrid()
         {
-            dgvDriverShipments.Columns.Clear(); // Giả sử tên là dgvDriverShipments
+            dgvDriverShipments.Columns.Clear();
             dgvDriverShipments.ApplyBaseStyle();
 
-            // Định nghĩa cột cho grid lịch sử chuyến hàng
             dgvDriverShipments.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "ShipmentNo",
@@ -103,14 +91,14 @@ namespace LMS.GUI.DriverAdmin // Đổi namespace
             {
                 Name = "Status",
                 DataPropertyName = "Status",
-                HeaderText = "Trạng thái",
+                HeaderText = "Trạng Thái",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
             });
             dgvDriverShipments.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "StartedAt",
                 DataPropertyName = "StartedAt",
-                HeaderText = "Bắt đầu",
+                HeaderText = "Bắt Đầu",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 DefaultCellStyle = { Format = "dd/MM/yyyy HH:mm" }
             });
@@ -118,118 +106,106 @@ namespace LMS.GUI.DriverAdmin // Đổi namespace
             {
                 Name = "DeliveredAt",
                 DataPropertyName = "DeliveredAt",
-                HeaderText = "Kết thúc",
+                HeaderText = "Kết Thúc",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 DefaultCellStyle = { Format = "dd/MM/yyyy HH:mm" }
             });
 
-            // Gán sự kiện format cho cột Status
             dgvDriverShipments.CellFormatting += dgvDriverShipments_CellFormatting;
         }
 
+        // nạp chi tiết tài xế + lịch sử chuyến
         private void LoadDetails()
         {
             try
             {
                 var dto = _driverSvc.GetDriverDetails(_driverId);
 
-                // Gán thông tin Tài xế
-                lblFullName.Text = $"Họ tên: {dto.Driver?.FullName ?? "(trống)"}";
-                lblPhone.Text = $"SĐT: {dto.Driver?.Phone ?? "(trống)"}";
-                lblCitizenId.Text = $"CCCD: {dto.Driver?.CitizenId ?? "(trống)"}"; // Thêm
-                lblLicenseType.Text = $"Bằng lái: {dto.Driver?.LicenseType ?? "(trống)"}"; // Thêm
+                lblFullName.Text = $"Họ Tên: {dto.Driver?.FullName ?? "(Trống)"}";
+                lblPhone.Text = $"SĐT: {dto.Driver?.Phone ?? "(Trống)"}";
+                lblCitizenId.Text = $"CCCD: {dto.Driver?.CitizenId ?? "(Trống)"}";
+                lblLicenseType.Text = $"Bằng Lái: {dto.Driver?.LicenseType ?? "(Trống)"}";
 
-                // Gán thông tin Tài khoản
                 if (dto.Account != null)
                 {
-                    lblUsername.Text = $"Tài khoản: {dto.Account.Username}";
-                    // Đây là Hash, không nên hiển thị, chỉ hiển thị thông báo
-                    lblPassword.Text = $"Mật khẩu: {(string.IsNullOrWhiteSpace(dto.Account.PasswordHash) ? "(chưa đặt)" : "(Đã thiết lập)")}";
-                    lblAccountStatus.Text = $"Trạng thái TK: {(dto.Account.IsActive ? "Đang hoạt động" : "Bị khóa")}";
+                    lblUsername.Text = $"Tài Khoản: {dto.Account.Username}";
+                    lblPassword.Text = $"Mật Khẩu: {(string.IsNullOrWhiteSpace(dto.Account.PasswordHash) ? "(Chưa Đặt)" : "(Đã Thiết Lập)")}";
+                    lblAccountStatus.Text = $"Trạng Thái TK: {(dto.Account.IsActive ? "Đang Hoạt Động" : "Bị Khóa")}";
                 }
                 else
                 {
-                    lblUsername.Text = "Tài khoản: (Chưa có)";
-                    lblPassword.Text = "Mật khẩu: (N/A)";
-                    lblAccountStatus.Text = "Trạng thái TK: (N/A)";
-                }
-                if (dto.Driver?.Vehicle != null) // Kiểm tra xem Driver có được gán xe không
-                {
-                    // Nếu có xe, hiển thị biển số và loại xe
-                    lblVehiclePlate.Text = $"Xe đang chạy: {dto.Driver.Vehicle.PlateNo} ({dto.Driver.Vehicle.Type})";
-                }
-                else
-                {
-                    // Nếu không có xe, hiển thị "(Chưa gán)"
-                    lblVehiclePlate.Text = "Xe đang chạy: (Chưa gán)";
+                    lblUsername.Text = "Tài Khoản: (Chưa Có)";
+                    lblPassword.Text = "Mật Khẩu: (N/A)";
+                    lblAccountStatus.Text = "Trạng Thái TK: (N/A)";
                 }
 
-                // Gán dữ liệu Lịch sử chuyến hàng
+                if (dto.Driver?.Vehicle != null)
+                    lblVehiclePlate.Text = $"Xe Đang Chạy: {dto.Driver.Vehicle.PlateNo} ({dto.Driver.Vehicle.Type})";
+                else
+                    lblVehiclePlate.Text = "Xe Đang Chạy: (Chưa Gán)";
+
                 var shipmentData = dto.Shipments.Select(s => new
                 {
-                    ShipmentNo = "SHP" + s.Id, // Tạo mã chuyến
-                    OrderNo = s.Order?.OrderNo ?? OrderCode.ToCode(s.OrderId), // Lấy mã đơn
-                    Route = $"{s.FromWarehouse?.Name} → {s.ToWarehouse?.Name}", // Tạo tuyến
+                    ShipmentNo = "SHP" + s.Id,
+                    OrderNo = s.Order?.OrderNo ?? OrderCode.ToCode(s.OrderId),
+                    Route = $"{s.FromWarehouse?.Name} → {s.ToWarehouse?.Name}",
                     s.StartedAt,
                     s.DeliveredAt,
-                    s.Status // Giữ Enum để format
+                    s.Status
                 }).ToList();
 
                 dgvDriverShipments.DataSource = shipmentData;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi tải chi tiết tài xế: {ex.Message}", "Lỗi");
+                MessageBox.Show($"Lỗi Tải Chi Tiết Tài Xế: {ex.Message}", "Lỗi");
                 this.FindForm()?.Close();
             }
         }
 
-        // Format ShipmentStatus Enum sang tiếng Việt
+        // hiển thị trạng thái chuyến bằng tiếng việt
         private void dgvDriverShipments_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (dgvDriverShipments.Columns[e.ColumnIndex].Name == "Status" && e.Value is ShipmentStatus status)
             {
                 switch (status)
                 {
-                    case ShipmentStatus.Pending: e.Value = "Chờ nhận"; break;
-                    case ShipmentStatus.Assigned: e.Value = "Đã nhận"; break;
-                    case ShipmentStatus.OnRoute: e.Value = "Đang đi đường"; break;
-                    case ShipmentStatus.AtWarehouse: e.Value = "Đang ở kho"; break;
-                    case ShipmentStatus.ArrivedDestination: e.Value = "Đã tới đích"; break;
-                    case ShipmentStatus.Delivered: e.Value = "Đã giao xong"; break;
-                    case ShipmentStatus.Failed: e.Value = "Gặp sự cố"; break;
+                    case ShipmentStatus.Pending: e.Value = "Chờ Nhận"; break;
+                    case ShipmentStatus.Assigned: e.Value = "Đã Nhận"; break;
+                    case ShipmentStatus.OnRoute: e.Value = "Đang Đi Đường"; break;
+                    case ShipmentStatus.AtWarehouse: e.Value = "Đang Ở Kho"; break;
+                    case ShipmentStatus.ArrivedDestination: e.Value = "Đã Tới Đích"; break;
+                    case ShipmentStatus.Delivered: e.Value = "Đã Giao Xong"; break;
+                    case ShipmentStatus.Failed: e.Value = "Gặp Sự Cố"; break;
                     default: e.Value = status.ToString(); break;
                 }
                 e.FormattingApplied = true;
             }
         }
 
-        // ==========================================================
-        // === (3) THÊM 3 HÀM XỬ LÝ KÉO THẢ CHO FORM CHỨA UC NÀY ===
+        // xử lý kéo thả form cha
         private void DragHandle_MouseDown(object sender, MouseEventArgs e)
         {
-            // Lấy Form cha (Form popup)
-            Form parentForm = this.FindForm();
+            var parentForm = this.FindForm();
             if (parentForm == null) return;
 
             if (e.Button == MouseButtons.Left)
             {
                 isDragging = true;
                 dragStartPoint = Cursor.Position;
-                parentFormStartPoint = parentForm.Location; // Lấy vị trí của Form cha
+                parentFormStartPoint = parentForm.Location;
             }
         }
 
         private void DragHandle_MouseMove(object sender, MouseEventArgs e)
         {
-            // Lấy Form cha
-            Form parentForm = this.FindForm();
+            var parentForm = this.FindForm();
             if (parentForm == null) return;
 
             if (isDragging)
             {
-                Point diff = Point.Subtract(Cursor.Position, new Size(dragStartPoint));
-                parentForm.Location = Point.Add(parentFormStartPoint, new Size(diff)); // Di chuyển Form cha
+                var diff = Point.Subtract(Cursor.Position, new Size(dragStartPoint));
+                parentForm.Location = Point.Add(parentFormStartPoint, new Size(diff));
             }
         }
 
@@ -242,6 +218,5 @@ namespace LMS.GUI.DriverAdmin // Đổi namespace
                 parentFormStartPoint = Point.Empty;
             }
         }
-        // ==========================================================
     }
 }

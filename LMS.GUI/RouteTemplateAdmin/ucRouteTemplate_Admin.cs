@@ -1,5 +1,4 @@
-﻿// LMS.GUI/RouteTemplateAdmin/ucRouteTemplate_Admin.cs
-using Guna.UI2.WinForms;
+﻿using Guna.UI2.WinForms;
 using LMS.BUS.Dtos; // You'll create this DTO
 using LMS.BUS.Helpers;
 using LMS.BUS.Services; // You'll create this Service

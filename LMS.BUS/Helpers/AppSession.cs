@@ -1,5 +1,4 @@
-﻿using Guna.UI2.WinForms;
-using LMS.DAL.Models;
+﻿using LMS.DAL.Models;
 using System;
 
 namespace LMS.BUS.Helpers

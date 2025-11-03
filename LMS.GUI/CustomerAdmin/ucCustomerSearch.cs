@@ -1,33 +1,31 @@
 ﻿// LMS.GUI/CustomerAdmin/ucCustomerSearch_Admin.cs
 using Guna.UI2.WinForms;
-using LMS.BUS.Dtos; // Có thể không cần
 using LMS.BUS.Helpers;
-using LMS.BUS.Services; // Sử dụng CustomerService
-using LMS.DAL;
-using LMS.DAL.Models; // Sử dụng Customer
+using LMS.BUS.Services;
+using LMS.DAL.Models;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data.Entity;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
-using System.Xml.Linq;
 
-namespace LMS.GUI.CustomerAdmin // Đổi namespace
+namespace LMS.GUI.CustomerAdmin
 {
     public partial class ucCustomerSearch_Admin : UserControl
     {
-        // Sự kiện báo ID khách hàng đã được chọn
-        public event EventHandler<int> CustomerPicked; // Đổi tên sự kiện
-        private readonly CustomerService _customerSvc = new CustomerService(); // Sử dụng CustomerService
-        private BindingList<Customer> _bindingList; // Sẽ hiển thị List<Customer>
+        // báo id khách hàng được chọn
+        public event EventHandler<int> CustomerPicked;
+
+        private readonly CustomerService _customerSvc = new CustomerService();
+        private BindingList<Customer> _bindingList;
         private DataGridViewColumn _sortedColumn = null;
         private SortOrder _sortOrder = SortOrder.None;
 
+        // debounce tìm kiếm
         private readonly Timer _debounceTimer = new Timer { Interval = 350 };
 
+        // kéo thả form cha qua panel top
         private bool dragging = false;
         private Point dragCursorPoint;
         private Point dragFormPoint;
@@ -41,23 +39,15 @@ namespace LMS.GUI.CustomerAdmin // Đổi namespace
 
         private void UcCustomerSearch_Admin_Load(object sender, EventArgs e)
         {
-            // Cập nhật tiêu đề (Giả sử Label tên là lblTitle)
-            if (this.lblTitle != null)
-            {
-                this.lblTitle.Text = "Tìm Kiếm Khách Hàng"; // Đổi tiêu đề
-            }
+            if (this.lblTitle != null) this.lblTitle.Text = "Tìm Kiếm Khách Hàng";
 
-            // BindFilters(); // Không cần filter ComboBox cho Customer trong ví dụ này
             ConfigureGrid();
             WireEvents();
-            DoSearch(); // Hiển thị dữ liệu ban đầu
-            txtFullName.Focus(); // Focus vào ô tên (Giả sử là txtName)
+            DoSearch();
+            txtFullName.Focus();
         }
 
-        #region Setup Controls (Grid)
-        // Bỏ BindFilters nếu không có ComboBox
-        // private void BindFilters() { ... }
-
+        // cấu hình lưới kết quả
         private void ConfigureGrid()
         {
             var g = dgvSearchResults;
@@ -65,12 +55,12 @@ namespace LMS.GUI.CustomerAdmin // Đổi namespace
             g.ApplyBaseStyle();
 
             g.Columns.Add(new DataGridViewTextBoxColumn { Name = "Id", DataPropertyName = "Id", Visible = false });
-            // Cập nhật các cột cho Customer
+
             g.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "Name",
                 DataPropertyName = "Name",
-                HeaderText = "Tên Khách Hàng", // Đổi HeaderText
+                HeaderText = "Tên Khách Hàng",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
                 FillWeight = 30,
                 SortMode = DataGridViewColumnSortMode.Programmatic
@@ -79,7 +69,7 @@ namespace LMS.GUI.CustomerAdmin // Đổi namespace
             {
                 Name = "Phone",
                 DataPropertyName = "Phone",
-                HeaderText = "Số điện thoại",
+                HeaderText = "Số Điện Thoại",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 SortMode = DataGridViewColumnSortMode.Programmatic
             });
@@ -87,7 +77,7 @@ namespace LMS.GUI.CustomerAdmin // Đổi namespace
             {
                 Name = "Email",
                 DataPropertyName = "Email",
-                HeaderText = "Email", // Thêm cột Email
+                HeaderText = "Email",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 SortMode = DataGridViewColumnSortMode.Programmatic
             });
@@ -95,32 +85,29 @@ namespace LMS.GUI.CustomerAdmin // Đổi namespace
             {
                 Name = "Address",
                 DataPropertyName = "Address",
-                HeaderText = "Địa Chỉ", // Thêm cột Địa chỉ
+                HeaderText = "Địa Chỉ",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
                 FillWeight = 50,
                 SortMode = DataGridViewColumnSortMode.Programmatic
             });
         }
-        #endregion
 
-        #region Event Wiring
+        // gắn sự kiện điều khiển
         private void WireEvents()
         {
-            // Nút bấm
             btnReset.Click += BtnReset_Click;
-            //btnClose.Click += (s, e) => this.FindForm()?.Close();
 
-            // Gán sự kiện TextChanged cho các Filter Controls mới
-            txtFullName.TextChanged += FilterControl_Changed; // Giả sử ô tên là txtName
+            // lọc theo text thay đổi (debounce để tránh giật)
+            txtFullName.TextChanged += FilterControl_Changed;
             txtPhone.TextChanged += FilterControl_Changed;
-            txtEmail.TextChanged += FilterControl_Changed; // Thêm Email
-            txtAddress.TextChanged += FilterControl_Changed; // Thêm Address
+            txtEmail.TextChanged += FilterControl_Changed;
+            txtAddress.TextChanged += FilterControl_Changed;
 
-            // Sự kiện Grid
+            // lưới
             dgvSearchResults.ColumnHeaderMouseClick += dgvSearchResults_ColumnHeaderMouseClick;
             dgvSearchResults.CellDoubleClick += dgvSearchResults_CellDoubleClick;
 
-            // Kéo thả
+            // kéo thả panel top
             if (this.pnlTop != null)
             {
                 this.pnlTop.MouseDown += PnlTop_MouseDown;
@@ -129,39 +116,38 @@ namespace LMS.GUI.CustomerAdmin // Đổi namespace
             }
         }
 
+        // khi thay đổi filter -> khởi động debounce
         private void FilterControl_Changed(object sender, EventArgs e)
         {
             _debounceTimer.Stop();
             _debounceTimer.Start();
         }
 
+        // hết debounce -> thực hiện tìm
         private void DebounceTimer_Tick(object sender, EventArgs e)
         {
             _debounceTimer.Stop();
             DoSearch();
         }
-        #endregion
 
-        #region Actions (Search, Reset, Select)
+        // thực hiện tìm kiếm theo các ô lọc
         private void DoSearch()
         {
             try
             {
-                // Lấy giá trị từ các control lọc mới
-                string nameFilter = txtFullName.Text.Trim(); // Giả sử ô tên là txtName
+                string nameFilter = txtFullName.Text.Trim();
                 string phoneFilter = txtPhone.Text.Trim();
-                string emailFilter = txtEmail.Text.Trim(); // Thêm Email
-                string addressFilter = txtAddress.Text.Trim(); // Thêm Address
+                string emailFilter = txtEmail.Text.Trim();
+                string addressFilter = txtAddress.Text.Trim();
 
-                // Gọi Service để tìm kiếm (Hàm này cần được tạo trong CustomerService)
-                var results = _customerSvc.SearchCustomersForAdmin( // Đổi tên hàm và Service
+                var results = _customerSvc.SearchCustomersForAdmin(
                     string.IsNullOrWhiteSpace(nameFilter) ? null : nameFilter,
                     string.IsNullOrWhiteSpace(phoneFilter) ? null : phoneFilter,
-                    string.IsNullOrWhiteSpace(emailFilter) ? null : emailFilter,     // Thêm Email
-                    string.IsNullOrWhiteSpace(addressFilter) ? null : addressFilter  // Thêm Address
+                    string.IsNullOrWhiteSpace(emailFilter) ? null : emailFilter,
+                    string.IsNullOrWhiteSpace(addressFilter) ? null : addressFilter
                 );
 
-                _bindingList = new BindingList<Customer>(results); // Đổi kiểu dữ liệu
+                _bindingList = new BindingList<Customer>(results);
                 dgvSearchResults.DataSource = _bindingList;
 
                 ApplySort();
@@ -169,110 +155,137 @@ namespace LMS.GUI.CustomerAdmin // Đổi namespace
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi tìm kiếm khách hàng: {ex.Message}", "Lỗi"); // Đổi thông báo lỗi
+                MessageBox.Show($"Lỗi Khi Tìm Kiếm Khách Hàng: {ex.Message}", "Lỗi");
                 dgvSearchResults.DataSource = null;
             }
         }
 
+        // reset ô lọc và nạp lại danh sách
         private void BtnReset_Click(object sender, EventArgs e)
         {
-            // Xóa các ô text mới
-            txtFullName.Clear(); // Giả sử ô tên là txtName
+            txtFullName.Clear();
             txtPhone.Clear();
-            txtEmail.Clear(); // Thêm Email
-            txtAddress.Clear(); // Thêm Address
+            txtEmail.Clear();
+            txtAddress.Clear();
 
             ResetSortGlyphs();
-            DoSearch(); // Tải lại danh sách đầy đủ
-            txtFullName.Focus(); // Focus lại ô tên
+            DoSearch();
+            txtFullName.Focus();
         }
 
+        // double-click để chọn khách hàng
         private void dgvSearchResults_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
+            if (e.RowIndex < 0) return;
+
+            try
             {
-                try
+                if (dgvSearchResults.Rows[e.RowIndex].DataBoundItem is Customer selectedCustomer)
                 {
-                    // Đổi kiểu dữ liệu sang Customer và sự kiện CustomerPicked
-                    if (dgvSearchResults.Rows[e.RowIndex].DataBoundItem is Customer selectedCustomer)
-                    {
-                        CustomerPicked?.Invoke(this, selectedCustomer.Id); // Kích hoạt sự kiện mới
-                        this.FindForm()?.Close();
-                    }
+                    CustomerPicked?.Invoke(this, selectedCustomer.Id);
+                    this.FindForm()?.Close();
                 }
-                catch (Exception ex) { MessageBox.Show($"Lỗi khi chọn khách hàng: {ex.Message}", "Lỗi"); } // Đổi thông báo lỗi
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi Khi Chọn Khách Hàng: {ex.Message}", "Lỗi");
             }
         }
-        #endregion
 
-        #region Sorting Logic (Cần đổi typeof)
+        // sắp xếp theo cột khi click tiêu đề
         private void dgvSearchResults_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (_bindingList == null || _bindingList.Count == 0) return;
+
             var newColumn = dgvSearchResults.Columns[e.ColumnIndex];
             if (newColumn.SortMode == DataGridViewColumnSortMode.NotSortable) return;
 
-            if (_sortedColumn == newColumn) { _sortOrder = (_sortOrder == SortOrder.Ascending) ? SortOrder.Descending : SortOrder.Ascending; }
-            else { if (_sortedColumn != null) _sortedColumn.HeaderCell.SortGlyphDirection = SortOrder.None; _sortOrder = SortOrder.Ascending; _sortedColumn = newColumn; }
+            if (_sortedColumn == newColumn)
+            {
+                _sortOrder = (_sortOrder == SortOrder.Ascending)
+                    ? SortOrder.Descending
+                    : SortOrder.Ascending;
+            }
+            else
+            {
+                if (_sortedColumn != null)
+                    _sortedColumn.HeaderCell.SortGlyphDirection = SortOrder.None;
 
-            ApplySort(); // ApplySort sẽ xử lý việc đổi typeof
+                _sortOrder = SortOrder.Ascending;
+                _sortedColumn = newColumn;
+            }
+
+            ApplySort();
             UpdateSortGlyphs();
         }
 
+        // áp dụng sắp xếp trên danh sách đang bind
         private void ApplySort()
         {
             if (_sortedColumn == null || _bindingList == null || _bindingList.Count == 0) return;
+
             string propertyName = _sortedColumn.DataPropertyName;
-            PropertyInfo propInfo = typeof(Customer).GetProperty(propertyName); // Đổi typeof(Driver) thành typeof(Customer)
+            var propInfo = typeof(Customer).GetProperty(propertyName);
             if (propInfo == null) return;
 
-            List<Customer> items = _bindingList.ToList(); // Đổi kiểu dữ liệu
-            List<Customer> sortedList; // Đổi kiểu dữ liệu
-            try
-            {
-                if (_sortOrder == SortOrder.Ascending)
-                    sortedList = items.OrderBy(x => propInfo.GetValue(x, null)).ToList();
-                else
-                    sortedList = items.OrderByDescending(x => propInfo.GetValue(x, null)).ToList();
+            var items = _bindingList.ToList();
+            var sortedList = (_sortOrder == SortOrder.Ascending)
+                ? items.OrderBy(x => propInfo.GetValue(x, null)).ToList()
+                : items.OrderByDescending(x => propInfo.GetValue(x, null)).ToList();
 
-                _bindingList = new BindingList<Customer>(sortedList); // Đổi kiểu dữ liệu
-                dgvSearchResults.DataSource = _bindingList;
-            }
-            catch (Exception ex) { MessageBox.Show($"Lỗi sắp xếp: {ex.Message}"); ResetSortGlyphs(); }
+            _bindingList = new BindingList<Customer>(sortedList);
+            dgvSearchResults.DataSource = _bindingList;
         }
 
-        // (UpdateSortGlyphs và ResetSortGlyphs giữ nguyên)
+        // cập nhật icon mũi tên sắp xếp
         private void UpdateSortGlyphs()
         {
             foreach (DataGridViewColumn col in dgvSearchResults.Columns)
             {
-                if (col.SortMode != DataGridViewColumnSortMode.NotSortable) col.HeaderCell.SortGlyphDirection = SortOrder.None;
-                if (_sortedColumn != null && col == _sortedColumn) col.HeaderCell.SortGlyphDirection = _sortOrder;
+                if (col.SortMode != DataGridViewColumnSortMode.NotSortable)
+                    col.HeaderCell.SortGlyphDirection = SortOrder.None;
+
+                if (_sortedColumn != null && col == _sortedColumn)
+                    col.HeaderCell.SortGlyphDirection = _sortOrder;
             }
         }
+
+        // reset trạng thái sắp xếp
         private void ResetSortGlyphs()
         {
-            if (_sortedColumn != null) _sortedColumn.HeaderCell.SortGlyphDirection = SortOrder.None;
-            _sortedColumn = null; _sortOrder = SortOrder.None;
+            if (_sortedColumn != null)
+                _sortedColumn.HeaderCell.SortGlyphDirection = SortOrder.None;
+
+            _sortedColumn = null;
+            _sortOrder = SortOrder.None;
             UpdateSortGlyphs();
         }
-        #endregion
 
-        #region Kéo thả Form (Giữ nguyên)
+        // kéo thả form cha qua pnlTop
         private void PnlTop_MouseDown(object sender, MouseEventArgs e)
         {
-            Form parentForm = this.FindForm(); if (parentForm == null) return;
-            if (e.Button == MouseButtons.Left) { dragging = true; dragCursorPoint = Cursor.Position; dragFormPoint = parentForm.Location; }
+            var parentForm = this.FindForm(); if (parentForm == null) return;
+            if (e.Button == MouseButtons.Left)
+            {
+                dragging = true;
+                dragCursorPoint = Cursor.Position;
+                dragFormPoint = parentForm.Location;
+            }
         }
+
         private void PnlTop_MouseMove(object sender, MouseEventArgs e)
         {
-            Form parentForm = this.FindForm(); if (parentForm == null) return;
-            if (dragging) { Point dif = Point.Subtract(Cursor.Position, new Size(dragCursorPoint)); parentForm.Location = Point.Add(dragFormPoint, new Size(dif)); }
+            var parentForm = this.FindForm(); if (parentForm == null) return;
+            if (dragging)
+            {
+                Point dif = Point.Subtract(Cursor.Position, new Size(dragCursorPoint));
+                parentForm.Location = Point.Add(dragFormPoint, new Size(dif));
+            }
         }
+
         private void PnlTop_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left) { dragging = false; }
+            if (e.Button == MouseButtons.Left) dragging = false;
         }
-        #endregion
     }
 }

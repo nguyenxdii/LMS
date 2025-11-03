@@ -1,5 +1,4 @@
-﻿// LogisticsApp.DAL.Models/RouteTemplate.cs
-using LMS.DAL.Models;
+﻿using LMS.DAL.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -10,7 +9,7 @@ namespace LogisticsApp.DAL.Models
         public int Id { get; set; }
 
         [Required, StringLength(100)]
-        public string Name { get; set; }  // ví dụ "Nam - Bắc 1"
+        public string Name { get; set; }
 
         [Required]
         public int FromWarehouseId { get; set; }

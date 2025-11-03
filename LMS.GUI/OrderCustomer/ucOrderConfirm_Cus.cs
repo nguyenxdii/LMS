@@ -1,18 +1,13 @@
-﻿// LMS.GUI/OrderCustomer/ucOrderConfirm_Cus.cs
-using LMS.BUS.Dtos;
-using LMS.BUS.Helpers;
+﻿using LMS.BUS.Dtos;
 using LMS.BUS.Services;
 using LMS.DAL;
-using LMS.GUI.Main;
 using System;
 using System.Windows.Forms;
-// Removed: using static LMS.BUS.Services.OrderService_Admin; // Not needed here
 
 namespace LMS.GUI.OrderCustomer
 {
     public partial class ucOrderConfirm_Cus : UserControl
     {
-        // 1. THÊM ĐỊNH NGHĨA SỰ KIỆN
         public event EventHandler OrderCreated;
 
         private readonly OrderDraft _draft;
@@ -50,24 +45,17 @@ namespace LMS.GUI.OrderCustomer
                 ? $"Thời điểm: {_draft.DesiredTime:dd/MM/yyyy HH:mm}"
                 : "Thời điểm: —";
 
-            // Yêu cầu 2: Hiển thị "---" nếu ghi chú trống
-            //lblPackageDesc
             lblPackageDesc.Text = string.IsNullOrWhiteSpace(_draft.PackageDescription)
                 ? "Ghi chú: ---"
                 : $"Ghi chú: {_draft.PackageDescription}";
 
             lblRouteFee.Text = $"Phí tuyến: {_draft.RouteFee:N0} đ";
-
-            // Yêu cầu 4: Đổi tên "Phí Pickup"
-            lblPickupFee.Text = $"Phí lấy hàng: {_draft.PickupFee:N0} đ"; // Đã đổi tên
-
+            lblPickupFee.Text = $"Phí lấy hàng: {_draft.PickupFee:N0} đ";
             lblTotalFee.Text = $"TỔNG PHÍ: {_draft.TotalFee:N0} đ";
             lblDepositPercent.Text = $"Tỷ lệ cọc: {_draft.DepositPercent:P0}";
             lblDepositAmount.Text = $"Thanh toán ngay: {_draft.DepositAmount:N0} đ";
             lblRemainingAmount.Text = $"Còn lại khi nhận: {(_draft.TotalFee - _draft.DepositAmount):N0} đ";
-            // --- Kết thúc hiển thị thông tin ---
 
-            // --- Gán sự kiện cho các nút (Giữ nguyên) ---
             btnBack.Click += (s, ev) =>
             {
                 this.FindForm()?.Close();
@@ -77,13 +65,12 @@ namespace LMS.GUI.OrderCustomer
             {
                 try
                 {
-                    var created = _orderSvc.Create(_draft);
+                    var created = _orderSvc.Create(_draft); // trả về entity/Id nếu service có hỗ trợ
                     OrderCreated?.Invoke(this, EventArgs.Empty);
                     this.FindForm()?.Close();
                 }
                 catch (Exception ex)
                 {
-                    // (Sử dụng code hiển thị lỗi chi tiết bạn đã thêm)
                     string errorMessage = "Lỗi khi tạo đơn hàng:\n";
                     errorMessage += $"Lỗi chính: {ex.Message}\n\n";
                     Exception inner = ex.InnerException;

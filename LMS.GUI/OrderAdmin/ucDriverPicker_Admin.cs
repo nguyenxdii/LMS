@@ -14,7 +14,7 @@ namespace LMS.GUI.OrderAdmin
 {
     public partial class ucDriverPicker_Admin : UserControl
     {
-        // Bắn ra Id tài xế được chọn cho form cha (popup)
+        // bắn id tài xế đã chọn cho form cha
         public event Action<int> DriverSelected;
 
         private readonly DriverService _driverSvc = new DriverService();
@@ -27,11 +27,11 @@ namespace LMS.GUI.OrderAdmin
 
         public enum DriverPickerMode
         {
-            AssignVehicle,    // Chọn tài xế để gán xe (lọc người chưa có xe)
-            CreateShipment    // Chọn tài xế để tạo chuyến (lọc người đã có xe)
+            AssignVehicle,
+            CreateShipment
         }
 
-        private DriverPickerMode _currentMode; // Biến để lưu mode hiện tại
+        private DriverPickerMode _currentMode;
 
         public ucDriverPicker_Admin(DriverPickerMode mode = DriverPickerMode.AssignVehicle)
         {
@@ -42,7 +42,7 @@ namespace LMS.GUI.OrderAdmin
 
         private void UcDriverPicker_Admin_Load(object sender, EventArgs e)
         {
-            // Đổi tiêu đề nếu bạn có label tên "lblTitle" trong Designer
+            // cập nhật tiêu đề nếu có lblTitle trong designer
             if (this.Controls.Find("lblTitle", true).FirstOrDefault() is Label lbl)
                 lbl.Text = "Chọn Tài xế (chỉ hiển thị tài xế rảnh & chưa có xe)";
 
@@ -50,9 +50,8 @@ namespace LMS.GUI.OrderAdmin
             LoadDrivers();
             WireEvents();
 
-            // Tự reload khi ở màn khác vừa gán/gỡ xe
+            // đăng ký tự reload khi có thay đổi gán/gỡ xe
             AppSession.VehicleAssignmentChanged += OnVehicleAssignmentChanged;
-            // Hủy đăng ký khi control bị hủy (tránh trùng Dispose với Designer)
             this.HandleDestroyed += (s, _) =>
             {
                 try { AppSession.VehicleAssignmentChanged -= OnVehicleAssignmentChanged; } catch { }
@@ -64,12 +63,11 @@ namespace LMS.GUI.OrderAdmin
             if (!IsDisposed) LoadDrivers();
         }
 
-        // ================== GRID ==================
         private void ConfigureGrid()
         {
             var g = dgvDrivers;
             g.Columns.Clear();
-            g.ApplyBaseStyle(); // extension style của bạn
+            g.ApplyBaseStyle();
             g.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             g.MultiSelect = false;
             g.RowHeadersVisible = false;
@@ -107,59 +105,22 @@ namespace LMS.GUI.OrderAdmin
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 SortMode = DataGridViewColumnSortMode.Programmatic
             });
-            // Nếu muốn hiện CCCD thì mở dòng dưới:
+            // nếu muốn hiện cccd thì mở dòng dưới:
             // g.Columns.Add(new DataGridViewTextBoxColumn { Name = "CitizenId", DataPropertyName = "CitizenId", HeaderText = "CCCD", AutoSizeMode = AllCells, SortMode = Programmatic });
         }
 
-        /// <summary>
-        /// Tải danh sách tài xế đang rảnh & chưa có xe.
-        /// </summary>
-        //private void LoadDrivers()
-        //{
-        //    try
-        //    {
-        //        List<Driver> drivers;
-        //        var availableDrivers = _driverSvc.GetAvailableDriversForAdmin(); // đã lọc VehicleId == null & không bận
-
-        //        // Bind chỉ những cột cần hiển thị (ẩn bớt dữ liệu)
-        //        var data = availableDrivers.Select(d => new
-        //        {
-        //            d.Id,
-        //            d.FullName,
-        //            d.Phone,
-        //            d.LicenseType
-        //            // d.CitizenId
-        //        }).ToList();
-
-        //        dgvDrivers.DataSource = null;
-        //        dgvDrivers.DataSource = data;
-
-        //        if (dgvDrivers.Rows.Count > 0)
-        //        {
-        //            dgvDrivers.ClearSelection();
-        //            dgvDrivers.Rows[0].Selected = true;
-        //        }
-        //        ResetSortGlyphs();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show($"Lỗi tải danh sách tài xế rảnh: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //        dgvDrivers.DataSource = null;
-        //    }
-        //}
-        // [Dán vào file ucDriverPicker_Admin.cs, thay thế hàm LoadDrivers cũ]
         private void LoadDrivers()
         {
             try
             {
-                List<Driver> drivers; // Biến để lưu danh sách tài xế
+                List<Driver> drivers;
 
                 if (_currentMode == DriverPickerMode.CreateShipment)
                 {
                     drivers = _driverSvc.GetDriversWithVehiclesForShipment();
                     if (this.Controls.Find("lblTitle", true).FirstOrDefault() is Label lbl)
                     {
-                        lbl.Text = "Chọn Tài xế (Đã có xe & Rảnh)"; // Tiêu đề cho mode Tạo Chuyến
+                        lbl.Text = "Chọn Tài xế (Đã có xe & Rảnh)";
                     }
                 }
                 else
@@ -167,7 +128,7 @@ namespace LMS.GUI.OrderAdmin
                     drivers = _driverSvc.GetDriversWithoutVehicles();
                     if (this.Controls.Find("lblTitle", true).FirstOrDefault() is Label lbl)
                     {
-                        lbl.Text = "Chọn Tài xế (Chưa có xe & Rảnh)"; // Tiêu đề cho mode Gán Xe
+                        lbl.Text = "Chọn Tài xế (Chưa có xe & Rảnh)";
                     }
                 }
 
@@ -179,29 +140,27 @@ namespace LMS.GUI.OrderAdmin
                     d.LicenseType
                 }).ToList();
 
-                dgvDrivers.DataSource = null; // Xóa binding cũ
-                dgvDrivers.DataSource = data; // Gán binding mới
+                dgvDrivers.DataSource = null;
+                dgvDrivers.DataSource = data;
 
                 if (dgvDrivers.Rows.Count > 0)
                 {
                     dgvDrivers.ClearSelection();
                     dgvDrivers.Rows[0].Selected = true;
                 }
-                // Reset lại hiển thị mũi tên sắp xếp trên header
+
                 ResetSortGlyphs();
             }
             catch (Exception ex)
             {
-                // Hiển thị lỗi nếu có vấn đề khi tải dữ liệu
                 MessageBox.Show($"Lỗi tải danh sách tài xế: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                dgvDrivers.DataSource = null; // Đảm bảo grid rỗng nếu có lỗi
+                dgvDrivers.DataSource = null;
             }
         }
 
-        // ================== WIRES ==================
         private void WireEvents()
         {
-            // Các control này phải có sẵn trong Designer
+            // gắn click cho nút chọn/huỷ nếu tồn tại
             if (this.Controls.Find("btnSelect", true).FirstOrDefault() is Button btnSelect)
                 btnSelect.Click += BtnSelect_Click;
             if (this.Controls.Find("btnCancel", true).FirstOrDefault() is Button btnCancel)
@@ -212,7 +171,6 @@ namespace LMS.GUI.OrderAdmin
             dgvDrivers.KeyDown += (s, e) => { if (e.KeyCode == Keys.Enter) { e.SuppressKeyPress = true; PickCurrent(); } };
         }
 
-        // ================== PICK ==================
         private void BtnSelect_Click(object sender, EventArgs e) => PickCurrent();
 
         private void PickCurrent()
@@ -225,7 +183,7 @@ namespace LMS.GUI.OrderAdmin
 
             try
             {
-                // DataSource là anonymous type => dùng dynamic hoặc reflection
+                // datasource là anonymous type => dùng dynamic hoặc reflection
                 dynamic row = dgvDrivers.CurrentRow.DataBoundItem;
                 int id = (int)row.Id;
                 DriverSelected?.Invoke(id);
@@ -237,7 +195,6 @@ namespace LMS.GUI.OrderAdmin
             }
         }
 
-        // ================== SORT ==================
         private void dgvDrivers_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             var list = dgvDrivers.DataSource as IEnumerable<object>;
@@ -247,7 +204,9 @@ namespace LMS.GUI.OrderAdmin
             if (newColumn.SortMode == DataGridViewColumnSortMode.NotSortable) return;
 
             if (_sortedColumn == newColumn)
+            {
                 _sortOrder = (_sortOrder == SortOrder.Ascending) ? SortOrder.Descending : SortOrder.Ascending;
+            }
             else
             {
                 if (_sortedColumn?.HeaderCell != null)
@@ -292,6 +251,7 @@ namespace LMS.GUI.OrderAdmin
             }
         }
 
+        // kéo form bằng control bất kỳ (gọi enableFormDragging(lblTitle) nếu cần)
         private void EnableFormDragging(Control dragControl)
         {
             dragControl.MouseDown += DragControl_MouseDown;

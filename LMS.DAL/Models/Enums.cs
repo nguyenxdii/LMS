@@ -1,5 +1,4 @@
-﻿// LMS.DAL/Models/Enums.cs
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace LMS.DAL.Models
 {

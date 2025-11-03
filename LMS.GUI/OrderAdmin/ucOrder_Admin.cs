@@ -1,14 +1,10 @@
-﻿// LMS.GUI/OrderAdmin/ucOrder_Admin.cs
-using Guna.UI2.WinForms;
-using LMS.BUS.Dtos;
+﻿using LMS.BUS.Dtos;
 using LMS.BUS.Helpers;
 using LMS.BUS.Services;
-using LMS.DAL;
 using LMS.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data.Entity;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
@@ -35,7 +31,6 @@ namespace LMS.GUI.OrderAdmin
             };
         }
 
-        #region Grid config
         private void ConfigureGrid()
         {
             var g = dgvOrders;
@@ -87,7 +82,7 @@ namespace LMS.GUI.OrderAdmin
                 DataPropertyName = "TotalFee",
                 HeaderText = "Tổng phí",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
-                DefaultCellStyle = { Format = "N0", Alignment = DataGridViewContentAlignment.MiddleRight }, // Format as number
+                DefaultCellStyle = { Format = "N0", Alignment = DataGridViewContentAlignment.MiddleRight },
                 SortMode = DataGridViewColumnSortMode.Programmatic
             });
             g.Columns.Add(new DataGridViewTextBoxColumn
@@ -102,19 +97,18 @@ namespace LMS.GUI.OrderAdmin
             g.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "Status",
-                DataPropertyName = "Status", // Keep DataPropertyName as "Status" for enum
+                DataPropertyName = "Status",
                 HeaderText = "Trạng thái",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 SortMode = DataGridViewColumnSortMode.Programmatic
             });
-
             g.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "CreatedAt",
                 DataPropertyName = "CreatedAt",
                 HeaderText = "Ngày tạo",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill, // Make this column fill remaining space
-                MinimumWidth = 120, // Ensure it's not too narrow
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                MinimumWidth = 120,
                 DefaultCellStyle = { Format = "dd/MM/yyyy HH:mm", Alignment = DataGridViewContentAlignment.MiddleCenter },
                 SortMode = DataGridViewColumnSortMode.Programmatic
             });
@@ -123,18 +117,13 @@ namespace LMS.GUI.OrderAdmin
             {
                 var dgvType = g.GetType();
                 var pi = dgvType.GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic);
-                if (pi != null)
-                {
-                    pi.SetValue(g, true, null);
-                }
+                if (pi != null) pi.SetValue(g, true, null);
             }
             catch (Exception)
             {
             }
         }
-        #endregion
 
-        #region Load + helpers
         private void LoadData()
         {
             var list = _svc.GetAllForAdmin();
@@ -145,11 +134,11 @@ namespace LMS.GUI.OrderAdmin
                 if (dgvOrders.Rows.Count > 0)
                 {
                     dgvOrders.Rows[0].Selected = true;
-                    if (dgvOrders.Columns.Contains("OrderNo")) // Kiểm tra cột tồn tại
+                    if (dgvOrders.Columns.Contains("OrderNo"))
                         dgvOrders.CurrentCell = dgvOrders.Rows[0].Cells["OrderNo"];
                 }
                 UpdateButtonsState();
-                ResetSortGlyphs(); // Reset mũi tên sort khi load lại
+                ResetSortGlyphs();
             }
         }
 
@@ -172,18 +161,16 @@ namespace LMS.GUI.OrderAdmin
                     if (r.Cells["Id"].Value != null && Convert.ToInt32(r.Cells["Id"].Value) == keepId)
                     {
                         r.Selected = true;
-                        if (dgvOrders.Columns.Contains("OrderNo")) // Kiểm tra cột tồn tại
+                        if (dgvOrders.Columns.Contains("OrderNo"))
                             dgvOrders.CurrentCell = r.Cells["OrderNo"];
-                        if (r.Index >= 0 && r.Index < dgvOrders.RowCount) // Đảm bảo index hợp lệ
+                        if (r.Index >= 0 && r.Index < dgvOrders.RowCount)
                             dgvOrders.FirstDisplayedScrollingRowIndex = r.Index;
                         break;
                     }
                 }
             }
         }
-        #endregion
 
-        #region Wire events
         private void Wire()
         {
             btnReload.Click += (s, e) => LoadData();
@@ -194,14 +181,11 @@ namespace LMS.GUI.OrderAdmin
             btnReject.Click += (s, e) => Reject();
             btnDelete.Click += (s, e) => Delete();
             btnShipment.Click += (s, e) => CreateShipment();
-            dgvOrders.ColumnHeaderMouseClick += dgvOrders_ColumnHeaderMouseClick; // Sự kiện sort
-            dgvOrders.CellFormatting += dgvOrders_CellFormatting; // Thêm sự kiện format Status
+            dgvOrders.ColumnHeaderMouseClick += dgvOrders_ColumnHeaderMouseClick;
+            dgvOrders.CellFormatting += dgvOrders_CellFormatting;
             dgvOrders.CellDoubleClick += (s, e) =>
             {
-                if (e.RowIndex >= 0)
-                {
-                    ShowDetail(); // Gọi lại hàm ShowDetail() đã có sẵn
-                }
+                if (e.RowIndex >= 0) ShowDetail();
             };
         }
 
@@ -212,13 +196,11 @@ namespace LMS.GUI.OrderAdmin
 
             btnApprove.Enabled = enable && it.Status == OrderStatus.Pending;
             btnReject.Enabled = enable && it.Status == OrderStatus.Pending;
-            btnDelete.Enabled = enable && (it.Status == OrderStatus.Cancelled || it.Status == OrderStatus.Completed); // <-- ĐÃ SỬA
+            btnDelete.Enabled = enable && (it.Status == OrderStatus.Cancelled || it.Status == OrderStatus.Completed);
             btnViewDetail.Enabled = enable;
             btnShipment.Enabled = enable && it.Status == OrderStatus.Approved;
         }
-        #endregion
 
-        #region Actions
         private void OpenSearchDialog()
         {
             int? pickedId = null;
@@ -248,20 +230,16 @@ namespace LMS.GUI.OrderAdmin
         {
             var it = Current();
             if (it == null) return;
+
             using (var f = new Form
             {
                 Text = $"Chi tiết đơn hàng ORD{it.Id}",
-                StartPosition = FormStartPosition.CenterScreen, // Sửa CenterParent thành CenterScreen
+                StartPosition = FormStartPosition.CenterScreen,
                 Size = new Size(500, 500),
                 FormBorderStyle = FormBorderStyle.None,
-                //MaximizeBox = false,
-                //MinimizeBox = false
             })
             {
-                var uc = new ucOrderDetail_Admin(it.Id)
-                {
-                    Dock = DockStyle.Fill
-                };
+                var uc = new ucOrderDetail_Admin(it.Id) { Dock = DockStyle.Fill };
                 f.Controls.Add(uc);
                 f.ShowDialog(this.FindForm());
             }
@@ -277,33 +255,19 @@ namespace LMS.GUI.OrderAdmin
                 return;
             }
             if (MessageBox.Show("Duyệt đơn hàng này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+
             try
             {
                 _svc.Approve(it.Id);
                 KeepAndReload(it.Id);
-                MessageBox.Show("Đã duyệt đơn.", "LMS");
+                MessageBox.Show("Đã duyệt đơn.", "LMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message, "Lỗi"); }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Lỗi");
+            }
         }
 
-        //private void Reject()
-        //{
-        //    var it = Current();
-        //    if (it == null) return;
-        //    if (it.Status != OrderStatus.Pending)
-        //    {
-        //        MessageBox.Show("Chỉ từ chối đơn trạng thái Pending.", "LMS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        //        return;
-        //    }
-        //    if (MessageBox.Show("Từ chối đơn hàng này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
-        //    try
-        //    {
-        //        _svc.Reject(it.Id);
-        //        KeepAndReload(it.Id);
-        //        MessageBox.Show("Đã từ chối đơn.", "LMS");
-        //    }
-        //    catch (Exception ex) { MessageBox.Show(ex.Message, "Lỗi"); }
-        //}
         private void Reject()
         {
             var it = Current();
@@ -313,25 +277,21 @@ namespace LMS.GUI.OrderAdmin
                 return;
             }
 
-            // Tạo UC mới
             var ucReject = new ucOrderReject_Admin();
-            ucReject.LoadOrderInfo(it.OrderNo); // Truyền mã đơn hàng vào UC
+            ucReject.LoadOrderInfo(it.OrderNo);
 
-            // Tạo Form popup để chứa UC
             using (var popup = new Form())
             {
                 popup.StartPosition = FormStartPosition.CenterParent;
-                popup.FormBorderStyle = FormBorderStyle.None; // UC đã có pnlTop để kéo
-                popup.Size = ucReject.Size; // Lấy kích thước từ UC
+                popup.FormBorderStyle = FormBorderStyle.None;
+                popup.Size = ucReject.Size;
                 popup.Controls.Add(ucReject);
                 ucReject.Dock = DockStyle.Fill;
 
-                // Xử lý sự kiện khi UC nhấn "Xác nhận"
                 ucReject.Confirmed += (sender, reason) =>
                 {
                     try
                     {
-                        // Gọi service với lý do
                         _svc.Reject(it.Id, reason);
                         KeepAndReload(it.Id);
                         MessageBox.Show("Đã từ chối đơn hàng thành công.", "LMS");
@@ -340,16 +300,10 @@ namespace LMS.GUI.OrderAdmin
                     {
                         MessageBox.Show(ex.Message, "Lỗi");
                     }
-                    // Form sẽ tự đóng (do code trong ucReject)
                 };
 
-                // Xử lý sự kiện khi UC nhấn "Hủy bỏ"
-                ucReject.Cancelled += (sender, e) =>
-                {
-                    // Không làm gì cả, Form sẽ tự đóng
-                };
+                ucReject.Cancelled += (sender, e) => { };
 
-                // Hiển thị popup
                 popup.ShowDialog(this.FindForm());
             }
         }
@@ -358,23 +312,30 @@ namespace LMS.GUI.OrderAdmin
         {
             var it = Current();
             if (it == null) return;
+
             var note =
                 "- Chỉ xoá được đơn 'Đã hủy' hoặc 'Hoàn thành'.\n" +
                 "- Xóa đơn hàng sẽ XÓA VĨNH VIỄN (không thể khôi phục).\n\n" +
                 "Bạn có chắc muốn xoá đơn này?";
+
             if (MessageBox.Show(note, "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
+
             try
             {
                 _svc.Delete(it.Id);
-                LoadData(); // Load lại từ đầu sau khi xóa
+                LoadData();
                 MessageBox.Show("Đã xoá đơn.", "LMS");
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message, "Lỗi"); }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Lỗi");
+            }
         }
+
         private void CreateShipment()
         {
             var it = Current();
-            if (it == null) return; // Không có dòng nào được chọn thì thoát
+            if (it == null) return;
 
             if (it.Status != OrderStatus.Approved)
             {
@@ -383,24 +344,22 @@ namespace LMS.GUI.OrderAdmin
                 return;
             }
 
-            int? selectedDriverId = null; // Biến để lưu ID tài xế được chọn từ popup
+            int? selectedDriverId = null;
 
             using (var fPicker = new Form
             {
-                Text = "Chọn Tài Xế Cho Chuyến Hàng", // Tiêu đề của Form popup
-                StartPosition = FormStartPosition.CenterParent, // Hiển thị giữa Form cha
-                                                                // Đặt kích thước phù hợp với UserControl ucDriverPicker_Admin
-                Size = new Size(583, 539), // Điều chỉnh kích thước này nếu cần
-                FormBorderStyle = FormBorderStyle.None, // Bỏ viền và nút điều khiển của Form
+                Text = "Chọn Tài Xế Cho Chuyến Hàng",
+                StartPosition = FormStartPosition.CenterParent,
+                Size = new Size(583, 539),
+                FormBorderStyle = FormBorderStyle.None,
             })
             {
-                var ucPicker = new ucDriverPicker_Admin(DriverPickerMode.CreateShipment); // <<< TRUYỀN MODE VÀO ĐÂY
+                var ucPicker = new ucDriverPicker_Admin(DriverPickerMode.CreateShipment);
 
                 ucPicker.DriverSelected += (selectedId) =>
                 {
-                    selectedDriverId = selectedId; // Lưu ID được chọn
-                    fPicker.DialogResult = DialogResult.OK; // Đặt kết quả để đóng Form
-                                                            // fPicker.Close(); // Không cần gọi Close() ở đây vì DialogResult sẽ tự đóng
+                    selectedDriverId = selectedId;
+                    fPicker.DialogResult = DialogResult.OK;
                 };
 
                 fPicker.Controls.Add(ucPicker);
@@ -411,9 +370,7 @@ namespace LMS.GUI.OrderAdmin
                     try
                     {
                         int shipId = _svc.CreateShipmentFromOrder(it.Id, selectedDriverId.Value);
-
                         KeepAndReload(it.Id);
-
                         MessageBox.Show($"Đã tạo Shipment SHP{shipId}.", "LMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     catch (Exception ex)
@@ -423,9 +380,7 @@ namespace LMS.GUI.OrderAdmin
                 }
             }
         }
-        #endregion
 
-        #region Sort functionality
         private void dgvOrders_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (dgvOrders == null || _binding == null || _binding.Count == 0) return;
@@ -439,10 +394,7 @@ namespace LMS.GUI.OrderAdmin
             }
             else
             {
-                if (_sortedColumn != null)
-                {
-                    _sortedColumn.HeaderCell.SortGlyphDirection = SortOrder.None;
-                }
+                if (_sortedColumn != null) _sortedColumn.HeaderCell.SortGlyphDirection = SortOrder.None;
                 _sortOrder = SortOrder.Ascending;
                 _sortedColumn = column;
             }
@@ -450,16 +402,15 @@ namespace LMS.GUI.OrderAdmin
             var property = typeof(OrderListItemDto).GetProperty(column.DataPropertyName);
             if (property != null)
             {
-                IEnumerable<OrderListItemDto> sortedList; // Đổi IOrderedEnumerable thành IEnumerable
-                if (_sortOrder == SortOrder.Ascending)
-                    sortedList = _binding.OrderBy(x => property.GetValue(x, null)); // Thêm null vào GetValue
-                else
-                    sortedList = _binding.OrderByDescending(x => property.GetValue(x, null)); // Thêm null vào GetValue
+                IEnumerable<OrderListItemDto> sortedList =
+                    (_sortOrder == SortOrder.Ascending)
+                        ? _binding.OrderBy(x => property.GetValue(x, null))
+                        : _binding.OrderByDescending(x => property.GetValue(x, null));
 
-                var newList = sortedList.ToList(); // Chuyển thành List trước
-                _binding = new BindingList<OrderListItemDto>(newList); // Tạo BindingList mới
+                var newList = sortedList.ToList();
+                _binding = new BindingList<OrderListItemDto>(newList);
 
-                dgvOrders.DataSource = null; // Gán null trước để refresh
+                dgvOrders.DataSource = null;
                 dgvOrders.DataSource = _binding;
                 column.HeaderCell.SortGlyphDirection = _sortOrder;
             }
@@ -467,16 +418,14 @@ namespace LMS.GUI.OrderAdmin
 
         private void ResetSortGlyphs()
         {
-            if (_sortedColumn != null && _sortedColumn.HeaderCell != null) // Thêm kiểm tra HeaderCell
+            if (_sortedColumn != null && _sortedColumn.HeaderCell != null)
             {
                 _sortedColumn.HeaderCell.SortGlyphDirection = SortOrder.None;
             }
             _sortedColumn = null;
             _sortOrder = SortOrder.None;
         }
-        #endregion
 
-        #region Cell Formatting for Status
         private void dgvOrders_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (dgvOrders.Columns[e.ColumnIndex].Name == "Status" && e.Value != null)
@@ -489,23 +438,20 @@ namespace LMS.GUI.OrderAdmin
                         case OrderStatus.Approved: e.Value = "Đã duyệt"; break;
                         case OrderStatus.Completed: e.Value = "Hoàn thành"; break;
                         case OrderStatus.Cancelled: e.Value = "Đã hủy"; break;
-                        default: e.Value = status.ToString(); break; // Giữ nguyên nếu không khớp
+                        default: e.Value = status.ToString(); break;
                     }
-                    e.FormattingApplied = true; // Báo cho grid biết là đã xử lý xong
+                    e.FormattingApplied = true;
                 }
             }
         }
-        #endregion
 
-        // LMS.GUI.OrderAdmin/ucOrder_Admin.cs
         public void SelectOrderByNo(string orderNo)
         {
             if (string.IsNullOrWhiteSpace(orderNo) || dgvOrders == null) return;
 
             foreach (DataGridViewRow r in dgvOrders.Rows)
             {
-                var item = r.DataBoundItem; // tuỳ bạn bind DTO nào, chỉ cần lấy ra OrderNo
-                var ordNo = r.Cells["OrderNo"]?.Value?.ToString(); // hoặc từ DTO
+                var ordNo = r.Cells["OrderNo"]?.Value?.ToString();
                 if (string.Equals(ordNo, orderNo, StringComparison.OrdinalIgnoreCase))
                 {
                     dgvOrders.ClearSelection();
@@ -515,6 +461,5 @@ namespace LMS.GUI.OrderAdmin
                 }
             }
         }
-
     }
 }

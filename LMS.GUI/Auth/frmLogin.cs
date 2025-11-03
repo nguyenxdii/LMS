@@ -3,7 +3,7 @@ using LMS.BUS.Services;
 using LMS.DAL.Models;
 using LMS.GUI.Main;
 using System;
-using System.Drawing; // Cần cho Point
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace LMS.GUI.Auth
@@ -12,7 +12,7 @@ namespace LMS.GUI.Auth
     {
         private readonly AuthService _auth = new AuthService();
 
-        // BIẾN CHO KÉO THẢ FORM
+        // kéo thả form borderless
         private bool dragging = false;
         private Point dragCursorPoint;
         private Point dragFormPoint;
@@ -21,11 +21,11 @@ namespace LMS.GUI.Auth
         {
             InitializeComponent();
 
+            // cấu hình form đăng nhập
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.None;
 
-            // GÁN SỰ KIỆN KÉO THẢ CHO PANEL TIÊU ĐỀ
-            // Giả định tên Panel là pnlTop
+            // gán sự kiện kéo thả cho panel tiêu đề (pnlTop)
             if (pnlTop != null)
             {
                 pnlTop.MouseDown += PnlTop_MouseDown;
@@ -33,10 +33,12 @@ namespace LMS.GUI.Auth
                 pnlTop.MouseUp += PnlTop_MouseUp;
             }
 
+            // gán sự kiện và hành vi nhập liệu
             txtUsername.Focus();
             btnLogin.Click += btnLogin_Click;
             this.AcceptButton = btnLogin;
 
+            // ẩn/hiện mật khẩu
             txtPassword.UseSystemPasswordChar = true;
             chkShowPassword.CheckedChanged += (s, e) =>
                 txtPassword.UseSystemPasswordChar = !chkShowPassword.Checked;
@@ -44,11 +46,11 @@ namespace LMS.GUI.Auth
 
         private void frmLogin_Load(object sender, EventArgs e)
         {
+            // đặt focus khi mở form
             txtUsername.Focus();
         }
 
-        // ====== LOGIC KÉO THẢ FORM (3 HÀM) ======
-
+        // logic kéo thả form (3 hàm)
         private void PnlTop_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -88,55 +90,66 @@ namespace LMS.GUI.Auth
                     {
                         case LoginFailReason.UserNotFound:
                         case LoginFailReason.WrongPassword:
-                            MessageBox.Show("Tài khoản hoặc mật khẩu sai.", "Đăng nhập", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show("Tài khoản hoặc mật khẩu sai.", "Đăng Nhập", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             txtUsername.Focus();
                             txtUsername.SelectAll();
                             return;
 
                         case LoginFailReason.Locked:
-                            MessageBox.Show("Tài khoản đã bị khóa. Vui lòng liên hệ quản trị.", "Đăng nhập",
-                                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Tài khoản đã bị khóa. Vui lòng liên hệ quản trị.", "Đăng Nhập",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
 
                         default:
-                            MessageBox.Show("Đăng nhập không thành công.", "Đăng nhập");
+                            MessageBox.Show("Đăng nhập không thành công.", "Đăng Nhập");
                             return;
                     }
                 }
 
-                // === Login OK: set session + mở form theo role ===
+                // login ok: set session và mở form theo vai trò
                 var acc = res.Account;
                 AppSession.SignIn(acc);
 
                 Form next;
                 switch (acc.Role)
                 {
-                    case UserRole.Admin: next = new frmMain_Admin(); break; // Giả định frmMain_Admin tồn tại
-                    case UserRole.Customer: next = new frmMain_Customer(); break; // Giả định frmMain_Customer tồn tại
-                    default: next = new frmMain_Driver(); break;
+                    case UserRole.Admin:
+                        next = new frmMain_Admin();
+                        break;
+                    case UserRole.Customer:
+                        next = new frmMain_Customer();
+                        break;
+                    default:
+                        next = new frmMain_Driver();
+                        break;
                 }
 
                 this.Hide();
                 next.ShowDialog();
                 this.Show();
+
+                // reset input sau khi đóng form con
                 txtPassword.Clear();
                 txtUsername.Focus();
                 this.AcceptButton = btnLogin;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Lỗi đăng nhập", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Lỗi Đăng Nhập", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void lnkRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            // điều hướng sang form đăng ký
             this.Hide();
-            using (var f = new frmRegister()) // Giả định frmRegister tồn tại
+            using (var f = new frmRegister())
             {
                 f.ShowDialog();
             }
             this.Show();
+
+            // dọn dẹp input khi quay lại
             txtPassword.Clear();
             txtUsername.Focus();
         }

@@ -1,5 +1,4 @@
-﻿// LMS.GUI/Main/frmMain_Driver.cs
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -11,16 +10,16 @@ namespace LMS.GUI.Main
 {
     public partial class frmMain_Driver : Form
     {
-        // ====== STATE ======
+        // trạng thái menu và sidebar
         private bool menuExpant = false;
         private bool sidebarExpant = true;
 
-        // Kéo thả form qua panel top
+        // kéo thả form qua panel top
         private bool dragging = false;
         private Point dragCursorPoint;
         private Point dragFormPoint;
 
-        // Nav buttons
+        // các nút điều hướng
         private List<Button> navigationButtons;
         private readonly Color normalColor = Color.FromArgb(32, 33, 36);
         private readonly Color selectedColor = Color.FromArgb(0, 4, 53);
@@ -33,13 +32,13 @@ namespace LMS.GUI.Main
 
             _driverId = driverId;
 
-            // UI base
+            // thiết lập giao diện cơ bản
             this.StartPosition = FormStartPosition.CenterScreen; // CenterParent không có Owner sẽ không ăn
             this.FormBorderStyle = FormBorderStyle.None;
             this.MinimumSize = new Size(1000, 650);
             this.DoubleBuffered = true; // giảm nhấp nháy khi animate
 
-            // Kéo form bằng panel top (đảm bảo pnlTop tồn tại)
+            // kéo form bằng panel top (đảm bảo pnlTop tồn tại)
             if (pnlTop != null)
             {
                 pnlTop.MouseDown += PnlTopBar_MouseDown;
@@ -47,7 +46,7 @@ namespace LMS.GUI.Main
                 pnlTop.MouseUp += PnlTopBar_MouseUp;
             }
 
-            // Fit chiều rộng item trong sidebar (nếu cần)
+            // fit chiều rộng item trong sidebar (nếu cần)
             if (sidebar != null)
             {
                 foreach (Control control in sidebar.Controls)
@@ -56,12 +55,12 @@ namespace LMS.GUI.Main
 
             InitializeNavigationButtons();
 
-            // Lifecycle
+            // lifecycle
             this.Load += FrmMain_Driver_Load;
             this.FormClosing += Driver_FormClosing;
         }
 
-        // Constructor phụ (dùng AppSession)
+        // constructor phụ (dùng AppSession)
         public frmMain_Driver() : this(0) { }
 
         private void FrmMain_Driver_Load(object sender, EventArgs e)
@@ -80,7 +79,7 @@ namespace LMS.GUI.Main
             lblPageTitle.Text = "Trang Chủ";
         }
 
-        // ====== NAV ======
+        // khởi tạo các nút điều hướng
         private void InitializeNavigationButtons()
         {
             navigationButtons = new List<Button>();
@@ -92,7 +91,7 @@ namespace LMS.GUI.Main
             foreach (var btn in navigationButtons)
                 btn.Click += NavigationButton_Click;
 
-            // Gán sự kiện 1 nơi duy nhất, tránh trùng
+            // gán sự kiện 1 nơi duy nhất, tránh trùng
             if (btnHome != null) btnHome.Click += btnHome_Click;
             if (btnLogOut != null) btnLogOut.Click += btnLogOut_Click;
             if (btnHam != null) btnHam.Click += btnHam_Click;
@@ -100,6 +99,7 @@ namespace LMS.GUI.Main
             if (lblTitle != null) lblTitle.Click += lblTitle_Click;
         }
 
+        // reset style các nút
         private void ResetButtonStyles()
         {
             foreach (var btn in navigationButtons)
@@ -130,7 +130,7 @@ namespace LMS.GUI.Main
             }
         }
 
-        // ====== CLOCK (tuỳ chọn) ======
+        // cập nhật đồng hồ (tuỳ chọn)
         private void timerClock_Tick(object sender, EventArgs e)
         {
             if (AppSession.IsLoggedIn)
@@ -141,7 +141,7 @@ namespace LMS.GUI.Main
             }
         }
 
-        // ====== LOAD UC ======
+        // load user control vào panel
         public void LoadUc(UserControl uc)
         {
             if (uc == null || pnlContent == null) return;
@@ -153,7 +153,7 @@ namespace LMS.GUI.Main
             pnlContent.ResumeLayout();
         }
 
-        // ====== ĐÓNG FORM / LOGOUT ======
+        // xử lý đóng form
         private void Driver_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing)
@@ -165,6 +165,7 @@ namespace LMS.GUI.Main
             }
         }
 
+        // xử lý đăng xuất
         private bool HandleLogout()
         {
             return MessageBox.Show("Bạn có chắc muốn đăng xuất?", "Xác nhận",
@@ -176,7 +177,7 @@ namespace LMS.GUI.Main
             Close();
         }
 
-        // ====== SIDEBAR / MENU ANIMATION ======
+        // xử lý animation sidebar và menu
         private void btnHam_Click(object sender, EventArgs e)
         {
             sidebarTransition?.Start();
@@ -201,7 +202,7 @@ namespace LMS.GUI.Main
             lblPageTitle.Text = "Thông Tin Tài Khoản";
         }
 
-        // ====== DRAG FORM ======
+        // xử lý kéo thả form
         private void PnlTopBar_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button != MouseButtons.Left) return;
@@ -222,7 +223,7 @@ namespace LMS.GUI.Main
             if (e.Button == MouseButtons.Left) dragging = false;
         }
 
-        // ====== TIMER TICK ANIMS ======
+        // animation cho menu
         private void menuTransition_Tick(object sender, EventArgs e)
         {
             if (menuContainer == null || menuTransition == null) return;
@@ -247,6 +248,7 @@ namespace LMS.GUI.Main
             }
         }
 
+        // animation cho sidebar
         private void sidebarTransition_Tick(object sender, EventArgs e)
         {
             if (sidebar == null || sidebarTransition == null) return;
@@ -276,7 +278,7 @@ namespace LMS.GUI.Main
             sidebarTransition?.Start();
         }
 
-        // ====== ĐIỀU HƯỚNG TỪ UC CON ======
+        // điều hướng từ user control con
         public void NavigateToShipmentDetail()
         {
             if (btnShipmentDetail != null)

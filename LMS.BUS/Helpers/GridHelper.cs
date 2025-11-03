@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.UI.WebControls;
-using System.Drawing;         // Cần cho Font, FontStyle, Color
+using System.Drawing; // Cần cho Font, FontStyle, Color
 using System.Windows.Forms; // Cần cho DataGridView và các enum liên quan
 
 namespace LMS.BUS.Helpers
@@ -43,11 +43,10 @@ namespace LMS.BUS.Helpers
             g.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 248, 255); // Màu xen kẽ
             g.RowTemplate.Height = 40;
 
-            // Bật Double Buffer (nên để ở đây luôn)
+            // Bật Double Buffer
             TryEnableDoubleBuffer(g);
         }
 
-        // Hàm TryEnableDoubleBuffer giữ nguyên là static private hoặc public tùy bạn
         private static void TryEnableDoubleBuffer(DataGridView grid)
         {
             try
@@ -55,7 +54,7 @@ namespace LMS.BUS.Helpers
                 var prop = grid.GetType().GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic);
                 prop?.SetValue(grid, true, null);
             }
-            catch { /* Bỏ qua lỗi */ }
+            catch { } // bỏ qua lỗi nếu không set được
         }
     }
 }

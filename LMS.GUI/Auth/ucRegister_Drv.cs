@@ -14,35 +14,34 @@ namespace LMS.GUI.Auth
         private readonly AuthService _auth;
         private readonly Guna2HtmlToolTip htip = new Guna2HtmlToolTip();
 
-        //public Button RegisterButton => btnRegisterD;
-
         public ucRegister_Drv(AuthService auth)
         {
             InitializeComponent();
             _auth = auth;
 
-            // Cấu hình Guna2 HTML Tooltip
+            // cấu hình tooltip và mẹo nhập liệu
             ConfigureTooltip();
             RegisterFieldTips();
 
-            // Cấu hình hiển thị mật khẩu
+            // cấu hình hiển thị mật khẩu
             chkShowPassD1.Checked = chkShowPassD2.Checked = false;
             InitPasswordMask(txtPasswordD);
             InitPasswordMask(txtConfirmD);
             chkShowPassD1.CheckedChanged += (s, e) => TogglePasswordMask(txtPasswordD, chkShowPassD1.Checked);
             chkShowPassD2.CheckedChanged += (s, e) => TogglePasswordMask(txtConfirmD, chkShowPassD2.Checked);
 
-            // Cấu hình ComboBox GPLX
+            // cấu hình combobox gplx
             cmbLicenseType.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbLicenseType.Items.AddRange(new object[] { "B2", "C", "CE", "D", "DE", "FC" });
             cmbLicenseType.SelectedIndex = -1;
 
-            // Gán sự kiện nút
+            // gán sự kiện nút
             btnChooseImage.Click += btnChooseImage_Click;
             btnRegisterD.Click += btnRegisterD_Click;
             btnExitD.Click += btnExitD_Click;
         }
 
+        // cấu hình style cho tooltip html
         private void ConfigureTooltip()
         {
             htip.TitleFont = new Font("Segoe UI", 9, FontStyle.Bold);
@@ -59,6 +58,7 @@ namespace LMS.GUI.Auth
             htip.UseFading = false;
         }
 
+        // gắn mẹo cho các trường nhập
         private void RegisterFieldTips()
         {
             AttachHtmlTip(txtFullnameD, "Họ tên <b>tài xế</b>.");
@@ -69,25 +69,29 @@ namespace LMS.GUI.Auth
             AttachHtmlTip(cmbLicenseType, "<b>B2</b>: xe tải ≤3.5t, bán tải/van<br/><b>C</b>: xe tải >3.5t<br/><b>CE/FC</b>: đầu kéo + rơ-moóc");
         }
 
+        // hiển thị tooltip html cạnh control, tránh tràn màn hình
         private void AttachHtmlTip(Control ctl, string html)
         {
             ctl.Enter += (s, e) =>
             {
-                var ttSize = TextRenderer.MeasureText(
-                    Regex.Replace(html, "<.*?>", string.Empty),
-                    SystemFonts.DefaultFont);
+                var ttSize = TextRenderer.MeasureText(Regex.Replace(html, "<.*?>", string.Empty), SystemFonts.DefaultFont);
                 int estWidth = Math.Min(htip.MaximumSize.Width, ttSize.Width + 24);
                 int estHeight = Math.Max(26, ttSize.Height + 14);
+
                 int x = ctl.Width + 6;
                 int y = (ctl.Height - estHeight) / 2 - 2;
+
                 Point scr = ctl.PointToScreen(new Point(x, y));
                 int screenRight = Screen.FromControl(this).WorkingArea.Right;
                 int screenTop = Screen.FromControl(this).WorkingArea.Top;
                 int screenBottom = Screen.FromControl(this).WorkingArea.Bottom;
+
                 if (scr.X + estWidth > screenRight) x = -estWidth - 8;
+
                 scr = ctl.PointToScreen(new Point(x, y));
                 if (scr.Y < screenTop) y += (screenTop - scr.Y);
                 else if (scr.Y + estHeight > screenBottom) y -= (scr.Y + estHeight - screenBottom);
+
                 htip.Show(html, ctl, x, y, int.MaxValue);
             };
             ctl.Leave += (s, e) => htip.Hide(ctl);
@@ -95,34 +99,39 @@ namespace LMS.GUI.Auth
             ctl.VisibleChanged += (s, e) => { if (!ctl.Visible) htip.Hide(ctl); };
         }
 
+        // bật/tắt ký tự mask cho mật khẩu guna2
         private void TogglePasswordMask(Guna2TextBox tb, bool showPlain)
         {
             tb.UseSystemPasswordChar = false;
             tb.PasswordChar = showPlain ? '\0' : '●';
         }
 
+        // khởi tạo ký tự mask
         private void InitPasswordMask(Guna2TextBox tb)
         {
             tb.UseSystemPasswordChar = false;
             tb.PasswordChar = '●';
         }
 
+        // chuyển ảnh sang byte[] để lưu db
         public byte[] ImageToByteArray(Image imageIn)
         {
-            if (imageIn == null)
-                return null;
-            using (MemoryStream ms = new MemoryStream())
+            if (imageIn == null) return null;
+            using (var ms = new MemoryStream())
             {
                 imageIn.Save(ms, imageIn.RawFormat);
                 return ms.ToArray();
             }
         }
 
+        // chọn ảnh đại diện từ file
         private void btnChooseImage_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFile = new OpenFileDialog();
-            openFile.Filter = "Image Files (*.jpg;*.jpeg;*.png;*.gif)|*.jpg;*.jpeg;*.png;*.gif";
-            openFile.Title = "Chọn ảnh đại diện cho tài xế";
+            var openFile = new OpenFileDialog
+            {
+                Filter = "Image Files (*.jpg;*.jpeg;*.png;*.gif)|*.jpg;*.jpeg;*.png;*.gif",
+                Title = "Chọn Ảnh Đại Diện Cho Tài Xế"
+            };
 
             if (openFile.ShowDialog() == DialogResult.OK)
             {
@@ -132,11 +141,12 @@ namespace LMS.GUI.Auth
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Không thể tải ảnh: " + ex.Message, "Lỗi Ảnh");
+                    MessageBox.Show("Không Thể Tải Ảnh: " + ex.Message, "Lỗi Ảnh");
                 }
             }
         }
 
+        // xử lý đăng ký tài xế
         private void btnRegisterD_Click(object sender, EventArgs e)
         {
             try
@@ -148,49 +158,52 @@ namespace LMS.GUI.Auth
                 var phone = txtDriverPhone.Text.Trim();
                 var licenseType = cmbLicenseType.SelectedItem?.ToString();
                 var citizenId = txtCitizenId.Text.Trim();
+
                 if (string.IsNullOrWhiteSpace(fullName))
                 {
-                    MessageBox.Show("Vui lòng nhập họ tên.");
+                    MessageBox.Show("Vui Lòng Nhập Họ Tên.");
                     txtFullnameD.Focus();
                     return;
                 }
                 if (!Regex.IsMatch(username, @"^[a-zA-Z0-9_]{8,16}$"))
                 {
-                    MessageBox.Show("Tên tài khoản phải 8–16 ký tự (chữ/số/_)");
+                    MessageBox.Show("Tên Tài Khoản Phải 8–16 Ký Tự (Chữ/Số/_).");
                     txtUsernameD.Focus();
                     return;
                 }
                 if (string.IsNullOrWhiteSpace(pass) || pass.Length < 6)
                 {
-                    MessageBox.Show("Mật khẩu phải ≥ 6 ký tự.");
+                    MessageBox.Show("Mật Khẩu Phải ≥ 6 Ký Tự.");
                     txtPasswordD.Focus();
                     return;
                 }
                 if (pass != confirm)
                 {
-                    MessageBox.Show("Xác nhận mật khẩu không khớp.");
+                    MessageBox.Show("Xác Nhận Mật Khẩu Không Khớp.");
                     txtConfirmD.Focus();
                     return;
                 }
                 if (!Regex.IsMatch(phone, @"^\d{9,15}$"))
                 {
-                    MessageBox.Show("SĐT không hợp lệ.");
+                    MessageBox.Show("SĐT Không Hợp Lệ.");
                     txtDriverPhone.Focus();
                     return;
                 }
                 if (string.IsNullOrEmpty(licenseType))
                 {
-                    MessageBox.Show("Vui lòng chọn loại GPLX.");
+                    MessageBox.Show("Vui Lòng Chọn Loại GPLX.");
                     cmbLicenseType.Focus();
                     return;
                 }
                 if (!Regex.IsMatch(citizenId, @"^\d{12}$"))
                 {
-                    MessageBox.Show("Số Citizen ID (CCCD) phải gồm 12 chữ số.");
+                    MessageBox.Show("Số Citizen ID (CCCD) Phải Gồm 12 Chữ Số.");
                     txtCitizenId.Focus();
                     return;
                 }
+
                 byte[] avatarData = null;
+                // chỉ lưu ảnh nếu khác ảnh mặc định
                 if (picAvatar.Image != null &&
                     !picAvatar.Image.Equals(LMS.GUI.Properties.Resources.default_avatar_2))
                 {
@@ -198,15 +211,16 @@ namespace LMS.GUI.Auth
                 }
 
                 _auth.RegisterDriver(fullName, username, pass, phone, licenseType, citizenId, avatarData);
-                MessageBox.Show("Đăng ký tài xế thành công!", "Thành công");
+                MessageBox.Show("Đăng Ký Tài Xế Thành Công!", "Thành Công");
                 this.FindForm()?.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Lỗi đăng ký");
+                MessageBox.Show(ex.Message, "Lỗi Đăng Ký");
             }
         }
 
+        // thoát về màn hình đăng nhập
         private void btnExitD_Click(object sender, EventArgs e)
         {
             if (this.FindForm()?.Owner is frmLogin ownerLogin)

@@ -7,11 +7,9 @@ namespace LMS.GUI.OrderAdmin
 {
     public partial class ucOrderReject_Admin : UserControl
     {
-        // Sự kiện (Event) để báo cho Form cha biết kết quả
         public event EventHandler<string> Confirmed; // Gửi kèm lý do (string)
         public event EventHandler Cancelled;
 
-        // Biến để kéo thả Form Cha
         private bool isDragging = false;
         private Point dragStartPoint = Point.Empty;
         private Point parentFormStartPoint = Point.Empty;

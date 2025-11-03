@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using LMS.BUS.Dtos;
-using LMS.BUS.Helpers;          // GridHelper
-using LMS.BUS.Services;         // DriverShipmentService
-using LMS.DAL.Models;           // ShipmentStatus
-using LMS.BUS;                  // nếu có AppSession ở namespace khác thì đổi lại
+using LMS.BUS.Helpers;
+using LMS.BUS.Services;
+using LMS.DAL.Models;
+using LMS.BUS;
 
 namespace LMS.GUI.Main
 {
@@ -19,22 +19,21 @@ namespace LMS.GUI.Main
         {
             InitializeComponent();
 
-            // Wire sự kiện (nếu chưa gán ở Designer)
+            // gắn sự kiện cần thiết (nếu chưa gán ở designer)
             this.Load += UcDashboard_Drv_Load;
             if (btnStartRun != null) btnStartRun.Click += BtnStartRun_Click;
 
-            // Cấu hình lưới
+            // cấu hình lưới
             ConfigureGrid();
         }
 
-        // ====== EVENTS ======
         private void UcDashboard_Drv_Load(object sender, EventArgs e)
         {
-            // Lời chào
+            // lời chào
             var name = AppSession.DisplayName ?? "Tài xế";
             lblWelcome.Text = $"Chào mừng trở lại, {name}!";
 
-            // Nạp dữ liệu dashboard
+            // nạp dữ liệu dashboard
             try
             {
                 LoadDashboard();
@@ -48,15 +47,14 @@ namespace LMS.GUI.Main
 
         private void BtnStartRun_Click(object sender, EventArgs e)
         {
-            // Nếu có chuyến đang hoạt động thì điều hướng sang Chi tiết chuyến
+            // nếu có chuyến đang hoạt động thì điều hướng sang chi tiết chuyến
             try
             {
-                int driverId = AppSession.DriverId ?? 0; // đảm bảo bạn có AppSession.DriverId
+                int driverId = AppSession.DriverId ?? 0;
                 var active = _svc.GetAssignedAndRunning(driverId);
 
                 if (active != null && active.Any())
                 {
-                    // Điều hướng sang UC Chi tiết chuyến
                     var parent = this.FindForm() as frmMain_Driver;
                     if (parent != null)
                     {
@@ -65,12 +63,11 @@ namespace LMS.GUI.Main
                     }
                 }
 
-                // Không có chuyến đang chạy => chuyển sang “Đơn hàng của tôi”
+                // không có chuyến đang chạy => chuyển sang “đơn hàng của tôi” / chi tiết
                 var frm = this.FindForm() as frmMain_Driver;
                 if (frm != null)
                 {
-                    // giả sử nút MyShipments có handler sẵn trong frmMain_Driver
-                    frm.NavigateToShipmentDetail(); // hoặc điều hướng sang ucMyShipments_Drv nếu bạn muốn
+                    frm.NavigateToShipmentDetail();
                 }
             }
             catch (Exception ex)
@@ -80,18 +77,17 @@ namespace LMS.GUI.Main
             }
         }
 
-        // ====== LOAD DATA ======
         private void LoadDashboard()
         {
-            int driverId = AppSession.DriverId ?? 0; // hoặc lấy từ ctor/form nếu bạn dùng cách khác
+            int driverId = AppSession.DriverId ?? 0;
 
-            // Lấy 30 ngày gần nhất để hiển thị “5 chuyến gần đây”
+            // lấy 30 ngày gần nhất để hiển thị “5 chuyến gần đây”
             DateTime from = DateTime.Now.Date.AddDays(-30);
             DateTime to = DateTime.Now.Date.AddDays(1);
 
             var all = _svc.GetAllMine(driverId, from, to, null); // List<ShipmentRowDto>
 
-            // --- KPI ---
+            // kpi
             int pending = all.Count(x => IsPendingOrAssigned(x.Status));
             int completedToday = all.Count(x =>
                 ToEnumStatus(x.Status) == ShipmentStatus.Delivered &&
@@ -103,7 +99,7 @@ namespace LMS.GUI.Main
             lblKpiCompletedToday.Text = completedToday.ToString();
             lblKpiCompletedTotal.Text = completedTotal.ToString();
 
-            // --- 5 chuyến gần đây ---
+            // 5 chuyến gần đây
             var recent = all
                 .OrderByDescending(x => x.UpdatedAt ?? x.DeliveredAt ?? x.StartedAt)
                 .Take(5)
@@ -120,7 +116,6 @@ namespace LMS.GUI.Main
             dgvLatestShipments.DataSource = recent;
         }
 
-        // ====== GRID ======
         private void ConfigureGrid()
         {
             dgvLatestShipments.ApplyBaseStyle();
@@ -169,13 +164,10 @@ namespace LMS.GUI.Main
             var row = dgvLatestShipments.Rows[e.RowIndex].DataBoundItem as GridRow;
             if (row == null) return;
 
-            // Tìm form cha
+            // điều hướng sang uc chi tiết và chọn đúng chuyến
             if (this.FindForm() is frmMain_Driver parent)
             {
-                // Điều hướng sang UC chi tiết
                 parent.NavigateToShipmentDetail();
-
-                // Delay nhẹ để UC được load xong
                 parent.BeginInvoke(new Action(() =>
                 {
                     foreach (Control ctrl in parent.Controls)
@@ -185,7 +177,6 @@ namespace LMS.GUI.Main
                             var uc = pnlContent.Controls.OfType<LMS.GUI.OrderDriver.ucShipmentDetail_Drv>().FirstOrDefault();
                             if (uc != null)
                             {
-                                // Gọi hàm chọn dòng
                                 uc.SelectShipmentByNo(row.ShipmentNo);
                                 break;
                             }
@@ -195,12 +186,9 @@ namespace LMS.GUI.Main
             }
         }
 
-
-
-        // ====== HELPERS ======
+        // helpers cho status
         private static ShipmentStatus? ToEnumStatus(string statusStr)
         {
-            // statusStr đến từ enum .ToString() ở Service
             if (Enum.TryParse(statusStr, out ShipmentStatus s)) return s;
             return null;
         }
@@ -213,7 +201,6 @@ namespace LMS.GUI.Main
 
         private static string ToVN(string statusStr)
         {
-            // Việt hoá nhanh cho hiển thị lưới/kpi
             var s = ToEnumStatus(statusStr);
             switch (s)
             {
@@ -224,15 +211,13 @@ namespace LMS.GUI.Main
                 case ShipmentStatus.ArrivedDestination: return "Đã tới đích";
                 case ShipmentStatus.Delivered: return "Hoàn thành";
                 case ShipmentStatus.Failed: return "Đã hủy / Sự cố";
-                //case ShipmentStatus.Canceled: return "Đã hủy";
                 default: return statusStr ?? "-";
             }
         }
 
-        // ViewModel nhỏ cho lưới
         private class GridRow
         {
-            public int Id { get; set; }        // nếu ShipmentRowDto có Id
+            public int Id { get; set; }
             public string ShipmentNo { get; set; }
             public string Route { get; set; }
             public string StartedAt { get; set; }

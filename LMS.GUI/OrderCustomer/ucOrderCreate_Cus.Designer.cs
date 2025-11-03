@@ -62,7 +62,7 @@
             this.label9.Location = new System.Drawing.Point(96, 406);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(82, 25);
-            this.label9.TabIndex = 26;
+            this.label9.TabIndex = 8;
             this.label9.Text = "Tổng Phí";
             // 
             // label7
@@ -72,7 +72,7 @@
             this.label7.Location = new System.Drawing.Point(105, 307);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(74, 25);
-            this.label7.TabIndex = 22;
+            this.label7.TabIndex = 6;
             this.label7.Text = "Ghi Chú";
             // 
             // btnClear
@@ -85,10 +85,10 @@
             this.btnClear.FillColor = System.Drawing.Color.Black;
             this.btnClear.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnClear.ForeColor = System.Drawing.Color.White;
-            this.btnClear.Location = new System.Drawing.Point(558, 162);
+            this.btnClear.Location = new System.Drawing.Point(750, 162);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(219, 45);
-            this.btnClear.TabIndex = 20;
+            this.btnClear.TabIndex = 0;
             this.btnClear.Text = "Tải lại";
             // 
             // btnNext
@@ -101,10 +101,10 @@
             this.btnNext.FillColor = System.Drawing.Color.Black;
             this.btnNext.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnNext.ForeColor = System.Drawing.Color.White;
-            this.btnNext.Location = new System.Drawing.Point(558, 93);
+            this.btnNext.Location = new System.Drawing.Point(750, 93);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(219, 45);
-            this.btnNext.TabIndex = 21;
+            this.btnNext.TabIndex = 3;
             this.btnNext.Text = "Xác nhận - Thanh toán";
             // 
             // dtpDesiredTime
@@ -121,7 +121,7 @@
             this.dtpDesiredTime.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
             this.dtpDesiredTime.Name = "dtpDesiredTime";
             this.dtpDesiredTime.Size = new System.Drawing.Size(290, 36);
-            this.dtpDesiredTime.TabIndex = 25;
+            this.dtpDesiredTime.TabIndex = 17;
             this.dtpDesiredTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.dtpDesiredTime.Value = new System.DateTime(2025, 10, 22, 11, 50, 17, 627);
             // 
@@ -143,7 +143,7 @@
             this.txtPackageDescription.PlaceholderText = "";
             this.txtPackageDescription.SelectedText = "";
             this.txtPackageDescription.Size = new System.Drawing.Size(288, 36);
-            this.txtPackageDescription.TabIndex = 24;
+            this.txtPackageDescription.TabIndex = 16;
             // 
             // label8
             // 
@@ -152,7 +152,7 @@
             this.label8.Location = new System.Drawing.Point(45, 354);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(134, 25);
-            this.label8.TabIndex = 22;
+            this.label8.TabIndex = 7;
             this.label8.Text = "Ngày Gửi Hàng";
             // 
             // lblEstimatedFee
@@ -161,7 +161,7 @@
             this.lblEstimatedFee.Location = new System.Drawing.Point(182, 406);
             this.lblEstimatedFee.Name = "lblEstimatedFee";
             this.lblEstimatedFee.Size = new System.Drawing.Size(63, 25);
-            this.lblEstimatedFee.TabIndex = 18;
+            this.lblEstimatedFee.TabIndex = 9;
             this.lblEstimatedFee.Text = "label1";
             // 
             // txtPickupAddress
@@ -182,7 +182,7 @@
             this.txtPickupAddress.PlaceholderText = "";
             this.txtPickupAddress.SelectedText = "";
             this.txtPickupAddress.Size = new System.Drawing.Size(288, 36);
-            this.txtPickupAddress.TabIndex = 21;
+            this.txtPickupAddress.TabIndex = 15;
             // 
             // chkPickupAtSender
             // 
@@ -191,7 +191,7 @@
             this.chkPickupAtSender.Location = new System.Drawing.Point(187, 217);
             this.chkPickupAtSender.Name = "chkPickupAtSender";
             this.chkPickupAtSender.Size = new System.Drawing.Size(168, 29);
-            this.chkPickupAtSender.TabIndex = 23;
+            this.chkPickupAtSender.TabIndex = 14;
             this.chkPickupAtSender.Text = "Phí 100.000VND";
             this.chkPickupAtSender.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkPickupAtSender.UseVisualStyleBackColor = true;
@@ -210,7 +210,7 @@
             this.cmbDestWarehouse.Location = new System.Drawing.Point(187, 166);
             this.cmbDestWarehouse.Name = "cmbDestWarehouse";
             this.cmbDestWarehouse.Size = new System.Drawing.Size(290, 36);
-            this.cmbDestWarehouse.TabIndex = 22;
+            this.cmbDestWarehouse.TabIndex = 13;
             // 
             // cmbDestZone
             // 
@@ -226,7 +226,7 @@
             this.cmbDestZone.Location = new System.Drawing.Point(187, 121);
             this.cmbDestZone.Name = "cmbDestZone";
             this.cmbDestZone.Size = new System.Drawing.Size(290, 36);
-            this.cmbDestZone.TabIndex = 20;
+            this.cmbDestZone.TabIndex = 12;
             // 
             // cmbOriginWarehouse
             // 
@@ -242,7 +242,7 @@
             this.cmbOriginWarehouse.Location = new System.Drawing.Point(187, 75);
             this.cmbOriginWarehouse.Name = "cmbOriginWarehouse";
             this.cmbOriginWarehouse.Size = new System.Drawing.Size(290, 36);
-            this.cmbOriginWarehouse.TabIndex = 19;
+            this.cmbOriginWarehouse.TabIndex = 11;
             // 
             // cmbOriginZone
             // 
@@ -258,7 +258,7 @@
             this.cmbOriginZone.Location = new System.Drawing.Point(187, 29);
             this.cmbOriginZone.Name = "cmbOriginZone";
             this.cmbOriginZone.Size = new System.Drawing.Size(290, 36);
-            this.cmbOriginZone.TabIndex = 17;
+            this.cmbOriginZone.TabIndex = 10;
             // 
             // label3
             // 
@@ -267,7 +267,7 @@
             this.label3.Location = new System.Drawing.Point(23, 125);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(156, 25);
-            this.label3.TabIndex = 22;
+            this.label3.TabIndex = 2;
             this.label3.Text = "K. Vực Nhận Hàng";
             // 
             // groupBox1
@@ -291,10 +291,10 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.groupBox1.Location = new System.Drawing.Point(37, 14);
+            this.groupBox1.Location = new System.Drawing.Point(229, 14);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(502, 460);
-            this.groupBox1.TabIndex = 16;
+            this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Thông Tin Đơn Hàng";
             // 
@@ -305,7 +305,7 @@
             this.label6.Location = new System.Drawing.Point(32, 259);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(147, 25);
-            this.label6.TabIndex = 22;
+            this.label6.TabIndex = 5;
             this.label6.Text = "Địa Chỉ Lấy Hàng";
             // 
             // label5
@@ -315,7 +315,7 @@
             this.label5.Location = new System.Drawing.Point(27, 217);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(152, 25);
-            this.label5.TabIndex = 22;
+            this.label5.TabIndex = 4;
             this.label5.Text = "Lấy Hàng Tận Nơi";
             // 
             // label4
@@ -325,7 +325,7 @@
             this.label4.Location = new System.Drawing.Point(41, 170);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(138, 25);
-            this.label4.TabIndex = 22;
+            this.label4.TabIndex = 3;
             this.label4.Text = "Kho Nhận Hàng";
             // 
             // label2
@@ -335,7 +335,7 @@
             this.label2.Location = new System.Drawing.Point(56, 79);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(123, 25);
-            this.label2.TabIndex = 22;
+            this.label2.TabIndex = 1;
             this.label2.Text = "Kho Gửi Hàng";
             // 
             // label1
@@ -345,7 +345,7 @@
             this.label1.Location = new System.Drawing.Point(38, 33);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(141, 25);
-            this.label1.TabIndex = 21;
+            this.label1.TabIndex = 0;
             this.label1.Text = "K. Vực Gửi Hàng";
             // 
             // btnCalcFee
@@ -358,10 +358,10 @@
             this.btnCalcFee.FillColor = System.Drawing.Color.Black;
             this.btnCalcFee.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnCalcFee.ForeColor = System.Drawing.Color.White;
-            this.btnCalcFee.Location = new System.Drawing.Point(558, 22);
+            this.btnCalcFee.Location = new System.Drawing.Point(750, 22);
             this.btnCalcFee.Name = "btnCalcFee";
             this.btnCalcFee.Size = new System.Drawing.Size(219, 45);
-            this.btnCalcFee.TabIndex = 22;
+            this.btnCalcFee.TabIndex = 2;
             this.btnCalcFee.Text = "Tính tiền";
             // 
             // panel1
@@ -376,7 +376,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1199, 689);
-            this.panel1.TabIndex = 2;
+            this.panel1.TabIndex = 0;
             // 
             // ucOrderCreate_Cus
             // 

@@ -44,7 +44,6 @@ namespace LMS.BUS.Services
                 db.Orders.Add(order);
                 db.SaveChanges();                 // cần Id
 
-                // ✅ Sinh mã đơn chính thức từ Id
                 order.OrderNo = OrderCode.ToCode(order.Id);
                 db.SaveChanges();
 

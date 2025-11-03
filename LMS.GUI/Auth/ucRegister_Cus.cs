@@ -21,30 +21,31 @@ namespace LMS.GUI.Auth
             InitializeComponent();
             _auth = auth;
 
-            // Cấu hình Guna2 HTML Tooltip
+            // cấu hình tooltip và mẹo điền trường
             ConfigureTooltip();
             RegisterFieldTips();
 
-            // Cấu hình AutoComplete và gợi ý email
+            // gợi ý, autocomplete email
             ConfigureEmailAutoComplete();
             ConfigureEmailSuggestMenu();
 
-            // Cấu hình hiển thị mật khẩu
+            // cấu hình hiển thị mật khẩu
             chkShowPassC1.Checked = chkShowPassC2.Checked = false;
             InitPasswordMask(txtPasswordC);
             InitPasswordMask(txtConfirmC);
             chkShowPassC1.CheckedChanged += (s, e) => TogglePasswordMask(txtPasswordC, chkShowPassC1.Checked);
             chkShowPassC2.CheckedChanged += (s, e) => TogglePasswordMask(txtConfirmC, chkShowPassC2.Checked);
 
-            // cấu hình picAvatar
+            // hiển thị ảnh đại diện
             picAvatar.SizeMode = PictureBoxSizeMode.Zoom;
 
-            // Gán sự kiện nút
+            // gán sự kiện nút
             btnChooseImage.Click += btnChooseImage_Click;
             btnRegisterC.Click += btnRegisterC_Click;
             btnExitC.Click += btnExitC_Click;
         }
 
+        // cấu hình style cho tooltip html
         private void ConfigureTooltip()
         {
             htip.TitleFont = new Font("Segoe UI", 9, FontStyle.Bold);
@@ -61,6 +62,7 @@ namespace LMS.GUI.Auth
             htip.UseFading = false;
         }
 
+        // gắn các mẹo nhập liệu cho từng trường
         private void RegisterFieldTips()
         {
             AttachHtmlTip(txtFullnameC, "<b>Họ tên</b>: ghi đầy đủ, có dấu.");
@@ -72,25 +74,29 @@ namespace LMS.GUI.Auth
             AttachHtmlTip(txtCusEmail, "Ví dụ: <i>ten@domain.com</i>.<br/>Gõ phần sau <b>@</b> để hiện gợi ý.");
         }
 
+        // hiển thị tooltip html cạnh control, có xử lý tránh tràn màn hình
         private void AttachHtmlTip(Control ctl, string html)
         {
             ctl.Enter += (s, e) =>
             {
-                var ttSize = TextRenderer.MeasureText(
-                    Regex.Replace(html, "<.*?>", string.Empty),
-                    SystemFonts.DefaultFont);
+                var ttSize = TextRenderer.MeasureText(Regex.Replace(html, "<.*?>", string.Empty), SystemFonts.DefaultFont);
                 int estWidth = Math.Min(htip.MaximumSize.Width, ttSize.Width + 24);
                 int estHeight = Math.Max(26, ttSize.Height + 14);
+
                 int x = ctl.Width + 6;
                 int y = (ctl.Height - estHeight) / 2 - 2;
+
                 Point scr = ctl.PointToScreen(new Point(x, y));
                 int screenRight = Screen.FromControl(this).WorkingArea.Right;
                 int screenTop = Screen.FromControl(this).WorkingArea.Top;
                 int screenBottom = Screen.FromControl(this).WorkingArea.Bottom;
+
                 if (scr.X + estWidth > screenRight) x = -estWidth - 8;
+
                 scr = ctl.PointToScreen(new Point(x, y));
                 if (scr.Y < screenTop) y += (screenTop - scr.Y);
                 else if (scr.Y + estHeight > screenBottom) y -= (scr.Y + estHeight - screenBottom);
+
                 htip.Show(html, ctl, x, y, int.MaxValue);
             };
             ctl.Leave += (s, e) => htip.Hide(ctl);
@@ -98,6 +104,7 @@ namespace LMS.GUI.Auth
             ctl.VisibleChanged += (s, e) => { if (!ctl.Visible) htip.Hide(ctl); };
         }
 
+        // cấu hình autocomplete cho phần domain sau @
         private void ConfigureEmailAutoComplete()
         {
             var src = new AutoCompleteStringCollection();
@@ -107,34 +114,45 @@ namespace LMS.GUI.Auth
             txtCusEmail.AutoCompleteCustomSource = src;
         }
 
+        // menu gợi ý email dạng context menu ngay dưới textbox
         private void ConfigureEmailSuggestMenu()
         {
             emailMenu.ShowImageMargin = false;
             emailMenu.Font = new Font("Segoe UI", 9);
             emailMenu.MaximumSize = new Size(txtCusEmail.Width, 220);
+
             txtCusEmail.TextChanged += TxtCusEmail_TextChanged;
             txtCusEmail.LostFocus += (s, e) => { if (!emailMenu.Focused) emailMenu.Hide(); };
             txtCusEmail.KeyDown += (s, e) =>
             {
-                if (e.KeyCode == Keys.Escape && emailMenu.Visible) { emailMenu.Hide(); e.SuppressKeyPress = true; }
+                if (e.KeyCode == Keys.Escape && emailMenu.Visible)
+                {
+                    emailMenu.Hide();
+                    e.SuppressKeyPress = true;
+                }
             };
         }
 
+        // tạo danh sách gợi ý theo phần sau @ và hiển thị menu
         private void TxtCusEmail_TextChanged(object sender, EventArgs e)
         {
             var tb = txtCusEmail;
             var text = tb.Text;
             int at = text.IndexOf('@');
             if (at < 0) { emailMenu.Hide(); return; }
+
             string local = text.Substring(0, at);
             string frag = text.Substring(at + 1);
             if (string.IsNullOrWhiteSpace(local)) { emailMenu.Hide(); return; }
+
             var items = emailDomains
                 .Where(d => d.StartsWith(frag, StringComparison.OrdinalIgnoreCase))
                 .Select(d => $"{local}@{d}")
                 .Take(8)
                 .ToList();
+
             if (items.Count == 0) { emailMenu.Hide(); return; }
+
             emailMenu.Items.Clear();
             foreach (var it in items)
             {
@@ -148,45 +166,50 @@ namespace LMS.GUI.Auth
                 };
                 emailMenu.Items.Add(mi);
             }
+
             var ptClient = new Point(0, tb.Height + 2);
             var ptScreen = tb.PointToScreen(ptClient);
             emailMenu.Show(ptScreen);
         }
 
+        // bật/tắt ký tự mask cho mật khẩu guna2
         private void TogglePasswordMask(Guna2TextBox tb, bool showPlain)
         {
             tb.UseSystemPasswordChar = false;
             tb.PasswordChar = showPlain ? '\0' : '●';
         }
 
+        // khởi tạo ký tự mask
         private void InitPasswordMask(Guna2TextBox tb)
         {
             tb.UseSystemPasswordChar = false;
             tb.PasswordChar = '●';
         }
 
+        // chuyển ảnh sang byte[] để lưu db
         public byte[] ImageToByteArray(Image imageIn)
         {
-            if (imageIn == null)
-                return null;
-            using (MemoryStream ms = new MemoryStream())
+            if (imageIn == null) return null;
+            using (var ms = new MemoryStream())
             {
-                // Dùng định dạng gốc của ảnh để giữ chất lượng
                 imageIn.Save(ms, imageIn.RawFormat);
                 return ms.ToArray();
             }
         }
+
+        // chọn ảnh đại diện từ file
         private void btnChooseImage_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFile = new OpenFileDialog();
-            openFile.Filter = "Image Files (*.jpg;*.jpeg;*.png;*.gif)|*.jpg;*.jpeg;*.png;*.gif";
-            openFile.Title = "Chọn ảnh đại diện";
+            var openFile = new OpenFileDialog
+            {
+                Filter = "Image Files (*.jpg;*.jpeg;*.png;*.gif)|*.jpg;*.jpeg;*.png;*.gif",
+                Title = "Chọn Ảnh Đại Diện"
+            };
 
             if (openFile.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
-                    // Tải ảnh vào PictureBox
                     picAvatar.Image = Image.FromFile(openFile.FileName);
                 }
                 catch (Exception ex)
@@ -196,6 +219,7 @@ namespace LMS.GUI.Auth
             }
         }
 
+        // xử lý đăng ký khách hàng
         private void btnRegisterC_Click(object sender, EventArgs e)
         {
             try
@@ -207,67 +231,69 @@ namespace LMS.GUI.Auth
                 var addr = txtCusAddress.Text.Trim();
                 var phone = txtCusPhone.Text.Trim();
                 var email = txtCusEmail.Text.Trim();
+
                 if (string.IsNullOrWhiteSpace(fullName))
                 {
-                    MessageBox.Show("Vui lòng nhập họ tên.");
+                    MessageBox.Show("Vui Lòng Nhập Họ Tên.");
                     txtFullnameC.Focus();
                     return;
                 }
                 if (!Regex.IsMatch(username, @"^[a-zA-Z0-9_]{8,16}$"))
                 {
-                    MessageBox.Show("Tên tài khoản phải 8–16 ký tự (chữ/số/_)");
+                    MessageBox.Show("Tên Tài Khoản Phải 8–16 Ký Tự (Chữ/Số/_).");
                     txtUsernameC.Focus();
                     return;
                 }
                 if (string.IsNullOrWhiteSpace(pass) || pass.Length < 6)
                 {
-                    MessageBox.Show("Mật khẩu phải ≥ 6 ký tự.");
+                    MessageBox.Show("Mật Khẩu Phải ≥ 6 Ký Tự.");
                     txtPasswordC.Focus();
                     return;
                 }
                 if (pass != confirm)
                 {
-                    MessageBox.Show("Xác nhận mật khẩu không khớp.");
+                    MessageBox.Show("Xác Nhận Mật Khẩu Không Khớp.");
                     txtConfirmC.Focus();
                     return;
                 }
                 if (string.IsNullOrWhiteSpace(addr))
                 {
-                    MessageBox.Show("Vui lòng nhập địa chỉ.");
+                    MessageBox.Show("Vui Lòng Nhập Địa Chỉ.");
                     txtCusAddress.Focus();
                     return;
                 }
                 if (!Regex.IsMatch(phone, @"^\d{9,15}$"))
                 {
-                    MessageBox.Show("SĐT không hợp lệ.");
+                    MessageBox.Show("SĐT Không Hợp Lệ.");
                     txtCusPhone.Focus();
                     return;
                 }
                 if (!Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
                 {
-                    MessageBox.Show("Email không hợp lệ.");
+                    MessageBox.Show("Email Không Hợp Lệ.");
                     txtCusEmail.Focus();
                     return;
                 }
+
                 byte[] avatarData = null;
-                // (Giả sử ảnh default của bạn tên là "default_avatar" trong Resources)
+                // chỉ lưu ảnh nếu khác ảnh mặc định
                 if (picAvatar.Image != null &&
                     !picAvatar.Image.Equals(LMS.GUI.Properties.Resources.default_avatar_2))
                 {
                     avatarData = ImageToByteArray(picAvatar.Image);
                 }
 
-
                 _auth.RegisterCustomer(fullName, username, pass, addr, phone, email, avatarData);
-                MessageBox.Show("Đăng ký khách hàng thành công!", "Thành công");
+                MessageBox.Show("Đăng Ký Khách Hàng Thành Công!", "Thành Công");
                 this.FindForm()?.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Lỗi đăng ký");
+                MessageBox.Show(ex.Message, "Lỗi Đăng Ký");
             }
         }
 
+        // thoát về màn hình đăng nhập
         private void btnExitC_Click(object sender, EventArgs e)
         {
             if (this.FindForm()?.Owner is frmLogin ownerLogin)

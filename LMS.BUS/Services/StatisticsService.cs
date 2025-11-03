@@ -12,7 +12,7 @@ namespace LMS.BUS.Services
     {
         private readonly LogisticsDbContext db = new LogisticsDbContext();
 
-        // ==== KPI OVERVIEW ====
+        // kpi tổng quan
         public KpiDto GetKpis(DateTime from, DateTime to)
         {
             var fromDate = from.Date;
@@ -47,7 +47,7 @@ namespace LMS.BUS.Services
             };
         }
 
-        // ==== PIE: TRẠNG THÁI ĐƠN HÀNG ====
+        // pie: trạng thái đơn hàng
         public List<ChartDataPoint> GetOrderStatusCounts(DateTime from, DateTime to)
         {
             var fromDate = from.Date;
@@ -68,7 +68,7 @@ namespace LMS.BUS.Services
             .ToList();
         }
 
-        // ==== LINE/COLUMN: DOANH THU THEO THỜI GIAN ====
+        // line/column: doanh thu theo thời gian
         public List<TimeSeriesDataPoint> GetRevenueOverTime(DateTime from, DateTime to)
         {
             var fromDate = from.Date;
@@ -99,7 +99,7 @@ namespace LMS.BUS.Services
             return grouped;
         }
 
-        // ==== PIE: TRẠNG THÁI SHIPMENT (tab Vận hành) ====
+        // pie: trạng thái shipment
         public List<ChartDataPoint> GetShipmentStatusCounts(DateTime from, DateTime to)
         {
             var fromDate = from.Date;
@@ -120,7 +120,7 @@ namespace LMS.BUS.Services
             .ToList();
         }
 
-        // ==== BAR HORIZONTAL: TOP ROUTES ====
+        // bar horizontal: top routes
         public List<ChartDataPoint> GetTopRoutes(DateTime from, DateTime to, int topN = 5)
         {
             var fromDate = from.Date;
@@ -139,7 +139,7 @@ namespace LMS.BUS.Services
                 .ToList();
         }
 
-        // ==== BAR HORIZONTAL: TOP CUSTOMERS ====
+        // bar horizontal: top customers
         public List<ChartDataPoint.TopCustomerDto> GetTopCustomers(DateTime from, DateTime to, int topN = 5)
         {
             var fromDate = from.Date;
@@ -166,7 +166,7 @@ namespace LMS.BUS.Services
                 .ToList();
         }
 
-        // ==== BAR HORIZONTAL: TOP DRIVERS ====
+        // bar horizontal: top drivers
         public List<ChartDataPoint.TopDriverDto> GetTopDrivers(DateTime from, DateTime to, int topN = 5)
         {
             var fromDate = from.Date;
@@ -192,7 +192,7 @@ namespace LMS.BUS.Services
                 .ToList();
         }
 
-        // --- BẢNG: TRẠNG THÁI ĐƠN HÀNG ---
+        // bảng: trạng thái đơn hàng
         public List<OrderStatusDetailDto> GetOrderStatusDetails(DateTime from, DateTime to)
         {
             var fromDate = from.Date;
@@ -213,7 +213,7 @@ namespace LMS.BUS.Services
                 .ToList();
         }
 
-        // --- BẢNG: DOANH THU ---
+        // bảng: doanh thu chi tiết
         public List<RevenueDetailDto> GetRevenueDetails(DateTime from, DateTime to)
         {
             var fromDate = from.Date;
@@ -236,49 +236,7 @@ namespace LMS.BUS.Services
                 .ToList();
         }
 
-        //// --- BẢNG: CHI TIẾT CHUYẾN HÀNG THEO TÀI XẾ (VIỆT HOÁ TRẠNG THÁI) ---
-        //public List<DriverShipmentDetailDto> GetDriverShipmentDetails(DateTime from, DateTime to)
-        //{
-        //    var fromDate = from.Date;
-        //    var toDate = to.Date.AddDays(1).AddTicks(-1);
-
-        //    var rows = db.Shipments
-        //        .Include(s => s.Driver)
-        //        .Include(s => s.FromWarehouse)
-        //        .Include(s => s.ToWarehouse)
-        //        .Where(s => s.DriverId != null &&
-        //                    s.UpdatedAt >= fromDate &&
-        //                    s.UpdatedAt <= toDate)
-        //        .Select(s => new DriverShipmentDetailDto
-        //        {
-        //            ShipmentId = s.Id,
-        //            // Entity không có ShipmentNo -> tự tạo mã hiển thị
-        //            ShipmentNo = "SHP" + s.Id,
-
-        //            DriverId = s.DriverId.Value,
-        //            DriverName = s.Driver.FullName,
-        //            Phone = s.Driver.Phone,
-        //            LicenseType = s.Driver.LicenseType,
-
-        //            VehiclePlate = s.Driver.Vehicle != null ? s.Driver.Vehicle.PlateNo : "",
-
-        //            FromWarehouse = s.FromWarehouse != null ? s.FromWarehouse.Name : "",
-        //            ToWarehouse = s.ToWarehouse != null ? s.ToWarehouse.Name : "",
-
-        //            StartedAt = s.StartedAt,
-        //            CompletedAt = s.DeliveredAt,                 // RDLC dùng CompletedAt -> map từ DeliveredAt
-
-        //            Status = s.Status.ToString(),
-        //            StatusVN = FormatShipmentStatus(s.Status)    // Việt hoá
-        //        })
-        //        .OrderByDescending(x => x.StartedAt)
-        //        .ToList();
-
-        //    return rows;
-        //}
-
-
-        // ====== format helpers ======
+        // format helpers
         private string FormatOrderStatus(OrderStatus status)
         {
             switch (status)

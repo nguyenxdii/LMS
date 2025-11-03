@@ -2,9 +2,7 @@
 using LMS.BUS.Services;
 using LMS.DAL.Models;
 using System;
-using System.ComponentModel;
-using System.Drawing; // Cần cho Point
-using System.Linq;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace LMS.GUI.Auth
@@ -16,22 +14,20 @@ namespace LMS.GUI.Auth
         private ucRegister_Drv _ucDriver;
         private bool _suppressRoleChanged = false;
 
-        // BIẾN CHO KÉO THẢ FORM
+        // kéo thả form borderless
         private bool dragging = false;
         private Point dragCursorPoint;
         private Point dragFormPoint;
-
 
         public frmRegister()
         {
             InitializeComponent();
 
-            // Cấu hình form
+            // cấu hình form
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.FormBorderStyle = FormBorderStyle.None; // Thường đi kèm với kéo thả
+            this.FormBorderStyle = FormBorderStyle.None;
 
-            // GÁN SỰ KIỆN KÉO THẢ CHO PANEL TIÊU ĐỀ
-            // Giả định tên Panel là pnlTop
+            // gán sự kiện kéo thả cho panel tiêu đề (pnlTop)
             if (pnlTop != null)
             {
                 pnlTop.MouseDown += PnlTop_MouseDown;
@@ -39,22 +35,21 @@ namespace LMS.GUI.Auth
                 pnlTop.MouseUp += PnlTop_MouseUp;
             }
 
-            // Cấu hình cmbRole
+            // cấu hình combobox vai trò
             cmbRole.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbRole.DataSource = new[] { UserRole.Customer, UserRole.Driver };
-            SetRoleIndex(null); // Mặc định không chọn vai trò
+            SetRoleIndex(null);
             cmbRole.SelectedIndexChanged += cmbRole_SelectedIndexChanged;
 
-            // Cấu hình pnlContent
-            pnlContent.Controls.Clear(); // Đảm bảo pnlContent trống ban đầu
+            // panel nội dung
+            pnlContent.Controls.Clear();
 
-            // Khởi tạo user controls
-            _ucCustomer = new ucRegister_Cus(_auth); // Giả định ucRegister_Cus tồn tại
-            _ucDriver = new ucRegister_Drv(_auth); // Giả định ucRegister_Drv tồn tại
+            // khởi tạo user controls
+            _ucCustomer = new ucRegister_Cus(_auth);
+            _ucDriver = new ucRegister_Drv(_auth);
         }
 
-        // ====== LOGIC KÉO THẢ FORM (3 HÀM) ======
-
+        // logic kéo thả form (3 hàm)
         private void PnlTop_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -82,28 +77,36 @@ namespace LMS.GUI.Auth
             }
         }
 
+        // đặt trạng thái chọn vai trò (null = chưa chọn)
         private void SetRoleIndex(int? idxOrNull)
         {
             try
             {
                 _suppressRoleChanged = true;
                 if (idxOrNull.HasValue)
+                {
                     cmbRole.SelectedIndex = idxOrNull.Value;
+                }
                 else
                 {
                     cmbRole.SelectedIndex = -1;
                     cmbRole.SelectedItem = null;
-                    cmbRole.Text = "Chọn vai trò"; // Placeholder khi chưa chọn
+                    cmbRole.Text = "Chọn Vai Trò"; // text hiển thị cho người dùng phải viết Hoa
                 }
             }
-            finally { _suppressRoleChanged = false; }
+            finally
+            {
+                _suppressRoleChanged = false;
+            }
         }
 
+        // thay đổi vai trò -> nạp đúng usercontrol
         private void cmbRole_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_suppressRoleChanged) return;
 
-            pnlContent.Controls.Clear(); // Xóa nội dung cũ trong pnlContent
+            pnlContent.Controls.Clear();
+
             if (cmbRole.SelectedItem is UserRole role)
             {
                 if (role == UserRole.Customer)
@@ -119,7 +122,7 @@ namespace LMS.GUI.Auth
             }
             else
             {
-                this.AcceptButton = null; // Không có vai trò được chọn
+                this.AcceptButton = null;
             }
         }
     }

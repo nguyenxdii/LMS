@@ -1,7 +1,7 @@
 ﻿using LMS.DAL;
 using LMS.DAL.Models;
 using System;
-using System.Data.Entity; // Keep this if you use other EF features here
+using System.Data.Entity; // giữ nếu dùng các tính năng EF khác
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -33,7 +33,7 @@ namespace LMS.BUS.Services
                 if (acc == null)
                     return new LoginResult { Ok = false, Reason = LoginFailReason.UserNotFound };
 
-                if (!acc.IsActive) // Dòng kiểm tra quan trọng!
+                if (!acc.IsActive) // kiểm tra tài khoản bị khóa
                     return new LoginResult { Ok = false, Reason = LoginFailReason.Locked };
 
                 if (acc.PasswordHash != password)
@@ -43,7 +43,7 @@ namespace LMS.BUS.Services
             }
         }
 
-        // ============ REGISTER CUSTOMER ============
+        // ============ đăng ký khách hàng ============
         public void RegisterCustomer(string fullName, string username, string password,
                                      string address, string phone, string email, byte[] avatarData)
         {
@@ -51,11 +51,11 @@ namespace LMS.BUS.Services
             {
                 if (string.IsNullOrWhiteSpace(email) || !Regex.IsMatch(email, @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"))
                 {
-                    throw new InvalidOperationException("Email không hợp lệ (Chỉ dùng ký tự la-tinh, không dấu).");
+                    throw new InvalidOperationException("email không hợp lệ (chỉ dùng ký tự la-tinh, không dấu).");
                 }
 
                 if (db.UserAccounts.Any(u => u.Username == username))
-                    throw new InvalidOperationException("Tên tài khoản đã tồn tại.");
+                    throw new InvalidOperationException("tên tài khoản đã tồn tại.");
 
                 var cus = new Customer
                 {
@@ -66,15 +66,15 @@ namespace LMS.BUS.Services
                     AvatarData = avatarData
                 };
                 db.Customers.Add(cus);
-                db.SaveChanges(); // Lưu để lấy Id
+                db.SaveChanges(); // lưu để lấy Id
 
                 var acc = new UserAccount
                 {
                     Username = username,
-                    PasswordHash = password,   // TODO: Hash mật khẩu này!
+                    PasswordHash = password, // todo: hash mật khẩu này!
                     Role = UserRole.Customer,
                     CustomerId = cus.Id,
-                    IsActive = true, // Tài khoản mới luôn Active
+                    IsActive = true, // tài khoản mới luôn active
                     CreatedAt = DateTime.Now,
                 };
                 db.UserAccounts.Add(acc);
@@ -82,14 +82,14 @@ namespace LMS.BUS.Services
             }
         }
 
-        // ============ REGISTER DRIVER ============
+        // ============ đăng ký tài xế ============
         public void RegisterDriver(string fullName, string username, string password,
                                    string phone, string licenseType, string citizenId, byte[] avatarData)
         {
             using (var db = new LogisticsDbContext())
             {
                 if (db.UserAccounts.Any(u => u.Username == username))
-                    throw new InvalidOperationException("Tên tài khoản đã tồn tại.");
+                    throw new InvalidOperationException("tên tài khoản đã tồn tại.");
 
                 var drv = new Driver
                 {
@@ -97,19 +97,19 @@ namespace LMS.BUS.Services
                     Phone = phone,
                     LicenseType = licenseType,
                     CitizenId = citizenId,
-                    IsActive = true, // Driver mới mặc định Active
+                    IsActive = true, // tài xế mới mặc định active
                     AvatarData = avatarData,
                 };
                 db.Drivers.Add(drv);
-                db.SaveChanges(); // Lưu để lấy Id
+                db.SaveChanges(); // lưu để lấy Id
 
                 var acc = new UserAccount
                 {
                     Username = username,
-                    PasswordHash = password,   // TODO: Hash mật khẩu này!
+                    PasswordHash = password, // todo: hash mật khẩu này!
                     Role = UserRole.Driver,
                     DriverId = drv.Id,
-                    IsActive = true, // Tài khoản mới luôn Active
+                    IsActive = true, // tài khoản mới luôn active
                     CreatedAt = DateTime.Now
                 };
                 db.UserAccounts.Add(acc);

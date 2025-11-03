@@ -1,15 +1,11 @@
 ﻿using LMS.BUS.Helpers;
 using LMS.BUS.Services;
-using LMS.DAL.Models; // Cần cho Enum OrderStatus
-using LMS.BUS.Dtos; // Cần cho OrderListItemDto
+using LMS.DAL.Models;
+using LMS.BUS.Dtos;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace LMS.GUI.Main
@@ -18,7 +14,7 @@ namespace LMS.GUI.Main
     {
         private readonly OrderService_Customer _orderService;
 
-        // 1. Định nghĩa 2 sự kiện (events)
+        // sự kiện cho cha đăng ký: double-click vào đơn và bấm tạo đơn
         public event EventHandler<int> OrderDoubleClick;
         public event EventHandler CreateOrderClick;
 
@@ -29,50 +25,24 @@ namespace LMS.GUI.Main
             this.Load += ucDashboard_Cus_Load;
         }
 
-        //private void ucDashboard_Cus_Load(object sender, EventArgs e)
-        //{
-        //    if (DesignMode) return;
-
-        //    // Gắn click cho nút Tạo đơn (đúng Name trong Designer)
-        //    if (btnCreateOrder != null)
-        //    {
-        //        btnCreateOrder.Enabled = true;
-        //        btnCreateOrder.Click -= btnCreateOrder_Click; // tránh gắn trùng
-        //        btnCreateOrder.Click += btnCreateOrder_Click;
-        //        btnCreateOrder.BringToFront(); // phòng trường hợp bị control khác che
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show("Không tìm thấy nút 'btnCreateOrder' – kiểm tra Name trong Designer.");
-        //    }
-
-        //    // Cấu hình lưới trước khi bind
-        //    ConfigureRecentOrdersGrid();
-
-        //    // Nạp dữ liệu
-        //    LoadDashboardData();
-        //}
         private void ucDashboard_Cus_Load(object sender, EventArgs e)
         {
             if (DesignMode) return;
 
-            // Gắn click cho nút Tạo đơn (đúng Name trong Designer)
+            // gắn click cho nút tạo đơn (đảm bảo đúng name trong designer)
             if (btnCreateOrder != null)
             {
                 btnCreateOrder.Enabled = true;
-                btnCreateOrder.Click -= btnCreateOrder_Click; // tránh gắn trùng
+                btnCreateOrder.Click -= btnCreateOrder_Click;
                 btnCreateOrder.Click += btnCreateOrder_Click;
-                btnCreateOrder.BringToFront(); // phòng trường hợp bị control khác che
+                btnCreateOrder.BringToFront();
             }
             else
             {
                 MessageBox.Show("Không tìm thấy nút 'btnCreateOrder' – kiểm tra Name trong Designer.");
             }
 
-            // Cấu hình lưới trước khi bind
             ConfigureRecentOrdersGrid();
-
-            // Nạp dữ liệu
             LoadDashboardData();
         }
 
@@ -92,21 +62,25 @@ namespace LMS.GUI.Main
             {
                 var allMyOrders = _orderService.GetAllByCustomer(customerId);
 
-                // KPI
+                // kpi cơ bản
                 lblPendingCount.Text = allMyOrders.Count(o => o.Status == OrderStatus.Pending).ToString();
                 lblInTransitCount.Text = allMyOrders.Count(o => o.Status == OrderStatus.Approved).ToString();
                 lblCompletedCount.Text = allMyOrders.Count(o => o.Status == OrderStatus.Completed).ToString();
 
                 // 5 đơn gần nhất
                 var latest5 = allMyOrders
-                                .OrderByDescending(o => o.CreatedAt)
-                                .Take(5)
-                                .ToList();
+                    .OrderByDescending(o => o.CreatedAt)
+                    .Take(5)
+                    .ToList();
 
-                // (tuỳ chọn) nếu OrderNo rỗng -> hiển thị mã phát sinh từ Id
+                // nếu OrderNo trống thì phát sinh từ id để hiển thị
                 foreach (var it in latest5)
+                {
                     if (string.IsNullOrWhiteSpace(it.OrderNo))
+                    {
                         it.OrderNo = OrderCode.ToCode(it.Id);
+                    }
+                }
 
                 dgvRecentOrders.DataSource = latest5;
             }
@@ -123,7 +97,6 @@ namespace LMS.GUI.Main
             dgvRecentOrders.AutoGenerateColumns = false;
             dgvRecentOrders.Columns.Clear();
 
-            // 0) Id (ẩn)
             var colId = new DataGridViewTextBoxColumn
             {
                 Name = "Id",
@@ -131,7 +104,6 @@ namespace LMS.GUI.Main
                 Visible = false
             };
 
-            // 1) Mã đơn -> dùng OrderNo (DTO của bạn có OrderNo)
             var colOrderNo = new DataGridViewTextBoxColumn
             {
                 Name = "OrderNo",
@@ -140,7 +112,6 @@ namespace LMS.GUI.Main
                 Width = 140
             };
 
-            // 2) Trạng thái (tiếng Việt) -> StatusVN
             var colStatus = new DataGridViewTextBoxColumn
             {
                 Name = "StatusVN",
@@ -149,7 +120,6 @@ namespace LMS.GUI.Main
                 Width = 140
             };
 
-            // 3) Ngày tạo -> CreatedAt
             var colCreated = new DataGridViewTextBoxColumn
             {
                 Name = "CreatedAt",
@@ -161,7 +131,7 @@ namespace LMS.GUI.Main
 
             dgvRecentOrders.Columns.AddRange(colId, colOrderNo, colStatus, colCreated);
 
-            // Double-click để mở chi tiết
+            // double-click để mở chi tiết
             dgvRecentOrders.CellDoubleClick -= dgvRecentOrders_CellDoubleClick;
             dgvRecentOrders.CellDoubleClick += dgvRecentOrders_CellDoubleClick;
         }
@@ -175,7 +145,6 @@ namespace LMS.GUI.Main
                     var orderId = (int)dgvRecentOrders.Rows[e.RowIndex].Cells["Id"].Value;
                     if (orderId > 0)
                     {
-                        // Phát sự kiện OrderDoubleClick
                         OrderDoubleClick?.Invoke(this, orderId);
                     }
                 }
@@ -186,10 +155,8 @@ namespace LMS.GUI.Main
             }
         }
 
-        // Hàm xử lý sự kiện click cho nút "Tạo đơn hàng"
         private void btnCreateOrder_Click(object sender, EventArgs e)
         {
-            // Phát sự kiện CreateOrderClick
             CreateOrderClick?.Invoke(this, EventArgs.Empty);
         }
     }

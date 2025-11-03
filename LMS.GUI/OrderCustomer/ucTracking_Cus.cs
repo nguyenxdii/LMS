@@ -1,13 +1,14 @@
-﻿using LMS.BUS.Helpers;
+﻿// LMS.GUI/OrderCustomer/ucTracking_Cus.cs
+using LMS.BUS.Helpers;
 using LMS.BUS.Services;
 using LMS.DAL.Models;
-using LMS.GUI.Main; // Cần để cast FindForm()
+using LMS.GUI.Main;
 using System;
-using System.Collections.Generic; // Cần cho List/IEnumerable
-using System.ComponentModel; // Cần cho SortOrder
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
-using System.Reflection; // Cần cho Reflection (Sort)
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace LMS.GUI.OrderCustomer
@@ -15,7 +16,7 @@ namespace LMS.GUI.OrderCustomer
     public partial class ucTracking_Cus : UserControl
     {
         private readonly OrderService_Customer _orderSvc = new OrderService_Customer();
-        private readonly int _orderId; // ID đơn hàng cần hiển thị (bắt buộc)
+        private readonly int _orderId;
         private readonly int _customerId;
 
         private DataGridViewColumn _sortedColumn = null;
@@ -29,28 +30,29 @@ namespace LMS.GUI.OrderCustomer
             this.Load += UcTracking_Cus_Load;
         }
 
+        // ===== INIT =====
         private void UcTracking_Cus_Load(object sender, EventArgs e)
         {
-            ConfigureStopsGrid(); // Cấu hình Grid trước
-            LoadOrderDetails();   // Tải chi tiết đơn hàng ngay lập tức
+            ConfigureStopsGrid();
+            LoadOrderDetails();
 
-            btnBack.Click += BtnBack_Click; // Gán sự kiện cho nút Quay lại mới
+            btnBack.Click += BtnBack_Click;
             dgvRouteStops.ColumnHeaderMouseClick += dgvRouteStops_ColumnHeaderMouseClick;
         }
 
+        // ===== GRID CONFIG =====
         private void ConfigureStopsGrid()
         {
             var g = dgvRouteStops;
             g.Columns.Clear();
             g.ApplyBaseStyle();
 
-            // --- Định nghĩa Cột ---
             g.Columns.Add(new DataGridViewTextBoxColumn { Name = "Seq", DataPropertyName = "Seq", HeaderText = "#", AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells, SortMode = DataGridViewColumnSortMode.Programmatic, DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleCenter } });
-            g.Columns.Add(new DataGridViewTextBoxColumn { Name = "Warehouse", DataPropertyName = "Warehouse", HeaderText = "Kho", AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill, FillWeight = 40, SortMode = DataGridViewColumnSortMode.Programmatic }); // Tăng FillWeight cho Kho
+            g.Columns.Add(new DataGridViewTextBoxColumn { Name = "Warehouse", DataPropertyName = "Warehouse", HeaderText = "Kho", AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill, FillWeight = 40, SortMode = DataGridViewColumnSortMode.Programmatic });
             g.Columns.Add(new DataGridViewTextBoxColumn { Name = "StatusVi", DataPropertyName = "StatusVi", HeaderText = "Trạng thái", AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells, SortMode = DataGridViewColumnSortMode.Programmatic });
-            g.Columns.Add(new DataGridViewTextBoxColumn { Name = "ArrivedAt", DataPropertyName = "ArrivedAt", HeaderText = "Đến lúc", AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells, SortMode = DataGridViewColumnSortMode.Programmatic, DefaultCellStyle = { Format = "dd/MM/yyyy HH:mm", Alignment = DataGridViewContentAlignment.MiddleCenter } });
-            g.Columns.Add(new DataGridViewTextBoxColumn { Name = "DepartedAt", DataPropertyName = "DepartedAt", HeaderText = "Rời lúc", AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells, SortMode = DataGridViewColumnSortMode.Programmatic, DefaultCellStyle = { Format = "dd/MM/yyyy HH:mm", Alignment = DataGridViewContentAlignment.MiddleCenter } });
-            g.Columns.Add(new DataGridViewTextBoxColumn { Name = "Activity", DataPropertyName = "Activity", HeaderText = "Diễn giải", AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill, FillWeight = 60, SortMode = DataGridViewColumnSortMode.NotSortable }); // Tăng FillWeight cho Diễn giải
+            g.Columns.Add(new DataGridViewTextBoxColumn { Name = "ArrivedAt", DataPropertyName = "ArrivedAt", HeaderText = "Đến lúc", AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells, DefaultCellStyle = { Format = "dd/MM/yyyy HH:mm", Alignment = DataGridViewContentAlignment.MiddleCenter }, SortMode = DataGridViewColumnSortMode.Programmatic });
+            g.Columns.Add(new DataGridViewTextBoxColumn { Name = "DepartedAt", DataPropertyName = "DepartedAt", HeaderText = "Rời lúc", AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells, DefaultCellStyle = { Format = "dd/MM/yyyy HH:mm", Alignment = DataGridViewContentAlignment.MiddleCenter }, SortMode = DataGridViewColumnSortMode.Programmatic });
+            g.Columns.Add(new DataGridViewTextBoxColumn { Name = "Activity", DataPropertyName = "Activity", HeaderText = "Diễn giải", AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill, FillWeight = 60, SortMode = DataGridViewColumnSortMode.NotSortable });
 
             TryEnableDoubleBuffer(g);
         }
@@ -65,10 +67,10 @@ namespace LMS.GUI.OrderCustomer
             catch { }
         }
 
+        // ===== LOAD DATA =====
         private void LoadOrderDetails()
         {
             var order = _orderSvc.GetOrderWithStops(_customerId, _orderId);
-
             if (order == null)
             {
                 MessageBox.Show($"Không tìm thấy đơn hàng #{_orderId} hoặc bạn không có quyền xem.", "LMS");
@@ -77,59 +79,59 @@ namespace LMS.GUI.OrderCustomer
                 return;
             }
 
-            BindOrder(order); // Hiển thị thông tin lên giao diện
-            ResetSortGlyphs(); // Reset trạng thái sort
+            BindOrder(order);
+            ResetSortGlyphs();
         }
 
         private void BindOrder(Order order)
         {
+            // Hiển thị trạng thái đơn + chuyến
             if (order.Status == OrderStatus.Cancelled)
             {
-                lblOrderStatus.Text = $"Đơn #{OrderCode.ToCode(order.Id)} – {ToVi(order.Status)}\n" +
-                                      $"Lý do: {order.CancelReason ?? "Không có lý do cụ thể."}";
+                lblOrderStatus.Text =
+                    $"Đơn #{OrderCode.ToCode(order.Id)} – {ToVi(order.Status)}\n" +
+                    $"Lý do: {order.CancelReason ?? "Không có lý do cụ thể."}";
                 lblOrderStatus.ForeColor = Color.Red;
             }
             else if (order.Shipment != null)
             {
-                lblOrderStatus.Text = $"Đơn #{OrderCode.ToCode(order.Id)} – {ToVi(order.Status)}\n" + // Xuống dòng
-                                      $"Chuyến #{order.Shipment.Id}: {ToVi(order.Shipment.Status)}";
+                lblOrderStatus.Text =
+                    $"Đơn #{OrderCode.ToCode(order.Id)} – {ToVi(order.Status)}\n" +
+                    $"Chuyến #{order.Shipment.Id}: {ToVi(order.Shipment.Status)}";
                 lblOrderStatus.ForeColor = Color.Black;
             }
             else
             {
-                lblOrderStatus.Text = $"Đơn #{OrderCode.ToCode(order.Id)} – {ToVi(order.Status)} (Chưa có chuyến)";
+                lblOrderStatus.Text =
+                    $"Đơn #{OrderCode.ToCode(order.Id)} – {ToVi(order.Status)} (Chưa có chuyến)";
                 lblOrderStatus.ForeColor = Color.Black;
             }
 
+            // Route stops
             var stops = (order.Shipment?.RouteStops ?? new List<RouteStop>())
-                            .OrderBy(rs => rs.Seq)
-                            .ToList();
+                .OrderBy(rs => rs.Seq)
+                .ToList();
 
-            // Xác định chặng hiện tại (chặng đầu tiên chưa Departed)
             var current = stops.FirstOrDefault(s => s.Status != RouteStopStatus.Departed);
 
-            // Tạo danh sách dữ liệu cho Grid (bao gồm diễn giải tiếng Việt)
             var rows = stops.Select(s => new
             {
                 s.Seq,
                 Warehouse = s.Warehouse?.Name ?? $"#{s.WarehouseId}",
-                StatusVi = ToVi(s.Status), // Trạng thái chặng tiếng Việt
+                StatusVi = ToVi(s.Status),
                 s.ArrivedAt,
                 s.DepartedAt,
-                Activity = BuildActivityVi(s, current) // Diễn giải hoạt động tiếng Việt
+                Activity = BuildActivityVi(s, current) // diễn giải hành trình
             }).ToList();
 
-            dgvRouteStops.DataSource = null; // Xóa nguồn cũ
-            dgvRouteStops.DataSource = rows; // Gán nguồn mới
+            dgvRouteStops.DataSource = rows;
         }
 
+        // ===== UI EVENTS =====
         private void BtnBack_Click(object sender, EventArgs e)
         {
             var host = this.FindForm() as frmMain_Customer;
-            // Quay về màn hình danh sách đơn hàng
             host?.LoadUc(new ucOrderList_Cus(_customerId));
-            // Cập nhật lại tiêu đề trang nếu cần
-            //if (host != null) host.lblPageTitle.Text = "Công Cụ / Danh Sách Đơn Hàng";
         }
 
         private void dgvRouteStops_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -140,33 +142,36 @@ namespace LMS.GUI.OrderCustomer
             var newColumn = dgvRouteStops.Columns[e.ColumnIndex];
             if (newColumn.SortMode == DataGridViewColumnSortMode.NotSortable) return;
 
-            // Xác định hướng sort
+            // Toggle sort
             if (_sortedColumn == null) _sortOrder = SortOrder.Ascending;
-            else if (_sortedColumn == newColumn) _sortOrder = (_sortOrder == SortOrder.Ascending) ? SortOrder.Descending : SortOrder.Ascending;
-            else { _sortOrder = SortOrder.Ascending; if (_sortedColumn?.HeaderCell != null) _sortedColumn.HeaderCell.SortGlyphDirection = SortOrder.None; }
+            else if (_sortedColumn == newColumn)
+                _sortOrder = (_sortOrder == SortOrder.Ascending) ? SortOrder.Descending : SortOrder.Ascending;
+            else
+            {
+                _sortOrder = SortOrder.Ascending;
+                if (_sortedColumn?.HeaderCell != null)
+                    _sortedColumn.HeaderCell.SortGlyphDirection = SortOrder.None;
+            }
 
             _sortedColumn = newColumn;
 
-            // Sort bằng Reflection
+            // Sort reflection
             try
             {
-                string propertyName = newColumn.DataPropertyName;
-                var propInfo = list.First().GetType().GetProperty(propertyName);
-                if (propInfo == null) return;
+                string prop = newColumn.DataPropertyName;
+                var info = list.First().GetType().GetProperty(prop);
+                if (info == null) return;
 
-                IEnumerable<object> sortedList;
-                if (_sortOrder == SortOrder.Ascending)
-                    sortedList = list.OrderBy(x => propInfo.GetValue(x, null));
-                else
-                    sortedList = list.OrderByDescending(x => propInfo.GetValue(x, null));
+                IEnumerable<object> sorted =
+                    (_sortOrder == SortOrder.Ascending)
+                    ? list.OrderBy(x => info.GetValue(x, null))
+                    : list.OrderByDescending(x => info.GetValue(x, null));
 
-                dgvRouteStops.DataSource = null;
-                dgvRouteStops.DataSource = sortedList.ToList();
+                dgvRouteStops.DataSource = sorted.ToList();
                 newColumn.HeaderCell.SortGlyphDirection = _sortOrder;
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine($"Sort Error on {newColumn.Name}: {ex.Message}");
                 ResetSortGlyphs();
             }
         }
@@ -174,20 +179,22 @@ namespace LMS.GUI.OrderCustomer
         private void ResetSortGlyphs()
         {
             if (_sortedColumn?.HeaderCell != null)
-            {
                 _sortedColumn.HeaderCell.SortGlyphDirection = SortOrder.None;
-            }
+
             _sortedColumn = null;
             _sortOrder = SortOrder.None;
         }
 
+        // ===== TEXT MAPPING =====
         private string BuildActivityVi(RouteStop s, RouteStop current)
         {
             if (current == null) return "Đã hoàn tất lộ trình";
             if (s.Seq == current.Seq)
             {
-                if (s.Status == RouteStopStatus.Arrived) return $"Đang ở {s.Warehouse?.Name ?? $"kho #{s.WarehouseId}"}";
-                if (s.Status == RouteStopStatus.Waiting) return $"Đang di chuyển đến {s.Warehouse?.Name ?? $"kho #{s.WarehouseId}"}";
+                if (s.Status == RouteStopStatus.Arrived)
+                    return $"Đang ở {s.Warehouse?.Name ?? $"kho #{s.WarehouseId}"}";
+                if (s.Status == RouteStopStatus.Waiting)
+                    return $"Đang di chuyển đến {s.Warehouse?.Name ?? $"kho #{s.WarehouseId}"}";
             }
             if (s.Seq < current.Seq) return "Đã rời";
             return "Chưa đến";
@@ -199,7 +206,7 @@ namespace LMS.GUI.OrderCustomer
             {
                 case OrderStatus.Pending: return "Chờ duyệt";
                 case OrderStatus.Approved: return "Đã duyệt";
-                case OrderStatus.Completed: return "Hoàn thành"; // Sửa lại thành "Hoàn thành"
+                case OrderStatus.Completed: return "Hoàn thành";
                 case OrderStatus.Cancelled: return "Đã hủy";
                 default: return s.ToString();
             }

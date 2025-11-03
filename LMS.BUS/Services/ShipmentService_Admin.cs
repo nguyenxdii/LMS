@@ -1,32 +1,32 @@
 ﻿using LMS.BUS.Dtos;
-using LMS.BUS.Helpers; // Cho OrderCode
+using LMS.BUS.Helpers;
 using LMS.DAL;
 using LMS.DAL.Models;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity; // Cần cho DbFunctions
+using System.Data.Entity;
 using System.Linq;
 
 namespace LMS.BUS.Services
 {
     public class ShipmentService_Admin
     {
+        // danh sách toàn bộ chuyến cho admin
         public List<ShipmentListItemAdminDto> GetAllShipmentsForAdmin()
         {
             using (var db = new LogisticsDbContext())
             {
-                // Include các bảng liên quan để lấy tên
                 var query = db.Shipments
-                              .Include(s => s.Order) // Cần để lấy OrderNo và OrderId
-                              .Include(s => s.Driver) // Cần để lấy DriverName
-                              .Include(s => s.FromWarehouse) // Cần để lấy tên kho đi
-                              .Include(s => s.ToWarehouse);  // Cần để lấy tên kho đến
+                              .Include(s => s.Order)
+                              .Include(s => s.Driver)
+                              .Include(s => s.FromWarehouse)
+                              .Include(s => s.ToWarehouse);
 
                 return ProjectToListDto(query);
             }
         }
 
-        // === TÌM KIẾM ===
+        // tìm kiếm chuyến cho admin
         public List<ShipmentListItemAdminDto> SearchShipmentsForAdmin(
             int? driverId, ShipmentStatus? status, int? originId, int? destId,
             DateTime? from, DateTime? to, string code)
@@ -38,28 +38,20 @@ namespace LMS.BUS.Services
                               .Include(s => s.Driver)
                               .Include(s => s.FromWarehouse)
                               .Include(s => s.ToWarehouse)
-                              .AsQueryable(); // Bắt đầu IQueryable
+                              .AsQueryable();
 
-                // Áp dụng các bộ lọc
                 if (driverId.HasValue && driverId > 0)
                     query = query.Where(s => s.DriverId == driverId.Value);
-
                 if (status.HasValue)
                     query = query.Where(s => s.Status == status.Value);
-
                 if (originId.HasValue && originId > 0)
                     query = query.Where(s => s.FromWarehouseId == originId.Value);
-
                 if (destId.HasValue && destId > 0)
                     query = query.Where(s => s.ToWarehouseId == destId.Value);
-
-                // Lọc theo ngày cập nhật (UpdatedAt)
                 if (from.HasValue)
                     query = query.Where(s => DbFunctions.TruncateTime(s.UpdatedAt) >= DbFunctions.TruncateTime(from.Value));
                 if (to.HasValue)
                     query = query.Where(s => DbFunctions.TruncateTime(s.UpdatedAt) <= DbFunctions.TruncateTime(to.Value));
-
-                // Lọc theo Mã Chuyến (SHP...) hoặc Mã Đơn (ORD...)
                 if (!string.IsNullOrWhiteSpace(code))
                 {
                     string upperCode = code.Trim().ToUpper();
@@ -69,7 +61,6 @@ namespace LMS.BUS.Services
                         orderIdParsed = oid;
                     }
 
-                    // Điều kiện lọc OR: Mã chuyến HOẶC Mã đơn HOẶC ID đơn
                     query = query.Where(s =>
                         ("SHP" + s.Id).ToUpper() == upperCode ||
                         (s.Order != null && s.Order.OrderNo != null && s.Order.OrderNo.ToUpper() == upperCode) ||
@@ -77,110 +68,98 @@ namespace LMS.BUS.Services
                     );
                 }
 
-                // Gọi hàm helper đã sửa để project và xử lý ToCode
                 return ProjectToListDto(query);
             }
         }
 
-        // === LẤY CHI TIẾT ===
+        // chi tiết chuyến cho admin (kèm stops + lịch sử đổi tài xế)
         public ShipmentDetailDto GetShipmentDetailForAdmin(int shipmentId)
         {
             using (var db = new LogisticsDbContext())
             {
-                // Lấy dữ liệu Shipment cùng các bảng liên quan cần thiết
                 var s = db.Shipments
-                          .Include(x => x.Order.Customer)      // Lấy Order và Customer liên quan
-                          .Include(x => x.FromWarehouse)       // Lấy kho đi
-                          .Include(x => x.ToWarehouse)         // Lấy kho đến
-                          .Include(x => x.RouteStops.Select(rs => rs.Warehouse)) // Lấy các chặng và kho của chặng
-                          .Include(x => x.Driver)              // Lấy tài xế hiện tại
+                          .Include(x => x.Order.Customer)
+                          .Include(x => x.FromWarehouse)
+                          .Include(x => x.ToWarehouse)
+                          .Include(x => x.RouteStops.Select(rs => rs.Warehouse))
+                          .Include(x => x.Driver)
                           .Include(x => x.Vehicle)
                           .Include(x => x.Driver.Vehicle)
-                          .FirstOrDefault(x => x.Id == shipmentId); // Tìm theo ID
+                          .FirstOrDefault(x => x.Id == shipmentId);
 
-                // Nếu không tìm thấy shipment, ném lỗi
-                if (s == null) throw new Exception($"Không tìm thấy chuyến hàng ID={shipmentId} (Admin).");
+                if (s == null) throw new Exception($"Không tìm thấy chuyến hàng id={shipmentId} (Admin).");
 
-                // Khởi tạo DTO chính để chứa kết quả
                 var dto = new ShipmentDetailDto();
 
-                // --- Ánh xạ dữ liệu Header ---
                 dto.Header = new ShipmentRunHeaderDto
                 {
                     ShipmentId = s.Id,
-                    ShipmentNo = "SHP" + s.Id, // Tạo mã Shipment
-                    OrderNo = s.Order?.OrderNo ?? OrderCode.ToCode(s.OrderId), // Lấy OrderNo hoặc tạo mã Order nếu null
-                    CustomerName = s.Order?.Customer?.Name, // Lấy tên khách hàng (có thể null)
-                    Route = $"{s.FromWarehouse?.Name} → {s.ToWarehouse?.Name}", // Tạo chuỗi tuyến đường
-                    Status = s.Status.ToString(), // Chuyển Enum Status thành chuỗi
-                    CurrentStopSeq = s.CurrentStopSeq, // Lấy chặng hiện tại
-                    StartedAt = s.StartedAt, // Lấy thời gian bắt đầu
-                    DeliveredAt = s.DeliveredAt // Lấy thời gian kết thúc
+                    ShipmentNo = "SHP" + s.Id,
+                    OrderNo = s.Order?.OrderNo ?? OrderCode.ToCode(s.OrderId),
+                    CustomerName = s.Order?.Customer?.Name,
+                    Route = $"{s.FromWarehouse?.Name} → {s.ToWarehouse?.Name}",
+                    Status = s.Status.ToString(),
+                    CurrentStopSeq = s.CurrentStopSeq,
+                    StartedAt = s.StartedAt,
+                    DeliveredAt = s.DeliveredAt
                 };
 
-                // --- Ánh xạ các thuộc tính Misc (thông tin thêm) ---
-                dto.DriverName = s.Driver?.FullName; // Lấy tên tài xế (có thể null)
-                dto.VehicleNo = s.Vehicle?.PlateNo; // Lấy biển số xe (có thể null)
+                dto.DriverName = s.Driver?.FullName;
                 dto.VehicleNo = s.Vehicle?.PlateNo ?? s.Driver?.Vehicle?.PlateNo;
-                dto.Notes = s.Note; // Lấy ghi chú
-
-                // Tính toán thời gian chạy (Duration) nếu có cả StartedAt và DeliveredAt
+                dto.Notes = s.Note;
                 dto.Duration = (s.StartedAt.HasValue && s.DeliveredAt.HasValue)
-                             ? s.DeliveredAt.Value - s.StartedAt.Value // Tính TimeSpan
-                             : (TimeSpan?)null; // Trả về null nếu chưa đủ thông tin
+                             ? s.DeliveredAt.Value - s.StartedAt.Value
+                             : (TimeSpan?)null;
 
-                // --- Ánh xạ danh sách các chặng dừng (Stops) ---
                 dto.Stops = s.RouteStops
-                             .OrderBy(r => r.Seq) // Sắp xếp các chặng theo thứ tự Seq
-                             .Select(r => new RouteStopLiteDto // Tạo DTO cho mỗi chặng
+                             .OrderBy(r => r.Seq)
+                             .Select(r => new RouteStopLiteDto
                              {
-                                 RouteStopId = r.Id, // ID của RouteStop
-                                 Seq = r.Seq, // Thứ tự chặng
-                                 StopName = r.Warehouse?.Name ?? r.StopName ?? $"#{r.WarehouseId}", // Ưu tiên tên Kho, fallback về StopName tự do hoặc ID
-                                 PlannedETA = r.PlannedETA, // Thời gian dự kiến (nếu có)
-                                 ArrivedAt = r.ArrivedAt, // Thời gian đến thực tế
-                                 DepartedAt = r.DepartedAt, // Thời gian rời thực tế
-                                 StopStatus = r.Status.ToString(), // Trạng thái chặng (Waiting, Arrived, Departed...)
+                                 RouteStopId = r.Id,
+                                 Seq = r.Seq,
+                                 StopName = r.Warehouse?.Name ?? r.StopName ?? $"#{r.WarehouseId}",
+                                 PlannedETA = r.PlannedETA,
+                                 ArrivedAt = r.ArrivedAt,
+                                 DepartedAt = r.DepartedAt,
+                                 StopStatus = r.Status.ToString(),
                                  Note = r.Note,
                              })
-                             .ToList(); // Chuyển kết quả thành List
+                             .ToList();
 
-                // --- Lấy lịch sử thay đổi tài xế (DriverHistory) ---
                 dto.DriverHistory = db.ShipmentDriverLogs
-                                      .Where(log => log.ShipmentId == shipmentId) // Lọc theo ShipmentId
-                                      .Include(log => log.OldDriver) // Lấy thông tin tài xế cũ
-                                      .Include(log => log.NewDriver) // Lấy thông tin tài xế mới
-                                      .OrderBy(log => log.Timestamp) // Sắp xếp theo thời gian thay đổi
-                                      .Select(log => new ShipmentDriverLogDto // Tạo DTO cho mỗi log
+                                      .Where(log => log.ShipmentId == shipmentId)
+                                      .Include(log => log.OldDriver)
+                                      .Include(log => log.NewDriver)
+                                      .OrderBy(log => log.Timestamp)
+                                      .Select(log => new ShipmentDriverLogDto
                                       {
-                                          Timestamp = log.Timestamp, // Thời điểm thay đổi
-                                          OldDriverName = log.OldDriver != null ? log.OldDriver.FullName : "(Bắt đầu)", // Tên tài xế cũ, "(Bắt đầu)" nếu là lần gán đầu
-                                          NewDriverName = log.NewDriver.FullName, // Tên tài xế mới
-                                          StopSequenceNumber = log.StopSequenceNumber, // Chặng dừng lúc đổi (nếu có)
-                                          // StopName = ... (Nếu bạn cần lấy tên Kho tại chặng đó, cần join phức tạp hơn)
-                                          Reason = log.Reason // Lý do thay đổi (nếu có)
+                                          Timestamp = log.Timestamp,
+                                          OldDriverName = log.OldDriver != null ? log.OldDriver.FullName : "(Bắt đầu)",
+                                          NewDriverName = log.NewDriver.FullName,
+                                          StopSequenceNumber = log.StopSequenceNumber,
+                                          Reason = log.Reason
                                       })
-                                      .ToList(); // Chuyển kết quả thành List
+                                      .ToList();
 
-                // Trả về DTO đã hoàn thiện
                 return dto;
             }
         }
 
+        // project query sang list dto (xử lý orderno an toàn)
         private List<ShipmentListItemAdminDto> ProjectToListDto(IQueryable<Shipment> query)
         {
             var intermediateResult = query
-                .OrderByDescending(s => s.UpdatedAt) // Sắp xếp trước khi lấy
+                .OrderByDescending(s => s.UpdatedAt)
                 .Select(s => new
                 {
                     s.Id,
-                    s.OrderId,                   // Lấy OrderId
-                    OrderNoFromDb = s.Order.OrderNo, // Lấy OrderNo gốc (có thể null)
+                    s.OrderId,
+                    OrderNoFromDb = s.Order.OrderNo,
                     DriverName = s.Driver.FullName,
                     s.DriverId,
                     FromWarehouseName = s.FromWarehouse.Name,
                     ToWarehouseName = s.ToWarehouse.Name,
-                    s.Status,                    // Giữ Enum Status
+                    s.Status,
                     s.UpdatedAt,
                     s.StartedAt,
                     s.DeliveredAt,
@@ -193,18 +172,17 @@ namespace LMS.BUS.Services
             {
                 Id = s.Id,
                 ShipmentNo = "SHP" + s.Id,
-                // Áp dụng ToCode an toàn ở đây
                 OrderNo = s.OrderNoFromDb ?? OrderCode.ToCode(s.OrderId),
                 DriverName = s.DriverName,
                 DriverId = s.DriverId,
                 Route = s.FromWarehouseName + " → " + s.ToWarehouseName,
-                Status = s.Status, // Giữ Enum
+                Status = s.Status,
                 UpdatedAt = s.UpdatedAt,
                 StartedAt = s.StartedAt,
                 DeliveredAt = s.DeliveredAt,
                 OriginWarehouseId = s.FromWarehouseId,
                 DestWarehouseId = s.ToWarehouseId
-            }).ToList(); // Trả về List<DTO>
+            }).ToList();
         }
     }
 }

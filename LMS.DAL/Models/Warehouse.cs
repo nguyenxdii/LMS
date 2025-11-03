@@ -1,5 +1,4 @@
-﻿// LMS.DAL/Models/Warehouse.cs  (bổ sung ZoneId)
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace LMS.DAL.Models
 {
@@ -16,7 +15,6 @@ namespace LMS.DAL.Models
         public double? Lat { get; set; }
         public double? Lng { get; set; }
 
-        // NEW: gán kho vào vùng Bắc/Trung/Nam
         [Required]
         public Zone ZoneId { get; set; }
 

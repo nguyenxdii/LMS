@@ -1,14 +1,16 @@
 ﻿using LMS.BUS.Helpers;
+using LMS.DAL.Models; // cần để dùng UserRole
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace LMS.GUI.Main
 {
     public partial class frmMain_Admin : Form
     {
-        // ===== STATE =====
         bool menuExpant = false;
         bool sidebarExpant = true;
 
@@ -16,7 +18,6 @@ namespace LMS.GUI.Main
         private readonly Color normalColor = Color.FromArgb(32, 33, 36);
         private readonly Color selectedColor = Color.FromArgb(0, 4, 53);
 
-        // Drag to move form via pnlTop
         private bool dragging = false;
         private Point dragCursorPoint;
         private Point dragFormPoint;
@@ -25,180 +26,152 @@ namespace LMS.GUI.Main
         {
             InitializeComponent();
 
-            // Cấu hình Form
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.None;
             this.MinimumSize = new Size(1000, 650);
-            this.DoubleBuffered = true; // giảm nhấp nháy
+            this.DoubleBuffered = true;
 
-            // Fit chiều rộng item trong sidebar (nếu cần)
+            EnableDoubleBuffer(pnlContent);
+
             if (sidebar != null)
             {
                 foreach (Control control in sidebar.Controls)
-                {
                     control.Width = sidebar.ClientSize.Width - SystemInformation.VerticalScrollBarWidth;
-                }
             }
 
             InitializeNavigationButtons();
 
-            // Chỉ gán sự kiện 1 lần (không gán trùng ở 2 nơi)
             this.Load += FrmMain_Admin_Load;
             this.FormClosing += Admin_FormClosing;
 
-            // Kéo thả form bằng pnlTop (nếu tồn tại)
-            if (this.pnlTop != null)
+            if (pnlTop != null)
             {
-                this.pnlTop.MouseDown += PnlTop_MouseDown;
-                this.pnlTop.MouseMove += PnlTop_MouseMove;
-                this.pnlTop.MouseUp += PnlTop_MouseUp;
+                pnlTop.MouseDown += PnlTop_MouseDown;
+                pnlTop.MouseMove += PnlTop_MouseMove;
+                pnlTop.MouseUp += PnlTop_MouseUp;
             }
-
-            // KHÔNG load dashboard ở đây để tránh nháy trước khi check quyền
-            // LoadUc(new LMS.GUI.Main.ucDashboard_Ad());
-            // lblPageTitle.Text = "Trang Chủ";
         }
 
         private void FrmMain_Admin_Load(object sender, EventArgs e)
         {
-            // Check đăng nhập + vai trò Admin
-            if (!AppSession.IsLoggedIn || AppSession.Role != DAL.Models.UserRole.Admin)
+            if (!AppSession.IsLoggedIn || AppSession.Role != UserRole.Admin)
             {
                 MessageBox.Show("Bạn chưa đăng nhập bằng tài khoản Quản trị viên.",
                     "Lỗi Truy Cập", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                this.Close();
+                Close();
                 return;
             }
 
-            // Hiển thị user info 1 lần (không ghi đè)
             var userName = AppSession.DisplayName ?? "Admin";
-            tsslblUserInfo.Text = $"User: {userName} - {DateTime.Now:dd/MM/yyyy HH:mm:ss}";
-            // Nếu muốn cập nhật theo thời gian thực, bật timer trong Designer:
-            // timerClock.Enabled = true;
+            if (tsslblUserInfo != null)
+                tsslblUserInfo.Text = $"User: {userName} - {DateTime.Now:dd/MM/yyyy HH:mm:ss}";
 
-            // Sau khi xác thực -> nạp Dashboard
-            LoadUc(new LMS.GUI.Main.ucDashboard_Ad());
-            lblPageTitle.Text = "Trang Chủ";
+            SetTitle("Trang Chủ");
+            LoadUc(new ucDashboard_Ad());
         }
 
         private void InitializeNavigationButtons()
         {
             navigationButtons = new List<Button>
             {
-                btnOrder,
-                btnCustomer,
-                btnDriver,
-                btnShipment,
-                btnWarehouse,
-                btnRouteTemplate,
-                btnVehicle,
-                btnReport
-            };
+                btnOrder, btnCustomer, btnDriver, btnShipment,
+                btnWarehouse, btnRouteTemplate, btnVehicle, btnReport
+            }.Where(b => b != null).ToList();
 
-            foreach (Button btn in navigationButtons)
+            foreach (var btn in navigationButtons)
                 btn.Click += NavigationButton_Click;
 
-            // Gán sự kiện điều hướng/chung TẠI MỘT NƠI
-            btnHome.Click += btnHome_Click;
-            btnLogOut.Click += btnLogOut_Click;
-            btnAccount.Click += btnAccount_Click;
-            btnHam.Click += btnHam_Click;
-            btnMenu.Click += btnMenu_Click;
-            lblTitle.Click += lblTitle_Click;
+            if (btnHome != null) btnHome.Click += btnHome_Click;
+            if (btnLogOut != null) btnLogOut.Click += btnLogOut_Click;
+            if (btnAccount != null) btnAccount.Click += btnAccount_Click;
+            if (btnHam != null) btnHam.Click += btnHam_Click;
+            if (btnMenu != null) btnMenu.Click += btnMenu_Click;
+            if (lblTitle != null) lblTitle.Click += lblTitle_Click;
         }
 
         private void ResetButtonStyles()
         {
-            foreach (Button btn in navigationButtons)
+            foreach (var btn in navigationButtons)
                 btn.BackColor = normalColor;
         }
 
         private void NavigationButton_Click(object sender, EventArgs e)
         {
             ResetButtonStyles();
-
-            if (sender is Button clickedButton)
-                clickedButton.BackColor = selectedColor;
+            if (sender is Button clickedButton) clickedButton.BackColor = selectedColor;
 
             if (sender == btnOrder)
             {
-                LoadUc(new LMS.GUI.OrderAdmin.ucOrder_Admin());
-                lblPageTitle.Text = "Quản Lý / Đơn Hàng";
+                LoadUc(new OrderAdmin.ucOrder_Admin());
+                SetTitle("Quản Lý / Đơn Hàng");
             }
             else if (sender == btnCustomer)
             {
-                LoadUc(new LMS.GUI.CustomerAdmin.ucCustomer_Admin());
-                lblPageTitle.Text = "Quản Lý / Khách Hàng";
+                LoadUc(new CustomerAdmin.ucCustomer_Admin());
+                SetTitle("Quản Lý / Khách Hàng");
             }
             else if (sender == btnDriver)
             {
-                LoadUc(new LMS.GUI.DriverAdmin.ucDriver_Admin());
-                lblPageTitle.Text = "Quản Lý / Tài Xế";
+                LoadUc(new DriverAdmin.ucDriver_Admin());
+                SetTitle("Quản Lý / Tài Xế");
             }
             else if (sender == btnShipment)
             {
-                LoadUc(new LMS.GUI.ShipmentAdmin.ucShipment_Admin());
-                lblPageTitle.Text = "Quản Lý / Chuyến Hàng";
+                LoadUc(new ShipmentAdmin.ucShipment_Admin());
+                SetTitle("Quản Lý / Chuyến Hàng");
             }
             else if (sender == btnWarehouse)
             {
-                LoadUc(new LMS.GUI.WarehouseAdmin.ucWarehouse_Admin());
-                lblPageTitle.Text = "Quản Lý / Kho";
+                LoadUc(new WarehouseAdmin.ucWarehouse_Admin());
+                SetTitle("Quản Lý / Kho");
             }
             else if (sender == btnRouteTemplate)
             {
-                LoadUc(new LMS.GUI.RouteTemplateAdmin.ucRouteTemplate_Admin());
-                lblPageTitle.Text = "Quản Lý / Tuyến Đường Mẫu";
+                LoadUc(new RouteTemplateAdmin.ucRouteTemplate_Admin());
+                SetTitle("Quản Lý / Tuyến Đường Mẫu");
             }
             else if (sender == btnVehicle)
             {
-                LoadUc(new LMS.GUI.VehicleAdmin.ucVehicle_Admin());
-                lblPageTitle.Text = "Quản Lý / Phương Tiện";
+                LoadUc(new VehicleAdmin.ucVehicle_Admin());
+                SetTitle("Quản Lý / Phương Tiện");
             }
             else if (sender == btnReport)
             {
-                LoadUc(new LMS.GUI.ReportAdmin.ucStatistics());
-                lblPageTitle.Text = "Quản Lý / Báo Cáo";
+                LoadUc(new ReportAdmin.ucStatistics());
+                SetTitle("Quản Lý / Báo Cáo");
             }
         }
 
         private void btnHome_Click(object sender, EventArgs e)
         {
             ResetButtonStyles();
-            LoadUc(new LMS.GUI.Main.ucDashboard_Ad());
-            lblPageTitle.Text = "Trang Chủ";
+            LoadUc(new ucDashboard_Ad());
+            SetTitle("Trang Chủ");
         }
 
         private void btnAccount_Click(object sender, EventArgs e)
         {
             ResetButtonStyles();
-            LoadUc(new LMS.GUI.AccountAdmin.ucAccount_Admin());
-            lblPageTitle.Text = "Quản Lý / Tài Khoản";
+            LoadUc(new AccountAdmin.ucAccount_Admin());
+            SetTitle("Quản Lý / Tài Khoản");
         }
 
         private void btnLogOut_Click(object sender, EventArgs e)
         {
-            //if (HandleLogout())
-            this.Close();
+            Close(); // xác nhận sẽ chạy trong FormClosing
         }
 
         private void timerClock_Tick(object sender, EventArgs e)
         {
-            if (AppSession.IsLoggedIn)
-            {
-                string userName = AppSession.DisplayName ?? "Admin";
-                string dateTimeNow = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-                tsslblUserInfo.Text = $"User: {userName} - {dateTimeNow}";
-            }
+            if (!AppSession.IsLoggedIn || tsslblUserInfo == null) return;
+            var userName = AppSession.DisplayName ?? "Admin";
+            tsslblUserInfo.Text = $"User: {userName} - {DateTime.Now:dd/MM/yyyy HH:mm:ss}";
         }
 
         private void Admin_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (e.CloseReason == CloseReason.UserClosing)
-            {
-                if (!HandleLogout())
-                    e.Cancel = true;
-            }
+            if (e.CloseReason == CloseReason.UserClosing && !HandleLogout())
+                e.Cancel = true;
         }
 
         private bool HandleLogout()
@@ -211,46 +184,40 @@ namespace LMS.GUI.Main
         {
             if (uc == null || pnlContent == null) return;
 
+            var old = pnlContent.Controls.OfType<UserControl>().FirstOrDefault();
+
             pnlContent.SuspendLayout();
             pnlContent.Controls.Clear();
             uc.Dock = DockStyle.Fill;
             pnlContent.Controls.Add(uc);
             pnlContent.ResumeLayout();
+
+            old?.Dispose(); // tránh rò rỉ handle/ram
         }
 
-        // LMS.GUI/Main/frmMain_Admin.cs
         public void NavigateToOrderAdmin(string orderNoToSelect = null)
         {
-            //ResetButtonStylesIfAny(); // nếu bạn có
-            var uc = new LMS.GUI.OrderAdmin.ucOrder_Admin();
-            LoadUc(uc);               // hàm LoadUc bạn đã dùng cho các UC khác
-            lblPageTitle.Text = "Quản Lý Đơn Hàng";
+            var uc = new OrderAdmin.ucOrder_Admin();
+            LoadUc(uc);
+            SetTitle("Quản Lý / Đơn Hàng");
 
             if (!string.IsNullOrWhiteSpace(orderNoToSelect))
-            {
-                // gọi sau khi UC load xong để chọn đúng đơn
-                this.BeginInvoke(new Action(() =>
-                {
-                    uc.SelectOrderByNo(orderNoToSelect);
-                }));
-            }
+                BeginInvoke(new Action(() => uc.SelectOrderByNo(orderNoToSelect)));
         }
 
-
-        // ===== Drag form via pnlTop =====
         private void PnlTop_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button != MouseButtons.Left) return;
             dragging = true;
             dragCursorPoint = Cursor.Position;
-            dragFormPoint = this.Location;
+            dragFormPoint = Location;
         }
 
         private void PnlTop_MouseMove(object sender, MouseEventArgs e)
         {
             if (!dragging) return;
-            Point dif = Point.Subtract(Cursor.Position, new Size(dragCursorPoint));
-            this.Location = Point.Add(dragFormPoint, new Size(dif));
+            var dif = Point.Subtract(Cursor.Position, new Size(dragCursorPoint));
+            Location = Point.Add(dragFormPoint, new Size(dif));
         }
 
         private void PnlTop_MouseUp(object sender, MouseEventArgs e)
@@ -258,7 +225,6 @@ namespace LMS.GUI.Main
             if (e.Button == MouseButtons.Left) dragging = false;
         }
 
-        // ===== Animations =====
         private void menuTransition_Tick(object sender, EventArgs e)
         {
             if (menuContainer == null || menuTransition == null) return;
@@ -309,7 +275,7 @@ namespace LMS.GUI.Main
             }
             else
             {
-                sidebar.Width += 5; // mở chậm hơn đóng; nếu muốn cân, đổi thành 10
+                sidebar.Width += 5;
                 if (sidebar.Width >= 301)
                 {
                     sidebarExpant = true;
@@ -321,6 +287,19 @@ namespace LMS.GUI.Main
         private void lblTitle_Click(object sender, EventArgs e)
         {
             sidebarTransition?.Start();
+        }
+
+        private void SetTitle(string text)
+        {
+            if (lblPageTitle != null) lblPageTitle.Text = text;
+            else if (lblTitle != null) lblTitle.Text = text;
+        }
+
+        private static void EnableDoubleBuffer(Control c)
+        {
+            if (c == null) return;
+            var prop = typeof(Control).GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic);
+            prop?.SetValue(c, true, null);
         }
     }
 }

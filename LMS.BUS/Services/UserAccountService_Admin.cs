@@ -11,23 +11,21 @@ namespace LMS.BUS.Services
     {
         public int UserId { get; set; }
         public UserRole Role { get; set; }
-
-        // Cho Customer
+        // cho customer
         public int OrdersPending { get; set; }
-        public int OrdersActive { get; set; }     // không phải Pending/Cancelled/Completed
+        public int OrdersActive { get; set; }
         public int OrdersCancelled { get; set; }
         public int OrdersCompleted { get; set; }
-
-        // Cho Driver
-        public int ShipPending { get; set; }      // Assigned/Ready/PendingPickup...
-        public int ShipActive { get; set; }       // InTransit/Delivering...
+        // cho driver
+        public int ShipPending { get; set; }
+        public int ShipActive { get; set; }
         public int ShipCancelled { get; set; }
         public int ShipCompleted { get; set; }
     }
 
     public class UserAccountService_Admin
     {
-        // ==== Lấy toàn bộ hoặc lọc ====
+        // lấy danh sách tài khoản (có lọc)
         public List<UserAccount> GetAll(string usernameLike = null, string nameLike = null,
                                         UserRole? role = null, bool? isActive = null)
         {
@@ -40,15 +38,12 @@ namespace LMS.BUS.Services
 
                 if (!string.IsNullOrWhiteSpace(usernameLike))
                     q = q.Where(u => u.Username.Contains(usernameLike));
-
                 if (!string.IsNullOrWhiteSpace(nameLike))
                     q = q.Where(u =>
                         (u.Customer != null && u.Customer.Name.Contains(nameLike)) ||
                         (u.Driver != null && u.Driver.FullName.Contains(nameLike)));
-
                 if (role.HasValue)
                     q = q.Where(u => u.Role == role.Value);
-
                 if (isActive.HasValue)
                     q = q.Where(u => u.IsActive == isActive.Value);
 
@@ -56,7 +51,7 @@ namespace LMS.BUS.Services
             }
         }
 
-        // ==== Cập nhật Username + Password (reset pass) ====
+        // cập nhật username + password
         public void UpdateBasic(int id, string newUsername, string newPassword = null)
         {
             using (var db = new LogisticsDbContext())
@@ -73,7 +68,7 @@ namespace LMS.BUS.Services
 
                 if (!string.IsNullOrWhiteSpace(newPassword))
                 {
-                    u.PasswordHash = newPassword; // TODO: sau này chuyển sang hash
+                    u.PasswordHash = newPassword; // TODO: sau này hash
                     u.LastPasswordChangeAt = DateTime.Now;
                 }
 
@@ -81,7 +76,38 @@ namespace LMS.BUS.Services
             }
         }
 
-        // ==== Xoá tài khoản ====
+        // khóa / mở tài khoản
+        public void SetActive(int id, bool active)
+        {
+            using (var db = new LogisticsDbContext())
+            {
+                var u = db.UserAccounts.Find(id);
+                if (u == null) throw new Exception("Không tìm thấy tài khoản.");
+                u.IsActive = active;
+                db.SaveChanges();
+            }
+        }
+
+        // xóa tài khoản (không xóa profile)
+        public void DeleteOnlyAccount(int id)
+        {
+            using (var db = new LogisticsDbContext())
+            {
+                var u = db.UserAccounts.Find(id);
+                if (u == null) return;
+
+                if (u.Role == UserRole.Admin)
+                {
+                    int adminCount = db.UserAccounts.Count(a => a.Role == UserRole.Admin);
+                    if (adminCount <= 1) throw new Exception("Không thể xoá Admin cuối cùng.");
+                }
+
+                db.UserAccounts.Remove(u);
+                db.SaveChanges();
+            }
+        }
+
+        // xóa tài khoản (có kiểm tra admin)
         public void Delete(int id)
         {
             using (var db = new LogisticsDbContext())
@@ -92,8 +118,7 @@ namespace LMS.BUS.Services
                 if (u.Role == UserRole.Admin)
                 {
                     int adminCount = db.UserAccounts.Count(a => a.Role == UserRole.Admin);
-                    if (adminCount <= 1)
-                        throw new Exception("Không thể xoá Admin cuối cùng.");
+                    if (adminCount <= 1) throw new Exception("Không thể xoá Admin cuối cùng.");
                 }
 
                 db.UserAccounts.Remove(u);
@@ -101,19 +126,7 @@ namespace LMS.BUS.Services
             }
         }
 
-        // ==== Khoá / Mở tài khoản ====
-        public void SetActive(int id, bool active)
-        {
-            using (var db = new LogisticsDbContext())
-            {
-                var u = db.UserAccounts.Find(id);
-                if (u == null) throw new Exception("Không tìm thấy tài khoản.");
-
-                u.IsActive = active;
-                db.SaveChanges();
-            }
-        }
-
+        // báo cáo sử dụng tài khoản
         public AccountUsageReport InspectUsage(int userAccountId)
         {
             using (var db = new LogisticsDbContext())
@@ -122,11 +135,12 @@ namespace LMS.BUS.Services
                             .Include(u => u.Customer)
                             .Include(u => u.Driver)
                             .SingleOrDefault(u => u.Id == userAccountId);
+
                 if (acc == null) throw new Exception("Không tìm thấy tài khoản.");
 
                 var rpt = new AccountUsageReport { UserId = acc.Id, Role = acc.Role };
 
-                // ===== Helper: so khớp không phân biệt hoa thường trên .NET Framework =====
+                // helper: khớp từ khóa không phân biệt hoa/thường
                 Func<string, string[], bool> hasAny = (name, keys) =>
                 {
                     if (string.IsNullOrEmpty(name)) return false;
@@ -148,7 +162,7 @@ namespace LMS.BUS.Services
                     var statuses = db.Orders
                                      .Where(o => o.CustomerId == acc.CustomerId)
                                      .Select(o => o.Status)
-                                     .ToList()                // về bộ nhớ
+                                     .ToList()
                                      .Select(s => s.ToString())
                                      .ToList();
 
@@ -179,25 +193,6 @@ namespace LMS.BUS.Services
                 }
 
                 return rpt;
-            }
-        }
-
-
-        public void DeleteOnlyAccount(int id)
-        {
-            using (var db = new LogisticsDbContext())
-            {
-                var u = db.UserAccounts.Find(id);
-                if (u == null) return;
-
-                if (u.Role == UserRole.Admin)
-                {
-                    int adminCount = db.UserAccounts.Count(a => a.Role == UserRole.Admin);
-                    if (adminCount <= 1) throw new Exception("Không thể xoá Admin cuối cùng.");
-                }
-
-                db.UserAccounts.Remove(u);
-                db.SaveChanges();
             }
         }
     }

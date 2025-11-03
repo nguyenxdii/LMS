@@ -1,5 +1,4 @@
-﻿// LMS.BUS/Dtos/OrderListItemDto.cs
-using System;
+﻿using System;
 using LMS.DAL.Models;
 
 namespace LMS.BUS.Dtos
