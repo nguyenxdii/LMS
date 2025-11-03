@@ -64,7 +64,7 @@
             this.tableLayoutPanel3.Controls.Add(this.btnRegisterD, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.btnExitD, 1, 0);
             this.tableLayoutPanel3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(73, 590);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(117, 579);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.Padding = new System.Windows.Forms.Padding(10);
             this.tableLayoutPanel3.RowCount = 1;

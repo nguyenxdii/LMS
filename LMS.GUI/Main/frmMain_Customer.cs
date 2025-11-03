@@ -272,7 +272,7 @@ namespace LMS.GUI.Main
             if (!menuExpant)
             {
                 menuContainer.Height += 10;
-                if (menuContainer.Height >= 235)
+                if (menuContainer.Height >= 187)
                 {
                     menuTransition.Stop();
                     menuExpant = true;

@@ -57,6 +57,9 @@ namespace LMS.GUI.Main
 
             int customerId = AppSession.CustomerId.Value;
             lblWelcome.Text = $"Chào mừng trở lại, {AppSession.DisplayName}!";
+            //lblWelcome.Left = (this.Width - lblWelcome.Width) / 2;
+            //lblWelcome.Top = (this.Height - lblWelcome.Height) / 2;
+            lblWelcome.Left = (this.Width - lblWelcome.Width) / 2;
 
             try
             {

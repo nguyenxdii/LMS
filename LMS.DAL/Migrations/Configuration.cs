@@ -56,17 +56,14 @@ namespace LMS.DAL.Migrations
             });
             db.SaveChanges(); // Save Warehouses
 
-            // ===== Seed Customers =====
             db.Customers.AddOrUpdate(c => c.Email,
                 new Customer { Name = "Alpha Co.", Email = "alpha@demo.com", Phone = "0901112223", Address = "Quận 1, TP.HCM" },
                 new Customer { Name = "Beta Co.", Email = "beta@demo.com", Phone = "0903334445", Address = "Quận 7, TP.HCM" }
             );
             db.SaveChanges(); // Save Customers to get IDs
-            // Get Customer ID by querying again
             var customerAlpha = db.Customers.FirstOrDefault(c => c.Email == "alpha@demo.com");
             int? customerAlphaId = customerAlpha?.Id; // Get ID if customerAlpha is not null
 
-            // ===== Seed Vehicles (WITHOUT assigning DriverId here) =====
             db.Vehicles.AddOrUpdate(v => v.PlateNo,
                 new Vehicle { PlateNo = "51F-111.11", Type = "Xe tải 1.5T", CapacityKg = 1500, Status = VehicleStatus.Active },
                 new Vehicle { PlateNo = "60C-222.22", Type = "Xe tải 5T", CapacityKg = 5000, Status = VehicleStatus.Active },
@@ -74,22 +71,17 @@ namespace LMS.DAL.Migrations
             );
             db.SaveChanges(); // Save Vehicles to get IDs
 
-            // Get Vehicle objects back after saving
             var vehicle1 = db.Vehicles.FirstOrDefault(v => v.PlateNo == "51F-111.11");
             var vehicle2 = db.Vehicles.FirstOrDefault(v => v.PlateNo == "60C-222.22");
 
-            // ===== Seed Drivers (Assign VehicleId HERE) =====
             db.Drivers.AddOrUpdate(d => d.Phone,
                 new Driver { FullName = "Nguyễn Văn Tài", Phone = "0905556667", LicenseType = "B2", CitizenId = "079011111111", IsActive = true }, // Assign VehicleId
                 new Driver { FullName = "Trần Văn Xe", Phone = "0907778889", LicenseType = "C", CitizenId = "079022222222", IsActive = true }       // Assign VehicleId
             );
             db.SaveChanges(); // Save Drivers to get IDs
-            // Get Driver ID by querying again
             var driverTai = db.Drivers.FirstOrDefault(d => d.Phone == "0905556667");
             int? driverTaiId = driverTai?.Id; // Get ID if driverTai is not null
 
-            // ===== Seed UserAccounts (Use the retrieved IDs) =====
-            // *** Ensure no incorrect reference to Driver_Id ***
             db.UserAccounts.AddOrUpdate(ua => ua.Username,
                 new UserAccount { Username = "admin", PasswordHash = "123123", Role = UserRole.Admin, IsActive = true }, // TODO: Hash password
                 new UserAccount { Username = "alpha", PasswordHash = "123123", Role = UserRole.Customer, IsActive = true, CustomerId = customerAlphaId }, // Use customerAlphaId
@@ -97,13 +89,11 @@ namespace LMS.DAL.Migrations
             );
             db.SaveChanges(); // Save UserAccounts
 
-            // ======== ROUTE TEMPLATE SEED (Keep this part) ========
             var whs = db.Warehouses.ToList(); // Get latest warehouse list
             Warehouse W(string name) => whs.First(x => x.Name == name);
 
             db.RouteTemplates.AddOrUpdate(x => x.Name, new[]
             {
-                // (Keep your list of RouteTemplates)
                  new RouteTemplate { Name = "Nam-Trung 1 (TP.HCM → Đà Nẵng)",  FromWarehouseId = W("Kho TP. Hồ Chí Minh").Id, ToWarehouseId = W("Kho Đà Nẵng").Id, DistanceKm = 930 },
                  new RouteTemplate { Name = "Nam-Trung 2 (TP.HCM → Huế)",      FromWarehouseId = W("Kho TP. Hồ Chí Minh").Id, ToWarehouseId = W("Kho Huế").Id, DistanceKm = 940 },
                  new RouteTemplate { Name = "Nam-Trung 3 (Cần Thơ → Đà Nẵng)",  FromWarehouseId = W("Kho Cần Thơ").Id,         ToWarehouseId = W("Kho Đà Nẵng").Id, DistanceKm = 1020 },

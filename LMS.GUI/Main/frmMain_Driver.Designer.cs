@@ -35,7 +35,6 @@
             this.btnMenu = new CSharp.Winform.UI.Button();
             this.btnMyShipments = new CSharp.Winform.UI.Button();
             this.btnShipmentDetail = new CSharp.Winform.UI.Button();
-            this.btnShipmentRun = new CSharp.Winform.UI.Button();
             this.task = new CSharp.Winform.UI.Panel();
             this.sidebar = new System.Windows.Forms.FlowLayoutPanel();
             this.btnHome = new CSharp.Winform.UI.Button();
@@ -138,25 +137,6 @@
             this.btnShipmentDetail.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnShipmentDetail.UseVisualStyleBackColor = false;
             // 
-            // btnShipmentRun
-            // 
-            this.btnShipmentRun.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(33)))), ((int)(((byte)(36)))));
-            this.btnShipmentRun.FlatAppearance.BorderSize = 0;
-            this.btnShipmentRun.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnShipmentRun.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnShipmentRun.ForeColor = System.Drawing.Color.White;
-            this.btnShipmentRun.Image = global::LMS.GUI.Properties.Resources.dot_mini;
-            this.btnShipmentRun.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnShipmentRun.Location = new System.Drawing.Point(0, 174);
-            this.btnShipmentRun.Margin = new System.Windows.Forms.Padding(0);
-            this.btnShipmentRun.Name = "btnShipmentRun";
-            this.btnShipmentRun.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.btnShipmentRun.Size = new System.Drawing.Size(301, 58);
-            this.btnShipmentRun.TabIndex = 12;
-            this.btnShipmentRun.Text = "            Chuyến Hàng Hiện Tại";
-            this.btnShipmentRun.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnShipmentRun.UseVisualStyleBackColor = false;
-            // 
             // task
             // 
             this.task.BackColor = System.Drawing.Color.LightGray;
@@ -207,10 +187,9 @@
             this.menuContainer.Controls.Add(this.btnMenu);
             this.menuContainer.Controls.Add(this.btnMyShipments);
             this.menuContainer.Controls.Add(this.btnShipmentDetail);
-            this.menuContainer.Controls.Add(this.btnShipmentRun);
             this.menuContainer.Location = new System.Drawing.Point(3, 61);
             this.menuContainer.Name = "menuContainer";
-            this.menuContainer.Size = new System.Drawing.Size(301, 58);
+            this.menuContainer.Size = new System.Drawing.Size(298, 58);
             this.menuContainer.TabIndex = 5;
             // 
             // btnAccount
@@ -400,7 +379,6 @@
         private CSharp.Winform.UI.Button btnMenu;
         private CSharp.Winform.UI.Button btnMyShipments;
         private CSharp.Winform.UI.Button btnShipmentDetail;
-        private CSharp.Winform.UI.Button btnShipmentRun;
         private CSharp.Winform.UI.Panel task;
         private System.Windows.Forms.FlowLayoutPanel sidebar;
         private CSharp.Winform.UI.Button btnHome;

@@ -123,11 +123,6 @@ namespace LMS.GUI.Main
                 LoadUc(new ucShipmentDetail_Drv());
                 lblPageTitle.Text = "Công Cụ / Chi Tiết Chuyến Hàng";
             }
-            else if (sender == btnShipmentRun)
-            {
-                LoadUc(new ucShipmentRun_Drv());
-                lblPageTitle.Text = "Công Cụ / Thực Hiện Chuyến Hàng";
-            }
         }
 
         // cập nhật đồng hồ (tuỳ chọn)
@@ -231,7 +226,7 @@ namespace LMS.GUI.Main
             if (!menuExpant)
             {
                 menuContainer.Height += 10;
-                if (menuContainer.Height >= 235)
+                if (menuContainer.Height >= 175)
                 {
                     menuTransition.Stop();
                     menuExpant = true;

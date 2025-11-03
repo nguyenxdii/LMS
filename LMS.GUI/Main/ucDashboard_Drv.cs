@@ -32,6 +32,7 @@ namespace LMS.GUI.Main
             // lời chào
             var name = AppSession.DisplayName ?? "Tài xế";
             lblWelcome.Text = $"Chào mừng trở lại, {name}!";
+            lblWelcome.Left = (this.Width - lblWelcome.Width) / 2;
 
             // nạp dữ liệu dashboard
             try
